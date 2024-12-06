@@ -1,19 +1,3 @@
-<script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
-import { ref } from 'vue';
-
-interface User {
-    name: string;
-    email: string;
-}
-
-const props = defineProps<{
-    user?: User;
-}>();
-
-const isMenuOpen = ref(false);
-</script>
-
 <template>
 
     <Head title="Welcome" />
@@ -78,3 +62,14 @@ const isMenuOpen = ref(false);
         </div>
     </div>
 </template>
+
+<script setup>
+import { Head } from '@inertiajs/vue3';
+import { ref } from 'vue';
+
+const props = defineProps({
+    user: Object,
+});
+
+const isMenuOpen = ref(false);
+</script>
