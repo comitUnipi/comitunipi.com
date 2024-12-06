@@ -6,6 +6,7 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -32,20 +33,31 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')->required()->minLength(3),
-                TextInput::make('npm')->required(),
-                TextInput::make('password')
-                    ->password()
-                    ->revealable()
-                    ->dehydrated(fn ($state) => filled($state))
-                    ->required(fn (string $context): bool => $context === 'create')
-                    ->minLength(6),
-                Select::make('role')->options([
-                    'admin' => 'Admin',
-                    'anggota' => 'Anggota',
-                    'bendahara' => 'Bendahara',
-                ])->required()->default('anggota'),
-                Toggle::make('is_active')->default(false),
+                TextInput::make('name')
+                    ->required()
+                    ->label('Nama Anggota')
+                    ->columnSpanFull()
+                    ->minLength(3),
+                Grid::make()->schema([
+                    TextInput::make('npm')
+                        ->label('NPM')
+                        ->required(),
+                    TextInput::make('password')
+                        ->label('Kata Sandi')
+                        ->password()
+                        ->revealable()
+                        ->dehydrated(fn ($state) => filled($state))
+                        ->required(fn (string $context): bool => $context === 'create')
+                        ->minLength(6),
+                    Select::make('role')->options([
+                        'admin' => 'Admin',
+                        'anggota' => 'Anggota',
+                        'bendahara' => 'Bendahara',
+                    ])->required()->default('anggota'),
+                ])->columns(3),
+                Toggle::make('is_active')
+                    ->label('Status Aktif')
+                    ->default(false),
             ]);
     }
 
@@ -62,13 +74,9 @@ class UserResource extends Resource
                 TextColumn::make('role')
                     ->searchable(),
                 IconColumn::make('is_active')
-                    ->label('Status')
+                    ->label('Status Aktif')
+                    ->alignCenter()
                     ->boolean(),
-                TextColumn::make('created_at')
-                    ->label('Dibuat')
-                    ->dateTime('d F Y')
-                    ->searchable(),
-
             ])
             ->filters([
                 //
