@@ -45,3 +45,31 @@
 .fi-header-heading {
   @apply text-blue-600
 }
+
+.fi-ta-table thead tr {
+  @apply bg-blue-600
+}
+
+.fi-ta-header-cell-label {
+  @apply text-white
+}
+
+.fi-ta-ctn {
+  @apply rounded-md ring-0 bg-gray-50 shadow-none
+}
+
+.fi-ta-content {
+  @apply border rounded-md
+}
+
+.fi-ta-row {
+  @apply border-y rounded-md
+}
+
+.fi-ta-cell {
+  @apply border-b rounded-md
+}
+
+.fi-ta-pagination {
+  @apply border-none
+}
