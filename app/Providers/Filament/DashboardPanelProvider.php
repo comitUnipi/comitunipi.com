@@ -33,6 +33,8 @@ class DashboardPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Blue,
             ])
+            ->darkMode(false)
+            ->viteTheme('resources/css/filament/dashboard/theme.css')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
@@ -61,14 +63,14 @@ class DashboardPanelProvider extends PanelProvider
                     ->slug('ubah-profil')
                     ->setNavigationLabel('Ubah Profil')
                     ->setTitle('Ubah Profil')
-                    ->setIcon('heroicon-o-user')
+                    ->setIcon('heroicon-o-user-circle')
                     ->shouldShowDeleteAccountForm(false)
                     ->shouldShowBrowserSessionsForm(false)
             ])->userMenuItems([
                 MenuItem::make()
                     ->label('Ubah Profile')
                     ->url(fn (): string => EditProfilePage::getUrl())
-                    ->icon('heroicon-m-user-circle')
+                    ->icon('heroicon-o-cog-6-tooth')
                 ])
             ->authMiddleware([
                 Authenticate::class,
