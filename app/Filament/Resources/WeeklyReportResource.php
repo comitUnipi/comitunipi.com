@@ -118,17 +118,21 @@ class WeeklyReportResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('user.name')
-                    ->label('Nama Anggota'),
-                TextColumn::make('activity.name')
-                    ->label('Kegiatan'),
-                TextColumn::make('amount')
-                    ->money('IDR')
-                    ->alignCenter()
-                    ->label('Biaya Uang KAS'),
-                TextColumn::make('date')
-                    ->dateTime('d F Y')
-                    ->label('Tanggal Pembayaran'),
+                TextColumn::make('report_date')
+                    ->label('Tanggal Laporan')
+                    ->dateTime('d F Y'),
+                TextColumn::make('total_kas')
+                    ->label('Total Pemasukan KAS')
+                    ->money('IDR'),
+                TextColumn::make('total_income')
+                    ->label('Total Pemasukan Lain')
+                    ->money('IDR'),
+                TextColumn::make('total_expense')
+                    ->label('Total Pengeluaran KAS')
+                    ->money('IDR'),
+                TextColumn::make('remaining_balance')
+                    ->label('Sisa Uang KAS')
+                    ->money('IDR'),
             ])
             ->filters([
                 //
