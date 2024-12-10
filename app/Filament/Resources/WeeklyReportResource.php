@@ -2,12 +2,12 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ReportResource\Pages;
-use App\Filament\Resources\ReportResource\RelationManagers;
-use App\Models\Report;
-use Carbon\Carbon;
+use App\Filament\Resources\WeeklyReportResource\Pages;
+use App\Filament\Resources\WeeklyReportResource\RelationManagers;
+use App\Models\WeeklyReport;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -16,20 +16,20 @@ use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
-use Filament\Forms\Components\Grid;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\DB;
 
-class ReportResource extends Resource
+class WeeklyReportResource extends Resource
 {
-    protected static ?string $model = Report::class;
+    protected static ?string $model = WeeklyReport::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-chart-bar-square';
     protected static ?string $navigationGroup = 'Manajemen Laporan';
     protected static ?string $label = 'Keuangan Mingguan';
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {
@@ -49,7 +49,7 @@ class ReportResource extends Resource
                             $endDate = $form->getState()['end_date'];
 
                             if ($startDate && $endDate) {
-                                $totalTransaction = DB::table('transactions')
+                                $totalKas = DB::table('kas')
                                     ->whereBetween('date', [$startDate, $endDate])
                                     ->sum('amount');
 
@@ -61,9 +61,9 @@ class ReportResource extends Resource
                                     ->whereBetween('date', [$startDate, $endDate])
                                     ->sum('amount');
                             
-                                $remainingBalance = $totalTransaction + $totalIncome - $totalExpense;
+                                $remainingBalance = $totalKas + $totalIncome - $totalExpense;
 
-                                $set('total_transaction', $totalTransaction);
+                                $set('total_kas', $totalKas);
                                 $set('total_income', $totalIncome);
                                 $set('total_expense', $totalExpense);
                                 $set('remaining_balance', $remainingBalance);
@@ -78,7 +78,7 @@ class ReportResource extends Resource
                             $startDate = $form->getState()['start_date'];
 
                             if ($startDate && $endDate) {
-                                $totalTransaction = DB::table('transactions')
+                                $totalKas = DB::table('kas')
                                     ->whereBetween('date', [$startDate, $endDate])
                                     ->sum('amount');
 
@@ -90,16 +90,16 @@ class ReportResource extends Resource
                                     ->whereBetween('date', [$startDate, $endDate])
                                     ->sum('amount');
                             
-                                $remainingBalance = $totalTransaction + $totalIncome - $totalExpense;
+                                $remainingBalance = $totalKas + $totalIncome - $totalExpense;
 
-                                $set('total_transaction', $totalTransaction);
+                                $set('total_kas', $totalKas);
                                 $set('total_income', $totalIncome);
                                 $set('total_expense', $totalExpense);
                                 $set('remaining_balance', $remainingBalance);
                             }
                         }),  
                     ])->columns(3),
-                TextInput::make('total_transaction')
+                TextInput::make('total_kas')
                     ->label('Total Pemasukan KAS')
                     ->readonly(),
                 TextInput::make('total_income')
@@ -118,21 +118,17 @@ class ReportResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('report_date')
-                    ->label('Tanggal Laporan')
-                    ->dateTime('d F Y'),
-                TextColumn::make('total_transaction')
-                    ->label('Total Pemasukan KAS')
-                    ->money('IDR'),
-                TextColumn::make('total_income')
-                    ->label('Total Pemasukan Lain')
-                    ->money('IDR'),
-                TextColumn::make('total_expense')
-                    ->label('Total Pengeluaran KAS')
-                    ->money('IDR'),
-                TextColumn::make('remaining_balance')
-                    ->label('Sisa Uang KAS')
-                    ->money('IDR'),
+                TextColumn::make('user.name')
+                    ->label('Nama Anggota'),
+                TextColumn::make('activity.name')
+                    ->label('Kegiatan'),
+                TextColumn::make('amount')
+                    ->money('IDR')
+                    ->alignCenter()
+                    ->label('Biaya Uang KAS'),
+                TextColumn::make('date')
+                    ->dateTime('d F Y')
+                    ->label('Tanggal Pembayaran'),
             ])
             ->filters([
                 //
@@ -161,9 +157,9 @@ class ReportResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListReports::route('/'),
-            'create' => Pages\CreateReport::route('/create'),
-            'edit' => Pages\EditReport::route('/{record}/edit'),
+            'index' => Pages\ListWeeklyReports::route('/'),
+            'create' => Pages\CreateWeeklyReport::route('/create'),
+            'edit' => Pages\EditWeeklyReport::route('/{record}/edit'),
         ];
     }
 }

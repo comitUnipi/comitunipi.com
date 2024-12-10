@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\ReportResource\Pages;
+namespace App\Filament\Resources\WeeklyReportResource\Pages;
 
-use App\Filament\Resources\ReportResource;
+use App\Filament\Resources\WeeklyReportResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListReports extends ListRecords
+class ListWeeklyReports extends ListRecords
 {
-    protected static string $resource = ReportResource::class;
+    protected static string $resource = WeeklyReportResource::class;
 
     protected function getHeaderActions(): array
     {

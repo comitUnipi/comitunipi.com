@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reports', function (Blueprint $table) {
+        Schema::create('weekly_reports', function (Blueprint $table) {
             $table->id();
             $table->date('report_date');
             $table->date('start_date');
             $table->date('end_date');
-            $table->decimal('total_transaction', 15, 2)->default(0);
+            $table->decimal('total_kas', 15, 2)->default(0);
             $table->decimal('total_income', 15, 2)->default(0);
             $table->decimal('total_expense', 15, 2)->default(0);
             $table->decimal('remaining_balance', 15, 2)->default(0);
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reports');
+        Schema::dropIfExists('weekly_reports');
     }
 };

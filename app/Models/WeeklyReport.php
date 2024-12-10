@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Report extends Model
+class WeeklyReport extends Model
 {
     use HasFactory;
 
@@ -13,7 +13,7 @@ class Report extends Model
         'start_date', 
         'end_date',
         'report_date', 
-        'total_transaction', 
+        'total_kas', 
         'total_income', 
         'total_expense',
         'remaining_balance',

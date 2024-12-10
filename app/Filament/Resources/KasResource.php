@@ -2,10 +2,10 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TransactionResource\Pages;
-use App\Filament\Resources\TransactionResource\RelationManagers;
+use App\Filament\Resources\KasResource\Pages;
+use App\Filament\Resources\KasResource\RelationManagers;
 use App\Models\Activity;
-use App\Models\Transaction;
+use App\Models\Kas;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
@@ -17,18 +17,20 @@ use Filament\Tables;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class TransactionResource extends Resource
+class KasResource extends Resource
 {
-    protected static ?string $model = Transaction::class;
+    protected static ?string $model = Kas::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-banknotes';
     protected static ?string $navigationGroup = 'Manajemen Keuangan';
     protected static ?string $label = 'Data KAS';
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -80,6 +82,7 @@ class TransactionResource extends Resource
             ])
             ->actions([
                 ActionGroup::make([
+                    ViewAction::make(),
                     EditAction::make(),
                     DeleteAction::make(),
                 ]),
@@ -101,9 +104,9 @@ class TransactionResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTransactions::route('/'),
-            'create' => Pages\CreateTransaction::route('/create'),
-            'edit' => Pages\EditTransaction::route('/{record}/edit'),
+            'index' => Pages\ListKas::route('/'),
+            'create' => Pages\CreateKas::route('/create'),
+            'edit' => Pages\EditKas::route('/{record}/edit'),
         ];
     }
 }
