@@ -3,6 +3,8 @@
 namespace App\Filament\Pages;
 
 use App\Filament\Widgets\ActivityOverview;
+use App\Filament\Widgets\LatestActivityWidget;
+use App\Filament\Widgets\UserKasAmountSummary;
 
 class Dashboard extends \Filament\Pages\Dashboard
 {
@@ -12,7 +14,9 @@ class Dashboard extends \Filament\Pages\Dashboard
   public function widgets(): array
     {
         return [
-          ActivityOverview::class
+          ActivityOverview::class,
+          LatestActivityWidget::class,
+          UserKasAmountSummary::class,
         ];
     }
 }
