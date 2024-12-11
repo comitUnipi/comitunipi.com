@@ -29,7 +29,7 @@ class IncomeResource extends Resource
 {
     protected static ?string $model = Income::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-banknotes';
+    protected static ?string $navigationIcon = 'heroicon-o-arrow-down-circle';
     protected static ?string $navigationGroup = 'Manajemen Keuangan';
     protected static ?string $label = 'Data Pemasukan';
     protected static ?int $navigationSort = 2;
@@ -42,6 +42,7 @@ class IncomeResource extends Resource
                     ->schema([
                         TextInput::make('amount')
                             ->label('Jumlah Pemasukan')
+                            ->prefix('Rp ')
                             ->numeric()
                             ->required(),
                         DatePicker::make('date')

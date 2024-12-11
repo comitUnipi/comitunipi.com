@@ -52,6 +52,7 @@ class KasResource extends Resource
                     ->required(),
                 TextInput::make('amount')
                     ->label('Biaya Uang KAS')
+                    ->prefix('Rp ')
                     ->default(5000)
                     ->readonly(),
                 DatePicker::make('date')

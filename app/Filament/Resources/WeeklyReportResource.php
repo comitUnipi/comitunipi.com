@@ -101,15 +101,19 @@ class WeeklyReportResource extends Resource
                     ])->columns(3),
                 TextInput::make('total_kas')
                     ->label('Total Pemasukan KAS')
+                    ->prefix('Rp ')
                     ->readonly(),
                 TextInput::make('total_income')
                     ->label('Total Pemasukan Lain')
+                    ->prefix('Rp ')
                     ->readonly(),
                 TextInput::make('total_expense')
                     ->label('Total Pengeluaran')
+                    ->prefix('Rp ')
                     ->readonly(),
                 TextInput::make('remaining_balance')
                     ->label('Sisa Uang KAS')
+                    ->prefix('Rp ')
                     ->readonly(),
             ]);
     }
