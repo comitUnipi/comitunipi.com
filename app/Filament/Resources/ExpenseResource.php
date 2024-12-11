@@ -14,7 +14,6 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Support\RawJs;
 use Filament\Tables;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
@@ -49,7 +48,6 @@ class ExpenseResource extends Resource
                     ->schema([
                         TextInput::make('amount')
                             ->label('Jumlah Pengeluaran')
-                            ->mask(RawJs::make('$money($input)'))
                             ->numeric()
                             ->required(),
                         DatePicker::make('date')
