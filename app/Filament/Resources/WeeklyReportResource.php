@@ -16,6 +16,7 @@ use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
+use Filament\Tables\Columns\Summarizers\Summarizer;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -39,11 +40,15 @@ class WeeklyReportResource extends Resource
                     DatePicker::make('report_date')
                         ->label('Tanggal Laporan')
                         ->default(now())
+                        ->native(false)
+                        ->displayFormat('d F Y')
                         ->required(),
                     DatePicker::make('start_date')
                         ->label('Tanggal Mulai')
                         ->required()
                         ->reactive()
+                        ->native(false)
+                        ->displayFormat('d F Y')
                         ->afterStateUpdated(function (callable $set, $state) use ($form) {
                             $startDate = $state;
                             $endDate = $form->getState()['end_date'];
@@ -73,6 +78,8 @@ class WeeklyReportResource extends Resource
                         ->label('Tanggal Akhir')
                         ->required()
                         ->reactive()
+                        ->native(false)
+                        ->displayFormat('d F Y')
                         ->afterStateUpdated(function (callable $set, $state) use ($form) {
                             $endDate = $state;
                             $startDate = $form->getState()['start_date'];
@@ -136,11 +143,21 @@ class WeeklyReportResource extends Resource
                     ->money('IDR'),
                 TextColumn::make('remaining_balance')
                     ->label('Sisa Uang KAS')
-                    ->money('IDR'),
+                    ->money('IDR')
+                    ->summarize(
+                        Summarizer::make()
+                            ->using(function ($query) {
+                                return $query->sum(DB::raw('remaining_balance'));
+                            })
+                            ->money('IDR')
+                    ),
             ])
             ->filters([
                 //
             ])
+            ->recordUrl(function ($record) {
+                return Pages\ViewWeeklyReport::getUrl([$record->id]);
+            })
             ->actions([
                 ActionGroup::make([
                     ViewAction::make(),
@@ -168,6 +185,7 @@ class WeeklyReportResource extends Resource
             'index' => Pages\ListWeeklyReports::route('/'),
             'create' => Pages\CreateWeeklyReport::route('/create'),
             'edit' => Pages\EditWeeklyReport::route('/{record}/edit'),
+            'view' => Pages\ViewWeeklyReport::route('/{record}'),
         ];
     }
 }
