@@ -35,4 +35,9 @@ class LatestActivityWidget extends Widget
     {
         return 'Aktivitas Terbaru';
     }
+
+    public static function canView(): bool
+    {
+        return true;
+    }
 }

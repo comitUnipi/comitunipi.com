@@ -18,4 +18,9 @@ class UserKasAmountSummary extends Widget
             ->groupBy('user_id')
             ->get();
     }
+
+    public static function canView(): bool
+    {
+        return auth()->user()->role != 'anggota';
+    }
 }
