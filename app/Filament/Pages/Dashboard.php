@@ -4,6 +4,7 @@ namespace App\Filament\Pages;
 
 use App\Filament\Widgets\ActivityOverview;
 use App\Filament\Widgets\LatestActivityWidget;
+use App\Filament\Widgets\MonthlyReportWidget;
 use App\Filament\Widgets\UserKasAmountSummary;
 use App\Filament\Widgets\WeeklyReportWidget;
 
@@ -14,11 +15,9 @@ class Dashboard extends \Filament\Pages\Dashboard
 
   public function widgets(): array
     {
-        if (auth()->user()->role === 'admin') {
-            return [];
-        }
         return [
           WeeklyReportWidget::class,
+          MonthlyReportWidget::class,
           ActivityOverview::class,
           LatestActivityWidget::class,
           UserKasAmountSummary::class,
