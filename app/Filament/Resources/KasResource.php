@@ -81,6 +81,9 @@ class KasResource extends Resource
             ->filters([
                 //
             ])
+            ->recordUrl(function ($record) {
+                return Pages\ViewKas::getUrl([$record->id]);
+            })
             ->actions([
                 ActionGroup::make([
                     ViewAction::make(),
@@ -108,6 +111,7 @@ class KasResource extends Resource
             'index' => Pages\ListKas::route('/'),
             'create' => Pages\CreateKas::route('/create'),
             'edit' => Pages\EditKas::route('/{record}/edit'),
+            'view' => Pages\ViewKas::route('/{record}'),
         ];
     }
 }
