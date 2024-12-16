@@ -26,6 +26,7 @@ class ActivityResource extends Resource
     protected static ?string $model = Activity::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar';
+    protected static ?string $navigationGroup = 'Manajemen Jadwal';
     protected static ?string $label = 'Data Kegiatan';
 
     public static function form(Form $form): Form
@@ -37,6 +38,8 @@ class ActivityResource extends Resource
                     ->label('Nama Kegiatan'),
                 DatePicker::make('activity_date')
                     ->required()
+                    ->native(false)
+                    ->displayFormat('d F Y')
                     ->label('Tanggal Kegiatan'),
                 TimePicker::make('activity_time')
                     ->required()
@@ -56,6 +59,7 @@ class ActivityResource extends Resource
             ->columns([
                 TextColumn::make('name')
                     ->label('Nama Kegiatan')
+                    ->limit(20)
                     ->searchable(),
                 TextColumn::make('description')
                     ->label('Keterangan')

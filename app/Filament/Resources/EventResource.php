@@ -27,7 +27,8 @@ class EventResource extends Resource
     protected static ?string $model = Event::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar';
-    protected static ?string $label = 'Data Acara';
+    protected static ?string $navigationGroup = 'Manajemen Jadwal';
+    protected static ?string $label = 'Data Event';
 
     public static function form(Form $form): Form
     {
@@ -35,16 +36,18 @@ class EventResource extends Resource
             ->schema([
                 TextInput::make('name')
                     ->required()
-                    ->label('Nama Acara'),
+                    ->label('Nama Event'),
                 DatePicker::make('event_date')
                     ->required()
-                    ->label('Tanggal Acara'),
+                    ->native(false)
+                    ->displayFormat('d F Y')
+                    ->label('Tanggal Event'),
                 TimePicker::make('event_time')
                     ->required()
-                    ->label('Waktu Acara'),
+                    ->label('Waktu Event'),
                 TextInput::make('location')
                     ->required()
-                    ->label('Lokasi Acara'),
+                    ->label('Lokasi Event'),
                 Textarea::make('description')
                     ->columnSpanFull()
                     ->label('Keterangan'),
@@ -56,20 +59,21 @@ class EventResource extends Resource
         return $table
             ->columns([
                  TextColumn::make('name')
-                    ->label('Nama Acara')
+                    ->label('Nama Event')
+                    ->limit(20)
                     ->searchable(),
                 TextColumn::make('description')
                     ->label('Keterangan')
                     ->limit(20),
                 TextColumn::make('event_date')
-                    ->label('Tanggal Acara')
+                    ->label('Tanggal Event')
                     ->dateTime('d F Y'),
                 TextColumn::make('event_time')
                     ->alignCenter()
-                    ->label('Waktu Acara'),
+                    ->label('Waktu Event'),
                 TextColumn::make('location')
                     ->alignCenter()
-                    ->label('Lokasi Acara'),
+                    ->label('Lokasi Event'),
             ])
             ->filters([
                 //
