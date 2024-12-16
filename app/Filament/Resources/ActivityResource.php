@@ -77,6 +77,9 @@ class ActivityResource extends Resource
             ->filters([
                 //
             ])
+            ->recordUrl(function ($record) {
+                return Pages\ViewActivity::getUrl([$record->id]);
+            })
             ->actions([
                 ActionGroup::make([
                     EditAction::make(),
@@ -103,6 +106,7 @@ class ActivityResource extends Resource
             'index' => Pages\ListActivities::route('/'),
             'create' => Pages\CreateActivity::route('/create'),
             'edit' => Pages\EditActivity::route('/{record}/edit'),
+            'view' => Pages\ViewActivity::route('/{record}'),
         ];
     }
 }
