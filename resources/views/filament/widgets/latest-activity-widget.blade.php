@@ -7,8 +7,8 @@
                 </div>
                 <div class="mt-10">
                         <h3 class="text-base mb-1">Event Terbaru</h3>
-                        <p class="text-2xl font-semibold mb-1">Belum ada event</p>
-                        <!-- <p class="text-sm text-blue-600">{{ $activity_date }} {{ $activity_location }}</p> -->
+                        <p class="text-2xl font-semibold mb-1">{{ $event_info }}</p>
+                        <p class="text-sm text-blue-600">{{ $event_date }} {{ $event_location }}</p>
                 </div>
         </div>
 </x-filament-widgets::widget>
