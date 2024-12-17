@@ -20,6 +20,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class ActivityResource extends Resource
 {
@@ -80,7 +81,8 @@ class ActivityResource extends Resource
                     '<span class="bg-blue-600 text-white text-sm px-3 py-1 rounded-md">QR Code</span>' .
                     '</a>'
                     )
-                    ->html(),
+                    ->html()
+                    ->hidden(fn () => Auth::user()->role !== 'admin'),
             ])
             ->filters([
                 //
