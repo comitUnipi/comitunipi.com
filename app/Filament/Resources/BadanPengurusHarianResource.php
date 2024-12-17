@@ -23,6 +23,7 @@ class BadanPengurusHarianResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
     protected static ?string $navigationGroup = 'Manajemen Anggota';
     protected static ?string $label = 'Badan Pengurus Harian';
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {

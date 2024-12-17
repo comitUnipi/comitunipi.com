@@ -23,6 +23,7 @@ class CalonAnggotaBaruResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
     protected static ?string $navigationGroup = 'Manajemen Anggota';
     protected static ?string $label = 'Calon Anggota Baru';
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {

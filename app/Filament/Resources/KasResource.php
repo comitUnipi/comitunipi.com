@@ -30,7 +30,7 @@ class KasResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-banknotes';
     protected static ?string $navigationGroup = 'Manajemen Keuangan';
     protected static ?string $label = 'Data KAS';
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 6;
 
     public static function form(Form $form): Form
     {

@@ -29,6 +29,7 @@ class ActivityResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-calendar';
     protected static ?string $navigationGroup = 'Manajemen Jadwal';
     protected static ?string $label = 'Data Kegiatan';
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {

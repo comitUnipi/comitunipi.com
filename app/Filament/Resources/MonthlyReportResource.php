@@ -30,7 +30,7 @@ class MonthlyReportResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-chart-bar-square';
     protected static ?string $navigationGroup = 'Manajemen Laporan';
     protected static ?string $label = 'Keuangan Bulanan';
-    protected static ?int $navigationSort = 5;
+    protected static ?int $navigationSort = 10;
 
     public static function form(Form $form): Form
     {
