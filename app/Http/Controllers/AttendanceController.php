@@ -14,7 +14,7 @@ class AttendanceController extends Controller
         $activity = Activity::find($activityId);
 
         if (!$activity) {
-            return response()->json(['error' => 'Activity not found'], 404);
+            return response()->json(['error' => 'Kegiatan Tidak Ada'], 404);
         }
 
         $user = Auth::user();
@@ -24,7 +24,11 @@ class AttendanceController extends Controller
                                 ->first();
 
         if ($attendance) {
-            return view('attendance.already_marked', ['message' => 'Kamu telah melakukan absensi hadir']);
+            return view('attendance.already_marked', [
+                'message' => 'Kamu telah melakukan absensi hadir',
+                'userName' => $user->name,
+                'activityName' => $activity->name,
+            ]);
         }
 
         Attendance::create([
