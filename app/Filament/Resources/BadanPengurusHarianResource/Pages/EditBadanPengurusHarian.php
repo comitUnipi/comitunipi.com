@@ -9,4 +9,9 @@ use Filament\Resources\Pages\EditRecord;
 class EditBadanPengurusHarian extends EditRecord
 {
     protected static string $resource = BadanPengurusHarianResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

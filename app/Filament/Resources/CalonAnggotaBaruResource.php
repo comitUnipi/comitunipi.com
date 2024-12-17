@@ -39,11 +39,11 @@ class CalonAnggotaBaruResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')
-                    ->label('Nama Anggota')
-                    ->searchable(),
                 TextColumn::make('npm')
                     ->label('NPM')
+                    ->searchable(),
+                TextColumn::make('name')
+                    ->label('Nama Anggota')
                     ->searchable(),
                 TextColumn::make('role')
                     ->sortable()
