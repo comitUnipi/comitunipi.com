@@ -73,6 +73,14 @@ class ActivityResource extends Resource
                 TextColumn::make('location')
                     ->alignCenter()
                     ->label('Lokasi Kegiatan'),
+                TextColumn::make('id')
+                    ->label('QR Code')
+                    ->formatStateUsing(fn ($state) => 
+                    '<a href="' . route('generate.qrcode', $state) . '" target="_blank">' . 
+                    '<span class="bg-blue-600 text-white text-sm px-3 py-1 rounded-md">QR Code</span>' .
+                    '</a>'
+                    )
+                    ->html(),
             ])
             ->filters([
                 //
