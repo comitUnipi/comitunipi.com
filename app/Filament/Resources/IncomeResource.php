@@ -68,14 +68,17 @@ class IncomeResource extends Resource
             ->columns([
                 TextColumn::make('date')
                     ->label('Tanggal Pemasukan')
+                    ->sortable()
                     ->dateTime('d F Y'),
                 TextColumn::make('description')
                     ->limit(20)
                     ->label('Keterangan'),
                 TextColumn::make('user.name')
+                    ->sortable()
                     ->label('Dibuat Oleh'),
                 TextColumn::make('amount')
                     ->label('Jumlah Pemasukan')
+                    ->sortable()
                     ->money('IDR')
                     ->summarize(
                         Summarizer::make()

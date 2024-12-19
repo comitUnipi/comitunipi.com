@@ -74,15 +74,18 @@ class ExpenseResource extends Resource
             ->columns([
                 TextColumn::make('date')
                     ->label('Tanggal Pengeluaran')
+                    ->sortable()
                     ->dateTime('d F Y'),
                 TextColumn::make('description')
                     ->limit(20)
                     ->label('Keterangan'),
                 TextColumn::make('user.name')
+                    ->sortable()
                     ->label('Dibuat Oleh'),
                 TextColumn::make('amount')
                     ->label('Jumlah Pengeluaran')
                     ->money('IDR')
+                    ->sortable()
                     ->summarize(
                         Summarizer::make()
                             ->using(function ($query) {

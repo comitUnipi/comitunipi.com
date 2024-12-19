@@ -39,12 +39,14 @@ class KasResource extends Resource
                 Select::make('user_id')
                     ->label('Anggota')
                     ->placeholder('Pilih Anggota')
+                    ->searchable()
                     ->options(function () {
                         return User::all()->pluck('name', 'id');
                     })
                     ->required(),
                 Select::make('activity_id')
                     ->label('Kegiatan')
+                    ->searchable()
                     ->placeholder('Pilih Kegiatan')
                     ->options(function () {
                         return Activity::all()->pluck('name', 'id');
@@ -67,6 +69,8 @@ class KasResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('user.name')
+                    ->sortable()
+                    ->searchable()
                     ->label('Nama Anggota'),
                 TextColumn::make('activity.name')
                     ->label('Kegiatan'),
@@ -76,6 +80,7 @@ class KasResource extends Resource
                     ->label('Biaya Uang KAS'),
                 TextColumn::make('date')
                     ->dateTime('d F Y')
+                    ->sortable()
                     ->label('Tanggal Pembayaran'),
             ])
             ->filters([
