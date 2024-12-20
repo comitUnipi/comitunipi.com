@@ -5,8 +5,10 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\EventResource\Pages;
 use App\Filament\Resources\EventResource\RelationManagers;
 use App\Models\Event;
+use App\Models\WorkProgram;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
@@ -35,9 +37,14 @@ class EventResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
-                    ->required()
-                    ->label('Nama Event'),
+                Select::make('work_program_id')
+                    ->label('Nama Event')
+                    ->placeholder('Pilih Program Kerja')
+                    ->searchable()
+                    ->options(function () {
+                        return WorkProgram::all()->pluck('name', 'id');
+                    })
+                    ->required(),
                 DatePicker::make('event_date')
                     ->required()
                     ->native(false)
@@ -59,9 +66,9 @@ class EventResource extends Resource
     {
         return $table
             ->columns([
-                 TextColumn::make('name')
+                 TextColumn::make('work_program.name')
                     ->label('Nama Event')
-                    ->limit(20)
+                    ->limit(25)
                     ->searchable(),
                 TextColumn::make('description')
                     ->label('Keterangan')
