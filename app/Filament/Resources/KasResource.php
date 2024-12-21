@@ -19,6 +19,7 @@ use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -84,7 +85,26 @@ class KasResource extends Resource
                     ->label('Tanggal Pembayaran'),
             ])
             ->filters([
-                //
+                Filter::make('date_range')
+                    ->label('Tanggal Pembayaran')
+                    ->form([
+                        DatePicker::make('start_date')
+                            ->label('Start Date')
+                            ->default(now()->subMonth()),
+
+                        DatePicker::make('end_date')
+                            ->label('End Date')
+                            ->default(now()),
+                    ])
+                    ->query(function ($query, $data) {
+                        if (isset($data['start_date']) && isset($data['end_date'])) {
+                            return $query->whereBetween('date', [
+                                \Carbon\Carbon::parse($data['start_date'])->startOfDay(),
+                                \Carbon\Carbon::parse($data['end_date'])->endOfDay(),
+                            ]);
+                        }
+                        return $query;
+                    }),
             ])
             ->recordUrl(function ($record) {
                 return Pages\ViewKas::getUrl([$record->id]);
