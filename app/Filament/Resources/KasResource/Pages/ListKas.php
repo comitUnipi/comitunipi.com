@@ -17,6 +17,9 @@ class ListKas extends ListRecords
         return [
             Actions\CreateAction::make()
                 ->label('Tambah Kas'),
+            Actions\Action::make('viewTotalKasUser')
+                ->label('Lihat Detail')
+                ->url(route('filament.kas.pages.view-total-kas-user'))
         ];
     }
 

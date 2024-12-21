@@ -1,11 +1,13 @@
 <?php
 
+use App\Filament\Resources\KasResource\Pages\ViewTotalKasUser;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QrCodeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
 
 
 
@@ -20,3 +22,5 @@ Route::get('/scan-qr/{activityId}', [AttendanceController::class, 'scanQrCode'])
 Route::get('/scan', function () {
     return view('scan');
 })->name('scan.page');
+
+Route::get('/total-kas-user', ViewTotalKasUser::class)->name('filament.kas.pages.view-total-kas-user');
