@@ -40,7 +40,7 @@ class LatestActivityWidget extends Widget
             ->first();
 
         if ($latestEvent) {
-            $this->event_info = $latestEvent->name;
+            $this->event_info = $latestEvent->work_program->name;
             $this->event_date = Carbon::parse($latestEvent->event_date)->translatedFormat('d F Y');
             $this->event_location = $latestEvent->location;
         } else {
