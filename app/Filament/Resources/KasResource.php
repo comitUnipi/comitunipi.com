@@ -28,7 +28,7 @@ class KasResource extends Resource
 {
     protected static ?string $model = Kas::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-banknotes';
+    protected static ?string $navigationIcon = null;
     protected static ?string $navigationGroup = 'Manajemen Keuangan';
     protected static ?string $label = 'Data KAS';
     protected static ?int $navigationSort = 6;
