@@ -5,6 +5,8 @@ namespace App\Filament\Resources\AttendanceResource\Pages;
 use App\Filament\Resources\AttendanceResource;
 use App\Models\Attendance;
 use Filament\Actions;
+use Filament\Actions\Action;
+use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -15,9 +17,11 @@ class ListAttendances extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\Action::make('scan')
+            Action::make('scan')
                 ->label('Scan Absensi')
-                ->url(route('filament.resources.attendance-resource.pages.scan-qr-code'))
+                ->url(route('filament.resources.attendance-resource.pages.scan-qr-code')),
+            CreateAction::make()
+                ->label('Buat Surat Izin'),
         ];
     }
 

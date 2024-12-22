@@ -16,6 +16,9 @@ class Attendance extends Model
         'user_id',
         'activity_id',
         'status',
+        'date',
+        'description',
+        'img_url',
     ];
 
     public function user(): BelongsTo

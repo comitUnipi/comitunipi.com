@@ -4,9 +4,17 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\AttendanceResource\Pages;
 use App\Filament\Resources\AttendanceResource\RelationManagers;
+use App\Models\Activity;
 use App\Models\Attendance;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -20,6 +28,75 @@ class AttendanceResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $label = 'Absensi';
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                FileUpload::make('img_url')
+                    ->label('Bukti Izin (jika ada)')
+                    ->disk('public')
+                    ->image()
+                    ->directory('attendance'),
+                Hidden::make('user_id')
+                    ->default(auth()->id())
+                    ->required(),
+                TextInput::make('name')
+                    ->label('Nama Anggota')
+                    ->default(auth()->user()->name)
+                    ->disabled(),
+                Select::make('activity_id')
+                    ->label('Pada Kegiatan')
+                    ->placeholder(function () {
+                        $activities = Activity::whereDate('activity_date', '>=', now())
+                                        ->orderBy('activity_date', 'asc')
+                                        ->get();
+                        if ($activities->isEmpty()) {
+                            return 'Tidak ada kegiatan';
+                        }
+
+                        return 'Pilih Kegiatan';
+                    })
+                    ->searchable()
+                    ->options(function () {
+                        return Activity::whereDate('activity_date', '>=', now())
+                                    ->orderBy('activity_date', 'asc')
+                                    ->pluck('name', 'id');
+                    })
+                    ->required()
+                    ->disabled(function () {
+                        return Activity::whereDate('activity_date', '>=', now())->doesntExist();
+                    })
+                    ->afterStateUpdated(function ($state, $set) {
+                        $existingAttendance = Attendance::where('user_id', auth()->id())
+                                                ->where('activity_id', $state)
+                                                ->exists();
+
+                        if ($existingAttendance) {
+                            Notification::make()
+                                ->title('Absensi Gagal')
+                                ->body('Anda sudah absen pada kegiatan ini.')
+                                ->danger()
+                                ->send();
+                            $set('activity_id', null);
+                        }
+                    }),
+                TextInput::make('status')
+                    ->label('Status Absensi')
+                    ->default('izin')
+                    ->readOnly(),
+                DatePicker::make('date')
+                    ->required()
+                    ->native(false)
+                    ->default(now())
+                    ->disabled()
+                    ->displayFormat('d F Y')
+                    ->label('Tanggal Dibuat'),
+                Textarea::make('decription')
+                    ->label('Keterangan')
+                    ->columnSpanFull(),
+            ]);
+    }
 
     public static function table(Table $table): Table
     {
@@ -58,6 +135,7 @@ class AttendanceResource extends Resource
     {
         return [
             'index' => Pages\ListAttendances::route('/'),
+            'create' => Pages\FormIzin::route('/create'),
         ];
     }
 }
