@@ -6,6 +6,7 @@ use App\Models\Activity;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class AttendanceController extends Controller
 {
@@ -24,11 +25,12 @@ class AttendanceController extends Controller
                                 ->first();
 
         if ($attendance) {
-            return view('attendance.already_marked', [
-                'message' => 'Kamu telah melakukan absensi hadir',
-                'userName' => $user->name,
-                'activityName' => $activity->name,
-            ]);
+            return Redirect::route('filament.resources.attendance-resource.pages.already-attendance')
+                ->with([
+                    'avatarUrl' => $user->avatar_url,
+                    'userName' => $user->name,
+                    'activityName' => $activity->name
+                ]);
         }
 
         Attendance::create([
@@ -37,10 +39,11 @@ class AttendanceController extends Controller
             'status' => 'hadir',
         ]);
 
-        return view('attendance.success', [
-            'message' => 'Absensi Hadir Kamu telah berhasil di catat',
-            'userName' => $user->name,
-            'activityName' => $activity->name,
-        ]);
+        return Redirect::route('filament.resources.attendance-resource.pages.attendance-success')
+            ->with([
+                'avatarUrl' => $user->avatar_url,
+                'userName' => $user->name,
+                'activityName' => $activity->name
+            ]);
     }
 }

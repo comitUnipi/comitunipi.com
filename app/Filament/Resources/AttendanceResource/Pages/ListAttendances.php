@@ -17,7 +17,7 @@ class ListAttendances extends ListRecords
         return [
             Actions\Action::make('scan')
                 ->label('Scan Absensi')
-                ->url('/scan')
+                ->url(route('filament.resources.attendance-resource.pages.scan-qr-code'))
         ];
     }
 

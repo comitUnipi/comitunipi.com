@@ -1,63 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scan QR Code</title>
-    <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
-    <style>
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-        
-        .modal-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            margin: 15% auto;
-            width: 300px;
-            text-align: center;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            margin: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .btn-yes {
-            background-color: #2563eb;
-            color: white;
-        }
-        .btn-no {
-            background-color: red;
-            color: white;
-        }
-    </style>
-</head>
-<body>
-    <div style="text-align: center;">
-        <h2>Scan Absensi</h2>
-        <video id="preview" width="100%" height="400" autoplay></video>
-        <p style="font-size: 14px;" id="result"></p>
+<x-filament-panels::page>
+    <!-- Video element to show the camera preview -->
+    <div class="">
+        <video id="preview" class="md:max-w-md h-96" autoplay></video>
+        <p class="text-sm" id="result"></p>
     </div>
 
-    <div id="confirmationModal" class="modal">
-        <div class="modal-content">
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="modal hidden fixed inset-0 z-50 bg-black bg-opacity-50">
+        <div class="modal-content bg-white p-5 rounded-lg mx-auto my-20 w-80 text-center">
             <p>Apakah Anda ingin melanjutkan absensi?</p>
-            <button class="btn btn-yes" id="btn-yes">Ya</button>
-            <button class="btn btn-no" id="btn-no">Tidak</button>
+            <button class="btn-yes py-2 px-5 my-3 rounded bg-blue-600 text-white" id="btn-yes">Ya</button>
+            <button class="btn-no py-2 px-5 my-3 rounded bg-red-600 text-white" id="btn-no">Tidak</button>
         </div>
     </div>
 
+    @push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
     <script>
         const videoElement = document.getElementById("preview");
         const resultElement = document.getElementById("result");
@@ -87,18 +45,18 @@
                 canvasElement.height = videoElement.videoHeight;
                 canvasElement.width = videoElement.videoWidth;
                 canvasContext.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
-                
+
                 const imageData = canvasContext.getImageData(0, 0, canvasElement.width, canvasElement.height);
                 const code = jsQR(imageData.data, canvasElement.width, canvasElement.height);
-                
+
                 if (code) {
                     resultElement.textContent = "QR Code berhasil dipindai!";
-                    modal.style.display = "block";
+                    modal.classList.remove("hidden");
                     btnYes.onclick = function() {
                         window.location.href = code.data;
                     };
                     btnNo.onclick = function() {
-                        modal.style.display = "none";
+                        modal.classList.add("hidden");
                         resultElement.textContent = "Anda membatalkan absensi.";
                     };
                 } else {
@@ -108,13 +66,14 @@
 
             requestAnimationFrame(scanQRCode); 
         }
+
         window.onclick = function(event) {
             if (event.target === modal) {
-                modal.style.display = "none";
+                modal.classList.add("hidden");
             }
         };
 
         window.onload = startScanning;
     </script>
-</body>
-</html>
+    @endpush
+</x-filament-panels::page>
