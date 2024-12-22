@@ -27,8 +27,10 @@ class WorkProgramResource extends Resource
     protected static ?string $model = WorkProgram::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'Manajemen PROKER';
-    protected static ?string $label = 'Program Kerja';
+    protected static ?string $navigationGroup = 'Manajemen Jadwal';
+    protected static ?string $label = 'Data Program Kerja';
+    protected static ?int $navigationSort = 4;
+    
 
     public static function form(Form $form): Form
     {
@@ -73,6 +75,15 @@ class WorkProgramResource extends Resource
                     ->label('Keterangan'),
                 TextColumn::make('status')
                     ->label('Status')
+                    ->alignCenter()
+                    ->formatStateUsing(fn ($state) => 
+                        match ($state) {
+                            'aktif' => '<span class="bg-green-600 text-white text-sm px-3 py-1 rounded-md">' . $state . '</span>',
+                            'belum aktif' => '<span class="bg-red-600 text-white text-sm px-3 py-1 rounded-md">' . $state . '</span>',
+                            default => '<span class="bg-gray-600 text-white text-sm px-3 py-1 rounded-md">' . $state . '</span>',
+                        }
+                    )
+                    ->html()
                     ->sortable(),
                 TextColumn::make('start_date')
                     ->label('Tanggal Mulai')
