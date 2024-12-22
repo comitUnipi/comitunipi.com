@@ -27,7 +27,7 @@ class WeeklyReportResource extends Resource
 {
     protected static ?string $model = WeeklyReport::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-chart-bar-square';
+    protected static ?string $navigationIcon = 'heroicon-o-arrow-trending-up';
     protected static ?string $navigationGroup = 'Manajemen Laporan';
     protected static ?string $label = 'Keuangan Mingguan';
     protected static ?int $navigationSort = 9;

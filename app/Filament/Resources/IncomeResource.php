@@ -29,7 +29,7 @@ class IncomeResource extends Resource
 {
     protected static ?string $model = Income::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-arrow-down-circle';
+    protected static ?string $navigationIcon = null;
     protected static ?string $navigationGroup = 'Manajemen Keuangan';
     protected static ?string $label = 'Data Pemasukan';
     protected static ?int $navigationSort = 7;

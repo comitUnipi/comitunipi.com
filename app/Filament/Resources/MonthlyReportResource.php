@@ -27,7 +27,7 @@ class MonthlyReportResource extends Resource
 {
     protected static ?string $model = MonthlyReport::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-chart-bar-square';
+    protected static ?string $navigationIcon = 'heroicon-o-arrow-trending-up';
     protected static ?string $navigationGroup = 'Manajemen Laporan';
     protected static ?string $label = 'Keuangan Bulanan';
     protected static ?int $navigationSort = 10;

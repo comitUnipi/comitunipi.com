@@ -26,7 +26,7 @@ class WorkProgramResource extends Resource
 {
     protected static ?string $model = WorkProgram::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = null;
     protected static ?string $navigationGroup = 'Manajemen Jadwal';
     protected static ?string $label = 'Data Program Kerja';
     protected static ?int $navigationSort = 4;

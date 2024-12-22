@@ -20,7 +20,7 @@ class CalonAnggotaBaruResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?string $navigationIcon = null;
     protected static ?string $navigationGroup = 'Manajemen Anggota';
     protected static ?string $label = 'Calon Anggota Baru';
     protected static ?int $navigationSort = 3;

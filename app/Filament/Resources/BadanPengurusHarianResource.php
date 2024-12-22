@@ -20,7 +20,7 @@ class BadanPengurusHarianResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?string $navigationIcon = null;
     protected static ?string $navigationGroup = 'Manajemen Anggota';
     protected static ?string $label = 'Badan Pengurus Harian';
     protected static ?int $navigationSort = 2;
