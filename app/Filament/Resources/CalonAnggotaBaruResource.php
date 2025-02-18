@@ -6,6 +6,7 @@ use App\Models\User;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
@@ -27,6 +28,26 @@ class CalonAnggotaBaruResource extends Resource
   {
     return $form
       ->schema([
+        Select::make('position')->options([
+          'ketua umum' => 'User',
+          'wakil ketua' => 'Guest',
+          'sekretaris' => 'Admin',
+          'bendahara' => 'Super Admin',
+          'koordinator sdm' => 'Koordinator SDM',
+          'koordinator humas' => 'Koordinator Humas',
+          'koordinator akademik' => 'Koordinator Akademik',
+          'sdm' => 'Sdm',
+          'humas internal' => 'Humas Internal',
+          'humas eksternal' => 'Humas Eksternal',
+          'sdm' => 'Programming',
+          'comp dan network' => 'Comp dan Network',
+          'design grafis' => 'Design Grafis',
+          'microsoft' => 'Microsoft',
+          'prasarana' => 'Prasarana',
+          'kominfo' => 'Kominfo',
+          'anggota' => 'Anggota',
+          'calon anggota' => 'Calon Anggota',
+        ])->required()->default('calon anggota'),
         Toggle::make('is_active')
           ->label('Status Aktif')
           ->default(false),
@@ -43,13 +64,16 @@ class CalonAnggotaBaruResource extends Resource
         TextColumn::make('name')
           ->label('Nama Anggota')
           ->searchable(),
-        TextColumn::make('role')
+        TextColumn::make('position')
           ->sortable()
           ->searchable(),
         IconColumn::make('is_active')
           ->label('Status Aktif')
           ->alignCenter()
           ->boolean(),
+        TextColumn::make('role')
+          ->sortable()
+          ->searchable(),
       ])
       ->filters([
         //

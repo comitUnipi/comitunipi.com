@@ -52,7 +52,28 @@ class UserResource extends Resource
             'user' => 'User',
             'guest' => 'Guest',
             'admin' => 'Admin',
+            'keuangan' => 'Keuangan',
             'super admin' => 'Super Admin',
+          ])->required()->default('user'),
+          Select::make('position')->options([
+            'ketua umum' => 'User',
+            'wakil ketua' => 'Guest',
+            'sekretaris' => 'Admin',
+            'bendahara' => 'Super Admin',
+            'koordinator sdm' => 'Koordinator SDM',
+            'koordinator humas' => 'Koordinator Humas',
+            'koordinator akademik' => 'Koordinator Akademik',
+            'sdm' => 'Sdm',
+            'humas internal' => 'Humas Internal',
+            'humas eksternal' => 'Humas Eksternal',
+            'sdm' => 'Programming',
+            'comp dan network' => 'Comp dan Network',
+            'design grafis' => 'Design Grafis',
+            'microsoft' => 'Microsoft',
+            'prasarana' => 'Prasarana',
+            'kominfo' => 'Kominfo',
+            'anggota' => 'Anggota',
+            'calon anggota' => 'Calon Anggota',
           ])->required()->default('calon anggota'),
         ])->columns(3),
         Toggle::make('is_active')
@@ -71,12 +92,16 @@ class UserResource extends Resource
         TextColumn::make('name')
           ->label('Nama Anggota')
           ->searchable(),
-        TextColumn::make('role')
+        TextColumn::make('position')
+          ->sortable()
           ->searchable(),
         IconColumn::make('is_active')
           ->label('Status Aktif')
           ->alignCenter()
           ->boolean(),
+        TextColumn::make('role')
+          ->sortable()
+          ->searchable(),
       ])
       ->filters([
         //

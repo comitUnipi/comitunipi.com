@@ -26,6 +26,7 @@ class User extends Authenticatable implements HasAvatar
         'avatar_url',
         'npm',
         'role',
+        'position',
         'is_active',
     ];
 
