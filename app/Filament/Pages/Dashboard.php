@@ -2,7 +2,6 @@
 
 namespace App\Filament\Pages;
 
-use App\Filament\Widgets\ActivityOverview;
 use App\Filament\Widgets\LatestActivityWidget;
 use App\Filament\Widgets\MonthlyReportWidget;
 use App\Filament\Widgets\UserKasAmountSummary;
@@ -18,7 +17,6 @@ class Dashboard extends \Filament\Pages\Dashboard
         return [
           WeeklyReportWidget::class,
           MonthlyReportWidget::class,
-          ActivityOverview::class,
           LatestActivityWidget::class,
           UserKasAmountSummary::class,
         ];

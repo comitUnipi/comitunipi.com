@@ -67,7 +67,7 @@
 }
 
 .fi-ta-cell {
-  @apply border-b rounded-md
+  @apply border-b rounded-l-md
 }
 
 .fi-ta-pagination {

@@ -13,7 +13,7 @@ class MonthlyReportWidget extends ChartWidget
     protected function getData(): array
     {
         $reports = MonthlyReport::orderBy('report_date', 'asc')->get();
-        
+
         $dates = [];
         $totalKas = [];
         $totalIncome = [];
@@ -63,6 +63,6 @@ class MonthlyReportWidget extends ChartWidget
 
     public static function canView(): bool
     {
-        return auth()->user()->role != 'anggota';
+        return !in_array(auth()->user()->role, ['user', 'guest']);
     }
 }

@@ -34,6 +34,6 @@ class StatsOverview extends BaseWidget
 
     public static function canView(): bool
     {
-        return auth()->user()->role != 'anggota';
+        return !in_array(auth()->user()->role, ['user', 'guest']);
     }
 }
