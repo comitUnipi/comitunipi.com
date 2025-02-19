@@ -2,7 +2,7 @@
 
   <Head title="Selamat Datang" />
 
-  <Navbar />
+  <Navbar :user="props.user" />
 
   <div class="">
     <div class="relative z-0 w-full bg-black py-48 px-5">
@@ -27,4 +27,9 @@ import Footer from '@/components/Footer.vue';
 import Mentor from '@/components/Mentor.vue';
 import Navbar from '@/components/Navbar.vue';
 import { Head } from '@inertiajs/vue3';
+
+const props = defineProps({
+  user: Object,
+});
+console.log(props.user);
 </script>
