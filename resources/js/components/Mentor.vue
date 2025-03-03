@@ -8,6 +8,7 @@
                 Mentor
               </span>
               <h2
+              id="text-heading"
                 class="font-bold text-3xl sm:text-4xl md:text-[42px] text-dark mb-4">
                 Perkenalkan Mentor Kami
               </h2>

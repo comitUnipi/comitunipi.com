@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#text {
+  color: #FFFFFF;
+  text-shadow: 2px 2px 0px oklch(0.623 0.214 259.815), 5px 4px 0px oklch(0.623 0.214 259.815);
+}
+#text-heading {
+  color: oklch(0.623 0.214 259.815);
+  text-shadow: 2px 2px 0px oklch(0.274 0.006 286.033), 5px 4px 0px #FFFFFF;
+}
