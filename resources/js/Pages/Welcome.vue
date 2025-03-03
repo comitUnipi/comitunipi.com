@@ -15,16 +15,19 @@
           class="mt-3 inline-block rounded-lg text-lg px-4 lg:px-8 py-1.5 lg:py-3 bg-blue-600 text-white">Gabung
           Sekarang</a>
       </div>
-      <img src="https://comit-unipi.vercel.app/_next/image?url=%2Fbanner.png&w=1920&q=75" class="w-full h-full absolute inset-0 object-cover opacity-50">
+      <img src="https://comit-unipi.vercel.app/_next/image?url=%2Fbanner.png&w=1920&q=75"
+        class="w-full h-full absolute inset-0 object-cover opacity-50">
     </div>
-    <About/>
-    <Mentor/>
+    <About />
+    <Discover />
+    <Mentor />
   </div>
   <Footer />
 </template>
 
 <script setup>
 import About from '@/components/About.vue';
+import Discover from '@/components/Discover.vue';
 import Footer from '@/components/Footer.vue';
 import Mentor from '@/components/Mentor.vue';
 import Navbar from '@/components/Navbar.vue';
@@ -33,5 +36,4 @@ import { Head } from '@inertiajs/vue3';
 const props = defineProps({
   user: Object,
 });
-console.log(props.user);
 </script>
