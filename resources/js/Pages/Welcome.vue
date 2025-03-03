@@ -17,12 +17,14 @@
       </div>
       <img src="https://comit-unipi.vercel.app/_next/image?url=%2Fbanner.png&w=1920&q=75" class="w-full h-full absolute inset-0 object-cover opacity-50">
     </div>
+    <About/>
     <Mentor/>
   </div>
   <Footer />
 </template>
 
 <script setup>
+import About from '@/components/About.vue';
 import Footer from '@/components/Footer.vue';
 import Mentor from '@/components/Mentor.vue';
 import Navbar from '@/components/Navbar.vue';
