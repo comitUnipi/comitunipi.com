@@ -20,6 +20,61 @@ Route::get('/pendaftaran-anggota', function () {
   return Inertia::render('Pendaftaran');
 });
 
+Route::prefix('kepengurusan')->group(function () {
+
+  Route::get('/ketua-dan-wakil-ketua-umum', function () {
+    return Inertia::render('Kepengurusan/KetuaDanWakilKetua');
+  });
+
+  Route::get('/sekretaris', function () {
+    return Inertia::render('Kepengurusan/Sekretaris');
+  });
+
+  Route::get('/bendahara', function () {
+    return Inertia::render('Kepengurusan/Bendahara');
+  });
+
+  Route::get('/sdm', function () {
+    return Inertia::render('Kepengurusan/Sdm');
+  });
+
+  Route::get('/humas-internal', function () {
+    return Inertia::render('Kepengurusan/HumasInternal');
+  });
+
+  Route::get('/humas-eksternal', function () {
+    return Inertia::render('Kepengurusan/HumasEksternal');
+  });
+
+  Route::get('/koordinator', function () {
+    return Inertia::render('Kepengurusan/Koordinator');
+  });
+
+  Route::get('/prasarana', function () {
+    return Inertia::render('Kepengurusan/Prasarana');
+  });
+
+  Route::get('/kominfo', function () {
+    return Inertia::render('Kepengurusan/Kominfo');
+  });
+
+  Route::get('/staf-desain', function () {
+    return Inertia::render('Kepengurusan/StafDesain');
+  });
+
+  Route::get('/staf-programming', function () {
+    return Inertia::render('Kepengurusan/StafProgramming');
+  });
+
+  Route::get('/staf-comp-and-network', function () {
+    return Inertia::render('Kepengurusan/StafCompAndNetwork');
+  });
+
+  Route::get('/staf-microsoft-office', function () {
+    return Inertia::render('Kepengurusan/StafMicrosoftOffice');
+  });
+});
+
 Route::get('/scan', ScanQrCode::class)->name('filament.resources.attendance-resource.pages.scan-qr-code');
 Route::get('/attendance-success', AttendanceSuccess::class)->name('filament.resources.attendance-resource.pages.attendance-success');
 Route::get('/already-attendance', AlreadyAttendance::class)->name('filament.resources.attendance-resource.pages.already-attendance');

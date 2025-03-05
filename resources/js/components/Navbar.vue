@@ -28,43 +28,43 @@
                     </svg>
                   </button>
                   <div v-if="isDropdownOpen" class="absolute left-8 w-60 bg-white py-2 shadow-lg rounded-md">
-                    <a href="#" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
+                    <a href="/kepengurusan/ketua-dan-wakil-ketua-umum" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
                       Ketua & Wakil Ketua Umum
                     </a>
-                    <a href="#" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
+                    <a href="/kepengurusan/sekretaris" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
                       Sekretaris
                     </a>
-                    <a href="#" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
+                    <a href="/kepengurusan/bendahara" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
                       Bendahara
                     </a>
-                    <a href="#" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
+                    <a href="/kepengurusan/sdm" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
                       SDM
                     </a>
-                    <a href="#" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
+                    <a href="/kepengurusan/humas-internal" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
                       Humas Internal
                     </a>
-                    <a href="#" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
+                    <a href="/kepengurusan/humas-eksternal" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
                       Humas Eksternal
                     </a>
-                    <a href="#" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
+                    <a href="/kepengurusan/koordinator" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
                       Koordinator
                     </a>
-                    <a href="#" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
+                    <a href="/kepengurusan/prasarana" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
                       Prasarana
                     </a>
-                    <a href="#" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
+                    <a href="/kepengurusan/kominfo" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
                       Kominfo
                     </a>
-                    <a href="#" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
-                      Staff Design
+                    <a href="/kepengurusan/staf-desain" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
+                      Staff Desain
                     </a>
-                    <a href="#" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
+                    <a href="/kepengurusan/staf-programming" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
                       Staff Programming
                     </a>
-                    <a href="#" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
+                    <a href="/kepengurusan/staf-comp-and-network" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
                       Staff Comp & Network
                     </a>
-                    <a href="#" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
+                    <a href="/kepengurusan/staf-microsoft-office" class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
                       Staff Microsoft Office
                     </a>
                   </div>
@@ -109,43 +109,43 @@
               </button>
               <!-- Dropdown Content -->
               <div v-if="isDropdownOpen" class="pl-6 py-2">
-                <a href="#" class="block text-sm py-2 hover:underline rounded-md">
+                <a href="/kepengurusan/ketua-dan-wakil-ketua-umum" class="block text-sm py-2 hover:underline rounded-md">
                   Ketua & Wakil Ketua Umum
                 </a>
-                <a href="#" class="block text-sm py-2 hover:underline">
+                <a href="/kepengurusan/sekretaris" class="block text-sm py-2 hover:underline">
                   Sekretaris
                 </a>
-                <a href="#" class="block text-sm py-2 hover:underline">
+                <a href="/kepengurusan/bendahara" class="block text-sm py-2 hover:underline">
                   Bendahara
                 </a>
-                <a href="#" class="block text-sm py-2 hover:underline">
+                <a href="/kepengurusan/sdm" class="block text-sm py-2 hover:underline">
                   SDM
                 </a>
-                <a href="#" class="block text-sm py-2 hover:underline">
+                <a href="/kepengurusan/humas-internal" class="block text-sm py-2 hover:underline">
                   Humas Internal
                 </a>
-                <a href="#" class="block text-sm py-2 hover:underline">
+                <a href="/kepengurusan/humas-eksternal" class="block text-sm py-2 hover:underline">
                   Humas Eksternal
                 </a>
-                <a href="#" class="block text-sm py-2 hover:underline">
+                <a href="/kepengurusan/koordinator" class="block text-sm py-2 hover:underline">
                   Koordinator
                 </a>
-                <a href="#" class="block text-sm py-2 hover:underline">
+                <a href="/kepengurusan/prasarana" class="block text-sm py-2 hover:underline">
                   Prasarana
                 </a>
-                <a href="#" class="block text-sm py-2 hover:underline">
+                <a href="/kepengurusan/kominfo" class="block text-sm py-2 hover:underline">
                   Kominfo
                 </a>
-                <a href="#" class="block text-sm py-2 hover:underline">
+                <a href="/kepengurusan/staf-desain" class="block text-sm py-2 hover:underline">
                   Staff Design
                 </a>
-                <a href="#" class="block text-sm py-2 hover:underline">
+                <a href="/kepengurusan/staf-programming" class="block text-sm py-2 hover:underline">
                   Staff Programming
                 </a>
-                <a href="#" class="block text-sm py-2 hover:underline">
+                <a href="/kepengurusan/staf-comp-and-network" class="block text-sm py-2 hover:underline">
                   Staff Comp & Network
                 </a>
-                <a href="#" class="block text-sm py-2 hover:underline">
+                <a href="/kepengurusan/staf-microsoft-office" class="block text-sm py-2 hover:underline">
                   Staff Microsoft Office
                 </a>
               </div>
