@@ -16,6 +16,18 @@ Route::get('/', function () {
   ]);
 });
 
+Route::get('/visi-dan-misi', function () {
+  return Inertia::render('VisiDanMisi', [
+    'user' => auth()->user(),
+  ]);
+});
+
+Route::get('/mentor-kami', function () {
+  return Inertia::render('MentorKami', [
+    'user' => auth()->user(),
+  ]);
+});
+
 Route::get('/pendaftaran-anggota', function () {
   return Inertia::render('Pendaftaran');
 });

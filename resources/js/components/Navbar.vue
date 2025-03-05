@@ -14,7 +14,7 @@
               class="absolute py-5 lg:py-0 lg:px-4 xl:px-6 bg-white lg:bg-transparent shadow-lg rounded-lg max-w-[250px] w-full lg:max-w-full lg:w-full right-4 top-full hidden lg:block lg:static lg:shadow-none">
               <ul class="blcok lg:flex">
                 <li class="relative group">
-                  <a href="#tentang-kami"
+                  <a href="/visi-dan-misi"
                     class="ud-menu-scroll text-base text-dark lg:text-white lg:group-hover:opacity-70 lg:group-hover:text-white group-hover:text-primary py-2 lg:py-6 lg:inline-flex lg:px-0 flex mx-8 lg:mr-0">Visi
                     dan Misi</a>
                 </li>
@@ -70,8 +70,8 @@
                   </div>
                 </li>
                 <li class="relative group">
-                  <a href="#tentang-kami"
-                    class="ud-menu-scroll text-base text-dark lg:text-white lg:group-hover:opacity-70 lg:group-hover:text-white group-hover:text-primary py-2 lg:py-6 lg:inline-flex lg:px-0 flex mx-8 lg:mr-0">Mentor</a>
+                  <a href="mentor-kami"
+                    class="ud-menu-scroll text-base text-dark lg:text-white lg:group-hover:opacity-70 lg:group-hover:text-white group-hover:text-primary py-2 lg:py-6 lg:inline-flex lg:px-0 flex mx-8 lg:mr-0">Mentor Kami</a>
                 </li>
                 <li class="relative group">
                   <a href="#tentang-kami"
@@ -97,7 +97,7 @@
         <div v-if="isMobileMenuOpen" class="lg:hidden w-64 rounded-md bg-white absolute top-32 right-0 shadow-lg z-50">
           <ul class="flex flex-col py-4">
             <li class="py-2 px-4">
-              <a href="#tentang-kami" class="text-base text-dark hover:underline">Visi dan Misi</a>
+              <a href="/visi-dan-misi" class="text-base text-dark hover:underline">Visi dan Misi</a>
             </li>
             <li class="py-2 px-4">
               <button @click="toggleDropdown" class="text-base text-dark flex items-center w-full text-left">
@@ -151,7 +151,7 @@
               </div>
             </li>
             <li class="py-2 px-4">
-              <a href="#mentor" class="text-base text-dark hover:underline">Mentor</a>
+              <a href="/mentor-kami" class="text-base text-dark hover:underline">Mentor Kami</a>
             </li>
             <li class="py-2 px-4">
               <a href="#kegiatan" class="text-base text-dark hover:underline">Kegiatan</a>
