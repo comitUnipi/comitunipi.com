@@ -2,7 +2,7 @@
 
   <Head title="Ketua dan Wakil Ketua Umum - Kepengurusan" />
   <Main>
-    <BannerKepengurusan />
+    <BannerKepengurusan title="Ketua dan Wakil Ketua Umum Comit" />
     <section class="pt-20 lg:pt-[120px] pb-10 lg:pb-20">
       <div class="container mx-auto">
         <div class="flex flex-wrap gap-20 justify-center mx-4">
