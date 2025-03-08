@@ -4,12 +4,15 @@
 
   <Head title="Pendaftaran Anggota Baru" />
 
-  <div class="h-screen flex justify-center items-center">
+  <div class="relative z-0 w-full bg-black py-[150px] px-5">
+    <img class="w-full h-[300px] object-cover opacity-50 absolute inset-0" src="https://comit-unipi.vercel.app/_next/image?url=%2Fpelatihan.png&w=1920&q=75" alt="">
+  </div>
+  <div class="relative md:-mt-24 container mx-auto bg-white rounded-md shadow-xl max-w-2xl">
+    <div class="flex items-center justify-center pt-5">
+      <img class="w-[200px] h-full" src="/images/logo_black.png" alt="">
+    </div>
     <form class="p-5 space-y-4" @submit.prevent="register">
-      <div class="flex justify-center">
-        <img class="w-[200px]" src="/images/logo_black.png" alt="">
-      </div>
-      <h2 class="text-4xl">Pendaftaran Anggota Baru</h2>
+      <h2 class="text-3xl text-center font-semibold">Pendaftaran Anggota Baru</h2>
       <div class="flex flex-col">
         <label for="npm">NPM</label>
         <input class="rounded-md" type="text" v-model="form.npm" />
@@ -22,7 +25,7 @@
         <label for="email">Email</label>
         <input class="rounded-md" type="email" v-model="form.email" required />
       </div>
-      <button class="w-full bg-blue-600 p-2 rounded-md text-sm text-white" type="submit">Daftar</button>
+      <button class="w-full bg-blue-500 p-2 rounded-md text-sm text-white" type="submit">Daftar</button>
     </form>
   </div>
 </template>
