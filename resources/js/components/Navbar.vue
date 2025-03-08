@@ -70,7 +70,7 @@
                   </div>
                 </li>
                 <li class="relative group">
-                  <a href="mentor-kami"
+                  <a href="/mentor-kami"
                     class="ud-menu-scroll text-base text-dark lg:text-white lg:group-hover:opacity-70 lg:group-hover:text-white group-hover:text-primary py-2 lg:py-6 lg:inline-flex lg:px-0 flex mx-8 lg:mr-0">Mentor Kami</a>
                 </li>
                 <li class="relative group">

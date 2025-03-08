@@ -2,7 +2,7 @@
 
   <Loading v-if="isLoading" />
 
-  <Head title="SDM - Kepengurusan" />
+  <Head title="Koordinator - Kepengurusan" />
   <Main :user="props.user">
     <BannerKepengurusan title="Koordinator Comit" />
     <section class="pt-20 lg:pt-[120px] pb-10 lg:pb-20">
