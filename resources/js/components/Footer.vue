@@ -1,18 +1,18 @@
 <template>
-  <footer class="bg-blue-800 pt-20 lg:pt-[120px] relative z-10">
+  <footer class="bg-gradient-to-r from-blue-800 via-blue-600 to-blue-500 pt-20 lg:pt-[120px] relative z-10">
     <div class="container mx-auto">
       <div class="flex flex-wrap mx-5">
         <div class="w-full sm:w-1/2 md:w-1/2 lg:w-4/12 xl:w-3/12 px-4">
           <div class="w-full mb-10">
             <div class="w-full mb-10">
-              <ul class="flex gap-x-5 items-center">
+              <ul class="flex justify-center md:justify-start gap-x-5 items-center">
                 <li>
                   <a class="inline-block max-w-[160px] mb-6">
                     <img src="/images/logo_white.png" alt="logo" class="max-w-full" />
                   </a>
                 </li>
                 <li>
-                  <a href="/" target="_blank" class="block mb-6 mr-5 max-w-[120px] xl:max-w-[100px] 2xl:max-w-[120px]">
+                  <a href="https://unipem.ac.id/" target="_blank" class="block mb-6 mr-5 max-w-[120px] xl:max-w-[100px] 2xl:max-w-[120px]">
                     <img src="/images/unipi.png" alt="unipi" />
                   </a>
                 </li>
@@ -28,13 +28,13 @@
             <h4 class="text-white text-lg font-semibold mb-9">Tentang Kami</h4>
             <ul>
               <li>
-                <a class="inline-block text-base text-[#f3f4fe] hover:text-primary leading-loose mb-2">Visi dan Misi</a>
+                <a href="/visi-dan-misi" class="inline-block text-base text-[#f3f4fe] hover:text-primary leading-loose mb-2 hover:underline">Visi dan Misi</a>
               </li>
               <li>
-                <a class="inline-block text-base text-[#f3f4fe] hover:text-primary leading-loose mb-2">Kepengurusan</a>
+                <a href="/mentor-kami" class="inline-block text-base text-[#f3f4fe] hover:text-primary leading-loose mb-2 hover:underline">Mentor Kami</a>
               </li>
               <li>
-                <a class="inline-block text-base text-[#f3f4fe] hover:text-primary leading-loose mb-2">Kegiatan</a>
+                <a href="/kegiatan-kami" class="inline-block text-base text-[#f3f4fe] hover:text-primary leading-loose mb-2 hover:underline">Kegiatan Kami</a>
               </li>
             </ul>
           </div>

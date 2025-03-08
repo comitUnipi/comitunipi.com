@@ -22,6 +22,12 @@ Route::get('/visi-dan-misi', function () {
   ]);
 });
 
+Route::get('/kegiatan-kami', function () {
+  return Inertia::render('Kegiatan', [
+    'user' => auth()->user(),
+  ]);
+});
+
 Route::get('/mentor-kami', function () {
   return Inertia::render('MentorKami', [
     'user' => auth()->user(),
