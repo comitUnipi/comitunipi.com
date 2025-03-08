@@ -35,55 +35,81 @@ Route::get('/pendaftaran-anggota', function () {
 Route::prefix('kepengurusan')->group(function () {
 
   Route::get('/ketua-dan-wakil-ketua-umum', function () {
-    return Inertia::render('Kepengurusan/KetuaDanWakilKetua');
+    return Inertia::render('Kepengurusan/KetuaDanWakilKetua', [
+      'user' => auth()->user(),
+    ]);
   });
 
   Route::get('/sekretaris', function () {
-    return Inertia::render('Kepengurusan/Sekretaris');
+    return Inertia::render('Kepengurusan/Sekretaris', [
+      'user' => auth()->user(),
+    ]);
   });
 
   Route::get('/bendahara', function () {
-    return Inertia::render('Kepengurusan/Bendahara');
+    return Inertia::render('Kepengurusan/Bendahara', [
+      'user' => auth()->user(),
+    ]);
   });
 
   Route::get('/sdm', function () {
-    return Inertia::render('Kepengurusan/Sdm');
+    return Inertia::render('Kepengurusan/Sdm', [
+      'user' => auth()->user(),
+    ]);
   });
 
   Route::get('/humas-internal', function () {
-    return Inertia::render('Kepengurusan/HumasInternal');
+    return Inertia::render('Kepengurusan/HumasInternal', [
+      'user' => auth()->user(),
+    ]);
   });
 
   Route::get('/humas-eksternal', function () {
-    return Inertia::render('Kepengurusan/HumasEksternal');
+    return Inertia::render('Kepengurusan/HumasEksternal', [
+      'user' => auth()->user(),
+    ]);
   });
 
   Route::get('/koordinator', function () {
-    return Inertia::render('Kepengurusan/Koordinator');
+    return Inertia::render('Kepengurusan/Koordinator', [
+      'user' => auth()->user(),
+    ]);
   });
 
   Route::get('/prasarana', function () {
-    return Inertia::render('Kepengurusan/Prasarana');
+    return Inertia::render('Kepengurusan/Prasarana', [
+      'user' => auth()->user(),
+    ]);
   });
 
   Route::get('/kominfo', function () {
-    return Inertia::render('Kepengurusan/Kominfo');
+    return Inertia::render('Kepengurusan/Kominfo', [
+      'user' => auth()->user(),
+    ]);
   });
 
   Route::get('/staf-desain', function () {
-    return Inertia::render('Kepengurusan/StafDesain');
+    return Inertia::render('Kepengurusan/StafDesain', [
+      'user' => auth()->user(),
+    ]);
   });
 
   Route::get('/staf-programming', function () {
-    return Inertia::render('Kepengurusan/StafProgramming');
+    return Inertia::render('Kepengurusan/StafProgramming', [
+      'user' => auth()->user(),
+    ]);
   });
 
   Route::get('/staf-comp-and-network', function () {
-    return Inertia::render('Kepengurusan/StafCompAndNetwork');
+    return Inertia::render('Kepengurusan/StafCompAndNetwork', [
+      'user' => auth()->user(),
+    ]);
   });
 
   Route::get('/staf-microsoft-office', function () {
-    return Inertia::render('Kepengurusan/StafMicrosoftOffice');
+    return Inertia::render('Kepengurusan/StafMicrosoftOffice', [
+      'user' => auth()->user(),
+    ]);
   });
 });
 

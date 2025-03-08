@@ -1,7 +1,9 @@
 <template>
 
+  <Loading v-if="isLoading" />
+
   <Head title="SDM - Kepengurusan" />
-  <Main>
+  <Main :user="props.user">
     <BannerKepengurusan title="SDM Comit" />
     <section class="pt-20 lg:pt-[120px] pb-10 lg:pb-20">
       <div class="container mx-auto">
@@ -32,8 +34,19 @@
 
 <script setup>
 import { Head } from '@inertiajs/vue3';
-import BannerKepengurusan from '@/components/BannerKepengurusan.vue';
+import { ref, onMounted } from 'vue';
 import Main from '@/Layouts/Main.vue';
+import Loading from '@/components/Loading.vue';
+import BannerKepengurusan from '@/components/BannerKepengurusan.vue';
+const props = defineProps({
+  user: Object,
+});
+const isLoading = ref(true);
+onMounted(() => {
+  setTimeout(() => {
+    isLoading.value = false;
+  }, 2000);
+});
 </script>
 
 <script>

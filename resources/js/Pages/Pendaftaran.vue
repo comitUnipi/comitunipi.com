@@ -1,5 +1,7 @@
 <template>
 
+  <Loading v-if="isLoading" />
+
   <Head title="Pendaftaran Anggota Baru" />
 
   <div class="h-screen flex justify-center items-center">
@@ -27,6 +29,14 @@
 
 <script setup>
 import { Head } from "@inertiajs/vue3"
+import { ref, onMounted } from 'vue';
+import Loading from '@/components/Loading.vue';
+const isLoading = ref(true);
+onMounted(() => {
+  setTimeout(() => {
+    isLoading.value = false;
+  }, 2000);
+});
 </script>
 
 <script>
