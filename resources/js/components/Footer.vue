@@ -18,9 +18,17 @@
                 </li>
               </ul>
             </div>
-            <p class="text-base text-[#f3f4fe] mb-7">
+            <p class="text-center md:text-left text-[#f3f4fe] mb-7">
               Pelajari lebih dalam tentang ilmu teknologi dan komputer bersama kami
             </p>
+            <div class="flex justify-center md:justify-start gap-x-5">
+              <a href="https://www.instagram.com/comit.ipem/" target="_blank" class="inline-block">
+                <img src="/images/icons/instagram_2.png" alt="instagram" class="w-10 h-10 hover:scale-110" />
+              </a>
+              <a href="https://www.tiktok.com/@comit_unipi" target="_blank" class="inline-block">
+                <img src="/images/icons/tiktok.png" alt="tiktok" class="w-10 h-10 hover:scale-110" />
+              </a>
+              </div>
           </div>
         </div>
         <div class="w-full sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12 px-4">
@@ -44,12 +52,7 @@
             <h4 class="text-white text-lg font-semibold mb-9">Features</h4>
             <ul>
               <li>
-                <a class="inline-block
-                      text-base text-[#f3f4fe]
-                      hover:text-primary
-                      leading-loose
-                      mb-2
-                    ">
+                <a class="inline-block text-base text-[#f3f4fe] hover:text-primary leading-loose mb-2">
                   Privacy policy
                 </a>
               </li>
@@ -102,10 +105,11 @@
           </div>
           <div class="w-full md:w-1/3 lg:w-1/2 px-4">
             <div class="flex justify-center md:justify-end my-1">
-              <p class="text-base text-[#f3f4fe]">
+              <p class="text-center md:text-base text-[#f3f4fe]">
                 Copyright 2024 -
-                <a href="" target="_blank" class="text-primary hover:underline">
-                  Comunnity of Information Technology
+                <img src="/images/icons/github.png" alt="github" class="w-6 h-6 inline-block" />
+                <a href="https://github.com/comitUnipi" target="_blank" class="text-primary hover:underline">
+                  Community of Information Technology
                 </a>
               </p>
             </div>
