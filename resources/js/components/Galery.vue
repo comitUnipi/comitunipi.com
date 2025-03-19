@@ -5,7 +5,7 @@
         <span class="text-center font-semibold text-lg text-primary mb-2 block">
           Dokumentasi
         </span>
-        <h2 id="text-heading" class="font-bold text-3xl sm:text-4xl md:text-[42px] text-dark mb-4">
+        <h2 id="text-heading" class="font-bold text-4xl sm:text-4xl md:text-[42px] text-dark mb-4">
           Galeri Kegiatan Kami
         </h2>
         <p class="text-lg sm:text-xl leading-relaxed sm:leading-relaxed text-gray-700">

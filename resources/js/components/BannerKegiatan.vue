@@ -1,11 +1,10 @@
 <template>
-  <div class="relative z-0 w-full bg-black py-[200px] px-5">
+  <div class="relative z-0 w-full bg-black py-48 px-5">
     <div class="relative z-10 text-center text-white mx-auto max-w-xl">
-      <h1 id="text" class="mt-10 text-4xl md:text-5xl font-bold italic">
-        Kegiatan di Comit
+      <h1 id="text" class="text-5xl lg:text-7xl mb-4 font-bold italic">
+        Community of Information Technology
       </h1>
-      <p class="my-4 text-lg">Kami dengan bangga mempersembahkan berbagai kegiatan dan acara yang telah kami
-        selenggarakan. Setiap acara dirancang untuk memberikan pengalaman yang berkesan dan penuh makna.</p>
+      <p class="mb-3 text-lg">Semangat Comit, Salam Teknologi!!</p>
       <a href="/pendaftaran-anggota"
         class="mt-3 inline-block rounded-lg text-lg px-4 lg:px-8 py-1.5 lg:py-3 bg-blue-600 text-white">Gabung
         Sekarang</a>

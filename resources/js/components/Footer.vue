@@ -18,7 +18,7 @@
                 </li>
               </ul>
             </div>
-            <p class="text-center md:text-left text-[#f3f4fe] mb-7">
+            <p class="text-center md:text-left text-[#f3f4fe] text-lg mb-7">
               Pelajari lebih dalam tentang ilmu teknologi dan komputer bersama kami
             </p>
             <div class="flex justify-center md:justify-start gap-x-5">

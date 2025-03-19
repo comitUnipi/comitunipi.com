@@ -7,7 +7,7 @@
             <span class="text-center font-semibold text-lg text-primary mb-2 block">
               Visi dan Misi
             </span>
-            <h2 id="text-heading" class="text-center font-bold text-3xl sm:text-4xl md:text-[42px] text-dark mb-4">
+            <h2 id="text-heading" class="text-center font-bold text-4xl md:text-[42px] text-dark mb-4">
               Tentang Kami
             </h2>
             <div class="flex justify-center">

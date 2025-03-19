@@ -7,7 +7,7 @@
     <div class="">
       <div class="relative z-0 w-full bg-black py-48 px-5">
         <div class="relative z-10 text-center text-white mx-auto max-w-xl">
-          <h1 id="text" class="text-4xl md:text-5xl lg:text-7xl mb-4 font-bold italic">
+          <h1 id="text" class="text-5xl lg:text-7xl mb-4 font-bold italic">
             Community of Information Technology
           </h1>
           <p class="mb-3 text-lg">Semangat Comit, Salam Teknologi!!</p>
