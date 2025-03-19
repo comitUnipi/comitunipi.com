@@ -2,7 +2,11 @@
 
   <Loading v-if="isLoading" />
 
-  <Head title="Kominfo - Kepengurusan" />
+  <Head title="Kominfo COMIT">
+    <link rel="icon" href="/images/logo_black.png" />
+    <meta name="description" content="Kepengurusan COMIT 2024-2025 (Sahitya Arsa).">
+  </Head>
+
   <Main :user="props.user">
     <Heading img="https://comit-unipi.vercel.app/_next/image?url=%2Farduino.png&w=1920&q=75" />
     <section class="pt-20 lg:pt-[120px] pb-10 lg:pb-20">

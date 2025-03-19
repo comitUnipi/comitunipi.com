@@ -2,7 +2,12 @@
 
   <Loading v-if="isLoading" />
 
-  <Head title="Visi dan Misi" />
+  <Head title="Visi dan Misi COMIT">
+    <link rel="icon" href="/images/logo_black.png" />
+    <meta name="description"
+      content="Temukan visi dan misi COMIT (Community of Information Technology), yang mencerminkan komitmen kami untuk mencapai tujuan jangka panjang dan memberikan dampak positif dibidang teknologi informasi.">
+  </Head>
+
   <Main :user="props.user">
     <Heading img="https://comit-unipi.vercel.app/_next/image?url=%2Farduino.png&w=1920&q=75" />
     <About />

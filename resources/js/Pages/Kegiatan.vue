@@ -2,7 +2,12 @@
 
   <Loading v-if="isLoading" />
 
-  <Head title="Kegiatan" />
+  <Head title="Kegiatan COMIT">
+    <link rel="icon" href="/images/logo_black.png" />
+    <meta name="description"
+      content="Jelajahi berbagai kegiatan yang diselenggarakan oleh COMIT, dengan dukungan mentor berpengalaman di bidang teknologi informasi. Bergabunglah untuk mengembangkan keterampilan dan memperluas jaringan di dunia IT.">
+  </Head>
+
   <Main :user="props.user">
     <Heading img="https://comit-unipi.vercel.app/_next/image?url=%2Fpelatihan.png&w=1920&q=75" />
     <div class="container mx-auto py-20 px-5">

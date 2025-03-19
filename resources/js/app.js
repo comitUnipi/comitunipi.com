@@ -11,7 +11,7 @@ import 'vue-toast-notification/dist/theme-sugar.css';
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
+    title: (title) => `${title} - Community of Information Technology`,
     resolve: (name) =>
         resolvePageComponent(
             `./Pages/${name}.vue`,

@@ -2,10 +2,15 @@
 
   <Loading v-if="isLoading" />
 
-  <Head title="Pendaftaran Anggota Baru" />
+  <Head title="Pendaftaran Anggota COMIT">
+    <link rel="icon" href="/images/logo_black.png" />
+    <meta name="description"
+      content="Daftar menjadi anggota COMIT (Community of Information Technology) dan bergabung dalam organisasi yang berkomitmen untuk membangun masa depan teknologi informasi. Dapatkan berbagai peluang dan kontribusi positif dalam bidang IT.">
+  </Head>
 
   <div class="relative z-0 w-full bg-black py-[150px] px-5">
-    <img class="w-full h-[300px] object-cover opacity-50 absolute inset-0" src="https://comit-unipi.vercel.app/_next/image?url=%2Fpelatihan.png&w=1920&q=75" alt="">
+    <img class="w-full h-[300px] object-cover opacity-50 absolute inset-0"
+      src="https://comit-unipi.vercel.app/_next/image?url=%2Fpelatihan.png&w=1920&q=75" alt="">
   </div>
   <div class="relative md:-mt-24 container mx-auto bg-white rounded-md shadow-xl max-w-2xl">
     <div class="flex items-center justify-center pt-5">

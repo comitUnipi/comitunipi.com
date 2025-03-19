@@ -2,7 +2,12 @@
 
   <Loading v-if="isLoading" />
 
-  <Head title="Selamat Datang" />
+  <Head title="COMIT">
+    <link rel="icon" href="/images/logo_black.png" />
+    <meta name="description"
+      content="Selamat datang di website COMIT. COMIT (Community of Information Technology) adalah sebuah departement dari kampus universitas insan pembangunan (UNIPI) yang bergerak di bidang teknologi informasi dan komunikasi.">
+  </Head>
+
   <Main :user="props.user">
     <div class="">
       <Heading img="https://comit-unipi.vercel.app/_next/image?url=%2Fbanner.png&w=1920&q=75" />
