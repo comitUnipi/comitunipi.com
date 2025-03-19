@@ -25,44 +25,11 @@ import KepengurusanHeading from '@/components/ui/KepengurusanHeading.vue';
 
 import { Head } from '@inertiajs/vue3';
 import { useLoading } from '@/hooks/useLoading';
+import { kepengurusan } from '@/data/kepengurusan/humas-internal.js';
+
 const { isLoading } = useLoading();
 
 const props = defineProps({
   user: Object,
 });
-</script>
-
-<script>
-export default {
-  data() {
-    return {
-      kepengurusan: [
-        {
-          id: 1,
-          img: "/images/kepengurusan-2024-2025/humas-internal-1.jpg",
-          nama: "Harits Al Gibran",
-          job: "Humas Internal",
-        },
-        {
-          id: 2,
-          img: "/images/kepengurusan-2024-2025/humas-internal-2.jpg",
-          nama: "Ririn Risqi Sulistya",
-          job: "Humas Internal",
-        },
-        {
-          id: 3,
-          img: "/images/kepengurusan-2024-2025/humas-internal-3.jpg",
-          nama: "Amelia Aulia Pradita",
-          job: "Humas Internal",
-        },
-        {
-          id: 4,
-          img: "/images/kepengurusan-2024-2025/humas-internal-4.jpg",
-          nama: "Syafira Khairunnisa",
-          job: "Humas Internal",
-        },
-      ]
-    };
-  }
-}
 </script>

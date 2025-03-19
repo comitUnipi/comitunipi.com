@@ -25,32 +25,11 @@ import KepengurusanHeading from '@/components/ui/KepengurusanHeading.vue';
 
 import { Head } from '@inertiajs/vue3';
 import { useLoading } from '@/hooks/useLoading';
+import { kepengurusan } from '@/data/kepengurusan/sekretaris.js';
+
 const { isLoading } = useLoading();
 
 const props = defineProps({
   user: Object,
 });
-</script>
-
-<script>
-export default {
-  data() {
-    return {
-      kepengurusan: [
-        {
-          id: 1,
-          img: "/images/kepengurusan-2024-2025/sekretaris-1.jpg",
-          nama: "Miftah Fadhillah",
-          job: "Sekretaris 1",
-        },
-        {
-          id: 2,
-          img: "/images/kepengurusan-2024-2025/sekretaris-2.jpg",
-          nama: "Revalia Nur Rahmat",
-          job: "Sekretaris 2",
-        },
-      ]
-    };
-  }
-}
 </script>
