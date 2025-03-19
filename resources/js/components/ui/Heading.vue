@@ -6,10 +6,19 @@
       </h1>
       <p class="mb-3 text-lg">Semangat Comit, Salam Teknologi!!</p>
       <a href="/pendaftaran-anggota"
-        class="mt-3 inline-block rounded-lg text-lg px-4 lg:px-8 py-1.5 lg:py-3 bg-blue-600 text-white">Gabung
+        class="mt-3 inline-block rounded-lg text-lg px-8 py-3 bg-blue-600 text-white">Gabung
         Sekarang</a>
     </div>
-    <img src="https://comit-unipi.vercel.app/_next/image?url=%2Fpelatihan.png&w=1920&q=75"
+    <img :src="img"
       class="w-full h-full absolute inset-0 object-cover opacity-50">
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    img: String,
+    required: true
+  }
+}
+</script>

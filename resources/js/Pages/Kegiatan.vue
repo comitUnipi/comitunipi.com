@@ -4,7 +4,7 @@
 
   <Head title="Kegiatan" />
   <Main :user="props.user">
-    <BannerKegiatan />
+    <Heading img="https://comit-unipi.vercel.app/_next/image?url=%2Fpelatihan.png&w=1920&q=75" />
     <div class="container mx-auto py-20 px-5">
       <div class="w-full">
         <div class="text-center mx-auto mb-[60px] max-w-[620px]">
@@ -49,7 +49,7 @@ import { Head } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
 import Main from '@/Layouts/Main.vue';
 import Loading from '@/components/Loading.vue';
-import BannerKegiatan from '@/components/BannerKegiatan.vue';
+import Heading from '@/components/ui/Heading.vue';
 const props = defineProps({
   user: Object,
 });
