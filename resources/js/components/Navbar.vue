@@ -15,12 +15,12 @@
               <ul class="blcok lg:flex">
                 <li class="relative group">
                   <a href="/visi-dan-misi"
-                    class="ud-menu-scroll text-base text-dark lg:text-white lg:group-hover:opacity-70 lg:group-hover:text-white group-hover:text-primary py-2 lg:py-6 lg:inline-flex lg:px-0 flex mx-8 lg:mr-0">Visi
+                    class="ud-menu-scroll text-base md:text-sm xl:text-base text-dark lg:text-white lg:group-hover:opacity-70 lg:group-hover:text-white group-hover:text-primary py-2 lg:py-6 lg:inline-flex lg:px-0 flex mx-8 lg:mr-0">Visi
                     dan Misi</a>
                 </li>
                 <li class="relative group">
                   <button @click="toggleDropdown"
-                    class="ud-menu-scroll text-base text-dark lg:text-white lg:group-hover:opacity-70 lg:group-hover:text-white group-hover:text-primary py-2 lg:py-6 lg:inline-flex lg:px-0 flex mx-8 lg:mr-0">
+                    class="ud-menu-scroll text-base md:text-sm xl:text-base text-dark lg:text-white lg:group-hover:opacity-70 lg:group-hover:text-white group-hover:text-primary py-2 lg:py-6 lg:inline-flex lg:px-0 flex mx-8 lg:mr-0">
                     Kepengurusan
                     <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24"
                       stroke="currentColor">
@@ -84,22 +84,26 @@
                 </li>
                 <li class="relative group">
                   <a href="/mentor-kami"
-                    class="ud-menu-scroll text-base text-dark lg:text-white lg:group-hover:opacity-70 lg:group-hover:text-white group-hover:text-primary py-2 lg:py-6 lg:inline-flex lg:px-0 flex mx-8 lg:mr-0">Mentor
+                    class="ud-menu-scroll text-base md:text-sm xl:text-base text-dark lg:text-white lg:group-hover:opacity-70 lg:group-hover:text-white group-hover:text-primary py-2 lg:py-6 lg:inline-flex lg:px-0 flex mx-8 lg:mr-0">Mentor
                     Kami</a>
                 </li>
                 <li class="relative group">
                   <a href="/kegiatan-kami"
-                    class="ud-menu-scroll text-base text-dark lg:text-white lg:group-hover:opacity-70 lg:group-hover:text-white group-hover:text-primary py-2 lg:py-6 lg:inline-flex lg:px-0 flex mx-8 lg:mr-0">Kegiatan</a>
+                    class="ud-menu-scroll text-base md:text-sm xl:text-base text-dark lg:text-white lg:group-hover:opacity-70 lg:group-hover:text-white group-hover:text-primary py-2 lg:py-6 lg:inline-flex lg:px-0 flex mx-8 lg:mr-0">Kegiatan</a>
+                </li>
+                <li class="relative group">
+                  <a href="/galeri-kami"
+                    class="ud-menu-scroll text-base md:text-sm xl:text-base text-dark lg:text-white lg:group-hover:opacity-70 lg:group-hover:text-white group-hover:text-primary py-2 lg:py-6 lg:inline-flex lg:px-0 flex mx-8 lg:mr-0">Galeri</a>
                 </li>
               </ul>
             </nav>
           </div>
           <div>
-            <div v-if="user" class="sm:flex justify-end hidden pr-16 lg:pr-0">
+            <div v-if="user" class="flex justify-end pr-16 lg:pr-0">
               <a href="/dashboard"
                 class="text-base font-medium text-white bg-blue-500 bg-opacity-80 rounded-lg py-3 px-6 hover:bg-opacity-100 hover:text-dark signUpBtn duration-300 ease-in-out">Dashboard</a>
             </div>
-            <div v-else class="sm:flex justify-end hidden pr-16 lg:pr-0">
+            <div v-else class="flex justify-end pr-16 lg:pr-0">
               <a href="/dashboard/login"
                 class=" text-base font-medium text-white hover:opacity-70 py-3 px-7 loginBtn">Masuk</a>
               <a href="/pendaftaran-anggota"
@@ -170,6 +174,9 @@
             </li>
             <li class="py-2 px-4">
               <a href="/kegiatan-kami" class="text-base text-dark hover:underline">Kegiatan</a>
+            </li>
+            <li class="py-2 px-4">
+              <a href="/galeri-kami" class="text-base text-dark hover:underline">Galeri</a>
             </li>
           </ul>
         </div>

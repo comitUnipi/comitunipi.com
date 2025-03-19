@@ -38,6 +38,12 @@ Route::get('/pendaftaran-anggota', function () {
   return Inertia::render('Pendaftaran');
 });
 
+Route::get('/galeri-kami', function () {
+  return Inertia::render('Galery', [
+    'user' => auth()->user(),
+  ]);
+});
+
 Route::prefix('kepengurusan')->group(function () {
 
   Route::get('/ketua-dan-wakil-ketua-umum', function () {
