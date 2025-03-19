@@ -17,21 +17,18 @@
 </template>
 
 <script setup>
-import { Head } from '@inertiajs/vue3';
-import { ref, onMounted } from 'vue';
 import Main from '@/Layouts/Main.vue';
 import Loading from '@/components/Loading.vue';
+import Heading from '@/components/ui/Heading.vue';
 import KepengurusanCard from '@/components/ui/KepengurusanCard.vue';
 import KepengurusanHeading from '@/components/ui/KepengurusanHeading.vue';
-import Heading from '@/components/ui/Heading.vue';
+
+import { Head } from '@inertiajs/vue3';
+import { useLoading } from '@/hooks/useLoading';
+const { isLoading } = useLoading();
+
 const props = defineProps({
   user: Object,
-});
-const isLoading = ref(true);
-onMounted(() => {
-  setTimeout(() => {
-    isLoading.value = false;
-  }, 2000);
 });
 </script>
 
