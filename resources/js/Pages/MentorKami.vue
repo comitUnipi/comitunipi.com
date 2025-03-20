@@ -16,7 +16,7 @@
 
 <script setup>
 import Main from '@/Layouts/Main.vue';
-import Mentor from '@/components/Mentor.vue';
+import Mentor from '@/components/MentorDetail.vue';
 import Loading from '@/components/Loading.vue';
 import Heading from '@/components/ui/Heading.vue';
 

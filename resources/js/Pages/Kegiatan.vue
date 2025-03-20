@@ -22,7 +22,7 @@
 import Main from '@/Layouts/Main.vue';
 import Loading from '@/components/Loading.vue';
 import Heading from '@/components/ui/Heading.vue';
-import Kegiatan from '@/components/Kegiatan.vue';
+import Kegiatan from '@/components/KegiatanDetail.vue';
 import SubHeading from '@/components/ui/SubHeading.vue';
 
 import { Head } from '@inertiajs/vue3';

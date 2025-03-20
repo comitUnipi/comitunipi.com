@@ -39,7 +39,7 @@ Route::get('/pendaftaran-anggota', function () {
 });
 
 Route::get('/galeri-kami', function () {
-  return Inertia::render('Galery', [
+  return Inertia::render('Galeri', [
     'user' => auth()->user(),
   ]);
 });
@@ -100,26 +100,26 @@ Route::prefix('kepengurusan')->group(function () {
     ]);
   });
 
-  Route::get('/staf-desain', function () {
-    return Inertia::render('Kepengurusan/StafDesain', [
+  Route::get('/staff-design-grafis', function () {
+    return Inertia::render('Kepengurusan/StaffDesignGrafis', [
       'user' => auth()->user(),
     ]);
   });
 
-  Route::get('/staf-programming', function () {
-    return Inertia::render('Kepengurusan/StafProgramming', [
+  Route::get('/staff-programming', function () {
+    return Inertia::render('Kepengurusan/StaffProgramming', [
       'user' => auth()->user(),
     ]);
   });
 
-  Route::get('/staf-comp-and-network', function () {
-    return Inertia::render('Kepengurusan/StafCompAndNetwork', [
+  Route::get('/staff-comp-and-network', function () {
+    return Inertia::render('Kepengurusan/StaffCompAndNetwork', [
       'user' => auth()->user(),
     ]);
   });
 
-  Route::get('/staf-microsoft-office', function () {
-    return Inertia::render('Kepengurusan/StafMicrosoftOffice', [
+  Route::get('/staff-microsoft-office', function () {
+    return Inertia::render('Kepengurusan/StaffMicrosoftOffice', [
       'user' => auth()->user(),
     ]);
   });

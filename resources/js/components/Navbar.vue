@@ -64,19 +64,19 @@
                       class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
                       Kominfo
                     </a>
-                    <a href="/kepengurusan/staf-desain"
+                    <a href="/kepengurusan/staff-design-grafis"
                       class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
-                      Staff Desain
+                      Staff Design Grafis
                     </a>
-                    <a href="/kepengurusan/staf-programming"
+                    <a href="/kepengurusan/staff-programming"
                       class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
                       Staff Programming
                     </a>
-                    <a href="/kepengurusan/staf-comp-and-network"
+                    <a href="/kepengurusan/staff-comp-and-network"
                       class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
                       Staff Comp & Network
                     </a>
-                    <a href="/kepengurusan/staf-microsoft-office"
+                    <a href="/kepengurusan/staff-microsoft-office"
                       class="block px-4 py-2 text-sm hover:text-white hover:bg-blue-500 rounded-md">
                       Staff Microsoft Office
                     </a>
@@ -155,16 +155,16 @@
                 <a href="/kepengurusan/kominfo" class="block text-sm py-2 hover:underline">
                   Kominfo
                 </a>
-                <a href="/kepengurusan/staf-desain" class="block text-sm py-2 hover:underline">
-                  Staff Design
+                <a href="/kepengurusan/staff-design-grafis" class="block text-sm py-2 hover:underline">
+                  Staff Design Grafis
                 </a>
-                <a href="/kepengurusan/staf-programming" class="block text-sm py-2 hover:underline">
+                <a href="/kepengurusan/staff-programming" class="block text-sm py-2 hover:underline">
                   Staff Programming
                 </a>
-                <a href="/kepengurusan/staf-comp-and-network" class="block text-sm py-2 hover:underline">
+                <a href="/kepengurusan/staff-comp-and-network" class="block text-sm py-2 hover:underline">
                   Staff Comp & Network
                 </a>
-                <a href="/kepengurusan/staf-microsoft-office" class="block text-sm py-2 hover:underline">
+                <a href="/kepengurusan/staff-microsoft-office" class="block text-sm py-2 hover:underline">
                   Staff Microsoft Office
                 </a>
               </div>

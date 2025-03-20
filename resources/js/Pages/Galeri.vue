@@ -17,7 +17,7 @@
 
 <script setup>
 import Main from '@/Layouts/Main.vue';
-import Galery from '@/components/Galery.vue';
+import Galery from '@/components/GaleryDetail.vue';
 import Loading from '@/components/Loading.vue';
 import Heading from '@/components/ui/Heading.vue';
 
