@@ -42,19 +42,19 @@ export default {
     return {
       images: [
         {
-          src: 'https://comit-unipi.vercel.app/_next/image?url=%2Fdata_analyst.png&w=1920&q=75',
+          src: '/images/100101.png',
           alt: 'event',
         },
         {
-          src: 'https://comit-unipi.vercel.app/_next/image?url=%2Farduino.png&w=1920&q=75',
+          src: '/images/100102.png',
           alt: 'event',
         },
         {
-          src: 'https://comit-unipi.vercel.app/_next/image?url=%2Fbanner.png&w=1920&q=75',
+          src: '/images/100103.png',
           alt: 'event',
         },
         {
-          src: 'https://comit-unipi.vercel.app/_next/image?url=%2Fpelatihan.png&w=1920&q=75',
+          src: '/images/100104.png',
           alt: 'event',
         },
       ],

@@ -10,7 +10,7 @@
 
   <Main :user="props.user">
     <div class="">
-      <Heading img="https://comit-unipi.vercel.app/_next/image?url=%2Fbanner.png&w=1920&q=75" />
+      <Heading img="/images/100101.png" />
       <About />
       <Discover />
       <Mentor />

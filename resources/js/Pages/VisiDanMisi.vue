@@ -9,7 +9,7 @@
   </Head>
 
   <Main :user="props.user">
-    <Heading img="https://comit-unipi.vercel.app/_next/image?url=%2Farduino.png&w=1920&q=75" />
+    <Heading img="images/100102.png" />
     <About />
   </Main>
 </template>

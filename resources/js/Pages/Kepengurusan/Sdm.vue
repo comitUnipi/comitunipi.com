@@ -8,7 +8,7 @@
   </Head>
 
   <Main :user="props.user">
-    <Heading img="https://comit-unipi.vercel.app/_next/image?url=%2Farduino.png&w=1920&q=75" />
+    <Heading img="/images/100101.png" />
     <section class="pt-20 lg:pt-[120px] pb-10 lg:pb-20">
       <div class="container mx-auto">
         <KepengurusanHeading jobdesk="SDM Kami" />

@@ -9,7 +9,7 @@
   </Head>
 
   <Main :user="props.user">
-    <Heading img="https://comit-unipi.vercel.app/_next/image?url=%2Fpelatihan.png&w=1920&q=75" />
+    <Heading img="/images/100104.png" />
     <div class="container mx-auto py-20 px-5">
       <div class="w-full">
         <div class="text-center mx-auto mb-[60px] max-w-[620px]">
@@ -24,8 +24,7 @@
       </div>
       <article>
         <div class="flex flex-col md:flex-row items-center md:items-start gap-6 mb-10">
-          <img src="https://comit-unipi.vercel.app/_next/image?url=%2Fdata_analyst.png&w=1920&q=75" alt="kegiatan"
-            class="w-full md:w-1/2 h-auto md:rounded-md shadow-md">
+          <img src="/images/100103.png" alt="kegiatan" class="w-full md:w-1/2 h-auto md:rounded-md shadow-md">
           <div class="md:max-w-3xl">
             <h2 class="text-2xl font-bold mb-4">Workshop Data Analyst</h2>
             <p class="text-md text-justify text-gray-700 mb-4">Dalam Workshop Data Analyst yang telah kami
@@ -35,8 +34,7 @@
       </article>
       <article>
         <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
-          <img src="https://comit-unipi.vercel.app/_next/image?url=%2Farduino.png&w=1920&q=75" alt="kegiatan"
-            class="w-full md:w-1/2 h-auto md:rounded-md shadow-md">
+          <img src="/images/100101.png" alt="kegiatan" class="w-full md:w-1/2 h-auto md:rounded-md shadow-md">
           <div class="md:max-w-3xl">
             <h2 class="text-2xl font-bold mb-4">Workshop Arduino</h2>
             <p class="text-md text-justify text-gray-700 mb-4">Workshop Arduino yang telah kami selenggarakan

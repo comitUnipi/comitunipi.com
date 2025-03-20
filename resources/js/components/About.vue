@@ -24,7 +24,7 @@
             <div class="mt-4 flex justify-center gap-10 items-center">
               <div class="hidden md:block">
                 <img class="w-[600px] rounded-md"
-                  src="https://comit-unipi.vercel.app/_next/image?url=%2Fpelatihan.png&w=1920&q=75" alt="content">
+                  src="/images/100104.png" alt="content">
               </div>
               <div class="max-w-[500px]">
                 <div>
