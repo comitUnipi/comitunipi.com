@@ -1,0 +1,15 @@
+export const kepengurusan = [
+  { href: '/kepengurusan/ketua-dan-wakil-ketua-umum', label: 'Ketua & Wakil Ketua Umum' },
+  { href: '/kepengurusan/sekretaris', label: 'Sekretaris' },
+  { href: '/kepengurusan/bendahara', label: 'Bendahara' },
+  { href: '/kepengurusan/sdm', label: 'SDM' },
+  { href: '/kepengurusan/humas-internal', label: 'Humas Internal' },
+  { href: '/kepengurusan/humas-eksternal', label: 'Humas Eksternal' },
+  { href: '/kepengurusan/koordinator', label: 'Koordinator' },
+  { href: '/kepengurusan/prasarana', label: 'Prasarana' },
+  { href: '/kepengurusan/kominfo', label: 'Kominfo' },
+  { href: '/kepengurusan/staff-design-grafis', label: 'Staff Design Grafis' },
+  { href: '/kepengurusan/staff-programming', label: 'Staff Programming' },
+  { href: '/kepengurusan/staff-comp-and-network', label: 'Staff Comp & Network' },
+  { href: '/kepengurusan/staff-microsoft-office', label: 'Staff Microsoft Office' },
+]
