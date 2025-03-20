@@ -9,8 +9,7 @@
   </Head>
 
   <div class="relative z-0 w-full bg-black py-[150px] px-5">
-    <img class="w-full h-[300px] object-cover opacity-50 absolute inset-0"
-      src="/images/100104.png" alt="background">
+    <img class="w-full h-[300px] object-cover opacity-50 absolute inset-0" src="/images/100104.png" alt="background">
   </div>
   <div class="relative md:-mt-24 container mx-auto bg-white rounded-md shadow-xl max-w-2xl">
     <div class="flex items-center justify-center pt-5">
@@ -38,37 +37,29 @@
 <script setup>
 import Loading from '@/components/Loading.vue';
 
+import { ref } from 'vue';
 import { Head } from '@inertiajs/vue3';
 import { useLoading } from '@/hooks/useLoading';
+
 const { isLoading } = useLoading();
-</script>
 
-<script>
+const form = ref({
+  name: '',
+  email: '',
+  npm: '',
+});
 
-export default {
-  data() {
-    return {
-      form: {
-        name: '',
-        email: '',
-        npm: '',
-      },
-    };
-  },
-  methods: {
-    async register() {
-      try {
-        const response = await axios.post('/pendaftaran', this.form);
-        this.$toast.success('Pendaftaran berhasil! ' + response.data.message);
-        window.location.href = '/';
-      } catch (error) {
-        if (error.response) {
-          this.$toast.error('Error: ' + error.response.data.message);
-        } else {
-          this.$toast.error('Terjadi kesalahan. Coba lagi nanti. ');
-        }
-      }
-    },
-  },
+const register = async () => {
+  try {
+    const response = await axios.post('/pendaftaran', form.value);
+    alert(response.data.message);
+    window.location.href = '/';
+  } catch (error) {
+    if (error.response) {
+      alert('Error: ' + error.response.data.message);
+    } else {
+      alert('Terjadi kesalahan. Coba lagi nanti.');
+    }
+  }
 };
 </script>

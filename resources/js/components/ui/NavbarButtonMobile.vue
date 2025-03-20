@@ -7,12 +7,10 @@
   </button>
 </template>
 
-<script>
-export default {
-  methods: {
-    toggleMenu() {
-      this.$emit("toggleMobileMenu");
-    },
-  },
-}
+<script setup>
+const emit = defineEmits();
+
+const toggleMenu = () => {
+  emit("toggleMobileMenu");
+};
 </script>

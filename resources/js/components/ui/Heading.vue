@@ -13,11 +13,8 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    img: String,
-    required: true
-  }
-}
+<script setup>
+defineProps({
+  img: String,
+});
 </script>
