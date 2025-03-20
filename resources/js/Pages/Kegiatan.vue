@@ -11,17 +11,8 @@
   <Main :user="props.user">
     <Heading img="/images/100104.png" />
     <div class="container mx-auto py-20 px-5">
-      <div class="w-full">
-        <div class="text-center mx-auto mb-[60px] max-w-[620px]">
-          <h2 id="text-heading" class="font-bold text-4xl  md:text-[42px] mb-4">
-            Kegiatan Kami
-          </h2>
-          <p class="text-lg sm:text-xl leading-relaxed sm:leading-relaxed text-gray-700">
-            Kami dengan bangga mempersembahkan berbagai kegiatan dan acara yang telah kami selenggarakan. Setiap acara
-            dirancang untuk memberikan pengalaman yang berkesan dan penuh makna.
-          </p>
-        </div>
-      </div>
+      <SubHeading title="Kegiatan Kami" description="Kami dengan bangga mempersembahkan berbagai kegiatan dan acara yang telah kami selenggarakan. Setiap acara
+            dirancang untuk memberikan pengalaman yang berkesan dan penuh makna." />
       <article>
         <div class="flex flex-col md:flex-row items-center md:items-start gap-6 mb-10">
           <img src="/images/100103.png" alt="kegiatan" class="w-full md:w-1/2 h-auto md:rounded-md shadow-md">
@@ -51,6 +42,7 @@
 import Main from '@/Layouts/Main.vue';
 import Loading from '@/components/Loading.vue';
 import Heading from '@/components/ui/Heading.vue';
+import SubHeading from '@/components/ui/SubHeading.vue';
 
 import { Head } from '@inertiajs/vue3';
 import { useLoading } from '@/hooks/useLoading';

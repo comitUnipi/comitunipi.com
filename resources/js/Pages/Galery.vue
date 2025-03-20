@@ -17,8 +17,8 @@
 
 <script setup>
 import Main from '@/Layouts/Main.vue';
-import Loading from '@/components/Loading.vue';
 import Galery from '@/components/Galery.vue';
+import Loading from '@/components/Loading.vue';
 import Heading from '@/components/ui/Heading.vue';
 
 import { Head } from '@inertiajs/vue3';

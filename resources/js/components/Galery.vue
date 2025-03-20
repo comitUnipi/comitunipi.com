@@ -1,17 +1,8 @@
 <template>
   <section class="pt-20 lg:pt-[120px] pb-10 lg:pb-20">
     <div class="w-full px-4">
-      <div class="text-center mx-auto mb-[60px] max-w-[620px]">
-        <span class="text-center font-semibold text-lg text-primary mb-2 block">
-          Dokumentasi
-        </span>
-        <h2 id="text-heading" class="font-bold text-4xl sm:text-4xl md:text-[42px] text-dark mb-4">
-          Galeri Kegiatan Kami
-        </h2>
-        <p class="text-lg sm:text-xl leading-relaxed sm:leading-relaxed text-gray-700">
-          Kami mempunyai banyak kegiatan yang telah dilaksanakan.
-        </p>
-      </div>
+      <SubHeading subtitle="Dokumentasi" title="Galeri Kegiatan Kami"
+        description="Kami mempunyai banyak kegiatan yang telah dilaksanakan." />
 
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-20">
         <div v-for="(image, index) in images" :key="index"
@@ -35,6 +26,10 @@
   </section>
 
 </template>
+
+<script setup>
+import SubHeading from './ui/SubHeading.vue';
+</script>
 
 <script>
 export default {
