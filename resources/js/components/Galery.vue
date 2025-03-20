@@ -5,9 +5,9 @@
         description="Kami mempunyai banyak kegiatan yang telah dilaksanakan." />
 
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-20">
-        <div v-for="(image, index) in images" :key="index"
-          class="relative overflow-hidden rounded-lg shadow-lg cursor-pointer" @click="openModal(image.src)">
-          <img :src="image.src" :alt="image.alt"
+        <div v-for="(item, index) in galeri" :key="index"
+          class="relative overflow-hidden rounded-lg shadow-lg cursor-pointer" @click="openModal(item.src)">
+          <img :src="item.src" :alt="item.alt"
             class="w-full h-full object-cover transition-transform transform hover:scale-110" />
         </div>
       </div>
@@ -28,6 +28,7 @@
 </template>
 
 <script setup>
+import { galeri } from '@/data/galeri';
 import SubHeading from './ui/SubHeading.vue';
 </script>
 
@@ -35,24 +36,6 @@ import SubHeading from './ui/SubHeading.vue';
 export default {
   data() {
     return {
-      images: [
-        {
-          src: '/images/100101.png',
-          alt: 'event',
-        },
-        {
-          src: '/images/100102.png',
-          alt: 'event',
-        },
-        {
-          src: '/images/100103.png',
-          alt: 'event',
-        },
-        {
-          src: '/images/100104.png',
-          alt: 'event',
-        },
-      ],
       isModalOpen: false,
       selectedImage: '',
     };
