@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -21,6 +20,11 @@ class RegisterController extends Controller
         'role' => $request->rolei ?? 'guest',
         'position' => $request->position ?? 'calon anggota',
         'is_active' => false,
+        'jenis_kelamin' => $request->jenis_kelamin,
+        'no_wa' => $request->no_wa,
+        'jurusan' => $request->jurusan,
+        'minat_keahlian' => $request->minat_keahlian,
+        'alasan' => $request->alasan,
     ]);
     return response()->json(['message' => 'Pendaftaran telah berhasil!', 'user' => $user], 201);
     }

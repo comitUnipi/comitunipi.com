@@ -28,6 +28,11 @@ class User extends Authenticatable implements HasAvatar
         'role',
         'position',
         'is_active',
+        'jenis_kelamin',
+        'no_wa',
+        'jurusan',
+        'minat_keahlian',
+        'alasan',
     ];
 
     /**
