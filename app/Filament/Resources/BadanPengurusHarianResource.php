@@ -2,15 +2,15 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BadanPengurusHarianResource\Pages;
 use App\Models\User;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Form;
+use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+use Filament\Tables\Actions\ActionGroup;
+use App\Filament\Resources\BadanPengurusHarianResource\Pages;
 
 class BadanPengurusHarianResource extends Resource
 {
@@ -19,20 +19,7 @@ class BadanPengurusHarianResource extends Resource
   protected static ?string $navigationIcon = null;
   protected static ?string $navigationGroup = 'Manajemen Anggota';
   protected static ?string $label = 'Badan Pengurus Harian';
-  protected static ?int $navigationSort = 2;
-
-  public static function form(Form $form): Form
-  {
-    return $form
-      ->schema([
-        Select::make('role')->options([
-          'admin' => 'Admin',
-          'anggota' => 'Anggota',
-          'calon anggota' => 'Calon Anggota',
-          'bendahara' => 'Bendahara',
-        ])->required()->default('calon anggota'),
-      ]);
-  }
+  protected static ?int $navigationSort = 3;
 
   public static function table(Table $table): Table
   {
@@ -55,22 +42,15 @@ class BadanPengurusHarianResource extends Resource
           ->sortable()
           ->searchable(),
       ])
-      ->filters([
-        //
-      ])
+      ->recordUrl(function ($record) {
+        return Pages\ViewBadanPengurusHarian::getUrl([$record->id]);
+      })
       ->actions([
-        //
-      ])
-      ->bulkActions([
-        //
+        ActionGroup::make([
+          ViewAction::make(),
+          EditAction::make(),
+        ]),
       ]);
-  }
-
-  public static function getRelations(): array
-  {
-    return [
-      //
-    ];
   }
 
   public static function getPages(): array
@@ -78,6 +58,7 @@ class BadanPengurusHarianResource extends Resource
     return [
       'index' => Pages\ListBadanPengurusHarians::route('/'),
       'edit' => Pages\EditBadanPengurusHarian::route('/{record}/edit'),
+      'view' => Pages\ViewBadanPengurusHarian::route('/{record}'),
     ];
   }
 }
