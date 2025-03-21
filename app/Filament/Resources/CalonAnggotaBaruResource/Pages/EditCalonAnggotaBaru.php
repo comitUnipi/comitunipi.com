@@ -47,7 +47,7 @@ class EditCalonAnggotaBaru extends EditRecord
             'User' => 'User',
             'Guest' => 'Guest',
             'Admin' => 'Admin',
-            'Financial' => 'Financial',
+            'Finance' => 'Finance',
             'Super Admin' => 'Super Admin',
           ])
           ->required()

@@ -32,7 +32,7 @@ class ViewUser extends ViewRecord
             'User' => 'User',
             'Guest' => 'Guest',
             'Admin' => 'Admin',
-            'Financial' => 'Financial',
+            'Finance' => 'Finance',
             'Super Admin' => 'Super Admin',
           ])->required()->default('user'),
           Select::make('position')->options([
