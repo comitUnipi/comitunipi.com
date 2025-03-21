@@ -6,6 +6,7 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
@@ -49,36 +50,62 @@ class UserResource extends Resource
             ->required(fn(string $context): bool => $context === 'create')
             ->minLength(6),
           Select::make('role')->options([
-            'user' => 'User',
-            'guest' => 'Guest',
-            'admin' => 'Admin',
-            'keuangan' => 'Keuangan',
-            'super admin' => 'Super Admin',
+            'User' => 'User',
+            'Guest' => 'Guest',
+            'Admin' => 'Admin',
+            'Financial' => 'Financial',
+            'Super Admin' => 'Super Admin',
           ])->required()->default('user'),
           Select::make('position')->options([
-            'ketua umum' => 'User',
-            'wakil ketua' => 'Guest',
-            'sekretaris' => 'Admin',
-            'bendahara' => 'Super Admin',
-            'koordinator sdm' => 'Koordinator SDM',
-            'koordinator humas' => 'Koordinator Humas',
-            'koordinator akademik' => 'Koordinator Akademik',
-            'sdm' => 'Sdm',
-            'humas internal' => 'Humas Internal',
-            'humas eksternal' => 'Humas Eksternal',
-            'sdm' => 'Programming',
-            'comp dan network' => 'Comp dan Network',
-            'design grafis' => 'Design Grafis',
-            'microsoft' => 'Microsoft',
-            'prasarana' => 'Prasarana',
-            'kominfo' => 'Kominfo',
-            'anggota' => 'Anggota',
-            'calon anggota' => 'Calon Anggota',
-          ])->required()->default('calon anggota'),
+            'Ketua Umum' => 'Ketua Umum',
+            'Wakil Ketua' => 'Wakil Ketua',
+            'Sekretaris' => 'Sekretaris',
+            'Bendahara' => 'Bendahara',
+            'Koordinator SDM' => 'Koordinator SDM',
+            'Koordinator Humas' => 'Koordinator Humas',
+            'Koordinator Prasarana' => 'Koordinator Prasarana',
+            'Koordinator Akademik' => 'Koordinator Akademik',
+            'SDM' => 'SDM',
+            'Humas Internal' => 'Humas Internal',
+            'Humas Eksternal' => 'Humas Eksternal',
+            'Staff Programming' => 'Staff Programming',
+            'Staff Comp dan Network' => 'Staff Comp dan Network',
+            'Staff Design Grafis' => 'Design Grafis',
+            'Staff Microsoft Office' => 'Staff Microsoft Office',
+            'Prasarana' => 'Prasarana',
+            'Kominfo' => 'Kominfo',
+            'Anggota' => 'Anggota',
+            'Calon Anggota' => 'Calon Anggota',
+          ])->required()->default('Calon Anggota'),
+          Select::make('jenis_kelamin')->options([
+            'Laki-Laki' => 'Laki-Laki',
+            'Perempuan' => 'Perempuan',
+          ])->required()->label('Jenis Kelamin'),
+          TextInput::make('no_wa')
+            ->label('Nomor WhatsApp')
+            ->required(),
+          Select::make('jurusan')->options([
+            'Akuntansi' => 'Akuntansi',
+            'Manajemen' => 'Manajemen',
+            'Sistem Informasi' => 'Sistem Informasi',
+            'Teknologi Informasi' => 'Teknologi Informasi',
+            'Software Enginner' => 'Software Enginner',
+          ])->required()->label('Jurusan'),
+          Select::make('minat_keahlian')->options([
+            'Design Grafis' => 'Design Grafis',
+            'Programming' => 'Programming',
+            'Microsoft Office' => 'Microsoft Office',
+            'Computer & Networking' => 'Computer & Networking',
+          ])->required()->label('Minat Keahlian'),
+          Toggle::make('is_active')
+            ->label('Status Aktif')
+            ->default(false),
         ])->columns(3),
-        Toggle::make('is_active')
-          ->label('Status Aktif')
-          ->default(false),
+
+        Textarea::make('alasan')
+          ->label('Alasan Masuk COMIT')
+          ->columnSpanFull()
+          ->minLength(3),
       ]);
   }
 

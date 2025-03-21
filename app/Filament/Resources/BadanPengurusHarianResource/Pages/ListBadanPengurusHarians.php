@@ -4,7 +4,6 @@ namespace App\Filament\Resources\BadanPengurusHarianResource\Pages;
 
 use App\Filament\Resources\BadanPengurusHarianResource;
 use App\Models\User;
-use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -16,9 +15,10 @@ class ListBadanPengurusHarians extends ListRecords
     {
         $user = auth()->user();
         $query = User::query();
-        
-        if ($user->role != 'anggota') {
-            $query->where('role' , '!=', 'anggota');
+
+        if ($user->role != 'User' && $user->role != 'Guest') {
+            $query->where('role', '!=', 'Guest');
+            $query->where('role' , '!=', 'User');
         }
 
         $query->where('is_active', true);

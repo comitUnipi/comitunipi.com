@@ -17,6 +17,7 @@ class ListCalonAnggotaBarus extends ListRecords
         $query = User::query();
 
         $query->where('is_active', false);
+        $query->where('position', 'Calon Anggota');
 
         return $query;
     }
