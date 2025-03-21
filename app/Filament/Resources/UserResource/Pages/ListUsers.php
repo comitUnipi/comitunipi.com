@@ -10,22 +10,22 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ListUsers extends ListRecords
 {
-    protected static string $resource = UserResource::class;
+  protected static string $resource = UserResource::class;
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\CreateAction::make()
-                ->label('Tambah Anggota'),
-        ];
-    }
+  protected function getHeaderActions(): array
+  {
+    return [
+      Actions\CreateAction::make()
+        ->label('Tambah Anggota'),
+    ];
+  }
 
-    protected function getTableQuery(): Builder
-    {
-        $query = User::query();
+  protected function getTableQuery(): Builder
+  {
+    $query = User::query();
 
-        $query->where('is_active', true);
+    $query->where('is_active', true);
 
-        return $query;
-    }
+    return $query;
+  }
 }

@@ -101,7 +101,6 @@ class UserResource extends Resource
             ->label('Status Aktif')
             ->default(false),
         ])->columns(3),
-
         Textarea::make('alasan')
           ->label('Alasan Masuk COMIT')
           ->columnSpanFull()
@@ -130,9 +129,6 @@ class UserResource extends Resource
           ->sortable()
           ->searchable(),
       ])
-      ->filters([
-        //
-      ])
       ->recordUrl(function ($record) {
         return Pages\ViewUser::getUrl([$record->id]);
       })
@@ -148,13 +144,6 @@ class UserResource extends Resource
           Tables\Actions\DeleteBulkAction::make(),
         ])->label('Hapus Anggota'),
       ]);
-  }
-
-  public static function getRelations(): array
-  {
-    return [
-      //
-    ];
   }
 
   public static function getPages(): array
