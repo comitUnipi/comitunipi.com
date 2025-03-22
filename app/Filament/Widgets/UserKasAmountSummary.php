@@ -21,6 +21,6 @@ class UserKasAmountSummary extends Widget
 
     public static function canView(): bool
     {
-        return !in_array(auth()->user()->role, ['user', 'guest']);
+        return !in_array(auth()->user()->role, ['Guest', 'User']) && auth()->user()->is_active != false;
     }
 }
