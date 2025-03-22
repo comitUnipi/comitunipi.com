@@ -9,7 +9,7 @@
   </Head>
 
   <Main :user="props.user">
-    <Heading img="/images/100104.png" />
+    <Heading img="/images/100112.png" />
     <Galery />
   </Main>
 

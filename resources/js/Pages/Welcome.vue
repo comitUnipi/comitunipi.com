@@ -10,7 +10,7 @@
 
   <Main :user="props.user">
     <div class="">
-      <Heading img="/images/100101.png" />
+      <Heading img="/images/100102.png" />
       <About />
       <Discover />
       <Mentor />
