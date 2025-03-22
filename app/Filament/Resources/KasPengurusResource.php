@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Models\Kas;
 use App\Models\User;
 use Filament\Tables;
-use App\Models\Activity;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
@@ -19,16 +18,16 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Actions\DeleteAction;
-use App\Filament\Resources\KasResource\Pages;
+use App\Filament\Resources\KasPengurusResource\Pages;
 
-class KasResource extends Resource
+class KasPengurusResource extends Resource
 {
   protected static ?string $model = Kas::class;
 
   protected static ?string $navigationIcon = null;
   protected static ?string $navigationGroup = 'Manajemen Keuangan';
-  protected static ?string $label = 'Data KAS Anggota';
-  protected static ?int $navigationSort = 6;
+  protected static ?string $label = 'Data KAS Pengurus';
+  protected static ?int $navigationSort = 7;
 
   public static function form(Form $form): Form
   {
@@ -39,28 +38,17 @@ class KasResource extends Resource
           ->placeholder('Pilih Anggota')
           ->searchable()
           ->options(function () {
-            return User::where('role', 'User')
+            return User::where('role', '!=', 'User')
+              ->where('role', '!=', 'Guest')
+              ->where('is_active', '!=', 'false')
               ->pluck('name', 'id');
           })
           ->required(),
-        Select::make('activity_id')
-          ->label('Kegiatan')
-          ->searchable()
-          ->placeholder('Pilih Kegiatan')
-          ->options(function () {
-            return Activity::all()->mapWithKeys(function ($activity) {
-              $formattedDate = \Carbon\Carbon::parse($activity->date)->format('d-m-Y');
-              return [$activity->id => $formattedDate . ' | ' . $activity->name];
-            });
-          })
-          ->required(),
         TextInput::make('amount')
-          ->label('Biaya Uang KAS')
-          ->prefix('Rp ')
-          ->default(5000)
-          ->readonly(),
+          ->label('Total Bayar')
+          ->prefix('Rp '),
         Hidden::make('type')
-          ->default('Anggota'),
+          ->default('Pengurus'),
         DatePicker::make('date')
           ->label('Tanggal Pembayaran')
           ->native(false)
@@ -75,17 +63,12 @@ class KasResource extends Resource
     return $table
       ->columns([
         TextColumn::make('user.name')
-          ->sortable()
           ->searchable()
           ->label('Nama Anggota'),
-        TextColumn::make('activity.name')
-          ->label('Kegiatan'),
-        TextColumn::make('type')
-          ->hidden(),
         TextColumn::make('amount')
           ->money('IDR')
           ->alignCenter()
-          ->label('Biaya Uang KAS'),
+          ->label('Total Bayar KAS'),
         TextColumn::make('date')
           ->dateTime('d F Y')
           ->sortable()
@@ -135,9 +118,9 @@ class KasResource extends Resource
   public static function getPages(): array
   {
     return [
-      'index' => Pages\ListKas::route('/'),
-      'create' => Pages\CreateKas::route('/create'),
-      'edit' => Pages\EditKas::route('/{record}/edit'),
+      'index' => Pages\ListKasPenguruses::route('/'),
+      'create' => Pages\CreateKasPengurus::route('/create'),
+      'edit' => Pages\EditKasPengurus::route('/{record}/edit'),
     ];
   }
 }

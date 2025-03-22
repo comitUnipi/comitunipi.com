@@ -32,7 +32,7 @@ class IncomeResource extends Resource
     protected static ?string $navigationIcon = null;
     protected static ?string $navigationGroup = 'Manajemen Keuangan';
     protected static ?string $label = 'Data Pemasukan';
-    protected static ?int $navigationSort = 7;
+    protected static ?int $navigationSort = 8;
 
     public static function form(Form $form): Form
     {

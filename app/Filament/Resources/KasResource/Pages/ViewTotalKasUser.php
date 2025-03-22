@@ -15,14 +15,15 @@ class ViewTotalKasUser extends Page
     protected static string $view = 'filament.resources.kas-resource.pages.view-total-kas-user';
 
     public Collection $data;
-    
+
     public function mount()
     {
-        $search = request()->get('search'); 
-        
+        $search = request()->get('search');
         $query = Kas::selectRaw('user_id, SUM(amount) AS total_amount')
                     ->groupBy('user_id');
-                    
+
+        $query->where('type', 'Anggota');
+
         if ($search) {
             $query->where(function($q) use ($search) {
                 $q->where('user_id', 'like', '%' . $search . '%')

@@ -9,6 +9,7 @@ use App\Filament\Resources\KasResource\Pages\ViewTotalKasUser;
 use App\Filament\Resources\AttendanceResource\Pages\ScanQrCode;
 use App\Filament\Resources\AttendanceResource\Pages\AlreadyAttendance;
 use App\Filament\Resources\AttendanceResource\Pages\AttendanceSuccess;
+use App\Filament\Resources\KasPengurusResource\Pages\ViewTotalKasPengurus;
 
 Route::get('/', function () {
   return Inertia::render('Welcome', [
@@ -131,4 +132,5 @@ Route::get('/already-attendance', AlreadyAttendance::class)->name('filament.reso
 Route::get('/generate-qr-code/{activityId}', [QrCodeController::class, 'generateQrCode'])->name('generate.qrcode');
 Route::get('/scan-qr/{activityId}', [AttendanceController::class, 'scanQrCode'])->name('scan.qrcode');
 Route::get('/total-kas-user', ViewTotalKasUser::class)->name('filament.kas.pages.view-total-kas-user');
+Route::get('/total-kas-pengurus', ViewTotalKasPengurus::class)->name('filament.kas-pengurus.pages.view-total-kas-pengurus');
 Route::post('/pendaftaran', [RegisterController::class, 'register']);

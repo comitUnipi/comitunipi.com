@@ -18,8 +18,9 @@ class Kas extends Model
         'activity_id',
         'amount',
         'date',
+        'type',
     ];
-    
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

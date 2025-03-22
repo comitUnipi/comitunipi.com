@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Filament\Resources\KasResource\Pages;
+namespace App\Filament\Resources\KasPengurusResource\Pages;
 
-use App\Filament\Resources\KasResource;
 use App\Models\Kas;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\KasPengurusResource;
 
-class ListKas extends ListRecords
+class ListKasPenguruses extends ListRecords
 {
-  protected static string $resource = KasResource::class;
+  protected static string $resource = KasPengurusResource::class;
 
   protected function getHeaderActions(): array
   {
@@ -19,7 +19,7 @@ class ListKas extends ListRecords
         ->label('Tambah Kas'),
       Actions\Action::make('viewTotalKasUser')
         ->label('Lihat Detail')
-        ->url(route('filament.kas.pages.view-total-kas-user'))
+        ->url(route('filament.kas-pengurus.pages.view-total-kas-pengurus'))
     ];
   }
 
@@ -27,7 +27,7 @@ class ListKas extends ListRecords
   {
     $query = Kas::query();
 
-    $query->where('type', 'Anggota');
+    $query->where('type', 'Pengurus');
 
     return $query;
   }
