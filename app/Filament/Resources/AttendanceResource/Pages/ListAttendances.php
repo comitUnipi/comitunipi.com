@@ -4,7 +4,6 @@ namespace App\Filament\Resources\AttendanceResource\Pages;
 
 use App\Filament\Resources\AttendanceResource;
 use App\Models\Attendance;
-use Filament\Actions;
 use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
@@ -29,8 +28,8 @@ class ListAttendances extends ListRecords
     {
         $user = auth()->user();
         $query = Attendance::query();
-        
-        if ($user->role === 'anggota') {
+
+        if ($user->role === 'User') {
             $query->where('user_id', $user->id);
         }
 
