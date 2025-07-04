@@ -702,7 +702,7 @@ export default function UsersIndex({ users, filters, flash }: Props) {
 
                     {/* Mobile Card Layout */}
                     <div className="lg:hidden">
-                        {users.data.map((data, index) => (
+                        {users.data.map((data) => (
                             <div key={data.id} className="space-y-3 border-b p-4">
                                 <div className="flex items-start justify-between">
                                     <div>
