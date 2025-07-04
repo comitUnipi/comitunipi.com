@@ -1,32 +1,30 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "comunity of infomation technology",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "Sebuah website pengenalan organisasi COMIT dan sistem manajemennya.",
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "endroid/qr-code": "^6.0",
-        "filament/filament": "^3.2",
-        "inertiajs/inertia-laravel": "^1.0",
-        "joaopaulolndev/filament-edit-profile": "^1.0",
-        "laravel/framework": "^11.31",
-        "laravel/sanctum": "^4.0",
-        "laravel/tinker": "^2.9",
-        "tightenco/ziggy": "^2.0"
+        "inertiajs/inertia-laravel": "^2.0",
+        "laravel/framework": "^12.0",
+        "laravel/tinker": "^2.10.1",
+        "tightenco/ziggy": "^2.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
-        "jn-jairo/laravel-ngrok": "^3.0",
-        "laravel/breeze": "^2.2",
-        "laravel/pail": "^1.1",
-        "laravel/pint": "^1.13",
-        "laravel/sail": "^1.26",
+        "laravel/pail": "^1.2.2",
+        "laravel/pint": "^1.18",
+        "laravel/sail": "^1.41",
         "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^8.1",
-        "pestphp/pest": "^3.6",
-        "pestphp/pest-plugin-laravel": "^3.0"
+        "nunomaduro/collision": "^8.6",
+        "pestphp/pest": "^3.8",
+        "pestphp/pest-plugin-drift": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.1"
     },
     "autoload": {
         "psr-4": {
@@ -43,8 +41,7 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi",
-            "@php artisan filament:upgrade"
+            "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
@@ -59,7 +56,16 @@
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite"
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"npm run dev\" --names='server,queue,vite'"
+        ],
+        "dev:ssr": [
+            "npm run build:ssr",
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"php artisan inertia:start-ssr\" --names=server,queue,logs,ssr"
+        ],
+        "test": [
+            "@php artisan config:clear --ansi",
+            "@php artisan test"
         ]
     },
     "extra": {
