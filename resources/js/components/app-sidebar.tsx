@@ -1,16 +1,16 @@
-import AppLogo from './app-logo';
-import { Link } from '@inertiajs/react';
 import { NavMain } from '@/components/nav-main';
-import { type NavItem } from '@/types';
-import { LayoutGrid, Users } from 'lucide-react';
 import { Sidebar, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
+import { type NavItem } from '@/types';
+import { Link } from '@inertiajs/react';
+import { LayoutGrid, Users } from 'lucide-react';
+import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
         href: '/dashboard',
         icon: LayoutGrid,
-    }
+    },
 ];
 
 const masterNavItems: NavItem[] = [
@@ -19,7 +19,7 @@ const masterNavItems: NavItem[] = [
         href: '/users',
         icon: Users,
     },
-]
+];
 
 export function AppSidebar() {
     return (
@@ -37,8 +37,8 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain label='Fitur Utama' items={mainNavItems} />
-                <NavMain label='Data Master' items={masterNavItems} />
+                <NavMain label="Fitur Utama" items={mainNavItems} />
+                <NavMain label="Data Master" items={masterNavItems} />
             </SidebarContent>
         </Sidebar>
     );
