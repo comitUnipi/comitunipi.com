@@ -1,6 +1,6 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "comit",
+    "name": "comit/website",
     "type": "project",
     "description": "Sebuah website pengenalan organisasi COMIT dan sistem manajemennya.",
     "keywords": [
