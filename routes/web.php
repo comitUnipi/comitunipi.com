@@ -14,6 +14,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('users', UserController::class);
     Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
+    Route::get('/users/export/csv', [UserController::class, 'exportCsv'])->name('users.export.csv');
     Route::resource('kas', KasController::class);
 });
 

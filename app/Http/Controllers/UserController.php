@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Illuminate\Validation\Rules;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class UserController extends Controller
 {
@@ -107,5 +108,82 @@ class UserController extends Controller
     {
         $user->delete();
         return redirect()->route('users.index')->with('success', 'Anggota berhasil dihapus!');
+    }
+
+    public function exportCsv()
+    {
+        $query = User::query();
+
+        // Terapkan filter seperti di index()
+        if (request()->has('search')) {
+            $search = request('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        if (request()->filled('role') && request('role') !== 'all') {
+            $query->where('role', filter_var(request('role')));
+        }
+
+        if (request()->filled('position') && request('position') !== 'all') {
+            $query->where('position', filter_var(request('position')));
+        }
+
+        if (request()->filled('is_active') && request('is_active') !== 'all') {
+            $query->where('is_active', filter_var(request('is_active'), FILTER_VALIDATE_BOOLEAN));
+        }
+
+        if (request()->filled('jurusan') && request('jurusan') !== 'all') {
+            $query->where('jurusan', filter_var(request('jurusan')));
+        }
+
+        if (request()->filled('minat_keahlian') && request('minat_keahlian') !== 'all') {
+            $query->where('minat_keahlian', filter_var(request('minat_keahlian')));
+        }
+
+        $users = $query->get();
+
+        $response = new StreamedResponse(function () use ($users) {
+            $handle = fopen('php://output', 'w');
+
+            fputcsv($handle, [
+                'Nama Lengkap',
+                'Email',
+                'Role',
+                'NPM',
+                'Jurusan',
+                'Minat Keahlian',
+                'Jenis Kelamin',
+                'No WA',
+                'Status',
+                'Tanggal Dibuat',
+            ]);
+
+            foreach ($users as $user) {
+                fputcsv($handle, [
+                    $user->name,
+                    $user->email,
+                    $user->role,
+                    $user->npm,
+                    $user->jurusan,
+                    $user->minat_keahlian,
+                    $user->jenis_kelamin,
+                    $user->no_wa,
+                    $user->is_active ? 'AKtif' : 'Nonaktif',
+                    $user->created_at->format('Y-m-d H:i:s'),
+                ]);
+            }
+
+            fclose($handle);
+        });
+
+        $filename = 'users_export_' . now()->format('Ymd_His') . '.csv';
+
+        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Disposition', "attachment; filename=\"$filename\"");
+
+        return $response;
     }
 }
