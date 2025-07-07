@@ -2,7 +2,7 @@ import { NavMain } from '@/components/nav-main';
 import { Sidebar, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { CircleDollarSign, LayoutGrid, Users } from 'lucide-react';
+import { CircleDollarSign, LayoutGrid, User, Users } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -25,6 +25,13 @@ const masterNavItems: NavItem[] = [
         icon: CircleDollarSign,
     },
 ];
+const settingNavItems: NavItem[] = [
+    {
+        title: 'Profile',
+        href: '/settings/profile',
+        icon: User,
+    },
+];
 
 export function AppSidebar() {
     return (
@@ -44,6 +51,7 @@ export function AppSidebar() {
             <SidebarContent>
                 <NavMain label="Fitur Utama" items={mainNavItems} />
                 <NavMain label="Data Master" items={masterNavItems} />
+                <NavMain label="Setting" items={settingNavItems} />
             </SidebarContent>
         </Sidebar>
     );
