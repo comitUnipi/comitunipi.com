@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kas;
 use App\Models\User;
 use Inertia\Inertia;
 
@@ -16,6 +17,7 @@ class DashboardController extends Controller
             'totalPengurus' => User::where('is_active', true)
                 ->whereNotIn('role', ['User', 'Guest'])
                 ->count(),
+            'totalKAS' => Kas::sum('amount'),
         ];
 
         return Inertia::render('dashboard', [

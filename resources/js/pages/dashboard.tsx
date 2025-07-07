@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
+import { formatRupiah } from '@/lib/format-rupiah';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import { CheckCircle, Clock, Plus, UserCog, Users } from 'lucide-react';
@@ -10,6 +11,7 @@ interface Props {
         totalUsersAktif: number;
         totalUsersNonaktif: number;
         totalPengurus: number;
+        totalKAS: number;
     };
 }
 
@@ -26,6 +28,7 @@ export default function Dashboard({
         totalUsersAktif: 0,
         totalUsersNonaktif: 0,
         totalPengurus: 0,
+        totalKAS: 0,
     },
 }: Props) {
     return (
@@ -86,20 +89,10 @@ export default function Dashboard({
                 <div className="grid gap-4 md:grid-cols-2">
                     <Card className="border-primary/20">
                         <CardHeader>
-                            <CardTitle className="text-lg">Recent Activity</CardTitle>
+                            <CardTitle className="text-lg">Total Uang Kas</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="space-y-4">
-                                <div className="flex items-center gap-4">
-                                    <div className="bg-primary/10 rounded-full p-2">
-                                        <Plus className="text-primary h-4 w-4" />
-                                    </div>
-                                    <div>
-                                        <p className="text-sm font-medium">Welcome to Task Manager</p>
-                                        <p className="text-muted-foreground text-xs">Get started by creating your first list or Task </p>
-                                    </div>
-                                </div>
-                            </div>
+                            <div className="text-primary text-2xl font-bold">{formatRupiah(stats.totalKAS)}</div>
                         </CardContent>
                     </Card>
                 </div>
