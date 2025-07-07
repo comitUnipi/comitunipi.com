@@ -16,6 +16,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
     Route::get('/users/export/csv', [UserController::class, 'exportCsv'])->name('users.export.csv');
     Route::resource('kas', KasController::class);
+    Route::get('/kas/export/csv', [KasController::class, 'exportCsv'])->name('kas.export.csv');
 });
 
 require __DIR__.'/settings.php';

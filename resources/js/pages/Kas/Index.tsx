@@ -183,6 +183,12 @@ export default function KasIndex({ kas, users, filters, flash }: Props) {
         );
     };
 
+    const queryParams = new URLSearchParams(
+        Object.fromEntries(Object.entries(filters).filter(([_, value]) => value !== '' && value !== null)),
+    ).toString();
+
+    const exportUrl = `/kas/export/csv?${queryParams}`;
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Data Uang Kas" />
@@ -236,138 +242,151 @@ export default function KasIndex({ kas, users, filters, flash }: Props) {
                         </DialogContent>
                     </Dialog>
 
-                    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                        <DialogTrigger>
-                            <div className="bg-primary hover:bg-primary/90 flex cursor-pointer items-center rounded-md px-3 py-2 text-sm whitespace-nowrap text-white shadow-lg dark:text-black">
-                                <Plus className="mr-2 h-4 w-4" />
-                                <span className="xs:inline hidden sm:hidden md:inline">Tambah Data</span>
-                                <span className="xs:hidden sm:inline md:hidden">Tambah</span>
-                            </div>
-                        </DialogTrigger>
-                        <DialogContent className="mx-4 max-h-[90vh] w-[calc(100vw-2rem)] overflow-y-auto sm:max-w-[600px]">
-                            <DialogHeader>
-                                <DialogTitle className="text-lg sm:text-xl">{editingKAS ? 'Ubah Data KAS' : 'Tambah KAS'}</DialogTitle>
-                            </DialogHeader>
-                            <form onSubmit={handleSubmit} className="space-y-4">
-                                {editingKAS ? (
-                                    <>
-                                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                                            <div className="grid gap-2">
-                                                <Label htmlFor="amount" className="text-sm font-medium">
-                                                    Jumlah
-                                                </Label>
-                                                <Input
-                                                    id="amount"
-                                                    type="number"
-                                                    placeholder="Jumlah Uang"
-                                                    value={data.amount}
-                                                    onChange={(e) => setData('amount', Number(e.target.value))}
-                                                    required
-                                                    className="w-full"
-                                                />
+                    <div className="flex gap-3">
+                        <a
+                            href={exportUrl}
+                            className="flex items-center rounded-md bg-green-600 px-3 py-2 text-sm text-white shadow-lg hover:bg-green-700 dark:text-black"
+                            download
+                        >
+                            <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                            </svg>
+                            <span className="hidden sm:inline">Export CSV</span>
+                            <span className="sm:hidden">Export</span>
+                        </a>
+                        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+                            <DialogTrigger>
+                                <div className="bg-primary hover:bg-primary/90 flex cursor-pointer items-center rounded-md px-3 py-2 text-sm whitespace-nowrap text-white shadow-lg dark:text-black">
+                                    <Plus className="mr-2 h-4 w-4" />
+                                    <span className="xs:inline hidden sm:hidden md:inline">Tambah Data</span>
+                                    <span className="xs:hidden sm:inline md:hidden">Tambah</span>
+                                </div>
+                            </DialogTrigger>
+                            <DialogContent className="mx-4 max-h-[90vh] w-[calc(100vw-2rem)] overflow-y-auto sm:max-w-[600px]">
+                                <DialogHeader>
+                                    <DialogTitle className="text-lg sm:text-xl">{editingKAS ? 'Ubah Data KAS' : 'Tambah KAS'}</DialogTitle>
+                                </DialogHeader>
+                                <form onSubmit={handleSubmit} className="space-y-4">
+                                    {editingKAS ? (
+                                        <>
+                                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                                <div className="grid gap-2">
+                                                    <Label htmlFor="amount" className="text-sm font-medium">
+                                                        Jumlah
+                                                    </Label>
+                                                    <Input
+                                                        id="amount"
+                                                        type="number"
+                                                        placeholder="Jumlah Uang"
+                                                        value={data.amount}
+                                                        onChange={(e) => setData('amount', Number(e.target.value))}
+                                                        required
+                                                        className="w-full"
+                                                    />
+                                                </div>
+                                                <div className="grid gap-2">
+                                                    <Label htmlFor="date" className="text-sm font-medium">
+                                                        Tanggal
+                                                    </Label>
+                                                    <Input
+                                                        id="date"
+                                                        type="date"
+                                                        value={data.date}
+                                                        onChange={(e) => setData('date', e.target.value)}
+                                                        required
+                                                        className="w-full"
+                                                    />
+                                                </div>
+                                                <div className="grid gap-2">
+                                                    <Label htmlFor="type" className="text-sm font-medium">
+                                                        KAS Untuk
+                                                    </Label>
+                                                    <Select value={data.type} onValueChange={(val) => setData('type', val)}>
+                                                        <SelectTrigger className="w-full">
+                                                            <SelectValue placeholder="Pilih Untuk" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            <SelectItem value="Pengurus">Pengurus</SelectItem>
+                                                            <SelectItem value="Anggota">Anggota</SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                </div>
                                             </div>
-                                            <div className="grid gap-2">
-                                                <Label htmlFor="date" className="text-sm font-medium">
-                                                    Tanggal
-                                                </Label>
-                                                <Input
-                                                    id="date"
-                                                    type="date"
-                                                    value={data.date}
-                                                    onChange={(e) => setData('date', e.target.value)}
-                                                    required
-                                                    className="w-full"
-                                                />
+                                            <Button type="submit" disabled={processing} className="w-full">
+                                                {editingKAS ? 'Ubah Data Uang KAS' : 'Tambah Data'}
+                                            </Button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                                <div className="grid gap-2">
+                                                    <Label htmlFor="user_id" className="text-sm font-medium">
+                                                        Pilih Anggota
+                                                    </Label>
+                                                    <Select value={data.user_id} onValueChange={(val) => setData('user_id', val)}>
+                                                        <SelectTrigger id="user_id" className="w-full">
+                                                            <SelectValue placeholder="Pilih Anggota" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            {users.map((user) => (
+                                                                <SelectItem key={user.id} value={user.id.toString()}>
+                                                                    {user.name}
+                                                                </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                    </Select>
+                                                </div>
+                                                <div className="grid gap-2">
+                                                    <Label htmlFor="amount" className="text-sm font-medium">
+                                                        Jumlah
+                                                    </Label>
+                                                    <Input
+                                                        id="amount"
+                                                        type="number"
+                                                        placeholder="Jumlah Uang"
+                                                        value={data.amount}
+                                                        onChange={(e) => setData('amount', Number(e.target.value))}
+                                                        required
+                                                        className="w-full"
+                                                    />
+                                                </div>
+                                                <div className="grid gap-2">
+                                                    <Label htmlFor="date" className="text-sm font-medium">
+                                                        Tanggal
+                                                    </Label>
+                                                    <Input
+                                                        id="date"
+                                                        type="date"
+                                                        value={data.date}
+                                                        onChange={(e) => setData('date', e.target.value)}
+                                                        required
+                                                        className="w-full"
+                                                    />
+                                                </div>
+                                                <div className="grid gap-2">
+                                                    <Label htmlFor="type" className="text-sm font-medium">
+                                                        KAS Untuk
+                                                    </Label>
+                                                    <Select value={data.type} onValueChange={(val) => setData('type', val)}>
+                                                        <SelectTrigger className="w-full">
+                                                            <SelectValue placeholder="Pilih Untuk" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            <SelectItem value="Pengurus">Pengurus</SelectItem>
+                                                            <SelectItem value="Anggota">Anggota</SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                </div>
                                             </div>
-                                            <div className="grid gap-2">
-                                                <Label htmlFor="type" className="text-sm font-medium">
-                                                    KAS Untuk
-                                                </Label>
-                                                <Select value={data.type} onValueChange={(val) => setData('type', val)}>
-                                                    <SelectTrigger className="w-full">
-                                                        <SelectValue placeholder="Pilih Untuk" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        <SelectItem value="Pengurus">Pengurus</SelectItem>
-                                                        <SelectItem value="Anggota">Anggota</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
-                                            </div>
-                                        </div>
-                                        <Button type="submit" disabled={processing} className="w-full">
-                                            {editingKAS ? 'Ubah Data Uang KAS' : 'Tambah Data'}
-                                        </Button>
-                                    </>
-                                ) : (
-                                    <>
-                                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                                            <div className="grid gap-2">
-                                                <Label htmlFor="user_id" className="text-sm font-medium">
-                                                    Pilih Anggota
-                                                </Label>
-                                                <Select value={data.user_id} onValueChange={(val) => setData('user_id', val)}>
-                                                    <SelectTrigger id="user_id" className="w-full">
-                                                        <SelectValue placeholder="Pilih Anggota" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        {users.map((user) => (
-                                                            <SelectItem key={user.id} value={user.id.toString()}>
-                                                                {user.name}
-                                                            </SelectItem>
-                                                        ))}
-                                                    </SelectContent>
-                                                </Select>
-                                            </div>
-                                            <div className="grid gap-2">
-                                                <Label htmlFor="amount" className="text-sm font-medium">
-                                                    Jumlah
-                                                </Label>
-                                                <Input
-                                                    id="amount"
-                                                    type="number"
-                                                    placeholder="Jumlah Uang"
-                                                    value={data.amount}
-                                                    onChange={(e) => setData('amount', Number(e.target.value))}
-                                                    required
-                                                    className="w-full"
-                                                />
-                                            </div>
-                                            <div className="grid gap-2">
-                                                <Label htmlFor="date" className="text-sm font-medium">
-                                                    Tanggal
-                                                </Label>
-                                                <Input
-                                                    id="date"
-                                                    type="date"
-                                                    value={data.date}
-                                                    onChange={(e) => setData('date', e.target.value)}
-                                                    required
-                                                    className="w-full"
-                                                />
-                                            </div>
-                                            <div className="grid gap-2">
-                                                <Label htmlFor="type" className="text-sm font-medium">
-                                                    KAS Untuk
-                                                </Label>
-                                                <Select value={data.type} onValueChange={(val) => setData('type', val)}>
-                                                    <SelectTrigger className="w-full">
-                                                        <SelectValue placeholder="Pilih Untuk" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        <SelectItem value="Pengurus">Pengurus</SelectItem>
-                                                        <SelectItem value="Anggota">Anggota</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
-                                            </div>
-                                        </div>
-                                        <Button type="submit" disabled={processing} className="w-full">
-                                            {editingKAS ? 'Ubah Data Uang KAS' : 'Tambah Data'}
-                                        </Button>
-                                    </>
-                                )}
-                            </form>
-                        </DialogContent>
-                    </Dialog>
+                                            <Button type="submit" disabled={processing} className="w-full">
+                                                {editingKAS ? 'Ubah Data Uang KAS' : 'Tambah Data'}
+                                            </Button>
+                                        </>
+                                    )}
+                                </form>
+                            </DialogContent>
+                        </Dialog>
+                    </div>
                 </div>
 
                 {/* Search and Filter Section */}
