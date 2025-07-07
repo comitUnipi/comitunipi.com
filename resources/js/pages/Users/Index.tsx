@@ -39,6 +39,7 @@ interface Props {
         role: string;
         position: string;
         status: string;
+        jurusan: string;
         minat_keahlian: string;
     };
     flash?: {
@@ -148,12 +149,21 @@ export default function UsersIndex({ users, filters, flash }: Props) {
         destroy(route('users.destroy', id));
     };
 
-    const handleFilterRoleChange = (value: 'all' | 'Guest' | 'User' | 'Admin' | 'Super Admin') => {
+    const getFilterParams = () => ({
+        search: searchTerm,
+        role: roleFilter === 'all' ? '' : roleFilter,
+        position: positionFilter === 'all' ? '' : positionFilter,
+        jurusan: jurusanFilter === 'all' ? '' : jurusanFilter,
+        minat_keahlian: minatKeahlianFilter === 'all' ? '' : minatKeahlianFilter,
+        is_active: statusFilter === 'all' ? '' : statusFilter,
+    });
+
+    const handleFilterRoleChange = (value: 'all') => {
         setRoleFilter(value);
         router.get(
             route('users.index'),
             {
-                search: searchTerm,
+                ...getFilterParams(),
                 role: value === 'all' ? '' : value,
             },
             {
@@ -168,7 +178,7 @@ export default function UsersIndex({ users, filters, flash }: Props) {
         router.get(
             route('users.index'),
             {
-                search: searchTerm,
+                ...getFilterParams(),
                 position: value === 'all' ? '' : value,
             },
             {
@@ -183,10 +193,7 @@ export default function UsersIndex({ users, filters, flash }: Props) {
         router.get(
             route('users.index'),
             {
-                search: searchTerm,
-                role: roleFilter,
-                jurusan: jurusanFilter,
-                minat_keahlian: minatKeahlianFilter,
+                ...getFilterParams(),
                 is_active: value === 'all' ? '' : value,
             },
             {
@@ -196,12 +203,12 @@ export default function UsersIndex({ users, filters, flash }: Props) {
         );
     };
 
-    const handleFilterJurusanChange = (value: 'all' | 'Sistem Informasi' | 'Teknologi Informasi' | 'Software Enginner') => {
+    const handleFilterJurusanChange = (value: 'all') => {
         setJurusanFilter(value);
         router.get(
             route('users.index'),
             {
-                search: searchTerm,
+                ...getFilterParams(),
                 jurusan: value === 'all' ? '' : value,
             },
             {
@@ -216,7 +223,7 @@ export default function UsersIndex({ users, filters, flash }: Props) {
         router.get(
             route('users.index'),
             {
-                search: searchTerm,
+                ...getFilterParams(),
                 minat_keahlian: value === 'all' ? '' : value,
             },
             {
@@ -228,9 +235,19 @@ export default function UsersIndex({ users, filters, flash }: Props) {
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
+        router.get(route('users.index'), getFilterParams(), {
+            preserveState: true,
+            preserveScroll: true,
+        });
+    };
+
+    const handlePageChange = (page: number) => {
         router.get(
             route('users.index'),
-            { search: searchTerm, role: roleFilter },
+            {
+                ...getFilterParams(),
+                page,
+            },
             {
                 preserveState: true,
                 preserveScroll: true,
@@ -238,20 +255,16 @@ export default function UsersIndex({ users, filters, flash }: Props) {
         );
     };
 
-    const handlePageChange = (page: number) => {
-        router.get(
-            route('users.index'),
-            {
-                page,
-                search: searchTerm,
-                role: roleFilter,
-            },
-            {
-                preserveState: true,
-                preserveScroll: true,
-            },
-        );
-    };
+    const exportUrl =
+        `/users/export/csv?` +
+        new URLSearchParams({
+            search: searchTerm ?? '',
+            role: roleFilter ?? 'all',
+            position: positionFilter ?? 'all',
+            is_active: statusFilter ?? 'all',
+            jurusan: jurusanFilter ?? 'all',
+            minat_keahlian: minatKeahlianFilter ?? 'all',
+        }).toString();
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -303,9 +316,9 @@ export default function UsersIndex({ users, filters, flash }: Props) {
                         </DialogContent>
                     </Dialog>
 
-                    <div className='flex gap-2'>
+                    <div className="flex gap-2">
                         <a
-                            href="/users/export/csv"
+                            href={exportUrl}
                             className="flex items-center rounded-md bg-green-600 px-3 py-2 text-sm text-white shadow-lg hover:bg-green-700 dark:text-black"
                             download
                         >
@@ -562,7 +575,7 @@ export default function UsersIndex({ users, filters, flash }: Props) {
                     </form>
 
                     {/* Filters - Mobile: Stack vertically, Desktop: Horizontal */}
-                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-6">
                         <Select value={roleFilter} onValueChange={handleFilterRoleChange}>
                             <SelectTrigger>
                                 <SelectValue placeholder="Filter by role" />
@@ -640,6 +653,21 @@ export default function UsersIndex({ users, filters, flash }: Props) {
                                 <SelectItem value="Microsoft Office">Microsoft Office</SelectItem>
                             </SelectContent>
                         </Select>
+                        <Button
+                            variant="outline"
+                            onClick={() => {
+                                setSearchTerm('');
+                                setRoleFilter('all');
+                                setPositionFilter('all');
+                                setJurusanFilter('all');
+                                setMinatKeahlianFilter('all');
+                                setStatusFilter('all');
+                                router.get(route('users.index'));
+                            }}
+                            className="flex-1 sm:flex-none"
+                        >
+                            Reset
+                        </Button>
                     </div>
                 </div>
 
