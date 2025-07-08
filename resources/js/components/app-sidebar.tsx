@@ -35,6 +35,14 @@ const masterNavItems: NavItem[] = [
         icon: ArrowBigUp,
     },
 ];
+const laporanNavItems: NavItem[] = [
+    {
+        title: 'Laporan Keuangan',
+        href: '/laporan/keuangan',
+        icon: Dock,
+    },
+];
+
 const settingNavItems: NavItem[] = [
     {
         title: 'Profile',
@@ -61,6 +69,7 @@ export function AppSidebar() {
             <SidebarContent>
                 <NavMain label="Fitur Utama" items={mainNavItems} />
                 <NavMain label="Data Master" items={masterNavItems} />
+                <NavMain label="Laporan" items={laporanNavItems} />
                 <NavMain label="Setting" items={settingNavItems} />
             </SidebarContent>
         </Sidebar>

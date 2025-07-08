@@ -1,9 +1,10 @@
+import FinancialBarChart from '@/components/analytics/financial-bar-chart';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
 import { formatRupiah } from '@/lib/format-rupiah';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
-import { CheckCircle, Clock, Plus, UserCog, Users } from 'lucide-react';
+import { CheckCircle, Clock, UserCog, Users } from 'lucide-react';
 
 interface Props {
     stats?: {
@@ -11,6 +12,8 @@ interface Props {
         totalUsersAktif: number;
         totalUsersNonaktif: number;
         totalPengurus: number;
+        totalPemasukan: number;
+        totalPengeluaran: number;
         totalKAS: number;
     };
 }
@@ -28,6 +31,8 @@ export default function Dashboard({
         totalUsersAktif: 0,
         totalUsersNonaktif: 0,
         totalPengurus: 0,
+        totalPemasukan: 0,
+        totalPengeluaran: 0,
         totalKAS: 0,
     },
 }: Props) {
@@ -41,6 +46,8 @@ export default function Dashboard({
                         <p className="text-muted-foreground mt-1">Selamat datang di Dashboard, COMIT</p>
                     </div>
                 </div>
+                <FinancialBarChart totalPemasukan={stats.totalPemasukan} totalPengeluaran={stats.totalPengeluaran} totalKas={stats.totalKAS} />
+
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                     <Card className="border-blue-500/20 bg-gradient-to-br from-blue-500/10 to-blue-600/10">
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -83,32 +90,6 @@ export default function Dashboard({
                         <CardContent>
                             <div className="text-2xl font-bold text-purple-500">{stats.totalPengurus}</div>
                             <p className="text-muted-foreground text-xs">Total semua badan pengurus harian</p>
-                        </CardContent>
-                    </Card>
-                </div>
-                <div className="grid gap-4 md:grid-cols-3">
-                    <Card className="border-primary/20">
-                        <CardHeader>
-                            <CardTitle className="text-lg">Total Uang Kas</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-primary text-2xl font-bold">{formatRupiah(stats.totalKAS)}</div>
-                        </CardContent>
-                    </Card>
-                    <Card className="border-primary/20">
-                        <CardHeader>
-                            <CardTitle className="text-lg">Total Pemasukan</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-primary text-2xl font-bold">{formatRupiah(stats.totalPemasukan)}</div>
-                        </CardContent>
-                    </Card>
-                    <Card className="border-primary/20">
-                        <CardHeader>
-                            <CardTitle className="text-lg">Total Pengeluaran</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-primary text-2xl font-bold">{formatRupiah(stats.totalPengeluaran)}</div>
                         </CardContent>
                     </Card>
                 </div>
