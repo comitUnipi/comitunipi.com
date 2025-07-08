@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pemasukan;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class PemasukanController extends Controller
 {
@@ -64,5 +65,37 @@ class PemasukanController extends Controller
         $pemasukan = Pemasukan::findOrFail($id);
         $pemasukan->delete();
         return redirect()->route('pemasukan.index')->with('success', 'Data berhasil dihapus!');
+    }
+
+    public function exportCsv(Request $request)
+    {
+        $query = Pemasukan::query();
+
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            $query->whereBetween('date', [$request->start_date, $request->end_date]);
+        }
+
+        $pemasukanData = $query->orderByDesc('date')->get();
+
+        $response = new StreamedResponse(function () use ($pemasukanData) {
+            $handle = fopen('php://output', 'w');
+            fputcsv($handle, ['Tanggal', 'Jumlah', 'Keterangan']);
+
+            foreach ($pemasukanData as $pemasukan) {
+                fputcsv($handle, [
+                    $pemasukan->date,
+                    $pemasukan->amount,
+                    $pemasukan->description,
+                ]);
+            }
+
+            fclose($handle);
+        });
+
+        $filename = 'pemasukan_export_' . now()->format('Ymd_His') . '.csv';
+        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Disposition', "attachment; filename=\"$filename\"");
+
+        return $response;
     }
 }

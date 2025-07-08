@@ -19,7 +19,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('kas', KasController::class);
     Route::get('/kas/export/csv', [KasController::class, 'exportCsv'])->name('kas.export.csv');
     Route::resource('pemasukan', PemasukanController::class);
+    Route::get('/pemasukan/export/csv', [PemasukanController::class, 'exportCsv'])->name('kas.export.csv');
 });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';

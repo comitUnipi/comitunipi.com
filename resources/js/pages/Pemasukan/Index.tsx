@@ -136,6 +136,12 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
         );
     };
 
+    const queryParams = new URLSearchParams(
+        Object.fromEntries(Object.entries(filters).filter(([_, value]) => value !== '' && value !== null)),
+    ).toString();
+
+    const exportUrl = `/pemasukan/export/csv?${queryParams}`;
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Data Pemasukan" />
@@ -190,6 +196,17 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
                     </Dialog>
 
                     <div className="flex gap-3">
+                        <a
+                            href={exportUrl}
+                            className="flex items-center rounded-md bg-green-600 px-3 py-2 text-sm text-white shadow-lg hover:bg-green-700 dark:text-black"
+                            download
+                        >
+                            <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                            </svg>
+                            <span className="hidden sm:inline">Export CSV</span>
+                            <span className="sm:hidden">Export</span>
+                        </a>
                         <Dialog open={isOpen} onOpenChange={setIsOpen}>
                             <DialogTrigger>
                                 <div className="bg-primary hover:bg-primary/90 flex cursor-pointer items-center rounded-md px-3 py-2 text-sm whitespace-nowrap text-white shadow-lg dark:text-black">
