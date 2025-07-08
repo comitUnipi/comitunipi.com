@@ -20,8 +20,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('kas', KasController::class);
     Route::get('/kas/export/csv', [KasController::class, 'exportCsv'])->name('kas.export.csv');
     Route::resource('pemasukan', PemasukanController::class);
-    Route::get('/pemasukan/export/csv', [PemasukanController::class, 'exportCsv'])->name('kas.export.csv');
+    Route::get('/pemasukan/export/csv', [PemasukanController::class, 'exportCsv'])->name('pemasukan.export.csv');
     Route::resource('pengeluaran', PengeluaranController::class);
+    Route::get('/pengeluaran/export/csv', [PengeluaranController::class, 'exportCsv'])->name('pengeluaran.export.csv');
 });
 
 require __DIR__ . '/settings.php';
