@@ -36,6 +36,23 @@ export default function FinancialBarChart({ totalPemasukan, totalPengeluaran, to
         },
     ];
 
+    const generateTicks = () => {
+        const max = Math.max(...data.map((d) => d.amount));
+        if (max === 0) return [0, 1000, 2000, 3000];
+        const step = Math.pow(10, Math.floor(Math.log10(max)) - 1);
+        const ticks = [];
+
+        for (let i = 0; i <= max; i += step) {
+            ticks.push(i);
+        }
+
+        if (ticks[ticks.length - 1] < max) {
+            ticks.push(max);
+        }
+
+        return ticks;
+    };
+
     return (
         <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/50 p-3 shadow-xl sm:rounded-2xl sm:p-4 lg:p-6">
             <div className="h-[250px] w-full rounded-lg border border-white/50 bg-white/50 p-2 backdrop-blur-sm sm:h-[300px] sm:rounded-xl sm:p-3 lg:h-[350px] lg:p-4">
@@ -52,44 +69,29 @@ export default function FinancialBarChart({ totalPemasukan, totalPengeluaran, to
                         <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" strokeOpacity={0.5} />
                         <XAxis
                             dataKey="name"
-                            tick={{
-                                fill: '#64748b',
-                                fontWeight: '500',
-                                fontSize: 10,
-                            }}
+                            tick={{ fill: '#64748b', fontWeight: '500', fontSize: 10 }}
                             tickLine={{ stroke: '#cbd5e1' }}
                             axisLine={{ stroke: '#cbd5e1' }}
                             interval={0}
-                            angle={0}
-                            textAnchor="middle"
                             height={60}
                             className="hidden sm:block"
                         />
                         <XAxis
                             dataKey="shortName"
-                            tick={{
-                                fill: '#64748b',
-                                fontWeight: '500',
-                                fontSize: 10,
-                            }}
+                            tick={{ fill: '#64748b', fontWeight: '500', fontSize: 10 }}
                             tickLine={{ stroke: '#cbd5e1' }}
                             axisLine={{ stroke: '#cbd5e1' }}
                             interval={0}
-                            angle={0}
-                            textAnchor="middle"
                             height={40}
                             className="block sm:hidden"
                         />
                         <YAxis
-                            tick={{
-                                fill: '#64748b',
-                                fontWeight: '500',
-                                fontSize: 10,
-                            }}
+                            tick={{ fill: '#64748b', fontWeight: '500', fontSize: 10 }}
                             tickLine={{ stroke: '#cbd5e1' }}
                             axisLine={{ stroke: '#cbd5e1' }}
                             tickFormatter={(value) => formatRupiah(value)}
-                            width={40}
+                            width={50}
+                            ticks={generateTicks()}
                         />
                         <Bar dataKey="amount" radius={[4, 4, 0, 0]} className="transition-opacity duration-300 hover:opacity-80">
                             {data.map((entry, index) => (
@@ -114,6 +116,7 @@ export default function FinancialBarChart({ totalPemasukan, totalPengeluaran, to
                 </div>
                 <div className="mt-2 text-xs text-gray-500 sm:mt-0">Updated: {new Date().toLocaleDateString('id-ID')}</div>
             </div>
+
             <div className="mt-4 grid grid-cols-1 gap-3 sm:hidden sm:grid-cols-3">
                 {data.map((item, index) => (
                     <div key={index} className="rounded-lg border border-white/30 bg-white/60 p-3 backdrop-blur-sm">
@@ -128,6 +131,7 @@ export default function FinancialBarChart({ totalPemasukan, totalPengeluaran, to
                     </div>
                 ))}
             </div>
+
             <div className="mt-4 hidden sm:block lg:block">
                 <div className="grid grid-cols-3 gap-4">
                     {data.map((item, index) => (
