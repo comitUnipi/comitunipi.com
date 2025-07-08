@@ -10,7 +10,7 @@ import { Head, router, useForm } from '@inertiajs/react';
 import { CheckCircle2, ChevronLeft, ChevronRight, Pencil, Plus, Trash2, XCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-interface Pemasukan {
+interface Pengeluaran {
     id: number;
     amount: number;
     date: string;
@@ -18,8 +18,8 @@ interface Pemasukan {
 }
 
 interface Props {
-    pemasukan: {
-        data: Pemasukan[];
+    pengeluaran: {
+        data: Pengeluaran[];
         current_page: number;
         last_page: number;
         per_page: number;
@@ -39,14 +39,14 @@ interface Props {
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Data Pemasukan',
-        href: '/pemasukan',
+        title: 'Data Pengeluaran',
+        href: '/pengeluaran',
     },
 ];
 
-export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
+export default function PengeluaranIndex({ pengeluaran, filters, flash }: Props) {
     const [isOpen, setIsOpen] = useState(false);
-    const [editingPemasukan, setEditingPemasukan] = useState<Pemasukan | null>(null);
+    const [editingPengeluaran, setEditingPengeluaran] = useState<Pengeluaran | null>(null);
     const [startDate, setStartDate] = useState(filters.start_date);
     const [endDate, setEndDate] = useState(filters.end_date);
     const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
@@ -91,16 +91,16 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (editingPemasukan) {
-            put(route('pemasukan.update', editingPemasukan.id), {
+        if (editingPengeluaran) {
+            put(route('pengeluaran.update', editingPengeluaran.id), {
                 onSuccess: () => {
                     setIsOpen(false);
-                    setEditingPemasukan(null);
+                    setEditingPengeluaran(null);
                     reset();
                 },
             });
         } else {
-            post(route('pemasukan.store'), {
+            post(route('pengeluaran.store'), {
                 onSuccess: () => {
                     setIsOpen(false);
                     reset();
@@ -109,23 +109,23 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
         }
     };
 
-    const handleEdit = (pemasukanItem: Pemasukan) => {
-        setEditingPemasukan(pemasukanItem);
+    const handleEdit = (pengeluaranItem: Pengeluaran) => {
+        setEditingPengeluaran(pengeluaranItem);
         setData({
-            amount: pemasukanItem.amount,
-            date: pemasukanItem.date,
-            description: pemasukanItem.description,
+            amount: pengeluaranItem.amount,
+            date: pengeluaranItem.date,
+            description: pengeluaranItem.description,
         });
         setIsOpen(true);
     };
 
     const handleDelete = (id: number) => {
-        destroy(route('pemasukan.destroy', id));
+        destroy(route('pengeluaran.destroy', id));
     };
 
     const handlePageChange = (page: number) => {
         router.get(
-            route('pemasukan.index'),
+            route('pengeluaran.index'),
             {
                 page,
             },
@@ -140,11 +140,11 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
         Object.fromEntries(Object.entries(filters).filter(([_, value]) => value !== '' && value !== null)),
     ).toString();
 
-    const exportUrl = `/pemasukan/export/csv?${queryParams}`;
+    const exportUrl = `/pengeluaran/export/csv?${queryParams}`;
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Data Pemasukan" />
+            <Head title="Data Pengeluaran" />
             <div className="from-background to-muted/20 flex h-full flex-1 flex-col gap-4 rounded-xl bg-gradient-to-br p-3 sm:gap-6 sm:p-4 md:p-6">
                 {showToast && (
                     <div
@@ -163,9 +163,9 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
 
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                        <h1 className="text-xl font-bold tracking-tight sm:text-2xl md:text-3xl">Data Pemasukan</h1>
+                        <h1 className="text-xl font-bold tracking-tight sm:text-2xl md:text-3xl">Data Pengeluaran</h1>
                         <p className="text-muted-foreground mt-1 text-xs sm:text-sm md:text-base">
-                            manajemen untuk mengelola data pemasukan keuangan
+                            manajemen untuk mengelola data pengeluaran keuangan
                         </p>
                     </div>
 
@@ -218,7 +218,7 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
                             <DialogContent className="mx-4 max-h-[90vh] w-[calc(100vw-2rem)] overflow-y-auto sm:max-w-[600px]">
                                 <DialogHeader>
                                     <DialogTitle className="text-lg sm:text-xl">
-                                        {editingPemasukan ? 'Ubah Data Pemasukan' : 'Tambah Pemasukan'}
+                                        {editingPengeluaran ? 'Ubah Data Pengeluaran' : 'Tambah Pengeluaran'}
                                     </DialogTitle>
                                 </DialogHeader>
                                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -261,12 +261,12 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
                                             value={data.description}
                                             onChange={(e) => setData('description', e.target.value)}
                                             disabled={processing}
-                                            placeholder="Jelaskan keterangan dari pemasukan ini"
+                                            placeholder="Jelaskan keterangan dari pengeluaran ini"
                                             className="border-input bg-background ring-offset-background focus-visible:ring-ring placeholder:text-muted-foreground flex w-full rounded-md border px-3 py-2 text-sm shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
                                         />
                                     </div>
                                     <Button type="submit" disabled={processing} className="w-full">
-                                        {editingPemasukan ? 'Ubah Data pemasukan' : 'Tambah Data'}
+                                        {editingPengeluaran ? 'Ubah Data Pengeluaran' : 'Tambah Data'}
                                     </Button>
                                 </form>
                             </DialogContent>
@@ -295,7 +295,7 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
                             <Button
                                 onClick={() =>
                                     router.get(
-                                        route('pemasukan.index'),
+                                        route('pengeluaran.index'),
                                         {
                                             start_date: startDate,
                                             end_date: endDate,
@@ -316,7 +316,7 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
                                 onClick={() => {
                                     setStartDate('');
                                     setEndDate('');
-                                    router.get(route('pemasukan.index'));
+                                    router.get(route('pengeluaran.index'));
                                 }}
                                 className="flex-1 sm:flex-none"
                             >
@@ -341,7 +341,7 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
                                 </tr>
                             </thead>
                             <tbody className="[&_tr:last-child]:border-0">
-                                {pemasukan.data.map((data, index) => (
+                                {pengeluaran.data.map((data, index) => (
                                     <tr key={data.id} className="hover:bg-muted/50 border-b transition-colors">
                                         <td className="p-4">{index + 1}</td>
                                         <td className="p-4">{formatDate(data.date)}</td>
@@ -367,7 +367,7 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
                                         </td>
                                     </tr>
                                 ))}
-                                {pemasukan.data.length === 0 && (
+                                {pengeluaran.data.length === 0 && (
                                     <tr>
                                         <td colSpan={6} className="text-muted-foreground p-8 text-center">
                                             <div className="flex flex-col items-center gap-2">
@@ -382,7 +382,7 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
                     </div>
                     {/* Mobile Card Layout */}
                     <div className="lg:hidden">
-                        {pemasukan.data.map((data) => (
+                        {pengeluaran.data.map((data) => (
                             <div key={data.id} className="space-y-3 border-b p-4">
                                 <div className="flex items-start justify-between">
                                     <div>
@@ -417,32 +417,32 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
                                 </div>
                             </div>
                         ))}
-                        {pemasukan.data.length === 0 && <div className="text-muted-foreground p-6 text-center">Tidak ada data.</div>}
+                        {pengeluaran.data.length === 0 && <div className="text-muted-foreground p-6 text-center">Tidak ada data.</div>}
                     </div>
                 </div>
 
                 {/* Pagination */}
                 <div className="flex flex-col items-center justify-between gap-4 px-2 sm:flex-row">
                     <div className="text-muted-foreground text-center text-xs sm:text-sm">
-                        Menampilkan {pemasukan.from} sampai {pemasukan.to} dari {pemasukan.total} data
+                        Menampilkan {pengeluaran.from} sampai {pengeluaran.to} dari {pengeluaran.total} data
                     </div>
                     <div className="flex items-center space-x-2">
                         <Button
                             variant="outline"
                             size="icon"
-                            onClick={() => handlePageChange(pemasukan.current_page - 1)}
-                            disabled={pemasukan.current_page === 1}
+                            onClick={() => handlePageChange(pengeluaran.current_page - 1)}
+                            disabled={pengeluaran.current_page === 1}
                             className="h-8 w-8"
                         >
                             <ChevronLeft className="h-4 w-4" />
                         </Button>
                         <div className="flex max-w-[200px] items-center space-x-1 overflow-x-auto sm:max-w-xs">
-                            {Array.from({ length: pemasukan.last_page }, (_, i) => i + 1)
-                                .slice(Math.max(0, pemasukan.current_page - 2), Math.min(pemasukan.last_page, pemasukan.current_page + 1))
+                            {Array.from({ length: pengeluaran.last_page }, (_, i) => i + 1)
+                                .slice(Math.max(0, pengeluaran.current_page - 2), Math.min(pengeluaran.last_page, pengeluaran.current_page + 1))
                                 .map((page) => (
                                     <Button
                                         key={page}
-                                        variant={page === pemasukan.current_page ? 'default' : 'outline'}
+                                        variant={page === pengeluaran.current_page ? 'default' : 'outline'}
                                         size="icon"
                                         onClick={() => handlePageChange(page)}
                                         className="h-8 w-8 text-xs"
@@ -454,8 +454,8 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
                         <Button
                             variant="outline"
                             size="icon"
-                            onClick={() => handlePageChange(pemasukan.current_page + 1)}
-                            disabled={pemasukan.current_page === pemasukan.last_page}
+                            onClick={() => handlePageChange(pengeluaran.current_page + 1)}
+                            disabled={pengeluaran.current_page === pengeluaran.last_page}
                             className="h-8 w-8"
                         >
                             <ChevronRight className="h-4 w-4" />

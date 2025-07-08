@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KasController;
 use App\Http\Controllers\PemasukanController;
+use App\Http\Controllers\PengeluaranController;
 
 Route::get('/', function () {
     return Inertia::render('Index');
@@ -20,6 +21,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/kas/export/csv', [KasController::class, 'exportCsv'])->name('kas.export.csv');
     Route::resource('pemasukan', PemasukanController::class);
     Route::get('/pemasukan/export/csv', [PemasukanController::class, 'exportCsv'])->name('kas.export.csv');
+    Route::resource('pengeluaran', PengeluaranController::class);
 });
 
 require __DIR__ . '/settings.php';
