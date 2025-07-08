@@ -2,7 +2,7 @@ import { NavMain } from '@/components/nav-main';
 import { Sidebar, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { CircleDollarSign, LayoutGrid, User, Users } from 'lucide-react';
+import { ArrowBigDown, ArrowBigUp, CircleDollarSign, Dock, LayoutGrid, User, Users } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -22,7 +22,17 @@ const masterNavItems: NavItem[] = [
     {
         title: 'Data Uang KAS',
         href: '/kas',
-        icon: CircleDollarSign,
+        icon: Dock,
+    },
+    {
+        title: 'Data Pemasukan',
+        href: '/pemasukan',
+        icon: ArrowBigDown,
+    },
+    {
+        title: 'Data Pengeluaran',
+        href: '/pengeluaran',
+        icon: ArrowBigUp,
     },
 ];
 const settingNavItems: NavItem[] = [
