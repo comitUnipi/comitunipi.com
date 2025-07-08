@@ -86,13 +86,29 @@ export default function Dashboard({
                         </CardContent>
                     </Card>
                 </div>
-                <div className="grid gap-4 md:grid-cols-2">
+                <div className="grid gap-4 md:grid-cols-3">
                     <Card className="border-primary/20">
                         <CardHeader>
                             <CardTitle className="text-lg">Total Uang Kas</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="text-primary text-2xl font-bold">{formatRupiah(stats.totalKAS)}</div>
+                        </CardContent>
+                    </Card>
+                    <Card className="border-primary/20">
+                        <CardHeader>
+                            <CardTitle className="text-lg">Total Pemasukan</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-primary text-2xl font-bold">{formatRupiah(stats.totalPemasukan)}</div>
+                        </CardContent>
+                    </Card>
+                    <Card className="border-primary/20">
+                        <CardHeader>
+                            <CardTitle className="text-lg">Total Pengeluaran</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-primary text-2xl font-bold">{formatRupiah(stats.totalPengeluaran)}</div>
                         </CardContent>
                     </Card>
                 </div>
