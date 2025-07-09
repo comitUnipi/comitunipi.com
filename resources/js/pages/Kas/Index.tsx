@@ -195,9 +195,8 @@ export default function KasIndex({ kas, users, filters, flash }: Props) {
             <div className="from-background to-muted/20 flex h-full flex-1 flex-col gap-4 rounded-xl bg-gradient-to-br p-3 sm:gap-6 sm:p-4 md:p-6">
                 {showToast && (
                     <div
-                        className={`fixed top-4 right-4 z-50 flex max-w-[90vw] items-center gap-2 rounded-lg p-3 shadow-lg sm:max-w-sm sm:p-4 ${
-                            toastType === 'success' ? 'bg-green-500' : 'bg-red-500'
-                        } animate-in fade-in slide-in-from-top-5 text-sm text-white`}
+                        className={`fixed top-4 right-4 z-50 flex max-w-[90vw] items-center gap-2 rounded-lg p-3 shadow-lg sm:max-w-sm sm:p-4 ${toastType === 'success' ? 'bg-green-500' : 'bg-red-500'
+                            } animate-in fade-in slide-in-from-top-5 text-sm text-white`}
                     >
                         {toastType === 'success' ? (
                             <CheckCircle2 className="h-4 w-4 flex-shrink-0 sm:h-5 sm:w-5" />
@@ -524,67 +523,48 @@ export default function KasIndex({ kas, users, filters, flash }: Props) {
                             </tbody>
                         </table>
                     </div>
-
                     {/* Mobile Card Layout */}
-                    <div className="block lg:hidden">
-                        <div className="space-y-4 p-4">
-                            {kas.data.map((data, index) => (
-                                <div key={data.id} className="bg-card rounded-lg border p-4 shadow-sm">
-                                    <div className="mb-3 flex items-start justify-between">
-                                        <div className="flex-1">
-                                            <div className="mb-1 flex items-center gap-2">
-                                                <span className="bg-primary/10 text-primary rounded-full px-2 py-1 text-xs font-medium">
-                                                    #{index + 1}
-                                                </span>
-                                                <span
-                                                    className={`rounded-full px-2 py-1 text-xs font-medium ${
-                                                        data.type === 'Pengurus'
-                                                            ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300'
-                                                            : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
-                                                    }`}
-                                                >
-                                                    {data.type}
-                                                </span>
-                                            </div>
-                                            <h3 className="mb-1 text-base font-semibold">{data.user?.name}</h3>
-                                            <p className="text-muted-foreground mb-2 text-sm">{formatDate(data.date)}</p>
-                                            <p className="text-primary text-lg font-bold">{formatRupiah(data.amount)}</p>
-                                        </div>
-                                        <div className="ml-4 flex gap-1">
-                                            <Link
-                                                href={route('users.show', data.id)}
-                                                className="hover:text-primary hover:bg-muted inline-flex h-8 w-8 items-center justify-center rounded-md text-sm transition-colors"
-                                            >
-                                                <Eye className="h-4 w-4" />
-                                            </Link>
-                                            <Button
-                                                variant="ghost"
-                                                size="icon"
-                                                onClick={() => handleEdit(data)}
-                                                className="hover:text-primary h-8 w-8 cursor-pointer"
-                                            >
-                                                <Pencil className="h-4 w-4" />
-                                            </Button>
-                                            <Button
-                                                variant="ghost"
-                                                size="icon"
-                                                onClick={() => setConfirmDeleteId(data.id)}
-                                                className="hover:text-destructive h-8 w-8 cursor-pointer"
-                                            >
-                                                <Trash2 className="h-4 w-4" />
-                                            </Button>
-                                        </div>
+                    <div className="lg:hidden">
+                        {kas.data.map((data) => (
+                            <div key={data.id} className="space-y-3 border-b p-4">
+                                <div className="flex items-start justify-between">
+                                    <div>
+                                        <h3 className="text-base font-semibold">{data.user.name}</h3>
+                                        <p className="text-muted-foreground text-sm">{data.type}</p>
+                                    </div>
+                                    <div className="flex space-x-2">
+                                        <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            onClick={() => handleEdit(data)}
+                                            className="hover:text-primary h-8 w-8 cursor-pointer"
+                                        >
+                                            <Pencil className="h-4 w-4" />
+                                        </Button>
+                                        <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            onClick={() => setConfirmDeleteId(data.id)}
+                                            className="hover:text-destructive h-8 w-8 cursor-pointer"
+                                        >
+                                            <Trash2 className="h-4 w-4" />
+                                        </Button>
                                     </div>
                                 </div>
-                            ))}
-                            {kas.data.length === 0 && (
-                                <div className="py-12 text-center">
-                                    <div className="mb-4 text-6xl">📋</div>
-                                    <p className="text-muted-foreground text-lg">Tidak ada data KAS</p>
-                                    <p className="text-muted-foreground mt-2 text-sm">Mulai dengan menambahkan data KAS pertama</p>
+
+                                <div className="grid grid-cols-2 gap-2 text-sm">
+                                    <div>
+                                        <span className="text-muted-foreground">Tanggal Bayar:</span>
+                                        <p className="font-medium">{formatDate(data.date)}</p>
+                                    </div>
+                                    <div>
+                                        <span className="text-muted-foreground">Jumlah Bayar:</span>
+                                        <p className="font-medium">{formatRupiah(data.amount)}</p>
+                                    </div>
                                 </div>
-                            )}
-                        </div>
+                            </div>
+                        ))}
+                        {kas.data.length === 0 && <div className="text-muted-foreground p-6 text-center">Tidak ada data.</div>}
                     </div>
                 </div>
 
