@@ -148,8 +148,9 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
             <div className="from-background to-muted/20 flex h-full flex-1 flex-col gap-4 rounded-xl bg-gradient-to-br p-3 sm:gap-6 sm:p-4 md:p-6">
                 {showToast && (
                     <div
-                        className={`fixed top-4 right-4 z-50 flex max-w-[90vw] items-center gap-2 rounded-lg p-3 shadow-lg sm:max-w-sm sm:p-4 ${toastType === 'success' ? 'bg-green-500' : 'bg-red-500'
-                            } animate-in fade-in slide-in-from-top-5 text-sm text-white`}
+                        className={`fixed top-4 right-4 z-50 flex max-w-[90vw] items-center gap-2 rounded-lg p-3 shadow-lg sm:max-w-sm sm:p-4 ${
+                            toastType === 'success' ? 'bg-green-500' : 'bg-red-500'
+                        } animate-in fade-in slide-in-from-top-5 text-sm text-white`}
                     >
                         {toastType === 'success' ? (
                             <CheckCircle2 className="h-4 w-4 flex-shrink-0 sm:h-5 sm:w-5" />
