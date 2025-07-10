@@ -288,7 +288,7 @@ export default function UsersIndex({ users, filters, flash }: Props) {
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
                         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Data Anggota</h1>
-                        <p className="text-muted-foreground mt-1 text-sm sm:text-base">manajemen untuk mengelola data anggota</p>
+                        <p className="text-muted-foreground mt-1 text-base">Manajemen untuk mengelola data anggota.</p>
                     </div>
 
                     <Dialog open={confirmDeleteId !== null} onOpenChange={() => setConfirmDeleteId(null)}>
@@ -316,17 +316,16 @@ export default function UsersIndex({ users, filters, flash }: Props) {
                         </DialogContent>
                     </Dialog>
 
-                    <div className="flex gap-2">
+                    <div className="flex gap-4">
                         <a
                             href={exportUrl}
-                            className="flex items-center rounded-md bg-green-600 px-3 py-2 text-sm text-white shadow-lg hover:bg-green-700 dark:text-black"
+                            className="flex items-center rounded-md bg-green-600 px-3 py-2 text-sm text-white shadow-lg hover:bg-green-700"
                             download
                         >
                             <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
                             </svg>
-                            <span className="hidden sm:inline">Export CSV</span>
-                            <span className="sm:hidden">Export</span>
+                            <span className="sm:inline">Export CSV</span>
                         </a>
                         <Dialog open={isOpen} onOpenChange={setIsOpen}>
                             <DialogTrigger>
