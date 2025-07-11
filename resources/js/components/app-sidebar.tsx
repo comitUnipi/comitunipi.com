@@ -35,10 +35,11 @@ const masterNavItems: NavItem[] = [
         icon: ArrowBigUp,
     },
 ];
+
 const laporanNavItems: NavItem[] = [
     {
         title: 'Laporan Keuangan',
-        href: '/laporan/keuangan',
+        href: '/laporan',
         icon: Dock,
     },
 ];
