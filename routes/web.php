@@ -25,6 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('pengeluaran', PengeluaranController::class);
     Route::get('/pengeluaran/export/csv', [PengeluaranController::class, 'exportCsv'])->name('pengeluaran.export.csv');
     Route::resource('laporan', LaporanController::class);
+    Route::get('/laporan/export/csv', [LaporanController::class, 'exportCsv'])->name('laporan.export.csv');
 });
 
 require __DIR__ . '/settings.php';

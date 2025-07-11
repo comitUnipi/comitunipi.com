@@ -35,8 +35,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function LaporanIndex({ laporan, periode, totalSaldo, totalDebit, totalKredit }: Props) {
-    const [startDate, setStartDate] = useState(periode?.start || '');
-    const [endDate, setEndDate] = useState(periode?.end || '');
+    const [startDate, setStartDate] = useState(periode?.start);
+    const [endDate, setEndDate] = useState(periode?.end);
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -52,7 +52,7 @@ export default function LaporanIndex({ laporan, periode, totalSaldo, totalDebit,
                     </div>
                     <div className="flex gap-2 sm:gap-4">
                         <a
-                            href=""
+                            href={`/laporan/export/csv?end_date=${endDate}&start_date=${startDate}`}
                             className="flex items-center rounded-md bg-green-600 px-3 py-2 text-sm text-white shadow-lg transition-colors hover:bg-green-700"
                             download
                         >
