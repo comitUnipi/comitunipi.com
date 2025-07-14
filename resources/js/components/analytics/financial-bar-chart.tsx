@@ -107,9 +107,7 @@ export default function FinancialBarChart({ totalPemasukan, totalPengeluaran, to
                         </div>
                     ))}
                 </div>
-                <div className="mt-2 text-xs text-gray-500 sm:mt-0 dark:text-gray-400">
-                    Updated: {formatDate(new Date().toLocaleDateString('id-ID'))}
-                </div>
+                <div className="mt-2 text-xs text-gray-500 sm:mt-0 dark:text-gray-400">Updated: {formatDate(new Date().toISOString())}</div>
             </div>
 
             <div className="mt-4 grid grid-cols-1 gap-3 sm:hidden sm:grid-cols-3">
