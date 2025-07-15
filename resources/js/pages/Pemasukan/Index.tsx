@@ -1,4 +1,5 @@
 import Pagination from '@/components/pagination';
+import ToastNotification from '@/components/toast-notification';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -8,7 +9,7 @@ import { formatDate } from '@/lib/format-date';
 import { formatRupiah } from '@/lib/format-rupiah';
 import { type BreadcrumbItem } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/react';
-import { CheckCircle2, Pencil, Plus, Trash2, XCircle } from 'lucide-react';
+import { Pencil, Plus, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 interface Pemasukan {
@@ -150,20 +151,7 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Data Pemasukan" />
             <div className="from-background to-muted/20 flex h-full flex-1 flex-col gap-4 rounded-xl bg-gradient-to-br p-3 sm:gap-6 sm:p-4 md:p-6">
-                {showToast && (
-                    <div
-                        className={`fixed top-4 right-4 z-50 flex max-w-[90vw] items-center gap-2 rounded-lg p-3 shadow-lg sm:max-w-sm sm:p-4 ${
-                            toastType === 'success' ? 'bg-green-500' : 'bg-red-500'
-                        } animate-in fade-in slide-in-from-top-5 text-sm text-white`}
-                    >
-                        {toastType === 'success' ? (
-                            <CheckCircle2 className="h-4 w-4 flex-shrink-0 sm:h-5 sm:w-5" />
-                        ) : (
-                            <XCircle className="h-4 w-4 flex-shrink-0 sm:h-5 sm:w-5" />
-                        )}
-                        <span className="break-words">{toastMessage}</span>
-                    </div>
-                )}
+                <ToastNotification message={toastMessage} type={toastType} visible={showToast} />
 
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
