@@ -4,7 +4,7 @@ import AppLayout from '@/layouts/app-layout';
 import { formatDate } from '@/lib/format-date';
 import { formatRupiah } from '@/lib/format-rupiah';
 import { BreadcrumbItem } from '@/types';
-import { Head, router } from '@inertiajs/react';
+import { Head, router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
 interface Laporan {
@@ -37,6 +37,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function LaporanIndex({ laporan, periode, totalSaldo, totalDebit, totalKredit }: Props) {
     const [startDate, setStartDate] = useState(periode?.start);
     const [endDate, setEndDate] = useState(periode?.end);
+    const { auth } = usePage().props;
+    const user = auth?.user;
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -50,18 +52,20 @@ export default function LaporanIndex({ laporan, periode, totalSaldo, totalDebit,
                             Manajemen untuk mengelola data laporan keuangan mingguan dan bulanan.
                         </p>
                     </div>
-                    <div className="flex gap-2 sm:gap-4">
-                        <a
-                            href={`/laporan/export/csv?end_date=${endDate}&start_date=${startDate}`}
-                            className="flex items-center rounded-md bg-green-600 px-3 py-2 text-sm text-white shadow-lg transition-colors hover:bg-green-700"
-                            download
-                        >
-                            <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-                            </svg>
-                            <span className="sm:inline">Export CSV</span>
-                        </a>
-                    </div>
+                    {['Super Admin', 'Finance'].includes(user.role) && (
+                        <div className="flex gap-2 sm:gap-4">
+                            <a
+                                href={`/laporan/export/csv?end_date=${endDate}&start_date=${startDate}`}
+                                className="flex items-center rounded-md bg-green-600 px-3 py-2 text-sm text-white shadow-lg transition-colors hover:bg-green-700"
+                                download
+                            >
+                                <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                                </svg>
+                                <span className="sm:inline">Export CSV</span>
+                            </a>
+                        </div>
+                    )}
                 </div>
 
                 {/* Filter Section */}

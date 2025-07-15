@@ -34,7 +34,6 @@ Route::middleware(['auth', 'verified', 'role:Finance,Super Admin'])->group(funct
 
 Route::middleware(['auth', 'verified', 'role:Super Admin'])->group(function () {
     Route::resource('users', UserController::class)->except(['index']);
-    Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
     Route::get('/users/export/csv', [UserController::class, 'exportCsv'])->name('users.export.csv');
 });
 

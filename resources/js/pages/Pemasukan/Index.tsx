@@ -6,7 +6,7 @@ import AppLayout from '@/layouts/app-layout';
 import { formatDate } from '@/lib/format-date';
 import { formatRupiah } from '@/lib/format-rupiah';
 import { type BreadcrumbItem } from '@/types';
-import { Head, router, useForm } from '@inertiajs/react';
+import { Head, router, useForm, usePage } from '@inertiajs/react';
 import { CheckCircle2, ChevronLeft, ChevronRight, Pencil, Plus, Trash2, XCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -54,6 +54,9 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState('');
     const [toastType, setToastType] = useState<'success' | 'error'>('success');
+
+    const { auth } = usePage().props;
+    const user = auth?.user;
 
     useEffect(() => {
         if (flash?.success) {
@@ -148,9 +151,8 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
             <div className="from-background to-muted/20 flex h-full flex-1 flex-col gap-4 rounded-xl bg-gradient-to-br p-3 sm:gap-6 sm:p-4 md:p-6">
                 {showToast && (
                     <div
-                        className={`fixed top-4 right-4 z-50 flex max-w-[90vw] items-center gap-2 rounded-lg p-3 shadow-lg sm:max-w-sm sm:p-4 ${
-                            toastType === 'success' ? 'bg-green-500' : 'bg-red-500'
-                        } animate-in fade-in slide-in-from-top-5 text-sm text-white`}
+                        className={`fixed top-4 right-4 z-50 flex max-w-[90vw] items-center gap-2 rounded-lg p-3 shadow-lg sm:max-w-sm sm:p-4 ${toastType === 'success' ? 'bg-green-500' : 'bg-red-500'
+                            } animate-in fade-in slide-in-from-top-5 text-sm text-white`}
                     >
                         {toastType === 'success' ? (
                             <CheckCircle2 className="h-4 w-4 flex-shrink-0 sm:h-5 sm:w-5" />
@@ -192,83 +194,84 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
                             </div>
                         </DialogContent>
                     </Dialog>
-
-                    <div className="flex gap-4">
-                        <a
-                            href={exportUrl}
-                            className="flex items-center rounded-md bg-green-600 px-3 py-2 text-sm text-white shadow-lg hover:bg-green-700"
-                            download
-                        >
-                            <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-                            </svg>
-                            <span className="sm:inline">Export CSV</span>
-                        </a>
-                        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                            <DialogTrigger>
-                                <div className="bg-primary hover:bg-primary/90 flex cursor-pointer items-center rounded-md px-3 py-2 text-sm whitespace-nowrap text-white shadow-lg dark:text-black">
-                                    <Plus className="mr-2 h-4 w-4" />
-                                    <span className="xs:inline hidden sm:hidden md:inline">Tambah Data</span>
-                                    <span className="xs:hidden sm:inline md:hidden">Tambah</span>
-                                </div>
-                            </DialogTrigger>
-                            <DialogContent className="mx-4 max-h-[90vh] w-[calc(100vw-2rem)] overflow-y-auto sm:max-w-[600px]">
-                                <DialogHeader>
-                                    <DialogTitle className="text-lg sm:text-xl">
-                                        {editingPemasukan ? 'Ubah Data Pemasukan' : 'Tambah Pemasukan'}
-                                    </DialogTitle>
-                                </DialogHeader>
-                                <form onSubmit={handleSubmit} className="space-y-4">
-                                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                                        <div className="grid gap-2">
-                                            <Label htmlFor="amount" className="text-sm font-medium">
-                                                Jumlah
-                                            </Label>
-                                            <Input
-                                                id="amount"
-                                                type="number"
-                                                placeholder="Jumlah Uang"
-                                                value={data.amount}
-                                                onChange={(e) => setData('amount', Number(e.target.value))}
-                                                required
-                                                className="w-full"
-                                            />
+                    {['Super Admin', 'Finance'].includes(user.role) && (
+                        <div className="flex gap-4">
+                            <a
+                                href={exportUrl}
+                                className="flex items-center rounded-md bg-green-600 px-3 py-2 text-sm text-white shadow-lg hover:bg-green-700"
+                                download
+                            >
+                                <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                                </svg>
+                                <span className="sm:inline">Export CSV</span>
+                            </a>
+                            <Dialog open={isOpen} onOpenChange={setIsOpen}>
+                                <DialogTrigger>
+                                    <div className="bg-primary hover:bg-primary/90 flex cursor-pointer items-center rounded-md px-3 py-2 text-sm whitespace-nowrap text-white shadow-lg dark:text-black">
+                                        <Plus className="mr-2 h-4 w-4" />
+                                        <span className="xs:inline hidden sm:hidden md:inline">Tambah Data</span>
+                                        <span className="xs:hidden sm:inline md:hidden">Tambah</span>
+                                    </div>
+                                </DialogTrigger>
+                                <DialogContent className="mx-4 max-h-[90vh] w-[calc(100vw-2rem)] overflow-y-auto sm:max-w-[600px]">
+                                    <DialogHeader>
+                                        <DialogTitle className="text-lg sm:text-xl">
+                                            {editingPemasukan ? 'Ubah Data Pemasukan' : 'Tambah Pemasukan'}
+                                        </DialogTitle>
+                                    </DialogHeader>
+                                    <form onSubmit={handleSubmit} className="space-y-4">
+                                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                            <div className="grid gap-2">
+                                                <Label htmlFor="amount" className="text-sm font-medium">
+                                                    Jumlah
+                                                </Label>
+                                                <Input
+                                                    id="amount"
+                                                    type="number"
+                                                    placeholder="Jumlah Uang"
+                                                    value={data.amount}
+                                                    onChange={(e) => setData('amount', Number(e.target.value))}
+                                                    required
+                                                    className="w-full"
+                                                />
+                                            </div>
+                                            <div className="grid gap-2">
+                                                <Label htmlFor="date" className="text-sm font-medium">
+                                                    Tanggal
+                                                </Label>
+                                                <Input
+                                                    id="date"
+                                                    type="date"
+                                                    value={data.date}
+                                                    onChange={(e) => setData('date', e.target.value)}
+                                                    required
+                                                    className="w-full"
+                                                />
+                                            </div>
                                         </div>
                                         <div className="grid gap-2">
-                                            <Label htmlFor="date" className="text-sm font-medium">
-                                                Tanggal
+                                            <Label htmlFor="description" className="text-sm font-medium">
+                                                Keterangan
                                             </Label>
-                                            <Input
-                                                id="date"
-                                                type="date"
-                                                value={data.date}
-                                                onChange={(e) => setData('date', e.target.value)}
+                                            <textarea
+                                                id="description"
                                                 required
-                                                className="w-full"
+                                                value={data.description}
+                                                onChange={(e) => setData('description', e.target.value)}
+                                                disabled={processing}
+                                                placeholder="Jelaskan keterangan dari pemasukan ini"
+                                                className="border-input bg-background ring-offset-background focus-visible:ring-ring placeholder:text-muted-foreground flex w-full rounded-md border px-3 py-2 text-sm shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
                                             />
                                         </div>
-                                    </div>
-                                    <div className="grid gap-2">
-                                        <Label htmlFor="description" className="text-sm font-medium">
-                                            Keterangan
-                                        </Label>
-                                        <textarea
-                                            id="description"
-                                            required
-                                            value={data.description}
-                                            onChange={(e) => setData('description', e.target.value)}
-                                            disabled={processing}
-                                            placeholder="Jelaskan keterangan dari pemasukan ini"
-                                            className="border-input bg-background ring-offset-background focus-visible:ring-ring placeholder:text-muted-foreground flex w-full rounded-md border px-3 py-2 text-sm shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-                                        />
-                                    </div>
-                                    <Button type="submit" disabled={processing} className="w-full">
-                                        {editingPemasukan ? 'Ubah Data pemasukan' : 'Tambah Data'}
-                                    </Button>
-                                </form>
-                            </DialogContent>
-                        </Dialog>
-                    </div>
+                                        <Button type="submit" disabled={processing} className="w-full">
+                                            {editingPemasukan ? 'Ubah Data pemasukan' : 'Tambah Data'}
+                                        </Button>
+                                    </form>
+                                </DialogContent>
+                            </Dialog>
+                        </div>
+                    )}
                 </div>
 
                 <div className="flex flex-col gap-3 sm:gap-4">
@@ -334,7 +337,9 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
                                     <th className="text-muted-foreground h-12 px-4 text-left font-medium">Tanggal</th>
                                     <th className="text-muted-foreground h-12 px-4 text-left font-medium">Jumlah</th>
                                     <th className="text-muted-foreground h-12 px-4 text-left font-medium">Keterangan</th>
-                                    <th className="text-muted-foreground h-12 px-4 text-center font-medium">Actions</th>
+                                    {['Super Admin', 'Finance'].includes(user.role) && (
+                                        <th className="text-muted-foreground h-12 px-4 text-center font-medium">Actions</th>
+                                    )}
                                 </tr>
                             </thead>
                             <tbody className="[&_tr:last-child]:border-0">
@@ -344,24 +349,26 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
                                         <td className="p-4">{formatDate(data.date)}</td>
                                         <td className="p-4">{formatRupiah(data.amount)}</td>
                                         <td className="p-4">{data.description}</td>
-                                        <td className="space-x-2 p-4 text-center">
-                                            <Button
-                                                variant="ghost"
-                                                size="icon"
-                                                onClick={() => handleEdit(data)}
-                                                className="hover:text-primary cursor-pointer"
-                                            >
-                                                <Pencil className="h-4 w-4" />
-                                            </Button>
-                                            <Button
-                                                variant="ghost"
-                                                size="icon"
-                                                onClick={() => setConfirmDeleteId(data.id)}
-                                                className="hover:text-destructive cursor-pointer"
-                                            >
-                                                <Trash2 className="h-4 w-4" />
-                                            </Button>
-                                        </td>
+                                        {['Super Admin', 'Finance'].includes(user.role) && (
+                                            <td className="space-x-2 p-4 text-center">
+                                                <Button
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    onClick={() => handleEdit(data)}
+                                                    className="hover:text-primary cursor-pointer"
+                                                >
+                                                    <Pencil className="h-4 w-4" />
+                                                </Button>
+                                                <Button
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    onClick={() => setConfirmDeleteId(data.id)}
+                                                    className="hover:text-destructive cursor-pointer"
+                                                >
+                                                    <Trash2 className="h-4 w-4" />
+                                                </Button>
+                                            </td>
+                                        )}
                                     </tr>
                                 ))}
                                 {pemasukan.data.length === 0 && (
@@ -386,24 +393,26 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
                                         <h3 className="text-base font-semibold">{formatRupiah(data.amount)}</h3>
                                         <p className="text-muted-foreground text-sm">{formatDate(data.date)}</p>
                                     </div>
-                                    <div className="flex space-x-2">
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            onClick={() => handleEdit(data)}
-                                            className="hover:text-primary h-8 w-8 cursor-pointer"
-                                        >
-                                            <Pencil className="h-4 w-4" />
-                                        </Button>
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            onClick={() => setConfirmDeleteId(data.id)}
-                                            className="hover:text-destructive h-8 w-8 cursor-pointer"
-                                        >
-                                            <Trash2 className="h-4 w-4" />
-                                        </Button>
-                                    </div>
+                                    {['Super Admin', 'Finance'].includes(user.role) && (
+                                        <div className="flex space-x-2">
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                onClick={() => handleEdit(data)}
+                                                className="hover:text-primary h-8 w-8 cursor-pointer"
+                                            >
+                                                <Pencil className="h-4 w-4" />
+                                            </Button>
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                onClick={() => setConfirmDeleteId(data.id)}
+                                                className="hover:text-destructive h-8 w-8 cursor-pointer"
+                                            >
+                                                <Trash2 className="h-4 w-4" />
+                                            </Button>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-2 text-sm">
