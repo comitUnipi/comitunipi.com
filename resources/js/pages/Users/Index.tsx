@@ -1,3 +1,4 @@
+import Pagination from '@/components/pagination';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -823,48 +824,14 @@ export default function UsersIndex({ users, filters, flash }: Props) {
                         {users.data.length === 0 && <div className="text-muted-foreground p-6 text-center">Tidak ada data anggota.</div>}
                     </div>
                 </div>
-
-                {/* Pagination */}
-                <div className="flex flex-col items-center justify-between gap-4 px-2 sm:flex-row">
-                    <div className="text-muted-foreground text-center text-sm sm:text-left">
-                        Showing {users.from} to {users.to} of {users.total} results
-                    </div>
-                    <div className="flex items-center space-x-2">
-                        <Button
-                            variant="outline"
-                            size="icon"
-                            onClick={() => handlePageChange(users.current_page - 1)}
-                            disabled={users.current_page === 1}
-                            className="h-8 w-8"
-                        >
-                            <ChevronLeft className="h-4 w-4" />
-                        </Button>
-                        <div className="flex max-w-xs items-center space-x-1 overflow-x-auto">
-                            {Array.from({ length: users.last_page }, (_, i) => i + 1)
-                                .slice(Math.max(0, users.current_page - 3), Math.min(users.last_page, users.current_page + 2))
-                                .map((page) => (
-                                    <Button
-                                        key={page}
-                                        variant={page === users.current_page ? 'default' : 'outline'}
-                                        size="icon"
-                                        onClick={() => handlePageChange(page)}
-                                        className="h-8 w-8 text-xs"
-                                    >
-                                        {page}
-                                    </Button>
-                                ))}
-                        </div>
-                        <Button
-                            variant="outline"
-                            size="icon"
-                            onClick={() => handlePageChange(users.current_page + 1)}
-                            disabled={users.current_page === users.last_page}
-                            className="h-8 w-8"
-                        >
-                            <ChevronRight className="h-4 w-4" />
-                        </Button>
-                    </div>
-                </div>
+                <Pagination
+                    currentPage={users.current_page}
+                    totalItems={users.total}
+                    from={users.from}
+                    to={users.to}
+                    lastPage={users.last_page}
+                    onPageChange={handlePageChange}
+                />
             </div>
         </AppLayout>
     );

@@ -1,3 +1,4 @@
+import Pagination from '@/components/pagination';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -8,7 +9,7 @@ import { formatDate } from '@/lib/format-date';
 import { formatRupiah } from '@/lib/format-rupiah';
 import { type BreadcrumbItem } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/react';
-import { CheckCircle2, ChevronLeft, ChevronRight, Pencil, Plus, Search, Trash2, XCircle } from 'lucide-react';
+import { CheckCircle2, Pencil, Plus, Search, Trash2, XCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 interface Kas {
@@ -576,47 +577,14 @@ export default function KasIndex({ kas, users, filters, flash }: Props) {
                     </div>
                 </div>
 
-                {/* Pagination */}
-                <div className="flex flex-col items-center justify-between gap-4 px-2 sm:flex-row">
-                    <div className="text-muted-foreground text-center text-xs sm:text-sm">
-                        Menampilkan {kas.from} sampai {kas.to} dari {kas.total} data
-                    </div>
-                    <div className="flex items-center space-x-2">
-                        <Button
-                            variant="outline"
-                            size="icon"
-                            onClick={() => handlePageChange(kas.current_page - 1)}
-                            disabled={kas.current_page === 1}
-                            className="h-8 w-8"
-                        >
-                            <ChevronLeft className="h-4 w-4" />
-                        </Button>
-                        <div className="flex max-w-[200px] items-center space-x-1 overflow-x-auto sm:max-w-xs">
-                            {Array.from({ length: kas.last_page }, (_, i) => i + 1)
-                                .slice(Math.max(0, kas.current_page - 2), Math.min(kas.last_page, kas.current_page + 1))
-                                .map((page) => (
-                                    <Button
-                                        key={page}
-                                        variant={page === kas.current_page ? 'default' : 'outline'}
-                                        size="icon"
-                                        onClick={() => handlePageChange(page)}
-                                        className="h-8 w-8 text-xs"
-                                    >
-                                        {page}
-                                    </Button>
-                                ))}
-                        </div>
-                        <Button
-                            variant="outline"
-                            size="icon"
-                            onClick={() => handlePageChange(kas.current_page + 1)}
-                            disabled={kas.current_page === kas.last_page}
-                            className="h-8 w-8"
-                        >
-                            <ChevronRight className="h-4 w-4" />
-                        </Button>
-                    </div>
-                </div>
+                <Pagination
+                    currentPage={kas.current_page}
+                    totalItems={kas.total}
+                    from={kas.from}
+                    to={kas.to}
+                    lastPage={kas.last_page}
+                    onPageChange={handlePageChange}
+                />
             </div>
         </AppLayout>
     );
