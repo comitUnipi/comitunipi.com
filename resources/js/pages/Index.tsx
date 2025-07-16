@@ -2,15 +2,19 @@ import MentorCard from '@/components/core-card-mentor';
 import Heading from '@/components/core-heading';
 import SubHeading from '@/components/core-sub-heading';
 import { mentors } from '@/constants/mentor';
-import { Head } from '@inertiajs/react';
+import { useAnimatedCounter } from '@/hooks/use-animated-counter';
+import { Head, usePage } from '@inertiajs/react';
 import MainLayout from './Layout';
 
 export default function Welcome() {
+    const { props } = usePage();
+    const userCount = props.userCount || 0;
     return (
         <>
             <Head title="Community of Information Technology" />
             <MainLayout>
                 <Heading img="/images/100102.png" />
+
                 <section className="pt-20 pb-10 lg:pt-[120px] lg:pb-20">
                     <div className="container mx-auto">
                         <div className="flex flex-wrap">
@@ -81,6 +85,7 @@ export default function Welcome() {
                         </div>
                     </div>
                 </section>
+
                 <section className="bg-blue-600 pt-20 pb-8 lg:pt-[120px] lg:pb-[70px]">
                     <div className="container mx-auto">
                         <div className="mx-4 flex flex-wrap">
@@ -113,6 +118,16 @@ export default function Welcome() {
                                 <div className="mb-12 flex h-20 items-center justify-center rounded-md bg-white">
                                     <h4 className="text-center text-xl font-bold">Microsoft Office</h4>
                                 </div>
+                            </div>
+                        </div>
+                        <div className="container mx-auto flex flex-col items-center justify-between px-6 py-12 text-center text-white md:flex-row md:text-left">
+                            <div>
+                                <h2 className="text-3xl font-bold">Gabung dengan Organisasi Kami</h2>
+                                <p className="mt-2 text-blue-200">Temukan rekan, mentor, dan teman baru di sini.</p>
+                            </div>
+                            <div className="mt-8 flex items-center gap-4 md:mt-0">
+                                <div className="text-6xl font-bold">{useAnimatedCounter(userCount, 2000)}+</div>
+                                <span className="text-xl font-medium">Anggota</span>
                             </div>
                         </div>
                     </div>
