@@ -48,7 +48,7 @@ export default function Navbar() {
                     <div className="hidden md:block">
                         <div className="ml-10 flex items-baseline space-x-8">
                             <a
-                                href="#"
+                                href="/visi-dan-misi"
                                 className="rounded-md px-3 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
                             >
                                 Visi dan Misi
@@ -140,7 +140,7 @@ export default function Navbar() {
                 <div className="md:hidden">
                     <div className="space-y-1 border-t border-white/20 bg-blue-600/95 px-2 pt-2 pb-3 backdrop-blur-md sm:px-3">
                         <a
-                            href="#"
+                            href="/visi-dan-misi"
                             className="block rounded-md px-3 py-2 text-base font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
                         >
                             Visi dan Misi

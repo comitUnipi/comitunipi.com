@@ -1,16 +1,13 @@
-import MentorCard from '@/components/core-card-mentor';
 import Heading from '@/components/core-heading';
-import SubHeading from '@/components/core-sub-heading';
-import { mentors } from '@/constants/mentor';
 import { Head } from '@inertiajs/react';
 import MainLayout from './Layout';
 
-export default function Welcome() {
+export default function VisiMisi() {
     return (
         <>
-            <Head title="Community of Information Technology" />
+            <Head title="Visi dan Misi" />
             <MainLayout>
-                <Heading img="/images/100102.png" />
+                <Heading img="/images/100107.png" />
                 <section className="pt-20 pb-10 lg:pt-[120px] lg:pb-20">
                     <div className="container mx-auto">
                         <div className="flex flex-wrap">
@@ -78,56 +75,6 @@ export default function Welcome() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </section>
-                <section className="bg-blue-600 pt-20 pb-8 lg:pt-[120px] lg:pb-[70px]">
-                    <div className="container mx-auto">
-                        <div className="mx-4 flex flex-wrap">
-                            <div className="w-full px-4">
-                                <div className="mb-12 max-w-[620px] lg:mb-20">
-                                    <h2 className="mb-4 text-3xl font-bold text-white sm:text-4xl md:text-[42px]">Apa yang Kami Tawarkan?</h2>
-                                    <p className="text-lg leading-relaxed text-gray-100 sm:text-xl sm:leading-relaxed">
-                                        Kami Mempunyai Beberapa Akademik yang Bisa Membantu Anda dalam Belajar tentang Teknologi
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="mx-4 flex flex-wrap">
-                            <div className="w-full px-4 md:w-1/2 lg:w-1/4">
-                                <div className="mb-12 flex h-20 items-center justify-center rounded-md bg-white">
-                                    <h4 className="text-center text-xl font-bold">Desain Grafis</h4>
-                                </div>
-                            </div>
-                            <div className="w-full px-4 md:w-1/2 lg:w-1/4">
-                                <div className="mb-12 flex h-20 items-center justify-center rounded-md bg-white">
-                                    <h4 className="text-center text-xl font-bold">Programming</h4>
-                                </div>
-                            </div>
-                            <div className="w-full px-4 md:w-1/2 lg:w-1/4">
-                                <div className="mb-12 flex h-20 items-center justify-center rounded-md bg-white">
-                                    <h4 className="text-center text-xl font-bold">Comp and Network</h4>
-                                </div>
-                            </div>
-                            <div className="w-full px-4 md:w-1/2 lg:w-1/4">
-                                <div className="mb-12 flex h-20 items-center justify-center rounded-md bg-white">
-                                    <h4 className="text-center text-xl font-bold">Microsoft Office</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <section className="pt-20 pb-10 lg:pt-[120px] lg:pb-20">
-                    <div className="container mx-auto">
-                        <SubHeading
-                            subtitle="Mentor"
-                            title="Perkenalkan Mentor Kami"
-                            description="Kami mempunyai beberapa mentor yang sudah berpengalaman di bidangnya masing-masing."
-                        />
-                        <div className="mx-4 flex flex-wrap justify-center">
-                            {mentors.map((mentor) => (
-                                <MentorCard key={mentor.id} mentor={mentor} />
-                            ))}
                         </div>
                     </div>
                 </section>
