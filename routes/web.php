@@ -17,6 +17,10 @@ Route::get('/visi-dan-misi', function () {
     return Inertia::render('VisiMisi');
 });
 
+Route::get('/mentor-kami', function () {
+    return Inertia::render('MentorKami');
+});
+
 Route::middleware(['auth', 'verified', 'role:Super Admin,Admin,Finance'])->group(function () {
     Route::get('/kas', [KasController::class, 'index'])->name('kas.index');
     Route::get('/pemasukan', [PemasukanController::class, 'index'])->name('pemasukan.index');

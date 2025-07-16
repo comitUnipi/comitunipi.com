@@ -82,7 +82,7 @@ export default function Navbar() {
                             </div>
 
                             <a
-                                href="#"
+                                href="/mentor-kami"
                                 className="rounded-md px-3 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
                             >
                                 Mentor Kami
