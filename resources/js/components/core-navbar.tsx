@@ -5,8 +5,8 @@ import { useState } from 'react';
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isProductsOpen, setIsProductsOpen] = useState(false);
-    const [isMobileProductsOpen, setIsMobileProductsOpen] = useState(false);
+    const [isKepengurusanOpen, setIsKepengurusanOpen] = useState(false);
+    const [isMobileKepengurusanOpen, setIsMobileKepengurusanOpen] = useState(false);
 
     const { auth } = usePage<SharedData>().props;
 
@@ -14,24 +14,37 @@ export default function Navbar() {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    const toggleProducts = () => {
-        setIsProductsOpen(!isProductsOpen);
+    const toggleKepengurusan = () => {
+        setIsKepengurusanOpen(!isKepengurusanOpen);
     };
 
-    const toggleMobileProducts = () => {
-        setIsMobileProductsOpen(!isMobileProductsOpen);
+    const toggleMobileKepengurusan = () => {
+        setIsMobileKepengurusanOpen(!isMobileKepengurusanOpen);
     };
+
+    const kepengurusan = [
+        { label: 'Ketua & Wakil Ketua Umum', href: '#' },
+        { label: 'Sekretaris', href: '#' },
+        { label: 'Bendahara', href: '#' },
+        { label: 'SDM', href: '#' },
+        { label: 'Humas Internal', href: '#' },
+        { label: 'Humas Eksternal', href: '#' },
+        { label: 'Koordinator', href: '#' },
+        { label: 'Kominfo', href: '#' },
+        { label: 'Staff Design Grafis', href: '#' },
+        { label: 'Staff Programming', href: '#' },
+        { label: 'Staff Comp & Network', href: '#' },
+        { label: 'Staff Microsoft Office', href: '#' },
+    ];
 
     return (
         <nav className="sticky top-0 z-50 bg-blue-600 shadow-lg backdrop-blur-md">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-20 items-center justify-between">
-                    {/* Logo Section */}
                     <a href="/" className="h-16 w-16 object-contain sm:h-20 sm:w-20">
                         <img className="h-16 w-16 object-contain sm:h-20 sm:w-20" src="/logo_white.png" alt="Logo" />
                     </a>
 
-                    {/* Desktop Navigation */}
                     <div className="hidden md:block">
                         <div className="ml-10 flex items-baseline space-x-8">
                             <a
@@ -43,27 +56,27 @@ export default function Navbar() {
 
                             <div className="relative">
                                 <button
-                                    onClick={toggleProducts}
+                                    onClick={toggleKepengurusan}
                                     className="flex items-center rounded-md px-3 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
                                 >
                                     Kepengurusan
-                                    <ChevronDown size={16} className={`ml-1 transform transition-transform ${isProductsOpen ? 'rotate-180' : ''}`} />
+                                    <ChevronDown
+                                        size={16}
+                                        className={`ml-1 transform transition-transform ${isKepengurusanOpen ? 'rotate-180' : ''}`}
+                                    />
                                 </button>
 
-                                {isProductsOpen && (
+                                {isKepengurusanOpen && (
                                     <div className="ring-opacity-5 absolute left-0 z-50 mt-2 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black">
-                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100">
-                                            Produk Digital
-                                        </a>
-                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100">
-                                            Produk Fisik
-                                        </a>
-                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100">
-                                            Produk Premium
-                                        </a>
-                                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100">
-                                            Produk Terbaru
-                                        </a>
+                                        {kepengurusan.map((item, index) => (
+                                            <a
+                                                key={index}
+                                                href={item.href}
+                                                className="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100"
+                                            >
+                                                {item.label}
+                                            </a>
+                                        ))}
                                     </div>
                                 )}
                             </div>
@@ -89,7 +102,6 @@ export default function Navbar() {
                         </div>
                     </div>
 
-                    {/* Desktop Auth Buttons */}
                     <div className="hidden items-center space-x-4 md:flex">
                         {auth.user ? (
                             <Link
@@ -110,13 +122,12 @@ export default function Navbar() {
                                     href={route('register')}
                                     className="inline-block rounded-md border border-white/20 bg-white/10 px-4 py-2 text-sm leading-normal font-medium text-white transition-colors hover:bg-white/20"
                                 >
-                                    Register
+                                    Daftar
                                 </Link>
                             </>
                         )}
                     </div>
 
-                    {/* Mobile Menu Button */}
                     <div className="md:hidden">
                         <button onClick={toggleMenu} className="rounded-md p-2 text-white/90 transition-colors hover:bg-white/10 hover:text-white">
                             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -125,7 +136,6 @@ export default function Navbar() {
                 </div>
             </div>
 
-            {/* Mobile Menu */}
             {isMenuOpen && (
                 <div className="md:hidden">
                     <div className="space-y-1 border-t border-white/20 bg-blue-600/95 px-2 pt-2 pb-3 backdrop-blur-md sm:px-3">
@@ -138,39 +148,24 @@ export default function Navbar() {
 
                         <div>
                             <button
-                                onClick={toggleMobileProducts}
+                                onClick={toggleMobileKepengurusan}
                                 className="flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-base font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
                             >
                                 Kepengurusan
-                                <ChevronDown size={16} className={`transform transition-transform ${isMobileProductsOpen ? 'rotate-180' : ''}`} />
+                                <ChevronDown size={16} className={`transform transition-transform ${isMobileKepengurusanOpen ? 'rotate-180' : ''}`} />
                             </button>
 
-                            {isMobileProductsOpen && (
+                            {isMobileKepengurusanOpen && (
                                 <div className="mt-1 ml-4 space-y-1">
-                                    <a
-                                        href="#"
-                                        className="block rounded-md px-3 py-2 text-sm text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-                                    >
-                                        Produk Digital
-                                    </a>
-                                    <a
-                                        href="#"
-                                        className="block rounded-md px-3 py-2 text-sm text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-                                    >
-                                        Produk Fisik
-                                    </a>
-                                    <a
-                                        href="#"
-                                        className="block rounded-md px-3 py-2 text-sm text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-                                    >
-                                        Produk Premium
-                                    </a>
-                                    <a
-                                        href="#"
-                                        className="block rounded-md px-3 py-2 text-sm text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-                                    >
-                                        Produk Terbaru
-                                    </a>
+                                    {kepengurusan.map((item, index) => (
+                                        <a
+                                            key={index}
+                                            href={item.href}
+                                            className="block rounded-md px-3 py-2 text-sm text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+                                        >
+                                            {item.label}
+                                        </a>
+                                    ))}
                                 </div>
                             )}
                         </div>
@@ -195,7 +190,6 @@ export default function Navbar() {
                         </a>
                     </div>
 
-                    {/* Mobile Auth Buttons */}
                     <div className="border-t border-white/20 bg-blue-600/95 px-2 pt-2 pb-3 backdrop-blur-md">
                         <div className="flex items-center justify-around">
                             {auth.user ? (
@@ -217,7 +211,7 @@ export default function Navbar() {
                                         href={route('register')}
                                         className="inline-block rounded-md border border-white/20 bg-white/10 px-4 py-2 text-sm leading-normal font-medium text-white transition-colors hover:bg-white/20"
                                     >
-                                        Register
+                                        Daftar
                                     </Link>
                                 </>
                             )}
