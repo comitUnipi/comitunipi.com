@@ -21,6 +21,10 @@ Route::get('/mentor-kami', function () {
     return Inertia::render('MentorKami');
 });
 
+Route::get('/galeri-kami', function () {
+    return Inertia::render('Galeri');
+});
+
 Route::middleware(['auth', 'verified', 'role:Super Admin,Admin,Finance'])->group(function () {
     Route::get('/kas', [KasController::class, 'index'])->name('kas.index');
     Route::get('/pemasukan', [PemasukanController::class, 'index'])->name('pemasukan.index');
