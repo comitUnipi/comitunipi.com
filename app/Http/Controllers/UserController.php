@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Inertia\Inertia;
 use Illuminate\Validation\Rules;
+use Inertia\Inertia;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class UserController extends Controller
@@ -65,24 +65,24 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         return Inertia::render('Users/Show', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name'             => 'required|string|max:255',
-            'email'            => 'required|email|unique:users,email',
-            'npm'              => 'required|string|max:20|unique:users,npm',
-            'role'             => 'required|in:Guest,User,Admin,Super Admin',
-            'jenis_kelamin'    => 'required|string',
-            'no_wa'            => 'nullable|string|max:20',
-            'jurusan'          => 'nullable|string|max:100',
-            'minat_keahlian'   => 'nullable|string|max:100',
-            'alasan'           => 'nullable|string|max:500',
-            'is_active'        => 'required|boolean',
-            'password'         => ['required', 'confirmed', Rules\Password::defaults()],
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'npm' => 'required|string|max:20|unique:users,npm',
+            'role' => 'required|in:Guest,User,Admin,Super Admin',
+            'jenis_kelamin' => 'required|string',
+            'no_wa' => 'nullable|string|max:20',
+            'jurusan' => 'nullable|string|max:100',
+            'minat_keahlian' => 'nullable|string|max:100',
+            'alasan' => 'nullable|string|max:500',
+            'is_active' => 'required|boolean',
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $validated['password'] = Hash::make($request->password);
@@ -96,6 +96,7 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'role' => 'required|string',
+            'position' => 'required|string',
             'is_active' => 'required|boolean',
         ]);
 
@@ -107,6 +108,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+
         return redirect()->route('users.index')->with('success', 'Anggota berhasil dihapus!');
     }
 

@@ -35,14 +35,18 @@ export interface User {
     id: number;
     avatar?: string;
     name: string;
+    npm: string;
     email: string;
-    email_verified_at: string | null;
+    email_verified_at?: string | null;
     jenis_kelamin: string;
     no_wa: string;
     jurusan: string;
     minat_keahlian: string;
+    role: string;
+    position: string;
+    is_active: boolean;
     alasan: string;
-    created_at: string;
-    updated_at: string;
-    [key: string]: unknown; // This allows for additional properties...
+    created_at?: string;
+    updated_at?: string;
+    [key: string]: unknown;
 }
