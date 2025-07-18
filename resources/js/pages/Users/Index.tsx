@@ -1,3 +1,4 @@
+import ButtonExport from '@/components/app-button-export';
 import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Button } from '@/components/ui/button';
@@ -304,16 +305,7 @@ export default function UsersIndex({ users, filters, flash }: Props) {
 
                     {user.role === 'Super Admin' && (
                         <div className="flex gap-4">
-                            <a
-                                href={exportUrl}
-                                className="flex items-center rounded-md bg-green-600 px-3 py-2 text-sm text-white shadow-lg hover:bg-green-700"
-                                download
-                            >
-                                <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-                                </svg>
-                                <span className="sm:inline">Export CSV</span>
-                            </a>
+                            <ButtonExport exportUrl={exportUrl} />
                             <Dialog open={isOpen} onOpenChange={setIsOpen}>
                                 <DialogTrigger>
                                     <div className="bg-primary hover:bg-primary/90 flex cursor-pointer items-center rounded-md px-3 py-2 text-sm whitespace-nowrap text-white shadow-lg dark:text-black">
