@@ -23,18 +23,18 @@ export default function Navbar() {
     };
 
     const kepengurusan = [
-        { label: 'Ketua & Wakil Ketua Umum', href: '#' },
-        { label: 'Sekretaris', href: '#' },
-        { label: 'Bendahara', href: '#' },
-        { label: 'SDM', href: '#' },
-        { label: 'Humas Internal', href: '#' },
-        { label: 'Humas Eksternal', href: '#' },
-        { label: 'Koordinator', href: '#' },
-        { label: 'Kominfo', href: '#' },
-        { label: 'Staff Design Grafis', href: '#' },
-        { label: 'Staff Programming', href: '#' },
-        { label: 'Staff Comp & Network', href: '#' },
-        { label: 'Staff Microsoft Office', href: '#' },
+        { label: 'Ketua & Wakil Ketua Umum', href: '/kepengurusan/ketua-dan-wakil-ketua-umum' },
+        { label: 'Sekretaris', href: '/kepengurusan/sekretaris' },
+        { label: 'Bendahara', href: '/kepengurusan/bendahara' },
+        { label: 'SDM', href: '/kepengurusan/sdm' },
+        { label: 'Humas Internal', href: '/kepengurusan/humas-internal' },
+        { label: 'Humas Eksternal', href: '/kepengurusan/humas-eksternal' },
+        { label: 'Koordinator', href: '/kepengurusan/koordinator' },
+        { label: 'Kominfo', href: '/kepengurusan/kominfo' },
+        { label: 'Staff Design Grafis', href: '/kepengurusan/staff-design-grafis' },
+        { label: 'Staff Programming', href: '/kepengurusan/staff-programming' },
+        { label: 'Staff Comp & Network', href: '/kepengurusan/staff-comp-and-network' },
+        { label: 'Staff Microsoft Office', href: '/kepengurusan/staff-microsoft-office' },
     ];
 
     return (
@@ -88,13 +88,13 @@ export default function Navbar() {
                                 Mentor Kami
                             </a>
                             <a
-                                href="kegiatan-kami"
+                                href="/kegiatan-kami"
                                 className="rounded-md px-3 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
                             >
                                 Kegiatan
                             </a>
                             <a
-                                href="galeri-kami"
+                                href="/galeri-kami"
                                 className="rounded-md px-3 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
                             >
                                 Galeri

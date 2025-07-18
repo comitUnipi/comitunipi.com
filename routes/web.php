@@ -45,7 +45,7 @@ Route::prefix('kepengurusan')->group(function () {
         return Inertia::render('Kepengurusan/Bendahara');
     });
     Route::get('/sdm', function () {
-        return Inertia::render('Kepengurusan/Sdm');
+        return Inertia::render('Kepengurusan/SDM');
     });
     Route::get('/humas-internal', function () {
         return Inertia::render('Kepengurusan/HumasInternal');
