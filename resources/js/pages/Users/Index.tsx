@@ -1,7 +1,7 @@
 import ButtonExport from '@/components/app-button-export';
+import ModalConfirm from '@/components/app-modal-confirm';
 import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
-import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import AppLayout from '@/layouts/app-layout';
 import { User, type BreadcrumbItem } from '@/types';
@@ -277,31 +277,16 @@ export default function UsersIndex({ users, filters, flash }: Props) {
                         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Data Anggota</h1>
                         <p className="text-muted-foreground mt-1 text-base">Manajemen untuk mengelola data anggota.</p>
                     </div>
-
-                    <Dialog open={confirmDeleteId !== null} onOpenChange={() => setConfirmDeleteId(null)}>
-                        <DialogContent className="mx-4 sm:max-w-[400px]">
-                            <DialogHeader>
-                                <DialogTitle>Konfirmasi Hapus</DialogTitle>
-                            </DialogHeader>
-                            <p>Apakah kamu yakin ingin menghapus data ini?</p>
-                            <div className="mt-4 flex justify-end space-x-2">
-                                <Button variant="outline" onClick={() => setConfirmDeleteId(null)}>
-                                    Batal
-                                </Button>
-                                <Button
-                                    variant="destructive"
-                                    onClick={() => {
-                                        if (confirmDeleteId !== null) {
-                                            handleDelete(confirmDeleteId);
-                                            setConfirmDeleteId(null);
-                                        }
-                                    }}
-                                >
-                                    Ya, Hapus
-                                </Button>
-                            </div>
-                        </DialogContent>
-                    </Dialog>
+                    <ModalConfirm
+                        open={confirmDeleteId !== null}
+                        onCancel={() => setConfirmDeleteId(null)}
+                        onConfirm={() => {
+                            if (confirmDeleteId !== null) {
+                                handleDelete(confirmDeleteId);
+                                setConfirmDeleteId(null);
+                            }
+                        }}
+                    />
 
                     {user.role === 'Super Admin' && (
                         <div className="flex gap-4">
