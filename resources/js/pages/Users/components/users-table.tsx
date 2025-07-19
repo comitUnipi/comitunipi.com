@@ -25,7 +25,6 @@ interface Props {
 export function UserTable({ users, user, handleEdit, setConfirmDeleteId }: Props) {
     return (
         <div className="rounded-md border">
-            {/* Desktop Table */}
             <div className="relative hidden w-full overflow-x-auto lg:block">
                 <table className="w-full caption-bottom text-sm">
                     <thead className="[&_tr]:border-b">
@@ -79,7 +78,7 @@ export function UserTable({ users, user, handleEdit, setConfirmDeleteId }: Props
                                             <Button
                                                 variant="ghost"
                                                 size="icon"
-                                                onClick={() => setConfirmDeleteId(data.id)}
+                                                onClick={() => setConfirmDeleteId(data.id!)}
                                                 className="hover:text-destructive cursor-pointer"
                                             >
                                                 <Trash2 className="h-4 w-4" />
@@ -99,8 +98,6 @@ export function UserTable({ users, user, handleEdit, setConfirmDeleteId }: Props
                     </tbody>
                 </table>
             </div>
-
-            {/* Mobile Card Layout */}
             <div className="lg:hidden">
                 {users.data.map((data) => (
                     <div key={data.id} className="space-y-3 border-b p-4">
@@ -129,7 +126,7 @@ export function UserTable({ users, user, handleEdit, setConfirmDeleteId }: Props
                                         <Button
                                             variant="ghost"
                                             size="icon"
-                                            onClick={() => setConfirmDeleteId(data.id)}
+                                            onClick={() => setConfirmDeleteId(data.id!)}
                                             className="hover:text-destructive h-8 w-8 cursor-pointer"
                                         >
                                             <Trash2 className="h-4 w-4" />
@@ -138,7 +135,6 @@ export function UserTable({ users, user, handleEdit, setConfirmDeleteId }: Props
                                 )}
                             </div>
                         </div>
-
                         <div className="grid grid-cols-2 gap-2 text-sm">
                             <div>
                                 <span className="text-muted-foreground">Jurusan:</span>
@@ -157,7 +153,6 @@ export function UserTable({ users, user, handleEdit, setConfirmDeleteId }: Props
                                 <p className="font-medium">{data.role}</p>
                             </div>
                         </div>
-
                         <div className="flex items-center justify-between">
                             <span className="text-muted-foreground text-sm">Status:</span>
                             <span

@@ -135,7 +135,7 @@ export default function FormAnggota({ editingUser, handleSubmit, data, setData, 
                             disabled={processing}
                             placeholder="Confirm password"
                         />
-                        <InputError message={errors.confirm_password} className="mt-2" />
+                        <InputError message={errors.password_confirmation} className="mt-2" />
                     </div>
                     <div className="grid gap-2">
                         <Label htmlFor="no_wa">Nomor Whatsapp</Label>
