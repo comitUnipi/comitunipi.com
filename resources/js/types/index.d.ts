@@ -50,3 +50,10 @@ export interface User {
     updated_at?: string;
     [key: string]: unknown;
 }
+
+export interface Pemasukan {
+    id?: number;
+    amount: number;
+    date: string;
+    description: string;
+}
