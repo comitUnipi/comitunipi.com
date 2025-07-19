@@ -51,6 +51,15 @@ export interface User {
     [key: string]: unknown;
 }
 
+interface Kas {
+    id?: number;
+    user_id?: number;
+    amount: number;
+    date: string;
+    type: string;
+    user?: User;
+}
+
 export interface Pemasukan {
     id?: number;
     amount: number;
