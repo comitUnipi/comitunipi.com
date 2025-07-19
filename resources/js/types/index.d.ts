@@ -57,3 +57,10 @@ export interface Pemasukan {
     date: string;
     description: string;
 }
+
+interface Pengeluaran {
+    id?: number;
+    amount: number;
+    date: string;
+    description: string;
+}
