@@ -202,11 +202,10 @@ export default function KasIndex({ kas, users, filters, flash }: Props) {
     };
 
     const queryParams = new URLSearchParams(
-        Object.fromEntries(Object.entries(filters).filter(([value]) => value !== '' && value !== null)),
+        Object.fromEntries(Object.entries(filters).filter(([, value]) => value !== '' && value !== null)),
     ).toString();
 
     const exportUrl = `/kas/export/csv?${queryParams}`;
-
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Data Uang Kas" />

@@ -82,13 +82,13 @@ class KasController extends Controller
     {
         $kas = Kas::findOrFail($id);
         $kas->delete();
+
         return redirect()->route('kas.index')->with('success', 'Data berhasil dihapus!');
     }
 
     public function exportCsv(Request $request)
     {
         $query = Kas::with('user');
-
 
         if ($search = $request->input('search')) {
             $query->whereHas('user', function ($q) use ($search) {
