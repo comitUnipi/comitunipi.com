@@ -37,7 +37,6 @@ export default function Show({ user }: Props) {
 
                 <HeadingSmall title="Informasi Anggota" description="Detail informasi anggota yang terdaftar" />
 
-                {/* Grid 2 Kolom */}
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="grid gap-2">
                         <Label htmlFor="name">Nama Lengkap</Label>
@@ -95,7 +94,6 @@ export default function Show({ user }: Props) {
                     </div>
                 </div>
 
-                {/* Alasan - full width */}
                 <div className="mt-4 grid gap-2">
                     <Label htmlFor="alasan">Alasan Mengikuti</Label>
                     <Textarea id="alasan" value={user.alasan || '-'} disabled className="resize-none" />

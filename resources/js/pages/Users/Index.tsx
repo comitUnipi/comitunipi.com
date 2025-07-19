@@ -92,6 +92,7 @@ export default function UsersIndex({ users, filters, flash }: Props) {
         post,
         processing,
         reset,
+        errors,
         delete: destroy,
     } = useForm({
         name: '',
@@ -321,6 +322,7 @@ export default function UsersIndex({ users, filters, flash }: Props) {
                                         handleSubmit={handleSubmit}
                                         data={data}
                                         setData={setData}
+                                        errors={errors}
                                         processing={processing}
                                     />
                                 </DialogContent>

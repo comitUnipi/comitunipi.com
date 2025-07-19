@@ -1,18 +1,45 @@
+import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { User } from '@/types';
+import {
+    JENIS_KELAMIN_OPTIONS,
+    JURUSAN_OPTIONS,
+    MINAT_KEAHLIAN_OPTIONS,
+    POSITION_OPTIONS,
+    ROLE_OPTIONS,
+    STATUS_OPTIONS,
+} from '../constants/form-option';
 
 interface Props {
     data: User;
+    errors: Partial<
+        Record<
+            | 'name'
+            | 'npm'
+            | 'email'
+            | 'jenis_kelamin'
+            | 'no_wa'
+            | 'jurusan'
+            | 'minat_keahlian'
+            | 'role'
+            | 'position'
+            | 'is_active'
+            | 'alasan'
+            | 'password'
+            | 'password_confirmation',
+            string
+        >
+    >;
     editingUser: boolean;
     processing: boolean;
     setData: <K extends keyof User>(key: K, value: User[K]) => void;
     handleSubmit: React.FormEventHandler<HTMLFormElement>;
 }
 
-export default function FormAnggota({ editingUser, handleSubmit, data, setData, processing }: Props) {
+export default function FormAnggota({ editingUser, handleSubmit, data, setData, errors, processing }: Props) {
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
             {editingUser ? (
@@ -24,11 +51,11 @@ export default function FormAnggota({ editingUser, handleSubmit, data, setData, 
                                 <SelectValue placeholder="Pilih Role" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="Guest">Guest</SelectItem>
-                                <SelectItem value="User">User</SelectItem>
-                                <SelectItem value="Finance">Finance</SelectItem>
-                                <SelectItem value="Admin">Admin</SelectItem>
-                                <SelectItem value="Super Admin">Super Admin</SelectItem>
+                                {ROLE_OPTIONS.map((role) => (
+                                    <SelectItem key={role} value={role}>
+                                        {role}
+                                    </SelectItem>
+                                ))}
                             </SelectContent>
                         </Select>
                     </div>
@@ -39,26 +66,11 @@ export default function FormAnggota({ editingUser, handleSubmit, data, setData, 
                                 <SelectValue placeholder="Pilih Position" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="Calon Anggota">Calon Anggota</SelectItem>
-                                <SelectItem value="Anggota">Anggota</SelectItem>
-                                <SelectItem value="Ketua Umum">Ketua Umum</SelectItem>
-                                <SelectItem value="Wakil Ketua">Wakil Ketua</SelectItem>
-                                <SelectItem value="Bendahara">Bendahara</SelectItem>
-                                <SelectItem value="Sekretaris">Sekretaris</SelectItem>
-                                <SelectItem value="Koordinator Akadamik">Koordinator Akadamik</SelectItem>
-                                <SelectItem value="Koordinator SDM">Koordinator SDM</SelectItem>
-                                <SelectItem value="Koordinator Kominfo">Koordinator Kominfo</SelectItem>
-                                <SelectItem value="Koordinator Humas">Koordinator Humas</SelectItem>
-                                <SelectItem value="Koordinator Prasarana">Koordinator Prasarana</SelectItem>
-                                <SelectItem value="Humas Internal">Humas Internal</SelectItem>
-                                <SelectItem value="Humas Eksternal">Humas Eksternal</SelectItem>
-                                <SelectItem value="Prasarana">Prasarana</SelectItem>
-                                <SelectItem value="SDM">SDM</SelectItem>
-                                <SelectItem value="Kominfo">Kominfo</SelectItem>
-                                <SelectItem value="Staff Programming">Staff Programming</SelectItem>
-                                <SelectItem value="Staff Design Grafis">Staff Design Grafis</SelectItem>
-                                <SelectItem value="Staff Comp dan Network">Staff Comp dan Network</SelectItem>
-                                <SelectItem value="Staff Microsoft Office">Staff Microsoft Office</SelectItem>
+                                {POSITION_OPTIONS.map((role) => (
+                                    <SelectItem key={role} value={role}>
+                                        {role}
+                                    </SelectItem>
+                                ))}
                             </SelectContent>
                         </Select>
                     </div>
@@ -69,8 +81,11 @@ export default function FormAnggota({ editingUser, handleSubmit, data, setData, 
                                 <SelectValue placeholder="Status Aktif" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="1">Aktif</SelectItem>
-                                <SelectItem value="0">Nonaktif</SelectItem>
+                                {STATUS_OPTIONS.map(({ value, label }) => (
+                                    <SelectItem key={value} value={value}>
+                                        {label}
+                                    </SelectItem>
+                                ))}
                             </SelectContent>
                         </Select>
                     </div>
@@ -80,14 +95,17 @@ export default function FormAnggota({ editingUser, handleSubmit, data, setData, 
                     <div className="grid gap-2">
                         <Label htmlFor="nama">Nama Lengkap</Label>
                         <Input placeholder="Nama Lengkap" value={data.name} onChange={(e) => setData('name', e.target.value)} type="text" required />
+                        <InputError message={errors.name} className="mt-2" />
                     </div>
                     <div className="grid gap-2">
                         <Label htmlFor="npm">NPM</Label>
                         <Input placeholder="NPM" value={data.npm} onChange={(e) => setData('npm', e.target.value)} type="text" required />
+                        <InputError message={errors.npm} className="mt-2" />
                     </div>
                     <div className="grid gap-2">
                         <Label htmlFor="email">Email</Label>
                         <Input placeholder="Email" value={data.email} onChange={(e) => setData('email', e.target.value)} type="email" required />
+                        <InputError message={errors.email} className="mt-2" />
                     </div>
                     <div className="grid gap-2">
                         <Label htmlFor="password">Password</Label>
@@ -102,6 +120,7 @@ export default function FormAnggota({ editingUser, handleSubmit, data, setData, 
                             disabled={processing}
                             placeholder="Password"
                         />
+                        <InputError message={errors.password} className="mt-2" />
                     </div>
                     <div className="grid gap-2">
                         <Label htmlFor="password_confirmation">Konfirmasi password</Label>
@@ -116,6 +135,7 @@ export default function FormAnggota({ editingUser, handleSubmit, data, setData, 
                             disabled={processing}
                             placeholder="Confirm password"
                         />
+                        <InputError message={errors.confirm_password} className="mt-2" />
                     </div>
                     <div className="grid gap-2">
                         <Label htmlFor="no_wa">Nomor Whatsapp</Label>
@@ -126,6 +146,7 @@ export default function FormAnggota({ editingUser, handleSubmit, data, setData, 
                             type="text"
                             required
                         />
+                        <InputError message={errors.no_wa} className="mt-2" />
                     </div>
                     <div className="grid gap-2">
                         <Label htmlFor="minat_keahlian">Minat Keahlian</Label>
@@ -134,10 +155,11 @@ export default function FormAnggota({ editingUser, handleSubmit, data, setData, 
                                 <SelectValue placeholder="Pilih Minat Keahlian" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="Programming">Programming</SelectItem>
-                                <SelectItem value="Design Grafis">Design Grafis</SelectItem>
-                                <SelectItem value="Computer & Networking">Computer & Networking</SelectItem>
-                                <SelectItem value="Microsoft Office">Microsoft Office</SelectItem>
+                                {MINAT_KEAHLIAN_OPTIONS.map((value) => (
+                                    <SelectItem key={value} value={value}>
+                                        {value}
+                                    </SelectItem>
+                                ))}
                             </SelectContent>
                         </Select>
                     </div>
@@ -148,11 +170,11 @@ export default function FormAnggota({ editingUser, handleSubmit, data, setData, 
                                 <SelectValue placeholder="Pilih Jurusan" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="Teknologi Informasi">Teknologi Informasi</SelectItem>
-                                <SelectItem value="Sistem Informasi">Sistem Informasi</SelectItem>
-                                <SelectItem value="Software Enginner">Software Enginner</SelectItem>
-                                <SelectItem value="Akutansi">Akutansi</SelectItem>
-                                <SelectItem value="Manajemen">Manajemen</SelectItem>
+                                {JURUSAN_OPTIONS.map((value) => (
+                                    <SelectItem key={value} value={value}>
+                                        {value}
+                                    </SelectItem>
+                                ))}
                             </SelectContent>
                         </Select>
                     </div>
@@ -163,10 +185,11 @@ export default function FormAnggota({ editingUser, handleSubmit, data, setData, 
                                 <SelectValue placeholder="Pilih Role" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="Guest">Guest</SelectItem>
-                                <SelectItem value="User">User</SelectItem>
-                                <SelectItem value="Admin">Admin</SelectItem>
-                                <SelectItem value="Super Admin">Super Admin</SelectItem>
+                                {ROLE_OPTIONS.map((value) => (
+                                    <SelectItem key={value} value={value}>
+                                        {value}
+                                    </SelectItem>
+                                ))}
                             </SelectContent>
                         </Select>
                     </div>
@@ -177,8 +200,11 @@ export default function FormAnggota({ editingUser, handleSubmit, data, setData, 
                                 <SelectValue placeholder="Status Aktif" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="1">Aktif</SelectItem>
-                                <SelectItem value="0">Tidak Aktif</SelectItem>
+                                {STATUS_OPTIONS.map(({ value, label }) => (
+                                    <SelectItem key={value} value={value}>
+                                        {label}
+                                    </SelectItem>
+                                ))}
                             </SelectContent>
                         </Select>
                     </div>
@@ -189,8 +215,11 @@ export default function FormAnggota({ editingUser, handleSubmit, data, setData, 
                                 <SelectValue placeholder="Jenis Kelamin" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="Laki-laki">Laki-laki</SelectItem>
-                                <SelectItem value="Perempuan">Perempuan</SelectItem>
+                                {JENIS_KELAMIN_OPTIONS.map((value) => (
+                                    <SelectItem key={value} value={value}>
+                                        {value}
+                                    </SelectItem>
+                                ))}
                             </SelectContent>
                         </Select>
                     </div>
@@ -205,6 +234,7 @@ export default function FormAnggota({ editingUser, handleSubmit, data, setData, 
                             placeholder="Jelaskan alasan kamu mengikuti kegiatan ini"
                             className="border-input bg-background ring-offset-background focus-visible:ring-ring placeholder:text-muted-foreground flex min-h-[80px] w-full rounded-md border px-3 py-2 text-sm shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
                         />
+                        <InputError message={errors.alasan} className="mt-2" />
                     </div>
                 </div>
             )}

@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Search } from 'lucide-react';
+import { JURUSAN_OPTIONS, MINAT_KEAHLIAN_OPTIONS, POSITION_OPTIONS, ROLE_OPTIONS, STATUS_OPTIONS } from '../constants/form-option';
 
 interface Props {
     handleSearch: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -50,12 +51,11 @@ export default function UsersFilter({
                             <SelectValue placeholder="Filter by role" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all">Semua role</SelectItem>
-                            <SelectItem value="Guest">Guest</SelectItem>
-                            <SelectItem value="User">User</SelectItem>
-                            <SelectItem value="Finance">Finance</SelectItem>
-                            <SelectItem value="Admin">Admin</SelectItem>
-                            <SelectItem value="Super Admin">Super Admin</SelectItem>
+                            {ROLE_OPTIONS.map((value) => (
+                                <SelectItem key={value} value={value}>
+                                    {value}
+                                </SelectItem>
+                            ))}
                         </SelectContent>
                     </Select>
 
@@ -64,26 +64,11 @@ export default function UsersFilter({
                             <SelectValue placeholder="Filter by Posisi" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="Calon Anggota">Calon Anggota</SelectItem>
-                            <SelectItem value="Anggota">Anggota</SelectItem>
-                            <SelectItem value="Ketua Umum">Ketua Umum</SelectItem>
-                            <SelectItem value="Wakil Ketua">Wakil Ketua</SelectItem>
-                            <SelectItem value="Bendahara">Bendahara</SelectItem>
-                            <SelectItem value="Sekretaris">Sekretaris</SelectItem>
-                            <SelectItem value="Koordinator Akadamik">Koordinator Akadamik</SelectItem>
-                            <SelectItem value="Koordinator SDM">Koordinator SDM</SelectItem>
-                            <SelectItem value="Koordinator Kominfo">Koordinator Kominfo</SelectItem>
-                            <SelectItem value="Koordinator Humas">Koordinator Humas</SelectItem>
-                            <SelectItem value="Koordinator Prasarana">Koordinator Prasarana</SelectItem>
-                            <SelectItem value="Humas Internal">Humas Internal</SelectItem>
-                            <SelectItem value="Humas Eksternal">Humas Eksternal</SelectItem>
-                            <SelectItem value="Prasarana">Prasarana</SelectItem>
-                            <SelectItem value="SDM">SDM</SelectItem>
-                            <SelectItem value="Kominfo">Kominfo</SelectItem>
-                            <SelectItem value="Staff Programming">Staff Programming</SelectItem>
-                            <SelectItem value="Staff Design Grafis">Staff Design Grafis</SelectItem>
-                            <SelectItem value="Staff Comp dan Network">Staff Comp dan Network</SelectItem>
-                            <SelectItem value="Staff Microsoft Office">Staff Microsoft Office</SelectItem>
+                            {POSITION_OPTIONS.map((value) => (
+                                <SelectItem key={value} value={value}>
+                                    {value}
+                                </SelectItem>
+                            ))}
                         </SelectContent>
                     </Select>
 
@@ -92,9 +77,11 @@ export default function UsersFilter({
                             <SelectValue placeholder="Filter by status" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all">Semua status</SelectItem>
-                            <SelectItem value="1">Aktif</SelectItem>
-                            <SelectItem value="0">Nonaktif</SelectItem>
+                            {STATUS_OPTIONS.map(({ value, label }) => (
+                                <SelectItem key={value} value={value}>
+                                    {label}
+                                </SelectItem>
+                            ))}
                         </SelectContent>
                     </Select>
 
@@ -103,10 +90,11 @@ export default function UsersFilter({
                             <SelectValue placeholder="Filter by jurusan" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all">Semua jurusan</SelectItem>
-                            <SelectItem value="Sistem Informasi">Sistem Informasi</SelectItem>
-                            <SelectItem value="Teknologi Informasi">Teknologi Informasi</SelectItem>
-                            <SelectItem value="Software Enginner">Software Enginner</SelectItem>
+                            {JURUSAN_OPTIONS.map((value) => (
+                                <SelectItem key={value} value={value}>
+                                    {value}
+                                </SelectItem>
+                            ))}
                         </SelectContent>
                     </Select>
 
@@ -115,11 +103,11 @@ export default function UsersFilter({
                             <SelectValue placeholder="Filter by minat" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="all">Semua minat</SelectItem>
-                            <SelectItem value="Programming">Programming</SelectItem>
-                            <SelectItem value="Design Grafis">Design Grafis</SelectItem>
-                            <SelectItem value="Computer & Networking">Computer & Networking</SelectItem>
-                            <SelectItem value="Microsoft Office">Microsoft Office</SelectItem>
+                            {MINAT_KEAHLIAN_OPTIONS.map((value) => (
+                                <SelectItem key={value} value={value}>
+                                    {value}
+                                </SelectItem>
+                            ))}
                         </SelectContent>
                     </Select>
                     <Button variant="outline" onClick={handleResetFilters} className="flex-1 sm:flex-none">
