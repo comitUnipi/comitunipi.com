@@ -19,7 +19,7 @@ interface Props {
         to: number;
     };
     user: CurrentUser;
-    handleEdit: (pemasuka: Pemasukan) => void;
+    handleEdit: (pemasukan: Pemasukan) => void;
     setConfirmDeleteId: (id: number) => void;
 }
 
@@ -59,7 +59,7 @@ export default function PemasukanTable({ user, pemasukan, handleEdit, setConfirm
                                         <Button
                                             variant="ghost"
                                             size="icon"
-                                            onClick={() => setConfirmDeleteId(data.id)}
+                                            onClick={() => setConfirmDeleteId(data.id!)}
                                             className="hover:text-destructive cursor-pointer"
                                         >
                                             <Trash2 className="h-4 w-4" />
@@ -102,7 +102,7 @@ export default function PemasukanTable({ user, pemasukan, handleEdit, setConfirm
                                     <Button
                                         variant="ghost"
                                         size="icon"
-                                        onClick={() => setConfirmDeleteId(data.id)}
+                                        onClick={() => setConfirmDeleteId(data.id!)}
                                         className="hover:text-destructive h-8 w-8 cursor-pointer"
                                     >
                                         <Trash2 className="h-4 w-4" />
