@@ -36,6 +36,12 @@ interface Props {
     };
 }
 
+type PageProps = {
+    auth: {
+        user: User;
+    };
+};
+
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Data Anggota',
@@ -58,7 +64,7 @@ export default function UsersIndex({ users, filters, flash }: Props) {
     const [toastMessage, setToastMessage] = useState('');
     const [toastType, setToastType] = useState<'success' | 'error'>('success');
 
-    const { auth } = usePage().props;
+    const { auth } = usePage<PageProps>().props;
     const user = auth?.user;
 
     useEffect(() => {
@@ -84,7 +90,6 @@ export default function UsersIndex({ users, filters, flash }: Props) {
         data,
         setData,
         post,
-        put,
         processing,
         reset,
         delete: destroy,
@@ -101,25 +106,29 @@ export default function UsersIndex({ users, filters, flash }: Props) {
         jurusan: '',
         minat_keahlian: '',
         alasan: '',
-        is_active: false,
+        is_active: false as boolean,
     });
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
         if (editingUser) {
-            put(route('users.update', editingUser.id), {
-                data: {
+            router.put(
+                route('users.update', editingUser.id),
+                {
                     role: data.role,
                     position: data.position,
                     is_active: data.is_active,
                 },
-                onSuccess: () => {
-                    setIsOpen(false);
-                    setEditingUser(null);
-                    reset();
+                {
+                    onSuccess: () => {
+                        setIsOpen(false);
+                        setEditingUser(null);
+                        reset();
+                    },
+                    preserveState: true,
                 },
-            });
+            );
         } else {
             post(route('users.store'), {
                 onSuccess: () => {
@@ -132,7 +141,12 @@ export default function UsersIndex({ users, filters, flash }: Props) {
 
     const handleEdit = (user: User) => {
         setEditingUser(user);
-        setData({ ...user });
+        setData((previousData) => ({
+            ...previousData,
+            role: user.role,
+            position: user.position,
+            is_active: user.is_active,
+        }));
         setIsOpen(true);
     };
 
