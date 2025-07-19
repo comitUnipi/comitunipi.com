@@ -209,6 +209,21 @@ export default function FormAnggota({ editingUser, handleSubmit, data, setData, 
                         </Select>
                     </div>
                     <div className="grid gap-2">
+                        <Label htmlFor="position">Position</Label>
+                        <Select value={data.position} onValueChange={(val) => setData('position', val)}>
+                            <SelectTrigger>
+                                <SelectValue placeholder="Pilih Position" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {POSITION_OPTIONS.map((role) => (
+                                    <SelectItem key={role} value={role}>
+                                        {role}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    <div className="grid gap-2">
                         <Label htmlFor="jenis_kelamin">Jenis Kelamin</Label>
                         <Select value={data.jenis_kelamin} onValueChange={(val) => setData('jenis_kelamin', val)}>
                             <SelectTrigger>

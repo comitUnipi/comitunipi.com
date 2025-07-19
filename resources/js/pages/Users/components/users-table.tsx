@@ -50,8 +50,9 @@ export function UserTable({ users, user, handleEdit, setConfirmDeleteId }: Props
                                 <td className="p-4">{data.minat_keahlian}</td>
                                 <td className="p-4">
                                     <span
-                                        className={`rounded-full px-2 py-1 text-xs font-semibold ${data.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                                            }`}
+                                        className={`rounded-full px-2 py-1 text-xs font-semibold ${
+                                            data.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                                        }`}
                                     >
                                         {data.is_active ? 'Aktif' : 'Nonaktif'}
                                     </span>
@@ -156,8 +157,9 @@ export function UserTable({ users, user, handleEdit, setConfirmDeleteId }: Props
                         <div className="flex items-center justify-between">
                             <span className="text-muted-foreground text-sm">Status:</span>
                             <span
-                                className={`rounded-full px-2 py-1 text-xs font-semibold ${data.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                                    }`}
+                                className={`rounded-full px-2 py-1 text-xs font-semibold ${
+                                    data.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                                }`}
                             >
                                 {data.is_active ? 'Aktif' : 'Nonaktif'}
                             </span>
