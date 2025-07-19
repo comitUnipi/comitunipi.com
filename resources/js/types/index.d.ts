@@ -58,9 +58,16 @@ export interface Pemasukan {
     description: string;
 }
 
-interface Pengeluaran {
+export interface Pengeluaran {
     id?: number;
     amount: number;
     date: string;
     description: string;
+}
+
+export interface Laporan {
+    date: string;
+    type: string;
+    real_type: 'plus' | 'minus';
+    amount: number;
 }
