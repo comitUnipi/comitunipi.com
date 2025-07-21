@@ -23,7 +23,7 @@ export default function MentorCard({ mentor }: Props) {
                     <img src={mentor.img} alt="image" className="h-full w-full rounded-full object-cover" />
                 </div>
                 <div className="text-center">
-                    <h4 className="text-black mb-2 text-xl font-medium">{mentor.nama}</h4>
+                    <h4 className="mb-2 text-xl font-medium text-black">{mentor.nama}</h4>
                     <p className="mb-5 text-sm font-medium text-gray-700">{mentor.job}</p>
                     <div className="flex items-center justify-center">
                         {mentor.sosmed.map((sosmed) => (

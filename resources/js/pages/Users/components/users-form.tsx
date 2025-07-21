@@ -253,7 +253,7 @@ export default function FormAnggota({ editingUser, handleSubmit, data, setData, 
                     </div>
                 </div>
             )}
-            <Button type="submit" disabled={processing} className="bg-primary hover:bg-primary/90 w-full text-white dark:text-black shadow-lg">
+            <Button type="submit" disabled={processing} className="bg-primary hover:bg-primary/90 w-full text-white shadow-lg dark:text-black">
                 {editingUser ? 'Ubah Data Anggota' : 'Tambah Anggota'}
             </Button>
         </form>
