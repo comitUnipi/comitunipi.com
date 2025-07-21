@@ -11,6 +11,9 @@ git pull origin main
 echo "📦 Install dependencies PHP (Composer)..."
 composer install --ignore-platform-req=ext-fileinfo
 
+echo "📦 Load bash profile untuk akses npm"
+source ~/.bash_profile
+
 echo "📦 Install dependencies JS (npm)..."
 npm install
 
