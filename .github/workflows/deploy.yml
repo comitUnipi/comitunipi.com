@@ -1,0 +1,30 @@
+name: 🚀 Deploy to cPanel via SSH with Password
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔁 Deploy to cPanel using appleboy/ssh-action
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.CPANEL_HOST }}
+          port: ${{ secrets.CPANEL_PORT }}
+          username: ${{ secrets.CPANEL_USER }}
+          password: ${{ secrets.CPANEL_PASSWORD }}
+          script: |
+            set -e
+            echo "📁 Masuk ke folder project..."
+            cd ~/public_html/source
+
+            echo "🚀 Menjalankan update script..."
+            chmod +x update.sh
+            ./update.sh
