@@ -15,13 +15,13 @@ export default function Welcome() {
             <MainLayout>
                 <Heading img="/images/100102.png" />
 
-                <section className="pt-20 pb-10 lg:pt-[120px] lg:pb-20">
+                <section className="pt-20 pb-10 lg:pt-[120px] lg:pb-20 dark:bg-white">
                     <div className="container mx-auto">
                         <div className="flex flex-wrap">
                             <div className="w-full px-4">
                                 <div className="mx-auto mb-[60px]">
                                     <span className="text-primary mb-2 block text-center text-lg font-semibold">Visi dan Misi</span>
-                                    <h2 id="text-heading" className="text-dark mb-4 text-center text-4xl font-bold md:text-[42px]">
+                                    <h2 id="text-heading" className="text-black mb-4 text-center text-4xl font-bold md:text-[42px]">
                                         Tentang Kami
                                     </h2>
                                     <div className="flex justify-center">
@@ -40,38 +40,38 @@ export default function Welcome() {
                                         </div>
                                         <div className="max-w-[500px]">
                                             <div>
-                                                <h3 className="text-dark mb-4 text-2xl font-bold">Visi Kami</h3>
+                                                <h3 className="text-black mb-4 text-2xl font-bold">Visi Kami</h3>
                                                 <ol className="relative border-s border-gray-200 text-lg text-gray-700">
                                                     <li className="ms-4 mb-3">
                                                         <div className="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white bg-gray-200"></div>
-                                                        <p className="text-muted-foreground text-justify">
+                                                        <p className="text-gray-700 text-justify">
                                                             Melaksanakan berbagai kegiatan yang bermanfaat dan yang bernilai positif.
                                                         </p>
                                                     </li>
                                                     <li className="ms-4 mb-3">
                                                         <div className="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white bg-gray-200"></div>
-                                                        <p className="text-muted-foreground text-justify">
+                                                        <p className="text-gray-700 text-justify">
                                                             Menjalin kerjasama dengan berbagai pihak dalam bidang teknologi informasi.
                                                         </p>
                                                     </li>
                                                 </ol>
                                             </div>
                                             <div className="mt-4">
-                                                <h3 className="text-dark mb-4 text-2xl font-bold">Misi Kami</h3>
+                                                <h3 className="text-black mb-4 text-2xl font-bold">Misi Kami</h3>
                                                 <ol className="relative border-s border-gray-200 text-lg text-gray-700">
                                                     <li className="ms-4 mb-3">
                                                         <div className="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white bg-gray-200"></div>
-                                                        <p className="text-muted-foreground text-justify">
+                                                        <p className="text-gray-700 text-justify">
                                                             Menghasilkan anggota COMIT yang handal dalam dunia informasi.
                                                         </p>
                                                     </li>
                                                     <li className="ms-4 mb-3">
                                                         <div className="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white bg-gray-200"></div>
-                                                        <p className="text-muted-foreground text-justify">Memajukan dan mengembangkan almamater.</p>
+                                                        <p className="text-gray-700 text-justify">Memajukan dan mengembangkan almamater.</p>
                                                     </li>
                                                     <li className="ms-4 mb-3">
                                                         <div className="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-white bg-gray-200"></div>
-                                                        <p className="text-muted-foreground text-justify">
+                                                        <p className="text-gray-700 text-justify">
                                                             Menjadikan organisasi COMIT, sebagai organisasi yang unggul baik secara akademis maupun
                                                             non akademis.
                                                         </p>
@@ -101,22 +101,22 @@ export default function Welcome() {
                         <div className="mx-4 flex flex-wrap">
                             <div className="w-full px-4 md:w-1/2 lg:w-1/4">
                                 <div className="mb-12 flex h-20 items-center justify-center rounded-md bg-white">
-                                    <h4 className="text-center text-xl font-bold">Desain Grafis</h4>
+                                    <h4 className="text-center text-xl dark:text-black font-bold">Desain Grafis</h4>
                                 </div>
                             </div>
                             <div className="w-full px-4 md:w-1/2 lg:w-1/4">
                                 <div className="mb-12 flex h-20 items-center justify-center rounded-md bg-white">
-                                    <h4 className="text-center text-xl font-bold">Programming</h4>
+                                    <h4 className="text-center text-xl dark:text-black font-bold">Programming</h4>
                                 </div>
                             </div>
                             <div className="w-full px-4 md:w-1/2 lg:w-1/4">
                                 <div className="mb-12 flex h-20 items-center justify-center rounded-md bg-white">
-                                    <h4 className="text-center text-xl font-bold">Comp and Network</h4>
+                                    <h4 className="text-center text-xl dark:text-black font-bold">Comp and Network</h4>
                                 </div>
                             </div>
                             <div className="w-full px-4 md:w-1/2 lg:w-1/4">
                                 <div className="mb-12 flex h-20 items-center justify-center rounded-md bg-white">
-                                    <h4 className="text-center text-xl font-bold">Microsoft Office</h4>
+                                    <h4 className="text-center text-xl dark:text-black font-bold">Microsoft Office</h4>
                                 </div>
                             </div>
                         </div>
@@ -132,7 +132,7 @@ export default function Welcome() {
                         </div>
                     </div>
                 </section>
-                <section className="pt-20 pb-10 lg:pt-[120px] lg:pb-20">
+                <section className="pt-20 pb-10 lg:pt-[120px] lg:pb-20 dark:bg-white">
                     <div className="container mx-auto">
                         <SubHeading
                             subtitle="Mentor"

@@ -11,7 +11,7 @@ export default function MentorKami() {
             <Head title="Mentor Kami" />
             <MainLayout>
                 <Heading img="/images/100111.png" />
-                <section className="pt-20 pb-10 lg:pt-[120px] lg:pb-20">
+                <section className="pt-20 pb-10 lg:pt-[120px] lg:pb-20 dark:bg-white">
                     <div className="container mx-auto">
                         <SubHeading
                             subtitle="Mentor"
