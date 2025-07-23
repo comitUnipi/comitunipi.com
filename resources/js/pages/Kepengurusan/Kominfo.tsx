@@ -2,8 +2,8 @@ import KepengurusanCard from '@/components/core-card-kepengurusan';
 import Heading from '@/components/core-heading';
 import KepengurusanHeading from '@/components/core-heading-kepengurusan';
 import { kepengurusan } from '@/constants/kepengurusan/kominfo';
+import MainLayout from '@/layouts/main-layout';
 import { Head } from '@inertiajs/react';
-import MainLayout from '../Layout';
 
 export default function Kominfo() {
   return (

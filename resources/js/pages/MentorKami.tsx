@@ -2,8 +2,8 @@ import MentorCard from '@/components/core-card-mentor';
 import Heading from '@/components/core-heading';
 import SubHeading from '@/components/core-sub-heading';
 import { mentors } from '@/constants/mentor';
+import MainLayout from '@/layouts/main-layout';
 import { Head } from '@inertiajs/react';
-import MainLayout from './Layout';
 
 export default function MentorKami() {
   return (

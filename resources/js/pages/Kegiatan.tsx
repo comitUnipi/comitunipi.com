@@ -2,8 +2,8 @@ import KegiatanCard from '@/components/core-card-kegiatan';
 import Heading from '@/components/core-heading';
 import SubHeading from '@/components/core-sub-heading';
 import { kegiatan } from '@/constants/kegiatan';
+import MainLayout from '@/layouts/main-layout';
 import { Head } from '@inertiajs/react';
-import MainLayout from './Layout';
 
 export default function MentorKami() {
   return (

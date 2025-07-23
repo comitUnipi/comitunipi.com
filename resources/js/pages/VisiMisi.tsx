@@ -1,6 +1,6 @@
 import Heading from '@/components/core-heading';
+import MainLayout from '@/layouts/main-layout';
 import { Head } from '@inertiajs/react';
-import MainLayout from './Layout';
 
 export default function VisiMisi() {
   return (

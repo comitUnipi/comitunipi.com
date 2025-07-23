@@ -3,8 +3,8 @@ import Heading from '@/components/core-heading';
 import SubHeading from '@/components/core-sub-heading';
 import { mentors } from '@/constants/mentor';
 import { useAnimatedCounter } from '@/hooks/use-animated-counter';
+import MainLayout from '@/layouts/main-layout';
 import { Head, usePage } from '@inertiajs/react';
-import MainLayout from './Layout';
 
 export default function Welcome() {
   const { props } = usePage();

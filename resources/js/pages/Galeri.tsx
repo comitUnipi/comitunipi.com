@@ -3,9 +3,9 @@ import Heading from '@/components/core-heading';
 import GaleriModal from '@/components/core-modal-galeri';
 import SubHeading from '@/components/core-sub-heading';
 import { galeri } from '@/constants/galeri';
+import MainLayout from '@/layouts/main-layout';
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
-import MainLayout from './Layout';
 
 type GaleriItem = {
   src: string;
