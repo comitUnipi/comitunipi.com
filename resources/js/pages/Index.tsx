@@ -11,10 +11,46 @@ export default function Welcome() {
   const userCount = props.userCount || 0;
   return (
     <>
-      <Head title="Community of Information Technology" />
+      <Head title="Community of Information Technology">
+        <meta name="robots" content="index, follow" />
+        <meta property="canonical" content="https://comitunipi.com/" />
+        <meta
+          name="description"
+          content="Bergabung dengan COMIT, salah satu organisasi mahasiswa di Universitas Insan Pembangunan Indonesia (UNIPI) yang bergerak di bidang teknologi informasi."
+        />
+        <meta property="og:title" content="Community of Information Technology - COMIT" />
+        <meta
+          property="og:description"
+          content="Bergabung dengan COMIT, salah satu organisasi mahasiswa di Universitas Insan Pembangunan Indonesia (UNIPI) yang bergerak di bidang teknologi informasi."
+        />
+        <meta property="og:image" content="https://comitunipi.com/images/banner.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:url" content="https://comitunipi.com/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="COMIT" />
+        <meta property="og:locale" content="id_ID" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'Community of Information Technology - COMIT',
+            url: 'https://www.comitunipi.com/',
+            logo: 'https://www.comitunipi.com/logo_black.png',
+            email: 'comit.unipi@gmail.com',
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: 'Jl. Raya Serang Km. 10 Bitung',
+              addressLocality: 'Tangerang',
+              addressRegion: 'Banten',
+              addressCountry: 'ID',
+            },
+            sameAs: ['https://www.instagram.com/comit.ipem/', 'https://www.tiktok.com/@comit_unipi', 'https://github.com/comitUnipi'],
+          })}
+        </script>
+      </Head>
       <MainLayout>
         <Heading img="/images/100102.png" />
-
         <section className="pt-20 pb-10 lg:pt-[120px] lg:pb-20 dark:bg-white">
           <div className="container mx-auto">
             <div className="flex flex-wrap">
@@ -77,7 +113,6 @@ export default function Welcome() {
             </div>
           </div>
         </section>
-
         <section className="bg-blue-600 pt-20 pb-8 lg:pt-[120px] lg:pb-[70px]">
           <div className="container mx-auto">
             <div className="mx-4 flex flex-wrap">

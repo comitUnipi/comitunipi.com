@@ -5,7 +5,46 @@ import { Head } from '@inertiajs/react';
 export default function VisiMisi() {
   return (
     <>
-      <Head title="Visi dan Misi" />
+      <Head title="Pengenalan Visi dan Misi">
+        <meta name="robots" content="index, follow" />
+        <meta property="canonical" content="https://comitunipi.com/visi-dan-misi" />
+        <meta
+          name="description"
+          content="Pelajari visi dan misi COMIT, salah satu organisasi mahasiswa di Universitas Insan Pembangunan Indonesia yang berkomitmen dalam pengembangan teknologi informasi dan peningkatan kualitas akademik."
+        />
+
+        <meta property="og:title" content="Pengenalan Visi dan Misi - COMIT" />
+        <meta
+          property="og:description"
+          content="Pelajari visi dan misi COMIT, salah satu organisasi mahasiswa di Universitas Insan Pembangunan Indonesia yang berkomitmen dalam pengembangan teknologi informasi dan peningkatan kualitas akademik."
+        />
+        <meta property="og:image" content="https://comitunipi.com/images/banner.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:url" content="https://comitunipi.com/visi-dan-misi" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="COMIT" />
+        <meta property="og:locale" content="id_ID" />
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'Pengenalan Visi dan Misi - COMIT',
+            url: 'https://www.comitunipi.com/visi-dan-misi',
+            logo: 'https://www.comitunipi.com/logo_black.png',
+            email: 'comit.unipi@gmail.com',
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: 'Jl. Raya Serang Km. 10 Bitung',
+              addressLocality: 'Tangerang',
+              addressRegion: 'Banten',
+              addressCountry: 'ID',
+            },
+            sameAs: ['https://www.instagram.com/comit.ipem/', 'https://www.tiktok.com/@comit_unipi', 'https://github.com/comitUnipi'],
+          })}
+        </script>
+      </Head>
       <MainLayout>
         <Heading img="/images/100107.png" />
         <section className="pt-20 pb-10 lg:pt-[120px] lg:pb-20 dark:bg-white">

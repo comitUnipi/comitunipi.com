@@ -28,7 +28,46 @@ export default function Galeri() {
 
   return (
     <>
-      <Head title="Mentor Kami" />
+      <Head title="Galeri Dokumentasi Kegiatan Kami">
+        <meta name="robots" content="index, follow" />
+        <meta property="canonical" content="https://comitunipi.com/galeri-kami" />
+        <meta
+          name="description"
+          content="Lihat berbagai dokumentasi kegiatan dan momen berharga bersama Community of Information Technology (COMIT), dari pelatihan, workshop, perlombaan hingga kegiatan sosial."
+        />
+
+        <meta property="og:title" content="Galeri Dokumentasi Kegiatan Kami - COMIT" />
+        <meta
+          property="og:description"
+          content="Lihat berbagai dokumentasi kegiatan dan momen berharga bersama Community of Information Technology (COMIT), dari pelatihan, workshop, perlombaan hingga kegiatan sosial."
+        />
+        <meta property="og:image" content="https://comitunipi.com/images/banner.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:url" content="https://comitunipi.com/galeri-kami" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="COMIT" />
+        <meta property="og:locale" content="id_ID" />
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'COMIT',
+            url: 'https://www.comitunipi.com/galeri-kami',
+            logo: 'https://www.comitunipi.com/logo_black.png',
+            email: 'comit.unipi@gmail.com',
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: 'Jl. Raya Serang Km. 10 Bitung',
+              addressLocality: 'Tangerang',
+              addressRegion: 'Banten',
+              addressCountry: 'ID',
+            },
+            sameAs: ['https://www.instagram.com/comit.ipem/', 'https://www.tiktok.com/@comit_unipi', 'https://github.com/comitUnipi'],
+          })}
+        </script>
+      </Head>
       <MainLayout>
         <Heading img="/images/100112.png" />
         <section className="pt-20 pb-10 lg:pt-[120px] lg:pb-20">
