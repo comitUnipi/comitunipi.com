@@ -14,7 +14,7 @@ import SettingsLayout from '@/layouts/settings/layout';
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
-    title: 'Profile settings',
+    title: 'Pengaturan profile',
     href: '/settings/profile',
   },
 ];
@@ -52,16 +52,13 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
 
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
-      <Head title="Profile settings" />
-
+      <Head title="Pengaturan profile" />
       <SettingsLayout>
         <div className="space-y-6">
-          <HeadingSmall title="Profile information" description="Update your name and email address" />
-
+          <HeadingSmall title="Informasi Profile" description="Perbarui informasi profile kamu secara detail" />
           <form onSubmit={submit} className="space-y-6">
             <div className="grid gap-2">
-              <Label htmlFor="name">Name</Label>
-
+              <Label htmlFor="name">Nama Lengkap</Label>
               <Input
                 id="name"
                 className="mt-1 block w-full"
@@ -69,15 +66,12 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                 onChange={(e) => setData('name', e.target.value)}
                 required
                 autoComplete="name"
-                placeholder="Full name"
+                placeholder="Nama Lengkap"
               />
-
               <InputError className="mt-2" message={errors.name} />
             </div>
-
             <div className="grid gap-2">
-              <Label htmlFor="email">Email address</Label>
-
+              <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -88,10 +82,8 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                 autoComplete="username"
                 placeholder="Email address"
               />
-
               <InputError className="mt-2" message={errors.email} />
             </div>
-
             {mustVerifyEmail && auth.user.email_verified_at === null && (
               <div>
                 <p className="text-muted-foreground -mt-4 text-sm">
@@ -105,13 +97,11 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                     Click here to resend the verification email.
                   </Link>
                 </p>
-
                 {status === 'verification-link-sent' && (
                   <div className="mt-2 text-sm font-medium text-green-600">A new verification link has been sent to your email address.</div>
                 )}
               </div>
             )}
-
             <div className="grid gap-2">
               <Label htmlFor="jenis_kelamin">Jenis Kelamin</Label>
               <select
@@ -127,7 +117,6 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
               </select>
               <InputError message={errors.jenis_kelamin} />
             </div>
-
             <div className="grid gap-2">
               <Label htmlFor="no_wa">No. WhatsApp</Label>
               <Input
@@ -141,7 +130,6 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
               />
               <InputError message={errors.no_wa} />
             </div>
-
             <div className="grid gap-2">
               <Label htmlFor="jurusan">Jurusan</Label>
               <select
@@ -161,7 +149,6 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
               </select>
               <InputError message={errors.jurusan} />
             </div>
-
             <div className="grid gap-2">
               <Label htmlFor="minat_keahlian">Minat Keahlian</Label>
               <select
@@ -193,10 +180,8 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
               />
               <InputError message={errors.alasan} />
             </div>
-
             <div className="flex items-center gap-4">
-              <Button disabled={processing}>Save</Button>
-
+              <Button disabled={processing}>Simpan</Button>
               <Transition
                 show={recentlySuccessful}
                 enter="transition ease-in-out"
@@ -204,12 +189,11 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                 leave="transition ease-in-out"
                 leaveTo="opacity-0"
               >
-                <p className="text-sm text-neutral-600">Saved</p>
+                <p className="text-sm text-neutral-600">Telah Tersimpan</p>
               </Transition>
             </div>
           </form>
         </div>
-
         <DeleteUser />
       </SettingsLayout>
     </AppLayout>

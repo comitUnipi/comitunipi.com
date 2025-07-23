@@ -123,12 +123,11 @@ export function AppSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-
       <SidebarContent>
         <NavMain label="Fitur Utama" items={mainNavItems} />
         {access.master && <NavMain label="Data Master" items={masterNavItems} />}
         {access.laporan && <NavMain label="Laporan" items={laporanNavItems} />}
-        {access.setting && <NavMain label="Setting" items={settingNavItems} />}
+        {access.setting && <NavMain label="Pengaturan" items={settingNavItems} />}
       </SidebarContent>
     </Sidebar>
   );

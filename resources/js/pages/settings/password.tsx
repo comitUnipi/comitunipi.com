@@ -13,7 +13,7 @@ import { Label } from '@/components/ui/label';
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
-    title: 'Password settings',
+    title: 'Pengaturan password',
     href: '/settings/password',
   },
 ];
@@ -50,16 +50,18 @@ export default function Password() {
 
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
-      <Head title="Profile settings" />
-
+      <Head title="Pengaturan password" />
       <SettingsLayout>
         <div className="space-y-6">
-          <HeadingSmall title="Update password" description="Ensure your account is using a long, random password to stay secure" />
+          <HeadingSmall
+            title="Perbarui password"
+            description="Pastikan akun Anda menggunakan kata sandi yang panjang dan acak untuk menjaga keamanan
 
+"
+          />
           <form onSubmit={updatePassword} className="space-y-6">
             <div className="grid gap-2">
-              <Label htmlFor="current_password">Current password</Label>
-
+              <Label htmlFor="current_password">Password lama</Label>
               <Input
                 id="current_password"
                 ref={currentPasswordInput}
@@ -68,15 +70,12 @@ export default function Password() {
                 type="password"
                 className="mt-1 block w-full"
                 autoComplete="current-password"
-                placeholder="Current password"
+                placeholder="Password lama"
               />
-
               <InputError message={errors.current_password} />
             </div>
-
             <div className="grid gap-2">
-              <Label htmlFor="password">New password</Label>
-
+              <Label htmlFor="password">Password baru</Label>
               <Input
                 id="password"
                 ref={passwordInput}
@@ -85,15 +84,12 @@ export default function Password() {
                 type="password"
                 className="mt-1 block w-full"
                 autoComplete="new-password"
-                placeholder="New password"
+                placeholder="Password baru"
               />
-
               <InputError message={errors.password} />
             </div>
-
             <div className="grid gap-2">
-              <Label htmlFor="password_confirmation">Confirm password</Label>
-
+              <Label htmlFor="password_confirmation">Konfirmasi password</Label>
               <Input
                 id="password_confirmation"
                 value={data.password_confirmation}
@@ -101,15 +97,12 @@ export default function Password() {
                 type="password"
                 className="mt-1 block w-full"
                 autoComplete="new-password"
-                placeholder="Confirm password"
+                placeholder="Konfirmasi password"
               />
-
               <InputError message={errors.password_confirmation} />
             </div>
-
             <div className="flex items-center gap-4">
-              <Button disabled={processing}>Save password</Button>
-
+              <Button disabled={processing}>Simpan password</Button>
               <Transition
                 show={recentlySuccessful}
                 enter="transition ease-in-out"
@@ -117,7 +110,7 @@ export default function Password() {
                 leave="transition ease-in-out"
                 leaveTo="opacity-0"
               >
-                <p className="text-sm text-neutral-600">Saved</p>
+                <p className="text-sm text-neutral-600">Telah Tersimpan</p>
               </Transition>
             </div>
           </form>
