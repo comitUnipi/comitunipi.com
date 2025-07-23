@@ -24,12 +24,12 @@ class DashboardController extends Controller
             'totalPengeluaran' => Pengeluaran::sum('amount'),
         ];
 
-        return Inertia::render('dashboard', [
+        return Inertia::render('Dashboard', [
             'stats' => $stats,
             'flash' => [
                 'success' => session('success'),
-                'error' => session('error')
-            ]
+                'error' => session('error'),
+            ],
         ]);
     }
 }

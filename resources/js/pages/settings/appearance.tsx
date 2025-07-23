@@ -8,23 +8,22 @@ import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 
 const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Appearance settings',
-        href: '/settings/appearance',
-    },
+  {
+    title: 'Pengaturan tampilan',
+    href: '/settings/appearance',
+  },
 ];
 
 export default function Appearance() {
-    return (
-        <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Appearance settings" />
-
-            <SettingsLayout>
-                <div className="space-y-6">
-                    <HeadingSmall title="Appearance settings" description="Update your account's appearance settings" />
-                    <AppearanceTabs />
-                </div>
-            </SettingsLayout>
-        </AppLayout>
-    );
+  return (
+    <AppLayout breadcrumbs={breadcrumbs}>
+      <Head title="Pengaturan tampilan" />
+      <SettingsLayout>
+        <div className="space-y-6">
+          <HeadingSmall title="Pengaturan tampilan" description="Perbarui pengaturan tampilan akun kamu" />
+          <AppearanceTabs />
+        </div>
+      </SettingsLayout>
+    </AppLayout>
+  );
 }
