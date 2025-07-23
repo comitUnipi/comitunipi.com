@@ -1,7 +1,7 @@
 import FinancialBarChart from '@/components/analytics/financial-bar-chart';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
+import { User, type BreadcrumbItem } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
 import { CheckCircle, Clock, UserCog, Users } from 'lucide-react';
 
@@ -16,6 +16,12 @@ interface Props {
     totalKAS: number;
   };
 }
+
+type PageProps = {
+  auth: {
+    user: User;
+  };
+};
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -35,7 +41,7 @@ export default function Dashboard({
     totalKAS: 0,
   },
 }: Props) {
-  const { auth } = usePage().props;
+  const { auth } = usePage<PageProps>().props;
   const user = auth?.user;
 
   return (
