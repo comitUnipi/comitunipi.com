@@ -7,85 +7,83 @@ import LaporanFilter from './components/laporan-filter';
 import LaporanTable from './components/laporan-table';
 
 interface Periode {
-    start: string;
-    end: string;
+  start: string;
+  end: string;
 }
 
 interface Props {
-    laporan: Laporan[];
-    periode?: Periode;
-    totalSaldo: number;
-    totalDebit: number;
-    totalKredit: number;
+  laporan: Laporan[];
+  periode?: Periode;
+  totalSaldo: number;
+  totalDebit: number;
+  totalKredit: number;
 }
 
 type PageProps = {
-    auth: {
-        user: User;
-    };
+  auth: {
+    user: User;
+  };
 };
 
 const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Laporan Keuangan',
-        href: '/laporan/keuangan',
-    },
+  {
+    title: 'Laporan Keuangan',
+    href: '/laporan/keuangan',
+  },
 ];
 
 export default function LaporanIndex({ laporan, periode, totalSaldo, totalDebit, totalKredit }: Props) {
-    const [startDate, setStartDate] = useState(periode?.start ?? '');
-    const [endDate, setEndDate] = useState(periode?.end ?? '');
-    const { auth } = usePage<PageProps>().props;
-    const user = auth?.user;
+  const [startDate, setStartDate] = useState(periode?.start ?? '');
+  const [endDate, setEndDate] = useState(periode?.end ?? '');
+  const { auth } = usePage<PageProps>().props;
+  const user = auth?.user;
 
-    const handleFilterTanggal = () => {
-        router.get(
-            route('laporan.index'),
-            {
-                start_date: startDate,
-                end_date: endDate,
-            },
-            {
-                preserveState: true,
-                preserveScroll: true,
-            },
-        );
-    };
-
-    const handleResetTanggal = () => {
-        setStartDate('');
-        setEndDate('');
-        router.get(route('laporan.index'));
-    };
-
-    return (
-        <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Laporan Keuangan" />
-            <div className="from-background to-muted/20 flex h-full flex-1 flex-col gap-4 rounded-xl bg-gradient-to-br p-3 sm:gap-6 sm:p-4 md:p-6">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                        <h1 className="text-xl font-bold tracking-tight sm:text-2xl md:text-3xl">Laporan Keuangan</h1>
-                        <p className="text-muted-foreground mt-1 text-sm sm:text-base">
-                            Manajemen untuk mengelola data laporan keuangan mingguan dan bulanan.
-                        </p>
-                    </div>
-                    {['Super Admin', 'Finance'].includes(user.role) && (
-                        <div className="flex gap-2 sm:gap-4">
-                            <ButtonExport exportUrl={`/laporan/export/csv?end_date=${endDate}&start_date=${startDate}`} />
-                        </div>
-                    )}
-                </div>
-                <LaporanFilter
-                    startDate={startDate}
-                    endDate={endDate}
-                    setStartDate={setStartDate}
-                    setEndDate={setEndDate}
-                    periode={periode}
-                    handleFilterTanggal={handleFilterTanggal}
-                    handleResetTanggal={handleResetTanggal}
-                />
-                <LaporanTable laporan={laporan} totalDebit={totalDebit} totalKredit={totalKredit} totalSaldo={totalSaldo} />
-            </div>
-        </AppLayout>
+  const handleFilterTanggal = () => {
+    router.get(
+      route('laporan.index'),
+      {
+        start_date: startDate,
+        end_date: endDate,
+      },
+      {
+        preserveState: true,
+        preserveScroll: true,
+      },
     );
+  };
+
+  const handleResetTanggal = () => {
+    setStartDate('');
+    setEndDate('');
+    router.get(route('laporan.index'));
+  };
+
+  return (
+    <AppLayout breadcrumbs={breadcrumbs}>
+      <Head title="Laporan Keuangan" />
+      <div className="from-background to-muted/20 flex h-full flex-1 flex-col gap-4 rounded-xl bg-gradient-to-br p-3 sm:gap-6 sm:p-4 md:p-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h1 className="text-xl font-bold tracking-tight sm:text-2xl md:text-3xl">Laporan Keuangan</h1>
+            <p className="text-muted-foreground mt-1 text-sm sm:text-base">Manajemen untuk mengelola data laporan keuangan mingguan dan bulanan.</p>
+          </div>
+          {['Super Admin', 'Finance'].includes(user.role) && (
+            <div className="flex gap-2 sm:gap-4">
+              <ButtonExport exportUrl={`/laporan/export/csv?end_date=${endDate}&start_date=${startDate}`} />
+            </div>
+          )}
+        </div>
+        <LaporanFilter
+          startDate={startDate}
+          endDate={endDate}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+          periode={periode}
+          handleFilterTanggal={handleFilterTanggal}
+          handleResetTanggal={handleResetTanggal}
+        />
+        <LaporanTable laporan={laporan} totalDebit={totalDebit} totalKredit={totalKredit} totalSaldo={totalSaldo} />
+      </div>
+    </AppLayout>
+  );
 }
