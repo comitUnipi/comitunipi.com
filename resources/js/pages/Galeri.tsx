@@ -72,7 +72,11 @@ export default function Galeri() {
         <Heading img="/images/100112.png" />
         <section className="pt-20 pb-10 lg:pt-[120px] lg:pb-20">
           <div className="w-full px-4">
-            <SubHeading subtitle="Dokumentasi" title="Galeri Kegiatan Kami" description="Kami mempunyai banyak kegiatan yang telah dilaksanakan." />
+            <SubHeading
+              subtitle="Dokumentasi"
+              title="Galeri Kegiatan Kami"
+              description="Dokumentasi perjalanan dan momen berharga bersama Community of Information Technology (COMIT)."
+            />
             <div className="mb-20 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
               {galeri.map((item: GaleriItem, index: number) => (
                 <GaleriCard key={index} item={item} openModal={() => openModal(item.src)} />
