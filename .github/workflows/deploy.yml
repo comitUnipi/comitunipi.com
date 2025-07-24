@@ -1,4 +1,4 @@
-name: 🚀 Deploy to cPanel via SSH with Password
+name: Deploy to cPanel via SSH
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🔁 Deploy to cPanel using appleboy/ssh-action
+      - name: Deploy to cPanel using appleboy/ssh-action
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.CPANEL_HOST }}
@@ -22,12 +22,12 @@ jobs:
           password: ${{ secrets.CPANEL_PASSWORD }}
           script: |
             set -e
-            echo "📦 Load bash profile untuk akses npm"
+            echo "Load bash profile untuk akses npm"
             source ~/.bash_profile
 
-            echo "📁 Masuk ke folder project..."
+            echo "Masuk ke folder project..."
             cd ~/public_html/source
 
-            echo "🚀 Menjalankan update script..."
+            echo "Menjalankan update script..."
             chmod +x update.sh
             ./update.sh
