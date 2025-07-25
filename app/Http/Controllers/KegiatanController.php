@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kegiatan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -41,6 +42,35 @@ class KegiatanController extends Controller
                 'error' => session('error'),
             ],
         ]);
+    }
+
+    public function notifications()
+    {
+        $user = Auth::user();
+
+        if (! $user) {
+            return response()->json([], 403);
+        }
+
+        $allowedRoles = ['Super Admin', 'Admin', 'Finance'];
+        $isActive = $user->is_active == 1;
+
+        $allKegiatan = Kegiatan::where('date', '>=', now())->orderBy('date')->get();
+
+        $filtered = $allKegiatan->filter(function ($kegiatan) use ($user, $allowedRoles, $isActive) {
+            switch ($kegiatan->audiens) {
+                case 'umum':
+                    return true;
+                case 'pengurus':
+                    return in_array($user->role, $allowedRoles) && $isActive;
+                case 'anggota':
+                    return $user->role !== 'Guest' && $isActive;
+                default:
+                    return false;
+            }
+        });
+
+        return response()->json($filtered->values());
     }
 
     public function terbaru()

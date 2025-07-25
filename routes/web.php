@@ -39,6 +39,7 @@ Route::middleware(['auth', 'verified', 'role:Super Admin'])->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/kegiatan/terbaru', [KegiatanController::class, 'terbaru'])->name('kegiatan.terbaru');
+    Route::get('/api/kegiatan/notification', [KegiatanController::class, 'notifications'])->name('kegiatan.notifications');
 });
 
 require __DIR__ . '/public.php';

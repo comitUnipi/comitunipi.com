@@ -39,7 +39,7 @@ export function AppSidebar() {
       icon: LayoutGrid,
     },
     {
-      title: 'Kegiatan Minggu ini',
+      title: 'Kegiatan Mendatang',
       href: '/kegiatan/terbaru',
       icon: Calendar,
     },
