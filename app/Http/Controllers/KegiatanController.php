@@ -76,13 +76,32 @@ class KegiatanController extends Controller
     public function terbaru()
     {
         $today = Carbon::today();
+        $user = Auth::user();
 
-        $kegiatan = Kegiatan::whereDate('date', '>=', $today)
-            ->orderBy('date')
-            ->get();
+        if (! $user) {
+            return response()->json([], 403);
+        }
+
+        $allowedRoles = ['Super Admin', 'Admin', 'Finance'];
+        $isActive = $user->is_active == 1;
+
+        $allKegiatan = Kegiatan::where('date', '>=', $today)->orderBy('date')->get();
+
+        $filtered = $allKegiatan->filter(function ($kegiatan) use ($user, $allowedRoles, $isActive) {
+            switch ($kegiatan->audiens) {
+                case 'umum':
+                    return true;
+                case 'pengurus':
+                    return in_array($user->role, $allowedRoles) && $isActive;
+                case 'anggota':
+                    return $user->role !== 'Guest' && $isActive;
+                default:
+                    return false;
+            }
+        });
 
         return Inertia::render('Kegiatan/Terbaru', [
-            'kegiatan' => $kegiatan,
+            'kegiatan' => $filtered,
         ]);
     }
 
