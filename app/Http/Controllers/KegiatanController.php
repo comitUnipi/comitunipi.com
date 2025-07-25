@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kegiatan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -39,6 +40,19 @@ class KegiatanController extends Controller
                 'success' => session('success'),
                 'error' => session('error'),
             ],
+        ]);
+    }
+
+    public function terbaru()
+    {
+        $today = Carbon::today();
+
+        $kegiatan = Kegiatan::whereDate('date', '>=', $today)
+            ->orderBy('date')
+            ->get();
+
+        return Inertia::render('Kegiatan/Terbaru', [
+            'kegiatan' => $kegiatan,
         ]);
     }
 

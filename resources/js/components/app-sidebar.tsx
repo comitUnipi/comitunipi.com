@@ -38,6 +38,11 @@ export function AppSidebar() {
       href: '/dashboard',
       icon: LayoutGrid,
     },
+    {
+      title: 'Kegiatan Minggu ini',
+      href: '/kegiatan/terbaru',
+      icon: Calendar,
+    },
   ];
 
   const masterNavItems: NavItem[] = [
