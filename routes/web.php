@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KasController;
+use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
@@ -15,6 +16,7 @@ Route::middleware(['auth', 'verified', 'role:Super Admin,Admin,Finance'])->group
     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
+    Route::get('/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan.index');
 });
 
 Route::middleware(['auth', 'verified', 'role:Finance,Super Admin'])->group(function () {
@@ -30,6 +32,8 @@ Route::middleware(['auth', 'verified', 'role:Finance,Super Admin'])->group(funct
 Route::middleware(['auth', 'verified', 'role:Super Admin'])->group(function () {
     Route::resource('users', UserController::class)->except(['index']);
     Route::get('/users/export/csv', [UserController::class, 'exportCsv'])->name('users.export.csv');
+    Route::resource('kegiatan', KegiatanController::class)->except(['index']);
+    Route::get('/kegiatan/export/csv', [KegiatanController::class, 'exportCsv'])->name('kegiatan.export.csv');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
