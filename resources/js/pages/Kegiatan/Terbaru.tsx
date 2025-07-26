@@ -1,4 +1,5 @@
 import HeadingSmall from '@/components/heading-small';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
 import { capitalizeFirstLetter } from '@/lib/capitalize-first-letter';
 import { formatDate } from '@/lib/format-date';
@@ -21,30 +22,30 @@ export default function Terbaru({ kegiatan }: Props) {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {kegiatan.length > 0 ? (
             kegiatan.map((item) => (
-              <div key={item.id} className="group bg-card relative rounded-lg border p-6 shadow-sm transition-all hover:shadow-md">
-                <div className="flex flex-col space-y-1.5 pb-4">
-                  <h3 className="text-lg leading-none font-semibold tracking-tight">{item.name}</h3>
-                  <p className="text-muted-foreground line-clamp-2 text-sm">{item.description || 'Tidak ada deskripsi tersedia'}</p>
-                </div>
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-2 text-sm">
+              <Card key={item.id} className="group transition-shadow hover:shadow-md">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-lg">{item.name}</CardTitle>
+                  <CardDescription className="line-clamp-2">{item.description || 'Tidak ada deskripsi tersedia'}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3 text-sm">
+                  <div className="flex items-center space-x-2">
                     <Calendar className="text-muted-foreground h-4 w-4" />
-                    <span className="text-foreground">{formatDate(item.date)}</span>
+                    <span>{formatDate(item.date)}</span>
                   </div>
-                  <div className="flex items-center space-x-2 text-sm">
+                  <div className="flex items-center space-x-2">
                     <Clock className="text-muted-foreground h-4 w-4" />
-                    <span className="text-foreground">{item.time}</span>
+                    <span>{item.time}</span>
                   </div>
-                  <div className="flex items-center space-x-2 text-sm">
+                  <div className="flex items-center space-x-2">
                     <MapPin className="text-muted-foreground h-4 w-4" />
-                    <span className="text-foreground truncate">{item.location}</span>
+                    <span className="truncate">{item.location}</span>
                   </div>
-                  <div className="flex items-center space-x-2 text-sm">
+                  <div className="flex items-center space-x-2">
                     <Users className="text-muted-foreground h-4 w-4" />
-                    <span className="text-foreground truncate">{capitalizeFirstLetter(item.audiens)}</span>
+                    <span className="truncate">{capitalizeFirstLetter(item.audiens)}</span>
                   </div>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             ))
           ) : (
             <div className="animate-in fade-in-50 col-span-full flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
