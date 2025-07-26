@@ -12,7 +12,12 @@ class QrCodeScanController extends Controller
 {
     public function index()
     {
-        return Inertia::render('QRCode/Scan');
+        return Inertia::render('QRCode/Scan', [
+            'flash' => [
+                'success' => session('success'),
+                'error' => session('error'),
+            ],
+        ]);
     }
 
     public function store(Request $request)
@@ -30,10 +35,7 @@ class QrCodeScanController extends Controller
             ->first();
 
         if (! $qrCode) {
-            return back()->with([
-                'status' => 'error',
-                'message' => 'QR Code tidak valid atau tidak aktif.',
-            ]);
+            return redirect()->back()->with('error', 'QR Code tidak valid atau tidak aktif.');
         }
 
         $now = now()->timezone('Asia/Jakarta');
@@ -41,10 +43,7 @@ class QrCodeScanController extends Controller
         $today = $now->toDateString();
 
         if ($nowTime < $qrCode->start_time || $nowTime > $qrCode->end_time) {
-            return back()->with([
-                'status' => 'error',
-                'message' => "Scan hanya dapat dilakukan antara {$qrCode->start_time} - {$qrCode->end_time}.",
-            ]);
+            return redirect()->back()->with('error', "Scan hanya dapat dilakukan antara {$qrCode->start_time} - {$qrCode->end_time}.");
         }
 
         $alreadyScanned = QrCodeScan::where('qr_code_id', $qrCode->id)
@@ -54,10 +53,7 @@ class QrCodeScanController extends Controller
             ->first();
 
         if ($alreadyScanned) {
-            return back()->with([
-                'status' => 'error',
-                'message' => "Anda sudah melakukan absen dengan status '{$status}' hari ini pada " . $alreadyScanned->scanned_at->format('H:i:s') . '.',
-            ]);
+            return redirect()->back()->with('error', "Anda sudah melakukan absen dengan status '{$status}' hari ini pada " . $alreadyScanned->scanned_at->format('H:i:s') . '.');
         }
 
         QrCodeScan::create([
@@ -68,9 +64,6 @@ class QrCodeScanController extends Controller
             'scanned_at' => $now,
         ]);
 
-        return back()->with([
-            'status' => 'success',
-            'message' => 'Scan berhasil dicatat pada ' . $now->format('H:i:s'),
-        ]);
+        return redirect()->back()->with('success', 'Scan berhasil dicatat pada ' . $now->format('H:i:s'));
     }
 }
