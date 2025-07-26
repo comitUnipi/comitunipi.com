@@ -15,7 +15,7 @@ class QRCodeController extends Controller
 {
     public function generate()
     {
-        $kegiatan = Kegiatan::all();
+        $kegiatan = Kegiatan::whereDate('date', '>=', now()->toDateString())->get();
         $qrData = QrCode::with('kegiatan')->where('is_active', true)->latest()->first();
 
         $qrCodeSvg = null;
