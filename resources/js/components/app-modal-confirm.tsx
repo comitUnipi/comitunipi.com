@@ -18,7 +18,7 @@ export default function ModalConfirm({
 }: Props) {
   return (
     <Dialog open={open} onOpenChange={onCancel}>
-      <DialogContent className="mx-4 sm:max-w-[400px]">
+      <DialogContent className="sm:max-w-[400px]">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
