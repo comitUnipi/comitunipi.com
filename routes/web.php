@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CreateQRCodeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KasController;
 use App\Http\Controllers\KegiatanController;
@@ -40,6 +41,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/kegiatan/terbaru', [KegiatanController::class, 'terbaru'])->name('kegiatan.terbaru');
     Route::get('/api/kegiatan/notification', [KegiatanController::class, 'notifications'])->name('kegiatan.notifications');
+    Route::match(['get', 'post'], '/absensi/generate/qr-code', [CreateQRCodeController::class, 'generate'])->name('qr.generate');
+    Route::post('/qr-code/{id}/deactivate', [CreateQRCodeController::class, 'deactivate'])->name('qr.deactivate');
 });
 
 require __DIR__ . '/public.php';

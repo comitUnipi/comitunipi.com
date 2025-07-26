@@ -43,6 +43,11 @@ export function AppSidebar() {
       href: '/kegiatan/terbaru',
       icon: Calendar,
     },
+    {
+      title: 'Buat Absensi',
+      href: '/absensi/generate/qr-code',
+      icon: Calendar,
+    },
   ];
 
   const masterNavItems: NavItem[] = [
