@@ -7,6 +7,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\QRCodeController;
+use App\Http\Controllers\QrCodeScanController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +45,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/kegiatan/terbaru', [KegiatanController::class, 'terbaru'])->name('kegiatan.terbaru');
     Route::get('/api/kegiatan/notification', [KegiatanController::class, 'notifications'])->name('kegiatan.notifications');
+    Route::get('/qr-code/scan', [QrCodeScanController::class, 'index'])->name('qr.scan.form');
+    Route::post('/qr-code/scan', [QrCodeScanController::class, 'store'])->name('qr.scan.store');
 });
 
 require __DIR__ . '/public.php';
