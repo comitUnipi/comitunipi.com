@@ -79,6 +79,7 @@ class UserController extends Controller
             'jenis_kelamin' => 'required|string',
             'no_wa' => 'nullable|string|max:20',
             'jurusan' => 'nullable|string|max:100',
+            'position' => 'nullable|string|max:100',
             'minat_keahlian' => 'nullable|string|max:100',
             'alasan' => 'nullable|string|max:500',
             'is_active' => 'required|boolean',
@@ -116,7 +117,6 @@ class UserController extends Controller
     {
         $query = User::query();
 
-        // Terapkan filter seperti di index()
         if (request()->has('search')) {
             $search = request('search');
             $query->where(function ($q) use ($search) {
@@ -160,7 +160,7 @@ class UserController extends Controller
                 'Jenis Kelamin',
                 'No WA',
                 'Status',
-                'Tanggal Dibuat',
+                'Position',
             ]);
 
             foreach ($users as $user) {
@@ -174,7 +174,7 @@ class UserController extends Controller
                     $user->jenis_kelamin,
                     $user->no_wa,
                     $user->is_active ? 'AKtif' : 'Nonaktif',
-                    $user->created_at->format('Y-m-d H:i:s'),
+                    $user->position,
                 ]);
             }
 

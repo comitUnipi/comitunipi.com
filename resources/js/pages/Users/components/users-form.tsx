@@ -209,9 +209,9 @@ export default function FormAnggota({ editingUser, handleSubmit, data, setData, 
                 <SelectValue placeholder="Pilih Position" />
               </SelectTrigger>
               <SelectContent>
-                {POSITION_OPTIONS.map((role) => (
-                  <SelectItem key={role} value={role}>
-                    {role}
+                {POSITION_OPTIONS.map((value) => (
+                  <SelectItem key={value} value={value}>
+                    {value}
                   </SelectItem>
                 ))}
               </SelectContent>
