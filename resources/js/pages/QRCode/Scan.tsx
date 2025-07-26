@@ -96,16 +96,16 @@ export default function Scan() {
           </CardHeader>
           <CardContent className="space-y-4">
             {flash?.success && (
-              <Alert variant="destructive">
-                <CheckCircle className="h-5 w-5 text-green-500" />
+              <Alert variant="default" className="text-green-500">
+                <CheckCircle />
                 <AlertTitle>Berhasil</AlertTitle>
                 <AlertDescription>{flash.success}</AlertDescription>
               </Alert>
             )}
 
             {flash?.error && (
-              <Alert variant="destructive">
-                <XCircle className="h-5 w-5 text-red-500" />
+              <Alert variant="default" className="text-red-500">
+                <XCircle />
                 <AlertTitle>Gagal</AlertTitle>
                 <AlertDescription>{flash.error}</AlertDescription>
               </Alert>
