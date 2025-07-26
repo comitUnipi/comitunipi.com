@@ -94,6 +94,11 @@ export function AppSidebar() {
       href: '/laporan',
       icon: Dock,
     },
+    {
+      title: 'Laporan Absensi',
+      href: '/laporan/absensi',
+      icon: Users2,
+    },
   ];
 
   const settingNavItems: NavItem[] = [

@@ -4,6 +4,7 @@ use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KasController;
 use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\LaporanAbsensiController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
@@ -41,6 +42,7 @@ Route::middleware(['auth', 'verified', 'role:Super Admin'])->group(function () {
     Route::get('/qr-code/create', [QRCodeController::class, 'generate'])->name('qr.create');
     Route::post('/qr-code/create', [QRCodeController::class, 'store'])->name('qr.store');
     Route::post('/qr-code/{id}/deactivate', [QRCodeController::class, 'deactivate'])->name('qr.deactivate');
+    Route::get('/laporan/absensi', [LaporanAbsensiController::class, 'index'])->name('laporan.absensi.index');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
