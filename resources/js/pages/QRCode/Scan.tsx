@@ -65,7 +65,7 @@ export default function Scan() {
       route('qr.scan.store'),
       {
         token: decodedText,
-        status: 'masuk',
+        status: 'hadir',
       },
       {
         preserveScroll: true,

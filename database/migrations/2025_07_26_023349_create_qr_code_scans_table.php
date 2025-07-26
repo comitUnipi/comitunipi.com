@@ -16,8 +16,9 @@ return new class extends Migration
             $table->foreignId('qr_code_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->date('scan_date');
-            $table->timestamp('scanned_at')->useCurrent();
-            $table->string('status')->default('masuk');
+            $table->timestamp('scanned_at')->nullable()->useCurrent();
+            $table->enum('status', ['hadir', 'sakit', 'izin']);
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->unique(['qr_code_id', 'user_id', 'scan_date'], 'unique_user_scan_per_day');
         });

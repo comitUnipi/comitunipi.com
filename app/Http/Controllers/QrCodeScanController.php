@@ -24,11 +24,11 @@ class QrCodeScanController extends Controller
     {
         $validated = $request->validate([
             'token' => 'required|string',
-            'status' => 'nullable|in:masuk,izin,sakit',
+            'status' => 'nullable|in:hadir,izin,sakit',
         ]);
 
         $token = $validated['token'];
-        $status = $validated['status'] ?? 'masuk';
+        $status = $validated['status'] ?? 'hadir';
 
         $qrCode = QrCode::where('token', $token)
             ->where('is_active', true)
@@ -64,6 +64,6 @@ class QrCodeScanController extends Controller
             'scanned_at' => $now,
         ]);
 
-        return redirect()->back()->with('success', 'Scan berhasil dicatat pada ' . $now->format('H:i:s'));
+        return redirect()->back()->with('success', 'Absensi kehadiran berhasil dicatat pada ' . $now->format('H:i:s'));
     }
 }
