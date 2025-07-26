@@ -2,7 +2,7 @@ import { NavMain } from '@/components/nav-main';
 import { Sidebar, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { ArrowBigDown, ArrowBigUp, Calendar, Camera, Dock, LayoutGrid, QrCode, User, Users } from 'lucide-react';
+import { ArrowBigDown, ArrowBigUp, Calendar, Camera, Dock, LayoutGrid, QrCode, User, Users, Users2 } from 'lucide-react';
 import AppLogo from './app-logo';
 
 type Role = 'Super Admin' | 'Admin' | 'Finance' | 'User' | 'Guest' | 'LimitedAccess';
@@ -60,6 +60,11 @@ export function AppSidebar() {
       title: 'Data Anggota',
       href: '/users',
       icon: Users,
+    },
+    {
+      title: 'Data Absensi',
+      href: '/absensi',
+      icon: Users2,
     },
     {
       title: 'Data Kegiatan',

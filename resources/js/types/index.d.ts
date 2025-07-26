@@ -90,3 +90,14 @@ export interface Kegiatan {
   location: string;
   audiens: string;
 }
+
+export interface Absensi {
+  id: number | string;
+  user?: User;
+  qr_code?: {
+    kegiatan?: Kegiatan;
+  };
+  status: string;
+  scan_date: string;
+  scanned_at: string;
+}

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KasController;
 use App\Http\Controllers\KegiatanController;
@@ -19,6 +20,7 @@ Route::middleware(['auth', 'verified', 'role:Super Admin,Admin,Finance'])->group
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
     Route::get('/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan.index');
+    Route::get('/absensi', [AbsensiController::class, 'index'])->name('absensi.index');
 });
 
 Route::middleware(['auth', 'verified', 'role:Finance,Super Admin'])->group(function () {
