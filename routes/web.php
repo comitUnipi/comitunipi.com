@@ -51,6 +51,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/api/kegiatan/notification', [KegiatanController::class, 'notifications'])->name('kegiatan.notifications');
     Route::get('/qr-code/scan', [QrCodeScanController::class, 'index'])->name('qr.scan.form');
     Route::post('/qr-code/scan', [QrCodeScanController::class, 'store'])->name('qr.scan.store');
+    Route::get('/absensi/create', [AbsensiController::class, 'create'])->name('absensi.create');
+    Route::post('/absensi/store', [AbsensiController::class, 'store'])->name('absensi.store');
 });
 
 require __DIR__ . '/public.php';
