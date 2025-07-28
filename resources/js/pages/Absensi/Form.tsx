@@ -10,7 +10,7 @@ import { capitalizeFirstLetter } from '@/lib/capitalize-first-letter';
 import { formatDate } from '@/lib/format-date';
 import { Kegiatan } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
-import { Calendar, Clock, MapPin, Users } from 'lucide-react';
+import { Calendar, CalendarDays, Clock, MapPin, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 interface Props {
@@ -68,19 +68,31 @@ export default function Form({ kegiatan, flash }: Props) {
           </div>
         </div>
         <div className="max-w-md space-y-6">
-          {kegiatan && (
-            <Card className="group transition-shadow hover:shadow-md">
-              <CardHeader>
-                <CardTitle className="text-lg">{kegiatan.name}</CardTitle>
-                <CardDescription>{kegiatan.description || 'Tidak ada deskripsi tersedia'}</CardDescription>
-              </CardHeader>
-              <CardContent className="text-muted-foreground grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
-                <DetailItem icon={<Calendar className="h-4 w-4" />} text={formatDate(kegiatan.date)} />
-                <DetailItem icon={<Clock className="h-4 w-4" />} text={kegiatan.time} />
-                <DetailItem icon={<MapPin className="h-4 w-4" />} text={kegiatan.location} />
-                <DetailItem icon={<Users className="h-4 w-4" />} text={capitalizeFirstLetter(kegiatan.audiens)} />
-              </CardContent>
-            </Card>
+          {kegiatan ? (
+            kegiatan && (
+              <Card className="group transition-shadow hover:shadow-md">
+                <CardHeader>
+                  <CardTitle className="text-lg">{kegiatan.name}</CardTitle>
+                  <CardDescription className="text-justify">{kegiatan.description || 'Tidak ada deskripsi tersedia'}</CardDescription>
+                </CardHeader>
+                <CardContent className="text-muted-foreground grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
+                  <DetailItem icon={<Calendar className="h-4 w-4" />} text={formatDate(kegiatan.date)} />
+                  <DetailItem icon={<Clock className="h-4 w-4" />} text={kegiatan.time} />
+                  <DetailItem icon={<MapPin className="h-4 w-4" />} text={kegiatan.location} />
+                  <DetailItem icon={<Users className="h-4 w-4" />} text={capitalizeFirstLetter(kegiatan.audiens)} />
+                </CardContent>
+              </Card>
+            )
+          ) : (
+            <div className="animate-in fade-in-50 col-span-full flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
+              <div className="bg-muted mx-auto flex h-20 w-20 items-center justify-center rounded-full">
+                <CalendarDays className="text-muted-foreground h-10 w-10" />
+              </div>
+              <h3 className="mt-4 text-lg font-semibold">Belum Ada Kegiatan</h3>
+              <p className="text-muted-foreground mt-2 mb-4 max-w-sm text-sm">
+                Kegiatan terbaru akan segera hadir. Pantau terus halaman ini untuk mendapatkan informasi terbaru.
+              </p>
+            </div>
           )}
 
           {flash?.success && <div className="rounded-md bg-green-100 px-4 py-2 text-sm text-green-800">{flash.success}</div>}

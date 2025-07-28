@@ -1,3 +1,4 @@
+import Heading from '@/components/heading';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -90,9 +91,13 @@ export default function Scan() {
       <Head title="Scan QR Code Absensi" />
 
       <div className="max-w-xl space-y-4 p-6">
+        <Heading
+          title="Absensi"
+          description="Lakukan absensi melalui QRCode yang telah disiapkan oleh pengurus dan scan disini untuk menyatakan kehadiran kamu."
+        />
         <Card>
           <CardHeader>
-            <CardTitle>Scan QR Code Absensi</CardTitle>
+            <CardTitle>Scan QRCode</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {flash?.success && (
@@ -102,7 +107,6 @@ export default function Scan() {
                 <AlertDescription>{flash.success}</AlertDescription>
               </Alert>
             )}
-
             {flash?.error && (
               <Alert variant="default" className="text-red-500">
                 <XCircle />
@@ -110,14 +114,12 @@ export default function Scan() {
                 <AlertDescription>{flash.error}</AlertDescription>
               </Alert>
             )}
-
             {generalError && (
               <Alert variant="destructive">
                 <XCircle className="h-5 w-5 text-red-500" />
                 <AlertDescription>{generalError}</AlertDescription>
               </Alert>
             )}
-
             <div className="flex items-center space-x-2">
               {!scannerActive ? (
                 <Button onClick={startScanner}>Mulai Scan</Button>
@@ -128,7 +130,6 @@ export default function Scan() {
                 </p>
               )}
             </div>
-
             <div className="relative">
               <div id="reader" className="border-muted rounded border shadow-sm" />
             </div>
