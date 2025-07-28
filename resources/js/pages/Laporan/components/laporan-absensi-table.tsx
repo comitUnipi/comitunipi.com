@@ -1,5 +1,6 @@
 import { formatDate } from '@/lib/format-date';
 import { formatTime } from '@/lib/format-time';
+import { truncateText } from '@/lib/truncate-text';
 import { Absensi } from '@/types';
 
 type Props = {
@@ -20,42 +21,37 @@ export default function LaporanAbsensiTable({ laporan, totalScan, statusCounts }
           <thead className="[&_tr]:border-b">
             <tr className="hover:bg-muted/50 border-b transition-colors">
               <th className="text-muted-foreground h-12 px-4 text-left font-medium">No</th>
+              <th className="text-muted-foreground h-12 px-4 text-left font-medium">Tanggal</th>
               <th className="text-muted-foreground h-12 px-4 text-left font-medium">Nama</th>
               <th className="text-muted-foreground h-12 px-4 text-left font-medium">Kegiatan</th>
               <th className="text-muted-foreground h-12 px-4 text-left font-medium">Status</th>
-              <th className="text-muted-foreground h-12 px-4 text-left font-medium">Tanggal</th>
-              <th className="text-muted-foreground h-12 px-4 text-left font-medium">Jam</th>
+              <th className="text-muted-foreground h-12 px-4 text-left font-medium">Alasan</th>
+              <th className="text-muted-foreground h-12 px-4 text-left font-medium">Waktu Scan</th>
             </tr>
           </thead>
           <tbody className="[&_tr:last-child]:border-0">
             {laporan.map((data, index) => (
               <tr key={data.id} className="hover:bg-muted/50 border-b transition-colors">
                 <td className="p-4">{index + 1}</td>
+                <td className="p-4">{formatDate(data.scan_date)}</td>
                 <td className="p-4">{data.user?.name}</td>
                 <td className="p-4">{data.qr_code?.kegiatan?.name ?? '-'}</td>
                 <td className="p-4">{data.status}</td>
-                <td className="p-4">{data.description ?? '-'}</td>
-                <td className="p-4">{formatDate(data.scan_date)}</td>
+                <td className="p-4">{data.description ? truncateText(data.description) : '-'}</td>
                 <td className="p-4">{data.scanned_at ? formatTime(data.scanned_at) : '-'}</td>
               </tr>
             ))}
             {laporan.length > 0 && (
               <>
                 <tr className="hover:bg-muted/50 border-b font-semibold transition-colors">
-                  <td colSpan={5}></td>
-                  <td className="py-1.5 pr-4">Total Hadir : {statusCounts.masuk}</td>
+                  <td colSpan={1}></td>
+                  <td className="px-4 py-1.5">Total Hadir : {statusCounts.masuk}</td>
+                  <td className="px-4 py-1.5">Total Ijin : {statusCounts.ijin}</td>
+                  <td className="px-4 py-1.5">Total Sakit : {statusCounts.sakit}</td>
                 </tr>
                 <tr className="hover:bg-muted/50 border-b font-semibold transition-colors">
-                  <td colSpan={5}></td>
-                  <td className="py-1.5 pr-4">Total Ijin : {statusCounts.ijin}</td>
-                </tr>
-                <tr className="hover:bg-muted/50 border-b font-semibold transition-colors">
-                  <td colSpan={5}></td>
-                  <td className="py-1.5 pr-4">Total Sakit : {statusCounts.sakit}</td>
-                </tr>
-                <tr className="hover:bg-muted/50 border-b font-semibold transition-colors">
-                  <td colSpan={5}></td>
-                  <td className="py-1.5 pr-4">Total Semua : {totalScan}</td>
+                  <td colSpan={1}></td>
+                  <td className="px-4 py-1.5">Total Semua : {totalScan}</td>
                 </tr>
               </>
             )}
@@ -72,6 +68,7 @@ export default function LaporanAbsensiTable({ laporan, totalScan, statusCounts }
           </tbody>
         </table>
       </div>
+
       <div className="block lg:hidden">
         {laporan.length > 0 ? (
           <div className="divide-y divide-gray-200">

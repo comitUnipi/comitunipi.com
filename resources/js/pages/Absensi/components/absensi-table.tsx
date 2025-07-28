@@ -16,11 +16,11 @@ export default function AbsensiTable({ scans }: Props) {
           <thead className="[&_tr]:border-b">
             <tr className="hover:bg-muted/50 border-b transition-colors">
               <th className="text-muted-foreground h-12 px-4 text-left font-medium">No</th>
+              <th className="text-muted-foreground h-12 px-4 text-left font-medium">Tanggal</th>
               <th className="text-muted-foreground h-12 px-4 text-left font-medium">Nama</th>
               <th className="text-muted-foreground h-12 px-4 text-left font-medium">Kegiatan</th>
               <th className="text-muted-foreground h-12 px-4 text-left font-medium">Status</th>
               <th className="text-muted-foreground h-12 px-4 text-left font-medium">Alasan</th>
-              <th className="text-muted-foreground h-12 px-4 text-left font-medium">Tanggal</th>
               <th className="text-muted-foreground h-12 px-4 text-left font-medium">Waktu Scan</th>
             </tr>
           </thead>
@@ -28,11 +28,11 @@ export default function AbsensiTable({ scans }: Props) {
             {scans.data.map((scan, index) => (
               <tr key={scan.id} className="hover:bg-muted/50 border-b transition-colors">
                 <td className="p-4">{index + 1}</td>
+                <td className="p-4">{formatDate(scan.scan_date)}</td>
                 <td className="p-4">{scan.user?.name ?? '-'}</td>
                 <td className="p-4">{scan.qr_code?.kegiatan?.name ?? '-'}</td>
                 <td className="p-4 capitalize">{scan.status}</td>
                 <td className="p-4">{scan.description ?? '-'}</td>
-                <td className="p-4">{formatDate(scan.scan_date)}</td>
                 <td className="p-4">{scan.scanned_at ? formatTime(scan.scanned_at) : '-'}</td>
               </tr>
             ))}
@@ -60,7 +60,6 @@ export default function AbsensiTable({ scans }: Props) {
                 <p className="text-muted-foreground text-sm">{scan.description}</p>
               </div>
             </div>
-
             <div className="grid grid-cols-3 gap-2 text-sm">
               <div>
                 <span className="text-muted-foreground">Tanggal:</span>
