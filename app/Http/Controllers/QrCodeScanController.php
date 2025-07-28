@@ -27,15 +27,30 @@ class QrCodeScanController extends Controller
             'status' => 'nullable|in:hadir,izin,sakit',
         ]);
 
+        $user = Auth::user();
         $token = $validated['token'];
         $status = $validated['status'] ?? 'hadir';
 
-        $qrCode = QrCode::where('token', $token)
+        $qrCode = QrCode::with('kegiatan')
+            ->where('token', $token)
             ->where('is_active', true)
             ->first();
 
-        if (! $qrCode) {
-            return redirect()->back()->with('error', 'QR Code tidak valid atau tidak aktif.');
+        if (! $qrCode || ! $qrCode->kegiatan) {
+            return redirect()->back()->with('error', 'QR Code tidak valid atau tidak memiliki kegiatan.');
+        }
+
+        $kegiatan = $qrCode->kegiatan;
+
+        $canAccess = match ($kegiatan->audiens) {
+            'umum' => true,
+            'pengurus' => in_array($user->role, ['Super Admin', 'Admin', 'Finance']),
+            'anggota' => $user->role !== 'Guest',
+            default => false,
+        };
+
+        if (! $canAccess) {
+            return redirect()->back()->with('error', 'Anda tidak diizinkan mengikuti kegiatan ini.');
         }
 
         $now = now()->timezone('Asia/Jakarta');
@@ -53,7 +68,7 @@ class QrCodeScanController extends Controller
             ->first();
 
         if ($alreadyScanned) {
-            return redirect()->back()->with('error', "Anda sudah melakukan absen dengan status '{$status}' hari ini pada " . $alreadyScanned->scanned_at->format('H:i:s') . '.');
+            return redirect()->back()->with('error', "Anda sudah melakukan absen dengan status '{$status}' hari ini pada ".$alreadyScanned->scanned_at->format('H:i:s').'.');
         }
 
         QrCodeScan::create([
@@ -64,6 +79,6 @@ class QrCodeScanController extends Controller
             'scanned_at' => $now,
         ]);
 
-        return redirect()->back()->with('success', 'Absensi kehadiran berhasil dicatat pada ' . $now->format('H:i:s'));
+        return redirect()->back()->with('success', 'Absensi kehadiran berhasil dicatat pada '.$now->format('H:i:s'));
     }
 }
