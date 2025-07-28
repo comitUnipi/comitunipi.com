@@ -44,11 +44,6 @@ export function AppSidebar() {
       icon: Calendar,
     },
     {
-      title: 'Buat Absensi',
-      href: '/qr-code/create',
-      icon: QrCode,
-    },
-    {
       title: 'Scan Absensi',
       href: '/qr-code/scan',
       icon: Camera,
@@ -57,6 +52,14 @@ export function AppSidebar() {
       title: 'Form Izin',
       href: '/absensi/create',
       icon: MailIcon,
+    },
+  ];
+
+  const fiturNavItems: NavItem[] = [
+    {
+      title: 'Buat Absensi',
+      href: '/qr-code/create',
+      icon: QrCode,
     },
   ];
 
@@ -114,9 +117,18 @@ export function AppSidebar() {
     },
   ];
 
-  const roleAccessMap: Record<Role, { master?: boolean; laporan?: boolean; setting?: boolean }> = {
+  const roleAccessMap: Record<
+    Role,
+    {
+      master?: boolean;
+      special?: boolean;
+      laporan?: boolean;
+      setting?: boolean;
+    }
+  > = {
     'Super Admin': {
       master: true,
+      special: true,
       laporan: true,
       setting: true,
     },
@@ -160,6 +172,7 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <NavMain label="Fitur Utama" items={mainNavItems} />
+        {access.special && <NavMain label="Fitur Khusus" items={fiturNavItems} />}
         {access.master && <NavMain label="Data Master" items={masterNavItems} />}
         {access.laporan && <NavMain label="Laporan" items={laporanNavItems} />}
         {access.setting && <NavMain label="Pengaturan" items={settingNavItems} />}
