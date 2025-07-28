@@ -32,20 +32,21 @@ class AbsensiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tanggal_izin' => 'required|date',
             'alasan' => 'required|string|max:1000',
             'status' => 'required|in:izin,sakit',
         ]);
 
+        $tanggal_izin = now()->toDateString();
+
         $qrCode = QrCode::where('is_active', true)->first();
 
-        if (!$qrCode) {
+        if (! $qrCode) {
             return redirect()->back()->with('error', 'Tidak ada QR Code aktif saat ini.');
         }
 
         $existing = QrCodeScan::where('qr_code_id', $qrCode->id)
             ->where('user_id', Auth::id())
-            ->where('scan_date', $request->tanggal_izin)
+            ->where('scan_date', $tanggal_izin)
             ->first();
 
         if ($existing) {
@@ -55,14 +56,14 @@ class AbsensiController extends Controller
         QrCodeScan::create([
             'qr_code_id' => $qrCode->id,
             'user_id' => Auth::id(),
-            'scan_date' => $request->tanggal_izin,
+            'scan_date' => $tanggal_izin,
             'scanned_at' => null,
             'status' => $request->status,
             'description' => $request->alasan,
         ]);
 
         return redirect()->route('absensi.create')
-            ->with('success', ucfirst($request->status) . ' berhasil dikirim.');
+            ->with('success', ucfirst($request->status).' berhasil dikirim.');
     }
 
     public function index(Request $request)
@@ -71,7 +72,7 @@ class AbsensiController extends Controller
 
         if ($search = $request->input('search')) {
             $query->whereHas('user', function ($q) use ($search) {
-                $q->where('name', 'like', '%' . $search . '%');
+                $q->where('name', 'like', '%'.$search.'%');
             });
         }
 
