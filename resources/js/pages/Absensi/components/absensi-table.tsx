@@ -19,6 +19,7 @@ export default function AbsensiTable({ scans }: Props) {
               <th className="text-muted-foreground h-12 px-4 text-left font-medium">Nama</th>
               <th className="text-muted-foreground h-12 px-4 text-left font-medium">Kegiatan</th>
               <th className="text-muted-foreground h-12 px-4 text-left font-medium">Status</th>
+              <th className="text-muted-foreground h-12 px-4 text-left font-medium">Alasan</th>
               <th className="text-muted-foreground h-12 px-4 text-left font-medium">Tanggal</th>
               <th className="text-muted-foreground h-12 px-4 text-left font-medium">Waktu Scan</th>
             </tr>
@@ -30,8 +31,9 @@ export default function AbsensiTable({ scans }: Props) {
                 <td className="p-4">{scan.user?.name ?? '-'}</td>
                 <td className="p-4">{scan.qr_code?.kegiatan?.name ?? '-'}</td>
                 <td className="p-4 capitalize">{scan.status}</td>
+                <td className="p-4">{scan.description ?? '-'}</td>
                 <td className="p-4">{formatDate(scan.scan_date)}</td>
-                <td className="p-4">{formatTime(scan.scanned_at)}</td>
+                <td className="p-4">{scan.scanned_at ? formatTime(scan.scanned_at) : '-'}</td>
               </tr>
             ))}
             {scans.data.length === 0 && (
@@ -53,8 +55,9 @@ export default function AbsensiTable({ scans }: Props) {
           <div key={scan.id} className="space-y-3 border-b p-4">
             <div className="flex items-start justify-between">
               <div>
-                <h3 className="text-base font-semibold">{scan.qr_code?.kegiatan?.name}</h3>
-                <p className="text-muted-foreground text-sm">{scan.user?.name}</p>
+                <h3 className="text-base font-semibold">{scan.user?.name}</h3>
+                <p className="text-muted-foreground text-sm">{scan.qr_code?.kegiatan?.name}</p>
+                <p className="text-muted-foreground text-sm">{scan.description}</p>
               </div>
             </div>
 
@@ -65,7 +68,7 @@ export default function AbsensiTable({ scans }: Props) {
               </div>
               <div>
                 <span className="text-muted-foreground">Waktu Scan:</span>
-                <p className="font-medium">{formatTime(scan.scanned_at)}</p>
+                <p className="font-medium">{scan.scanned_at ? formatTime(scan.scanned_at) : '-'}</p>
               </div>
               <div>
                 <span className="text-muted-foreground">Status:</span>

@@ -98,6 +98,7 @@ export interface Absensi {
     kegiatan?: Kegiatan;
   };
   status: string;
+  description?: string;
   scan_date: string;
   scanned_at: string;
 }
