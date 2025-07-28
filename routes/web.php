@@ -18,6 +18,7 @@ Route::middleware(['auth', 'verified', 'role:Super Admin,Admin,Finance'])->group
     Route::get('/pemasukan', [PemasukanController::class, 'index'])->name('pemasukan.index');
     Route::get('/pengeluaran', [PengeluaranController::class, 'index'])->name('pengeluaran.index');
     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+    Route::get('/laporan/absensi', [LaporanAbsensiController::class, 'index'])->name('laporan.absensi.index');
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
     Route::get('/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan.index');
@@ -42,7 +43,6 @@ Route::middleware(['auth', 'verified', 'role:Super Admin'])->group(function () {
     Route::get('/qr-code/create', [QRCodeController::class, 'generate'])->name('qr.create');
     Route::post('/qr-code/create', [QRCodeController::class, 'store'])->name('qr.store');
     Route::post('/qr-code/{id}/deactivate', [QRCodeController::class, 'deactivate'])->name('qr.deactivate');
-    Route::get('/laporan/absensi', [LaporanAbsensiController::class, 'index'])->name('laporan.absensi.index');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -55,6 +55,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/absensi/store', [AbsensiController::class, 'store'])->name('absensi.store');
 });
 
-require __DIR__ . '/public.php';
-require __DIR__ . '/settings.php';
-require __DIR__ . '/auth.php';
+require __DIR__.'/public.php';
+require __DIR__.'/settings.php';
+require __DIR__.'/auth.php';
