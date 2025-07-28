@@ -13,8 +13,27 @@ class AbsensiController extends Controller
 {
     public function create()
     {
+        $user = Auth::user();
         $qrCode = QrCode::with('kegiatan')
             ->where('is_active', true)
+            ->get()
+            ->filter(function ($qr) use ($user) {
+                $kegiatan = $qr->kegiatan;
+                if (! $kegiatan) {
+                    return false;
+                }
+
+                switch ($kegiatan->audiens) {
+                    case 'umum':
+                        return true;
+                    case 'pengurus':
+                        return in_array($user->role, ['Super Admin', 'Admin', 'Finance']);
+                    case 'anggota':
+                        return $user->role !== 'Guest';
+                    default:
+                        return false;
+                }
+            })
             ->first();
 
         return Inertia::render('Absensi/Form', [
@@ -37,11 +56,31 @@ class AbsensiController extends Controller
         ]);
 
         $tanggal_izin = now()->toDateString();
+        $user = Auth::user();
+        $qrCode = QrCode::with('kegiatan')
+            ->where('is_active', true)
+            ->get()
+            ->filter(function ($qr) use ($user) {
+                $kegiatan = $qr->kegiatan;
+                if (! $kegiatan) {
+                    return false;
+                }
 
-        $qrCode = QrCode::where('is_active', true)->first();
+                switch ($kegiatan->audiens) {
+                    case 'umum':
+                        return true;
+                    case 'pengurus':
+                        return in_array($user->role, ['Super Admin', 'Admin', 'Finance']);
+                    case 'anggota':
+                        return $user->role !== 'Guest';
+                    default:
+                        return false;
+                }
+            })
+            ->first();
 
         if (! $qrCode) {
-            return redirect()->back()->with('error', 'Tidak ada QR Code aktif saat ini.');
+            return redirect()->back()->with('error', 'Tidak ada kegiatan yang sesuai untuk Anda.');
         }
 
         $existing = QrCodeScan::where('qr_code_id', $qrCode->id)
@@ -63,7 +102,7 @@ class AbsensiController extends Controller
         ]);
 
         return redirect()->route('absensi.create')
-            ->with('success', ucfirst($request->status).' berhasil dikirim.');
+            ->with('success', ucfirst($request->status).'permohonan izin berhasil dikirim.');
     }
 
     public function index(Request $request)
@@ -77,7 +116,6 @@ class AbsensiController extends Controller
         }
 
         $scans = $query->orderByDesc('scan_date')->paginate(10)->withQueryString();
-
         $users = User::select('id', 'name')->get();
 
         return Inertia::render('Absensi/Index', [
