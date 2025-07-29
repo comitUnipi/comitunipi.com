@@ -1,8 +1,16 @@
 <?php
 
+use App\Http\Controllers\CalonAnggotaController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+Route::get('/pendaftaran-anggota', [CalonAnggotaController::class, 'create'])->name('anggota.create');
+Route::post('/pendaftaran-anggota', [CalonAnggotaController::class, 'store'])->name('anggota.store');
+
+Route::get('/join-whatsapp', function () {
+    return Inertia::render('CalonAnggota/JoinWhatsApp');
+})->name('anggota.whatsapp');
 
 Route::get('/', function () {
     $userCount = User::count();
