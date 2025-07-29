@@ -7,7 +7,7 @@ type Props = {
   laporan: Absensi[];
   totalScan: number;
   statusCounts: {
-    masuk: number;
+    hadir: number;
     ijin: number;
     sakit: number;
   };
@@ -45,13 +45,13 @@ export default function LaporanAbsensiTable({ laporan, totalScan, statusCounts }
               <>
                 <tr className="hover:bg-muted/50 border-b font-semibold transition-colors">
                   <td colSpan={1}></td>
-                  <td className="px-4 py-1.5">Total Hadir : {statusCounts.masuk}</td>
+                  <td className="px-4 py-1.5">Total Hadir : {statusCounts.hadir}</td>
                   <td className="px-4 py-1.5">Total Ijin : {statusCounts.ijin}</td>
                   <td className="px-4 py-1.5">Total Sakit : {statusCounts.sakit}</td>
                 </tr>
                 <tr className="hover:bg-muted/50 border-b font-semibold transition-colors">
                   <td colSpan={1}></td>
-                  <td className="px-4 py-1.5">Total Semua : {totalScan}</td>
+                  <td className="px-4 py-1.5">Total Absensi : {totalScan}</td>
                 </tr>
               </>
             )}
@@ -86,7 +86,7 @@ export default function LaporanAbsensiTable({ laporan, totalScan, statusCounts }
             ))}
             <div className="text-muted-foreground space-y-1 p-4 text-sm">
               <div>
-                Total Masuk: <span className="font-medium text-black">{statusCounts.masuk}</span>
+                Total Masuk: <span className="font-medium text-black">{statusCounts.hadir}</span>
               </div>
               <div>
                 Total Ijin: <span className="font-medium text-black">{statusCounts.ijin}</span>

@@ -1,20 +1,20 @@
 import ButtonExport from '@/components/app-button-export';
 import AppLayout from '@/layouts/app-layout';
+import { formatDate } from '@/lib/format-date';
 import { Absensi, BreadcrumbItem } from '@/types';
 import { Head, router } from '@inertiajs/react';
 import { useState } from 'react';
+import LaporanAbsensiFilter from './components/laporan-absensi-filter';
 import LaporanAbsensiTable from './components/laporan-absensi-table';
-import LaporanFilter from './components/laporan-filter';
 
 interface Props {
   laporan: Absensi[];
   periode?: {
-    start: string;
-    end: string;
+    date: string;
   };
   totalScan: number;
   statusCounts: {
-    masuk: number;
+    hadir: number;
     ijin: number;
     sakit: number;
   };
@@ -28,15 +28,13 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function LaporanAbsensi({ laporan, periode, totalScan, statusCounts }: Props) {
-  const [startDate, setStartDate] = useState(periode?.start ?? '');
-  const [endDate, setEndDate] = useState(periode?.end ?? '');
+  const [selectedDate, setSelectedDate] = useState(periode?.date ?? '');
 
   const handleFilterTanggal = () => {
     router.get(
       route('laporan.absensi.index'),
       {
-        start_date: startDate,
-        end_date: endDate,
+        date: selectedDate,
       },
       {
         preserveState: true,
@@ -46,8 +44,7 @@ export default function LaporanAbsensi({ laporan, periode, totalScan, statusCoun
   };
 
   const handleResetTanggal = () => {
-    setStartDate('');
-    setEndDate('');
+    setSelectedDate('');
     router.get(route('laporan.absensi.index'));
   };
 
@@ -61,18 +58,16 @@ export default function LaporanAbsensi({ laporan, periode, totalScan, statusCoun
             <p className="text-muted-foreground mt-1 text-sm sm:text-base">Laporan absensi hasil dari scan QR berdasarkan tanggal.</p>
           </div>
           <div className="flex gap-2 sm:gap-4">
-            <ButtonExport exportUrl={`/laporan/absensi/export?start_date=${startDate}&end_date=${endDate}`} />
+            <ButtonExport exportUrl={`/laporan/absensi/export?date=${selectedDate}`} />
           </div>
         </div>
-        <LaporanFilter
-          startDate={startDate}
-          endDate={endDate}
-          setStartDate={setStartDate}
-          setEndDate={setEndDate}
-          periode={periode}
+        <LaporanAbsensiFilter
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
           handleFilterTanggal={handleFilterTanggal}
           handleResetTanggal={handleResetTanggal}
         />
+        {periode && <p>Data anggota yang melakukan absensi pada {formatDate(periode.date)}</p>}
         <LaporanAbsensiTable laporan={laporan} totalScan={totalScan} statusCounts={statusCounts} />
       </div>
     </AppLayout>
