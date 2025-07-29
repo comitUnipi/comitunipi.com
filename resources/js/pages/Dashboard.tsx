@@ -51,7 +51,9 @@ export default function Dashboard({
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-            <p className="text-muted-foreground mt-1">Selamat datang di Dashboard, COMIT</p>
+            <p className="text-muted-foreground mt-1">
+              Halo <span className="text-primary">{user.name}</span> Selamat datang di Dashboard COMIT.
+            </p>
           </div>
         </div>
         {['Super Admin', 'Admin', 'Finance'].includes(user.role) && (
