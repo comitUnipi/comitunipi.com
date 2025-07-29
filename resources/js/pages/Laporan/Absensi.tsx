@@ -58,7 +58,7 @@ export default function LaporanAbsensi({ laporan, periode, totalScan, statusCoun
             <p className="text-muted-foreground mt-1 text-sm sm:text-base">Laporan absensi hasil dari scan QR berdasarkan tanggal.</p>
           </div>
           <div className="flex gap-2 sm:gap-4">
-            <ButtonExport exportUrl={`/laporan/absensi/export?date=${selectedDate}`} />
+            <ButtonExport exportUrl={`/laporan/absensi/export/csv?date=${selectedDate}`} />
           </div>
         </div>
         <LaporanAbsensiFilter
