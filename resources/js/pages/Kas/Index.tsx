@@ -237,7 +237,7 @@ export default function KasIndex({ kas, users, filters, flash }: Props) {
                     <span className="xs:hidden sm:inline md:hidden">Tambah</span>
                   </div>
                 </DialogTrigger>
-                <DialogContent className="mx-4 max-h-[90vh] w-[calc(100vw-2rem)] overflow-y-auto sm:max-w-[600px]">
+                <DialogContent className="max-h-[90vh] w-[calc(100vw-2rem)] overflow-y-auto sm:max-w-[600px]">
                   <DialogHeader>
                     <DialogTitle className="text-lg sm:text-xl">{editingKAS ? 'Ubah Data KAS' : 'Tambah KAS'}</DialogTitle>
                   </DialogHeader>

@@ -313,7 +313,7 @@ export default function UsersIndex({ users, filters, flash }: Props) {
                     <span className="sm:inline">Tambah Data</span>
                   </div>
                 </DialogTrigger>
-                <DialogContent className="mx-4 max-h-[90vh] overflow-y-auto sm:max-w-[600px]">
+                <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-[600px]">
                   <DialogHeader>
                     <DialogTitle className="text-lg sm:text-xl">{editingUser ? 'Ubah Anggota' : 'Tambah Anggota'}</DialogTitle>
                   </DialogHeader>

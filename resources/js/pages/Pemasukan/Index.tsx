@@ -196,7 +196,7 @@ export default function PemasukanIndex({ pemasukan, filters, flash }: Props) {
                     <span className="sm:inline">Tambah Data</span>
                   </div>
                 </DialogTrigger>
-                <DialogContent className="mx-4 max-h-[90vh] w-[calc(100vw-2rem)] overflow-y-auto sm:max-w-[600px]">
+                <DialogContent className="max-h-[90vh] w-[calc(100vw-2rem)] overflow-y-auto sm:max-w-[600px]">
                   <DialogHeader>
                     <DialogTitle className="text-lg sm:text-xl">{editingPemasukan ? 'Ubah Data Pemasukan' : 'Tambah Pemasukan'}</DialogTitle>
                   </DialogHeader>
