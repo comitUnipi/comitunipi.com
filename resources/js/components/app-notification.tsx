@@ -40,7 +40,7 @@ export function NotificationButton() {
       </button>
 
       {open && (
-        <div className="animate-in fade-in slide-in-from-top-2 absolute right-0 z-50 mt-2 w-[300px] rounded-md border bg-white shadow-xl transition-all">
+        <div className="animate-in fade-in slide-in-from-top-2 absolute -right-10 z-50 mt-2 w-[300px] rounded-md border bg-white shadow-xl transition-all">
           <div className="p-4">
             <h4 className="mb-3 text-sm font-semibold text-gray-700">📅 Kegiatan Mendatang</h4>
 
