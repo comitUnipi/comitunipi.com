@@ -6,7 +6,7 @@ export default function Heading({ img }: { img: string }) {
           Community of Information Technology
         </h1>
         <p className="mb-3 text-lg">Semangat Comit, Salam Teknologi!!</p>
-        <a href="/register" className="mt-3 inline-block rounded-lg bg-blue-600 px-8 py-3 text-lg text-white">
+        <a href="/pendaftaran-anggota" className="mt-3 inline-block rounded-lg bg-blue-600 px-8 py-3 text-lg text-white">
           Gabung Sekarang
         </a>
       </div>

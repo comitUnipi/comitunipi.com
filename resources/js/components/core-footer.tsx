@@ -169,7 +169,8 @@ export default function Footer() {
         </div>
       </div>
 
-      <style>{`
+      <style>
+        {`
                 @keyframes float {
                     0%,
                     100% {
@@ -182,7 +183,8 @@ export default function Footer() {
                 .animate-float {
                     animation: float 3s ease-in-out infinite;
                 }
-            `}</style>
+            `}
+      </style>
     </footer>
   );
 }
