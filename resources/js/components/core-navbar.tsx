@@ -30,6 +30,7 @@ export default function Navbar() {
     { label: 'Humas Internal', href: '/kepengurusan/humas-internal' },
     { label: 'Humas Eksternal', href: '/kepengurusan/humas-eksternal' },
     { label: 'Koordinator', href: '/kepengurusan/koordinator' },
+    { label: 'Prasarana', href: '/kepengurusan/prasarana' },
     { label: 'Kominfo', href: '/kepengurusan/kominfo' },
     { label: 'Staff Design Grafis', href: '/kepengurusan/staff-design-grafis' },
     { label: 'Staff Programming', href: '/kepengurusan/staff-programming' },
