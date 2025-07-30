@@ -10,7 +10,7 @@ Route::post('/pendaftaran-anggota', [CalonAnggotaController::class, 'store'])->n
 
 Route::get('/join-whatsapp', function () {
     return Inertia::render('CalonAnggota/JoinWhatsApp');
-})->name('anggota.whatsapp');
+})->middleware('sudah.daftar')->name('anggota.whatsapp');
 
 Route::get('/', function () {
     $userCount = User::count();

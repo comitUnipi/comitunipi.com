@@ -41,6 +41,8 @@ class CalonAnggotaController extends Controller
             'alasan' => $request->alasan,
         ]);
 
+        session(['sudah_daftar_anggota' => true]);
+
         return redirect()->route('anggota.whatsapp')->with('success', 'Pendaftaran berhasil! silahkan gabung grup whatsapp.');
     }
 }
