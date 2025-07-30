@@ -9,16 +9,17 @@ import { Head, usePage } from '@inertiajs/react';
 export default function Welcome() {
   const { props } = usePage();
   const userCount = props.userCount || 0;
+
   return (
     <>
       <Head title="Community of Information Technology">
         <meta name="robots" content="index, follow" />
-        <meta property="canonical" content="https://comitunipi.com/" />
+        <meta rel="canonical" content="https://comitunipi.com/" />
         <meta
           name="description"
-          content="Bergabung dengan COMIT, salah satu organisasi mahasiswa di Universitas Insan Pembangunan Indonesia (UNIPI) yang bergerak di bidang teknologi informasi."
+          content="Bergabung dengan COMIT UNIPI, salah satu organisasi mahasiswa di Universitas Insan Pembangunan Indonesia (UNIPI) yang bergerak di bidang teknologi informasi."
         />
-        <meta property="og:title" content="Community of Information Technology - COMIT" />
+        <meta property="og:title" content="Community of Information Technology - COMIT UNIPI" />
         <meta
           property="og:description"
           content="Bergabung dengan COMIT, salah satu organisasi mahasiswa di Universitas Insan Pembangunan Indonesia (UNIPI) yang bergerak di bidang teknologi informasi."
@@ -28,15 +29,15 @@ export default function Welcome() {
         <meta property="og:image:height" content="630" />
         <meta property="og:url" content="https://comitunipi.com/" />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="COMIT" />
+        <meta property="og:site_name" content="COMIT UNIPI" />
         <meta property="og:locale" content="id_ID" />
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Organization',
-            name: 'Community of Information Technology - COMIT',
-            url: 'https://www.comitunipi.com/',
-            logo: 'https://www.comitunipi.com/logo_black.png',
+            name: 'Community of Information Technology - COMIT UNIPI',
+            url: 'https://comitunipi.com/',
+            logo: 'https://comitunipi.com/logo_black.png',
             email: 'comit.unipi@gmail.com',
             address: {
               '@type': 'PostalAddress',

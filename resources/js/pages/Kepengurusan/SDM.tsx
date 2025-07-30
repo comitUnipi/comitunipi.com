@@ -10,24 +10,24 @@ export default function SDM() {
     <>
       <Head title="SDM Kami Periode 2024-2025">
         <meta name="robots" content="index, follow" />
-        <meta property="canonical" content="https://comitunipi.com/kepengurusan/sdm" />
+        <meta sdm="canonical" content="https://comitunipi.com/kepengurusan/sdm" />
         <meta name="description" content="Kenali sdm COMIT periode 2024-2025" />
 
-        <meta property="og:title" content="SDM Kami Periode 2024-2025 - COMIT" />
+        <meta property="og:title" content="SDM Kami Periode 2024-2025 - COMIT UNIPI" />
         <meta property="og:description" content="Kenali sdm COMIT periode 2024-2025" />
         <meta property="og:image" content="https://comitunipi.com/images/banner.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:url" content="https://comitunipi.com/kepengurusan/sdm" />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="COMIT" />
+        <meta property="og:site_name" content="COMIT UNIPI" />
         <meta property="og:locale" content="id_ID" />
 
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'WebPage',
-            name: 'SDM Kami Periode 2024-2025 - COMIT',
+            name: 'SDM Kami Periode 2024-2025 - COMIT UNIPI',
             url: 'https://comitunipi.com/kepengurusan/sdm',
             mainEntity: {
               '@type': 'ItemList',
@@ -41,7 +41,7 @@ export default function SDM() {
                   image: `https://comitunipi.com${pengurus.img}`,
                   memberOf: {
                     '@type': 'Organization',
-                    name: 'COMIT',
+                    name: 'COMIT UNIPI',
                     url: 'https://comitunipi.com/',
                   },
                 },

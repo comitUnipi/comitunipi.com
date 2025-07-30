@@ -48,7 +48,44 @@ export default function Register() {
 
   return (
     <>
-      <Head title="Pendaftaran Anggota" />
+      <Head title="Pendaftaran Anggota Baru">
+        <meta name="robots" content="index, follow" />
+        <meta rel="canonical" content="https://comitunipi.com/pendaftaran-anggota" />
+        <meta
+          name="description"
+          content="Ayo bergabung dengan organisasi di COMIT! Isi formulir pendaftaran COMIT untuk menjadi anggota dan memulai mengembangkan skill kamu dibidang IT."
+        />
+        <meta property="og:title" content="Community of Information Technology - COMIT UNIPI" />
+        <meta
+          property="og:description"
+          content="Ayo bergabung dengan organisasi di COMIT! Isi formulir pendaftaran COMIT untuk menjadi anggota dan memulai mengembangkan skill kamu dibidang IT."
+        />
+        <meta property="og:image" content="https://comitunipi.com/images/banner.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:url" content="https://comitunipi.com/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="COMIT UNIPI" />
+        <meta property="og:locale" content="id_ID" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'Pendaftaran Anggota Baru - COMIT UNIPI',
+            url: 'https://comitunipi.com/pendaftaran-anggota',
+            logo: 'https://comitunipi.com/logo_black.png',
+            email: 'comit.unipi@gmail.com',
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: 'Jl. Raya Serang Km. 10 Bitung',
+              addressLocality: 'Tangerang',
+              addressRegion: 'Banten',
+              addressCountry: 'ID',
+            },
+            sameAs: ['https://www.instagram.com/comit.ipem/', 'https://www.tiktok.com/@comit_unipi', 'https://github.com/comitUnipi'],
+          })}
+        </script>
+      </Head>
       <div className="relative min-h-screen overflow-hidden bg-white">
         <Card className="border-border mx-auto w-full max-w-4xl rounded-md border shadow-md md:my-4">
           <div className="-mt-8 h-[300px] w-full overflow-hidden rounded-t-md">

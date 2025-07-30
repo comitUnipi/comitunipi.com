@@ -30,13 +30,13 @@ export default function Galeri() {
     <>
       <Head title="Galeri Dokumentasi Kegiatan Kami">
         <meta name="robots" content="index, follow" />
-        <meta property="canonical" content="https://comitunipi.com/galeri-kami" />
+        <meta rel="canonical" content="https://comitunipi.com/galeri-kami" />
         <meta
           name="description"
           content="Lihat berbagai dokumentasi kegiatan dan momen berharga bersama Community of Information Technology (COMIT), dari pelatihan, workshop, perlombaan hingga kegiatan sosial."
         />
 
-        <meta property="og:title" content="Galeri Dokumentasi Kegiatan Kami - COMIT" />
+        <meta property="og:title" content="Galeri Dokumentasi Kegiatan Kami - COMIT UNIPI" />
         <meta
           property="og:description"
           content="Lihat berbagai dokumentasi kegiatan dan momen berharga bersama Community of Information Technology (COMIT), dari pelatihan, workshop, perlombaan hingga kegiatan sosial."
@@ -46,16 +46,16 @@ export default function Galeri() {
         <meta property="og:image:height" content="630" />
         <meta property="og:url" content="https://comitunipi.com/galeri-kami" />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="COMIT" />
+        <meta property="og:site_name" content="COMIT UNIPI" />
         <meta property="og:locale" content="id_ID" />
 
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Organization',
-            name: 'COMIT',
-            url: 'https://www.comitunipi.com/galeri-kami',
-            logo: 'https://www.comitunipi.com/logo_black.png',
+            name: 'COMIT UNIPI',
+            url: 'https://comitunipi.com/galeri-kami',
+            logo: 'https://comitunipi.com/logo_black.png',
             email: 'comit.unipi@gmail.com',
             address: {
               '@type': 'PostalAddress',

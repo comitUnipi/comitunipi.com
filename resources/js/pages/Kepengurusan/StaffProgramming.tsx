@@ -10,24 +10,24 @@ export default function StaffProgramming() {
     <>
       <Head title="Staff Programming Kami Periode 2024-2025">
         <meta name="robots" content="index, follow" />
-        <meta property="canonical" content="https://comitunipi.com/kepengurusan/staff-programming" />
+        <meta rel="canonical" content="https://comitunipi.com/kepengurusan/staff-programming" />
         <meta name="description" content="Kenali staff programming COMIT periode 2024-2025" />
 
-        <meta property="og:title" content="Staff Programming Kami Periode 2024-2025 - COMIT" />
+        <meta property="og:title" content="Staff Programming Kami Periode 2024-2025 - COMIT UNIPI" />
         <meta property="og:description" content="Kenali staff programming COMIT periode 2024-2025" />
         <meta property="og:image" content="https://comitunipi.com/images/banner.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:url" content="https://comitunipi.com/kepengurusan/staff-programming" />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="COMIT" />
+        <meta property="og:site_name" content="COMIT UNIPI" />
         <meta property="og:locale" content="id_ID" />
 
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'WebPage',
-            name: 'Staff Programming Kami Periode 2024-2025 - COMIT',
+            name: 'Staff Programming Kami Periode 2024-2025 - COMIT UNIPI',
             url: 'https://comitunipi.com/kepengurusan/staff-programming',
             mainEntity: {
               '@type': 'ItemList',
@@ -41,7 +41,7 @@ export default function StaffProgramming() {
                   image: `https://comitunipi.com${pengurus.img}`,
                   memberOf: {
                     '@type': 'Organization',
-                    name: 'COMIT',
+                    name: 'COMIT UNIPI',
                     url: 'https://comitunipi.com/',
                   },
                 },

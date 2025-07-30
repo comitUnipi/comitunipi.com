@@ -7,13 +7,13 @@ export default function VisiMisi() {
     <>
       <Head title="Pengenalan Visi dan Misi">
         <meta name="robots" content="index, follow" />
-        <meta property="canonical" content="https://comitunipi.com/visi-dan-misi" />
+        <meta rel="canonical" content="https://comitunipi.com/visi-dan-misi" />
         <meta
           name="description"
           content="Pelajari visi dan misi COMIT, salah satu organisasi mahasiswa di Universitas Insan Pembangunan Indonesia yang berkomitmen dalam pengembangan teknologi informasi dan peningkatan kualitas akademik."
         />
 
-        <meta property="og:title" content="Pengenalan Visi dan Misi - COMIT" />
+        <meta property="og:title" content="Pengenalan Visi dan Misi - COMIT UNIPI" />
         <meta
           property="og:description"
           content="Pelajari visi dan misi COMIT, salah satu organisasi mahasiswa di Universitas Insan Pembangunan Indonesia yang berkomitmen dalam pengembangan teknologi informasi dan peningkatan kualitas akademik."
@@ -23,16 +23,16 @@ export default function VisiMisi() {
         <meta property="og:image:height" content="630" />
         <meta property="og:url" content="https://comitunipi.com/visi-dan-misi" />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="COMIT" />
+        <meta property="og:site_name" content="COMIT UNIPI" />
         <meta property="og:locale" content="id_ID" />
 
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Organization',
-            name: 'Pengenalan Visi dan Misi - COMIT',
-            url: 'https://www.comitunipi.com/visi-dan-misi',
-            logo: 'https://www.comitunipi.com/logo_black.png',
+            name: 'Pengenalan Visi dan Misi - COMIT UNIPI',
+            url: 'https://comitunipi.com/visi-dan-misi',
+            logo: 'https://comitunipi.com/logo_black.png',
             email: 'comit.unipi@gmail.com',
             address: {
               '@type': 'PostalAddress',

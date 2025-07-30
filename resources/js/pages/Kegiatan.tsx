@@ -10,13 +10,13 @@ export default function Kegiatan() {
     <>
       <Head title="Berbagai Kegiatan Kami">
         <meta name="robots" content="index, follow" />
-        <meta property="canonical" content="https://comitunipi.com/kegiatan-kami" />
+        <meta rel="canonical" content="https://comitunipi.com/kegiatan-kami" />
         <meta
           name="description"
           content="Ikuti berbagai kegiatan pelatihan IT, Workshop, dan kegiatan Perlombaan bersama COMIT untuk meningkatkan keterampilanmu di bidang teknologi informasi."
         />
 
-        <meta property="og:title" content="Berbagai Kegiatan Kami - COMIT" />
+        <meta property="og:title" content="Berbagai Kegiatan Kami - COMIT UNIPI" />
         <meta
           property="og:description"
           content="Ikuti berbagai kegiatan pelatihan IT, Workshop, dan kegiatan Perlombaan bersama COMIT untuk meningkatkan keterampilanmu di bidang teknologi informasi."
@@ -26,15 +26,15 @@ export default function Kegiatan() {
         <meta property="og:image:height" content="630" />
         <meta property="og:url" content="https://comitunipi.com/kegiatan-kami" />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="COMIT" />
+        <meta property="og:site_name" content="COMIT UNIPI" />
         <meta property="og:locale" content="id_ID" />
 
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'WebPage',
-            name: 'Berbagai Kegiatan Kami - COMIT',
-            url: 'https://www.comitunipi.com/kegiatan-kami',
+            name: 'Berbagai Kegiatan Kami - COMIT UNIPI',
+            url: 'https://comitunipi.com/kegiatan-kami',
             mainEntity: {
               '@type': 'ItemList',
               itemListElement: kegiatan.map((event, index) => {
@@ -65,7 +65,7 @@ export default function Kegiatan() {
                     location: defaultLocation,
                     organizer: {
                       '@type': 'Organization',
-                      name: 'COMIT',
+                      name: 'COMIT UNIPI',
                       url: 'https://comitunipi.com',
                     },
                   },

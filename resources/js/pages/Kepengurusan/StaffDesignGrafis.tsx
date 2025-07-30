@@ -10,24 +10,24 @@ export default function StaffDesignGrafis() {
     <>
       <Head title="Staff Design Grafis Kami Periode 2024-2025">
         <meta name="robots" content="index, follow" />
-        <meta property="canonical" content="https://comitunipi.com/kepengurusan/staff-design-grafis" />
+        <meta rel="canonical" content="https://comitunipi.com/kepengurusan/staff-design-grafis" />
         <meta name="description" content="Kenali staff design grafis COMIT periode 2024-2025" />
 
-        <meta property="og:title" content="Staff Design Grafis Kami Periode 2024-2025 - COMIT" />
+        <meta property="og:title" content="Staff Design Grafis Kami Periode 2024-2025 - COMIT UNIPI" />
         <meta property="og:description" content="Kenali staff design grafis COMIT periode 2024-2025" />
         <meta property="og:image" content="https://comitunipi.com/images/banner.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:url" content="https://comitunipi.com/kepengurusan/staff-design-grafis" />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="COMIT" />
+        <meta property="og:site_name" content="COMIT UNIPI" />
         <meta property="og:locale" content="id_ID" />
 
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'WebPage',
-            name: 'Staff Design Grafis Kami Periode 2024-2025 - COMIT',
+            name: 'Staff Design Grafis Kami Periode 2024-2025 - COMIT UNIPI',
             url: 'https://comitunipi.com/kepengurusan/staff-design-grafis',
             mainEntity: {
               '@type': 'ItemList',
@@ -41,7 +41,7 @@ export default function StaffDesignGrafis() {
                   image: `https://comitunipi.com${pengurus.img}`,
                   memberOf: {
                     '@type': 'Organization',
-                    name: 'COMIT',
+                    name: 'COMIT UNIPI',
                     url: 'https://comitunipi.com/',
                   },
                 },

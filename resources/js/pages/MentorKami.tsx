@@ -10,7 +10,7 @@ export default function MentorKami() {
     <>
       <Head title="Pengenalan Mentor Berpengalaman Kami">
         <meta name="robots" content="index, follow" />
-        <meta property="canonical" content="https://comitunipi.com/mentor-kami" />
+        <meta rel="canonical" content="https://comitunipi.com/mentor-kami" />
         <meta
           name="description"
           content="Temukan mentor-mentor berpengalaman dari COMIT yang siap membimbing kamu di bidang IT dan pengembangan diri."
@@ -26,14 +26,14 @@ export default function MentorKami() {
         <meta property="og:image:height" content="630" />
         <meta property="og:url" content="https://comitunipi.com/mentor-kami" />
         <meta property="og:type" content="profile" />
-        <meta property="og:site_name" content="COMIT" />
+        <meta property="og:site_name" content="COMIT UNIPI" />
         <meta property="og:locale" content="id_ID" />
 
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'WebPage',
-            name: 'Pengenalan Mentor Berpengalaman Kami - COMIT',
+            name: 'Pengenalan Mentor Berpengalaman Kami - COMIT UNIPI',
             url: 'https://comitunipi.com/mentor-kami',
             mainEntity: {
               '@type': 'ItemList',
