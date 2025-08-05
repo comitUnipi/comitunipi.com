@@ -36,7 +36,7 @@ Route::middleware(['auth', 'verified', 'role:Finance,Super Admin'])->group(funct
 });
 
 Route::middleware(['auth', 'verified', 'role:Super Admin'])->group(function () {
-    Route::resource('users', UserController::class)->except(['index']);
+    Route::resource('users', UserController::class)->except(['index', 'show']);
     Route::get('/users/export/csv', [UserController::class, 'exportCsv'])->name('users.export.csv');
     Route::resource('kegiatan', KegiatanController::class)->except(['index', 'show']);
     Route::get('/kegiatan/export/csv', [KegiatanController::class, 'exportCsv'])->name('kegiatan.export.csv');

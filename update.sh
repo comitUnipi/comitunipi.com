@@ -11,6 +11,17 @@ git pull origin main
 echo "Install dependencies PHP (Composer)..."
 composer install --ignore-platform-req=ext-fileinfo
 
+echo "Clear Laravel cache..."
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
+
+echo "Rebuild Laravel cache..."
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
 echo "Install dependencies JS (npm)..."
 npm install
 
