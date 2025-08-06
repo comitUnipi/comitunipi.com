@@ -6,6 +6,7 @@ use App\Http\Controllers\KasController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\LaporanAbsensiController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\LinkGrupWAController;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\QRCodeController;
@@ -44,6 +45,8 @@ Route::middleware(['auth', 'verified', 'role:Super Admin'])->group(function () {
     Route::post('/qr-code/create', [QRCodeController::class, 'store'])->name('qr.store');
     Route::post('/qr-code/{id}/deactivate', [QRCodeController::class, 'deactivate'])->name('qr.deactivate');
     Route::get('/laporan/absensi/export/csv', [LaporanAbsensiController::class, 'exportCsv'])->name('laporan.absensi.export.csv');
+    Route::get('/fitur-khusus/group-whatsapp', [LinkGrupWAController::class, 'index'])->name('link.group-whatsapp.index');
+    Route::post('/fitur-khusus/group-whatsapp', [LinkGrupWAController::class, 'update'])->name('link.group-whatsapp.update');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
