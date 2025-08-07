@@ -9,7 +9,7 @@ type Props = {
   totalSaldo: number;
 };
 
-export default function LaporanTable({ laporan, totalDebit, totalKredit, totalSaldo }: Props) {
+export default function TableLaporanKeuangan({ laporan, totalDebit, totalKredit, totalSaldo }: Props) {
   return (
     <div className="overflow-hidden rounded-md border">
       <div className="relative hidden w-full overflow-x-auto lg:block">

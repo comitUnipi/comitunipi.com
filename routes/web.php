@@ -6,7 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KasController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\LaporanAbsensiController;
-use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\LaporanKeuanganController;
 use App\Http\Controllers\LinkGrupWAController;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
@@ -18,12 +18,12 @@ Route::middleware(['auth', 'verified', 'role:Super Admin,Admin,Finance'])->group
     Route::get('/kas', [KasController::class, 'index'])->name('kas.index');
     Route::get('/pemasukan', [PemasukanController::class, 'index'])->name('pemasukan.index');
     Route::get('/pengeluaran', [PengeluaranController::class, 'index'])->name('pengeluaran.index');
-    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
-    Route::get('/laporan/absensi', [LaporanAbsensiController::class, 'index'])->name('laporan.absensi.index');
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
     Route::get('/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan.index');
     Route::get('/absensi', [AbsensiController::class, 'index'])->name('absensi.index');
+    Route::get('/laporan/keuangan', [LaporanKeuanganController::class, 'index'])->name('laporan.index');
+    Route::get('/laporan/absensi', [LaporanAbsensiController::class, 'index'])->name('laporan.absensi.index');
 });
 
 Route::middleware(['auth', 'verified', 'role:Finance,Super Admin'])->group(function () {

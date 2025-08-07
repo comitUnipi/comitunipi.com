@@ -13,7 +13,7 @@ type Props = {
   };
 };
 
-export default function LaporanAbsensiTable({ laporan, totalScan, statusCounts }: Props) {
+export default function TableLaporanAbsensi({ laporan, totalScan, statusCounts }: Props) {
   return (
     <div className="overflow-hidden rounded-md border">
       <div className="relative hidden w-full overflow-x-auto lg:block">

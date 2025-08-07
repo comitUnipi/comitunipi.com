@@ -15,7 +15,15 @@ type Props = {
   };
 };
 
-export default function LaporanFilter({ startDate, endDate, setStartDate, setEndDate, handleFilterTanggal, handleResetTanggal, periode }: Props) {
+export default function FilterLaporanKeuangan({
+  startDate,
+  endDate,
+  setStartDate,
+  setEndDate,
+  handleFilterTanggal,
+  handleResetTanggal,
+  periode,
+}: Props) {
   return (
     <div className="flex flex-col gap-3 sm:gap-4">
       <p className="px-2 py-1 text-sm font-medium">

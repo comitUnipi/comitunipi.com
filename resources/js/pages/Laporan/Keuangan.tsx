@@ -1,10 +1,11 @@
 import ButtonExport from '@/components/app-button-export';
+import Heading from '@/components/heading';
 import AppLayout from '@/layouts/app-layout';
-import { BreadcrumbItem, Laporan, User } from '@/types';
+import { Laporan, User } from '@/types';
 import { Head, router, usePage } from '@inertiajs/react';
 import { useState } from 'react';
-import LaporanFilter from './components/laporan-filter';
-import LaporanTable from './components/laporan-table';
+import FilterLaporanKeuangan from './components/laporan-keuangan-filter';
+import TableLaporanKeuangan from './components/laporan-keuangan-table';
 
 interface Periode {
   start: string;
@@ -25,14 +26,7 @@ type PageProps = {
   };
 };
 
-const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: 'Laporan Keuangan',
-    href: '/laporan/keuangan',
-  },
-];
-
-export default function LaporanIndex({ laporan, periode, totalSaldo, totalDebit, totalKredit }: Props) {
+export default function Pages({ laporan, periode, totalSaldo, totalDebit, totalKredit }: Props) {
   const [startDate, setStartDate] = useState(periode?.start ?? '');
   const [endDate, setEndDate] = useState(periode?.end ?? '');
   const { auth } = usePage<PageProps>().props;
@@ -59,21 +53,25 @@ export default function LaporanIndex({ laporan, periode, totalSaldo, totalDebit,
   };
 
   return (
-    <AppLayout breadcrumbs={breadcrumbs}>
+    <AppLayout
+      breadcrumbs={[
+        {
+          title: 'Laporan Keuangan',
+          href: '/laporan/keuangan',
+        },
+      ]}
+    >
       <Head title="Laporan Keuangan" />
       <div className="from-background to-muted/20 flex h-full flex-1 flex-col gap-4 rounded-xl bg-gradient-to-br p-3 sm:gap-6 sm:p-4 md:p-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h1 className="text-xl font-bold tracking-tight sm:text-2xl md:text-3xl">Laporan Keuangan</h1>
-            <p className="text-muted-foreground mt-1 text-sm sm:text-base">Manajemen untuk mengelola data laporan keuangan mingguan dan bulanan.</p>
-          </div>
+          <Heading title="Laporan Keuangan" description="Manajemen untuk mengelola data laporan keuangan mingguan dan bulanan." />
           {['Super Admin', 'Finance'].includes(user.role) && (
             <div className="flex gap-2 sm:gap-4">
               <ButtonExport exportUrl={`/laporan/export/csv?end_date=${endDate}&start_date=${startDate}`} />
             </div>
           )}
         </div>
-        <LaporanFilter
+        <FilterLaporanKeuangan
           startDate={startDate}
           endDate={endDate}
           setStartDate={setStartDate}
@@ -82,7 +80,7 @@ export default function LaporanIndex({ laporan, periode, totalSaldo, totalDebit,
           handleFilterTanggal={handleFilterTanggal}
           handleResetTanggal={handleResetTanggal}
         />
-        <LaporanTable laporan={laporan} totalDebit={totalDebit} totalKredit={totalKredit} totalSaldo={totalSaldo} />
+        <TableLaporanKeuangan laporan={laporan} totalDebit={totalDebit} totalKredit={totalKredit} totalSaldo={totalSaldo} />
       </div>
     </AppLayout>
   );

@@ -6,12 +6,9 @@ type Props = {
   setSelectedDate: (date: string) => void;
   handleFilterTanggal: () => void;
   handleResetTanggal: () => void;
-  periode?: {
-    date: string;
-  };
 };
 
-export default function LaporanAbsensiFilter({ selectedDate, setSelectedDate, handleFilterTanggal, handleResetTanggal }: Props) {
+export default function FilterLaporanAbsensi({ selectedDate, setSelectedDate, handleFilterTanggal, handleResetTanggal }: Props) {
   return (
     <div className="flex flex-col gap-2 sm:gap-4">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-end">

@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class LaporanController extends Controller
+class LaporanKeuanganController extends Controller
 {
     public function index(Request $request)
     {
@@ -18,7 +18,7 @@ class LaporanController extends Controller
         $endDate = $request->query('end_date');
 
         if (! $startDate || ! $endDate) {
-            return Inertia::render('Laporan/Index', [
+            return Inertia::render('Laporan/Keuangan', [
                 'laporan' => [],
                 'periode' => null,
                 'totalSaldo' => 0,
@@ -30,16 +30,16 @@ class LaporanController extends Controller
 
         $kas = Kas::whereBetween('date', [$start, $end])
             ->get()
-            ->map(fn($item) => [
+            ->map(fn ($item) => [
                 'amount' => $item->amount,
                 'date' => $item->date,
-                'type' => 'kas - ' . $item->type,
+                'type' => 'kas - '.$item->type,
                 'real_type' => 'plus',
             ]);
 
         $pemasukan = Pemasukan::whereBetween('date', [$start, $end])
             ->get()
-            ->map(fn($item) => [
+            ->map(fn ($item) => [
                 'amount' => $item->amount,
                 'date' => $item->date,
                 'type' => 'pemasukan',
@@ -48,7 +48,7 @@ class LaporanController extends Controller
 
         $pengeluaran = Pengeluaran::whereBetween('date', [$start, $end])
             ->get()
-            ->map(fn($item) => [
+            ->map(fn ($item) => [
                 'amount' => $item->amount,
                 'date' => $item->date,
                 'type' => 'pengeluaran',
@@ -95,16 +95,16 @@ class LaporanController extends Controller
 
         $kas = Kas::whereBetween('date', [$start, $end])
             ->get()
-            ->map(fn($item) => [
+            ->map(fn ($item) => [
                 'date' => $item->date,
-                'type' => 'kas - ' . $item->type,
+                'type' => 'kas - '.$item->type,
                 'amount' => $item->amount,
                 'real_type' => 'plus',
             ]);
 
         $pemasukan = Pemasukan::whereBetween('date', [$start, $end])
             ->get()
-            ->map(fn($item) => [
+            ->map(fn ($item) => [
                 'date' => $item->date,
                 'type' => 'pemasukan',
                 'amount' => $item->amount,
@@ -113,7 +113,7 @@ class LaporanController extends Controller
 
         $pengeluaran = Pengeluaran::whereBetween('date', [$start, $end])
             ->get()
-            ->map(fn($item) => [
+            ->map(fn ($item) => [
                 'date' => $item->date,
                 'type' => 'pengeluaran',
                 'amount' => $item->amount,
@@ -154,7 +154,7 @@ class LaporanController extends Controller
             fclose($handle);
         });
 
-        $filename = 'laporan_keuangan_' . $start->format('Y-m-d') . '_sampai_' . $end->format('Y-m-d') . '.csv';
+        $filename = 'laporan_keuangan_'.$start->format('Y-m-d').'_sampai_'.$end->format('Y-m-d').'.csv';
         $response->headers->set('Content-Type', 'text/csv');
         $response->headers->set('Content-Disposition', "attachment; filename=\"$filename\"");
 

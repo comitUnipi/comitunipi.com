@@ -104,7 +104,7 @@ export function AppSidebar() {
   const laporanNavItems: NavItem[] = [
     {
       title: 'Laporan Keuangan',
-      href: '/laporan',
+      href: '/laporan/keuangan',
       icon: Dock,
     },
     {
