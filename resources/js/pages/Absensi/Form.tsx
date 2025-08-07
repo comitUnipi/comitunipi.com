@@ -55,7 +55,7 @@ export default function Form({ kegiatan, flash }: Props) {
   useEffect(() => {
     const today = new Date().toISOString().split('T')[0];
     setData('tanggal_izin', today);
-  }, []);
+  }, [setData]);
 
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
