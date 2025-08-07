@@ -58,7 +58,7 @@ export function AppSidebar() {
   const fiturNavItems: NavItem[] = [
     {
       title: 'Buat Absensi',
-      href: '/qr-code/create',
+      href: '/fitur-khusus/buat-absensi',
       icon: QrCode,
     },
     {

@@ -27,7 +27,7 @@ const breadcrumbs: BreadcrumbItem[] = [
   },
 ];
 
-export default function GroupWA({ whatsappLink, flash }: Props) {
+export default function Pages({ whatsappLink, flash }: Props) {
   const [link, setLink] = useState<string>(whatsappLink || '');
   const [errors, setErrors] = useState<FormErrors>({});
   const [showToast, setShowToast] = useState<boolean>(false);

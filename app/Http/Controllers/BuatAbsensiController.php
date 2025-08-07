@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
-class QRCodeController extends Controller
+class BuatAbsensiController extends Controller
 {
     public function generate()
     {
@@ -31,7 +31,7 @@ class QRCodeController extends Controller
             $qrCodeSvg = $result->getString();
         }
 
-        return Inertia::render('QRCode/Index', [
+        return Inertia::render('FiturKhusus/BuatAbsensi', [
             'kegiatan' => $kegiatan,
             'qrData' => $qrData,
             'qrCodeSvg' => $qrCodeSvg,

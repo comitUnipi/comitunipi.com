@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\BuatAbsensiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KasController;
 use App\Http\Controllers\KegiatanController;
@@ -9,7 +10,6 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LinkGrupWAController;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
-use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\QrCodeScanController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -41,10 +41,10 @@ Route::middleware(['auth', 'verified', 'role:Super Admin'])->group(function () {
     Route::get('/users/export/csv', [UserController::class, 'exportCsv'])->name('users.export.csv');
     Route::resource('kegiatan', KegiatanController::class)->except(['index', 'show']);
     Route::get('/kegiatan/export/csv', [KegiatanController::class, 'exportCsv'])->name('kegiatan.export.csv');
-    Route::get('/qr-code/create', [QRCodeController::class, 'generate'])->name('qr.create');
-    Route::post('/qr-code/create', [QRCodeController::class, 'store'])->name('qr.store');
-    Route::post('/qr-code/{id}/deactivate', [QRCodeController::class, 'deactivate'])->name('qr.deactivate');
     Route::get('/laporan/absensi/export/csv', [LaporanAbsensiController::class, 'exportCsv'])->name('laporan.absensi.export.csv');
+    Route::get('/fitur-khusus/buat-absensi', [BuatAbsensiController::class, 'generate'])->name('qr.create');
+    Route::post('/fitur-khusus/buat-absensi', [BuatAbsensiController::class, 'store'])->name('qr.store');
+    Route::post('/fitur-khusus/buat-absensi/{id}/deactivate', [BuatAbsensiController::class, 'deactivate'])->name('qr.deactivate');
     Route::get('/fitur-khusus/group-whatsapp', [LinkGrupWAController::class, 'index'])->name('link.group-whatsapp.index');
     Route::post('/fitur-khusus/group-whatsapp', [LinkGrupWAController::class, 'update'])->name('link.group-whatsapp.update');
 });
