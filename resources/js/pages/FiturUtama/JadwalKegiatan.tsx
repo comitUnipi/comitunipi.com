@@ -3,20 +3,25 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import AppLayout from '@/layouts/app-layout';
 import { capitalizeFirstLetter } from '@/lib/capitalize-first-letter';
 import { formatDate } from '@/lib/format-date';
-import { BreadcrumbItem, Kegiatan } from '@/types';
+import { Kegiatan } from '@/types';
 import { Head } from '@inertiajs/react';
 import { Calendar, CalendarDays, Clock, MapPin, Users } from 'lucide-react';
-
-const breadcrumbs: BreadcrumbItem[] = [{ title: 'Kegiatan Terbaru', href: '/kegiatan/terbaru' }];
 
 interface Props {
   kegiatan: Kegiatan[];
 }
 
-export default function Terbaru({ kegiatan }: Props) {
+export default function Pages({ kegiatan }: Props) {
   return (
-    <AppLayout breadcrumbs={breadcrumbs}>
-      <Head title="Kegiatan Terbaru" />
+    <AppLayout
+      breadcrumbs={[
+        {
+          title: 'Jadwal Kegiatan',
+          href: '/fitur-utama/jadwal-kegiatan',
+        },
+      ]}
+    >
+      <Head title="Jadwal Kegiatan" />
       <div className="flex h-full flex-1 flex-col space-y-6 p-4 md:p-6">
         <Heading title="Informasi" description="Kegiatan yang akan datang!!!" />
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

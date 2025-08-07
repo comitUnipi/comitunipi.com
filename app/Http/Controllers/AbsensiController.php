@@ -36,7 +36,7 @@ class AbsensiController extends Controller
             })
             ->first();
 
-        return Inertia::render('Absensi/Form', [
+        return Inertia::render('FiturUtama/FormIzin', [
             'kegiatan' => $qrCode && $qrCode->kegiatan
                 ? $qrCode->kegiatan
                 : null,

@@ -51,12 +51,12 @@ Route::middleware(['auth', 'verified', 'role:Super Admin'])->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/kegiatan/terbaru', [KegiatanController::class, 'terbaru'])->name('kegiatan.terbaru');
     Route::get('/api/kegiatan/notification', [KegiatanController::class, 'notifications'])->name('kegiatan.notifications');
-    Route::get('/qr-code/scan', [QrCodeScanController::class, 'index'])->name('qr.scan.form');
-    Route::post('/qr-code/scan', [QrCodeScanController::class, 'store'])->name('qr.scan.store');
-    Route::get('/absensi/create', [AbsensiController::class, 'create'])->name('absensi.create');
-    Route::post('/absensi/store', [AbsensiController::class, 'store'])->name('absensi.store');
+    Route::get('/fitur-utama/jadwal-kegiatan', [KegiatanController::class, 'terbaru'])->name('kegiatan.terbaru');
+    Route::get('/fitur-utama/scan-absensi', [QrCodeScanController::class, 'index'])->name('qr.scan.form');
+    Route::post('/fitur-utama/scan-absensi', [QrCodeScanController::class, 'store'])->name('qr.scan.store');
+    Route::get('/fitur-utama/form-izin', [AbsensiController::class, 'create'])->name('absensi.create');
+    Route::post('/fitur-utama/form-izin', [AbsensiController::class, 'store'])->name('absensi.store');
 });
 
 require __DIR__.'/public.php';

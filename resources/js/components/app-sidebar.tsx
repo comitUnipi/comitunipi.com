@@ -40,17 +40,17 @@ export function AppSidebar() {
     },
     {
       title: 'Jadwal Kegiatan',
-      href: '/kegiatan/terbaru',
+      href: '/fitur-utama/jadwal-kegiatan',
       icon: Calendar,
     },
     {
       title: 'Scan Absensi',
-      href: '/qr-code/scan',
+      href: '/fitur-utama/scan-absensi',
       icon: Camera,
     },
     {
       title: 'Form Izin',
-      href: '/absensi/create',
+      href: '/fitur-utama/form-izin',
       icon: MailIcon,
     },
   ];

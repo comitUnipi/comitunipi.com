@@ -30,7 +30,7 @@ const breadcrumbs: BreadcrumbItem[] = [
   },
 ];
 
-export default function Dashboard({
+export default function Pages({
   stats = {
     totalUsers: 0,
     totalUsersAktif: 0,

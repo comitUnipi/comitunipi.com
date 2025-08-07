@@ -12,7 +12,7 @@ class QrCodeScanController extends Controller
 {
     public function index()
     {
-        return Inertia::render('QRCode/Scan', [
+        return Inertia::render('FiturUtama/ScanAbsensi', [
             'flash' => [
                 'success' => session('success'),
                 'error' => session('error'),

@@ -14,7 +14,7 @@ interface FlashMessages {
   message?: string;
 }
 
-export default function Scan() {
+export default function Pages() {
   const html5QrCodeRef = useRef<Html5Qrcode | null>(null);
   const isScanningRef = useRef<boolean>(false);
 
@@ -87,10 +87,16 @@ export default function Scan() {
   }, []);
 
   return (
-    <AppLayout breadcrumbs={[{ title: 'Scan QR Code', href: '/qr-code/scan' }]}>
-      <Head title="Scan QR Code Absensi" />
-
-      <div className="max-w-xl space-y-4 p-6">
+    <AppLayout
+      breadcrumbs={[
+        {
+          title: 'Scan Absensi',
+          href: '/fitur-utama/scan-absensi',
+        },
+      ]}
+    >
+      <Head title="Scan Absensi" />
+      <div className="max-w-md space-y-4 p-6">
         <Heading
           title="Absensi"
           description="Lakukan absensi melalui QRCode yang telah disiapkan oleh pengurus dan scan disini untuk menyatakan kehadiran kamu."

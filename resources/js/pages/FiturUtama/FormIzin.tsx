@@ -1,10 +1,10 @@
+import Heading from '@/components/heading';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-
 import AppLayout from '@/layouts/app-layout';
 import { capitalizeFirstLetter } from '@/lib/capitalize-first-letter';
 import { formatDate } from '@/lib/format-date';
@@ -21,13 +21,6 @@ interface Props {
   kegiatan?: Kegiatan;
 }
 
-const breadcrumbs = [
-  {
-    title: 'Form Izin',
-    href: '/absensi/create',
-  },
-];
-
 const DetailItem = ({ icon, text }: { icon: React.ReactNode; text: string }) => {
   return (
     <div className="flex items-center gap-2">
@@ -37,7 +30,7 @@ const DetailItem = ({ icon, text }: { icon: React.ReactNode; text: string }) => 
   );
 };
 
-export default function Form({ kegiatan, flash }: Props) {
+export default function Pages({ kegiatan, flash }: Props) {
   const { data, setData, post, processing } = useForm({
     tanggal_izin: '',
     alasan: '',
@@ -58,15 +51,17 @@ export default function Form({ kegiatan, flash }: Props) {
   }, [setData]);
 
   return (
-    <AppLayout breadcrumbs={breadcrumbs}>
-      <Head title="Form Izin" />
+    <AppLayout
+      breadcrumbs={[
+        {
+          title: 'Form Permohonan Izin',
+          href: '/fitur-utama/form-izin',
+        },
+      ]}
+    >
+      <Head title="Form Permohonan Izin" />
       <div className="from-background to-muted/20 flex flex-col gap-6 rounded-xl bg-gradient-to-br p-4 md:p-6">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h1 className="text-2xl font-semibold">Form Permohonan Izin</h1>
-            <p className="text-muted-foreground text-sm">Ajukan permohonan izin atau sakit untuk kegiatan aktif.</p>
-          </div>
-        </div>
+        <Heading title="Form Permohonan Izin" description="Ajukan permohonan izin atau sakit untuk kegiatan aktif." />
         <div className="max-w-md space-y-6">
           {kegiatan ? (
             kegiatan && (
@@ -94,10 +89,8 @@ export default function Form({ kegiatan, flash }: Props) {
               </p>
             </div>
           )}
-
           {flash?.success && <div className="rounded-md bg-green-100 px-4 py-2 text-sm text-green-800">{flash.success}</div>}
           {flash?.error && <div className="rounded-md bg-red-100 px-4 py-2 text-sm text-red-800">{flash.error}</div>}
-
           <form onSubmit={handleSubmit} className="space-y-4">
             <input type="hidden" name="tanggal_izin" value={data.tanggal_izin} />
             <div className="space-y-2">
@@ -126,7 +119,7 @@ export default function Form({ kegiatan, flash }: Props) {
               <div className="border-muted bg-muted/50 text-muted-foreground rounded-md border p-4 text-sm">
                 <p className="text-justify">
                   Dengan ini saya mengajukan permohonan <strong>{data.status}</strong> tidak bisa mengikuti kegiatan COMIT pada tanggal{' '}
-                  <strong>{data.tanggal_izin}</strong> dengan alasan: <em>{data.alasan || '...'}</em>.
+                  <strong>{formatDate(data.tanggal_izin)}</strong> dengan alasan: <em>{data.alasan || '...'}</em>.
                 </p>
                 <p className="mt-2">Saya menyatakan bahwa data yang saya isi adalah benar dan dapat dipertanggung jawabkan.</p>
               </div>
