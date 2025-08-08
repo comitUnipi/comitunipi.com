@@ -161,7 +161,7 @@ export default function Pages({ pengeluaran, filters, flash }: Props) {
       breadcrumbs={[
         {
           title: 'Data Pengeluaran',
-          href: '/pengeluaran',
+          href: '/data-master/data-pengeluaran',
         },
       ]}
     >

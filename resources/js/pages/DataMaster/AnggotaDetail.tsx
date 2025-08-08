@@ -1,9 +1,8 @@
-import HeadingSmall from '@/components/heading-small';
+import Heading from '@/components/heading';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/app-layout';
-import { BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 
 interface Props {
@@ -23,18 +22,17 @@ interface Props {
   };
 }
 
-const breadcrumbs: BreadcrumbItem[] = [
-  { title: 'Data Anggota', href: '/users' },
-  { title: 'Detail', href: '#' },
-];
-
-export default function Show({ user }: Props) {
+export default function Pages({ user }: Props) {
   return (
-    <AppLayout breadcrumbs={breadcrumbs}>
+    <AppLayout
+      breadcrumbs={[
+        { title: 'Data Anggota', href: '/data-master/data-anggota' },
+        { title: 'Detail Anggota', href: '#' },
+      ]}
+    >
       <Head title={`Detail - ${user.name}`} />
       <div className="from-background to-muted/20 flex h-full flex-1 flex-col gap-4 rounded-xl bg-gradient-to-br p-3 sm:gap-6 sm:p-4 md:p-6">
-        <h1 className="text-xl font-semibold">Detail Anggota</h1>
-        <HeadingSmall title="Informasi Anggota" description="Detail informasi anggota yang terdaftar" />
+        <Heading title="Informasi Detail Anggota" description="Detail informasi anggota yang terdaftar" />
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="grid gap-2">
             <Label htmlFor="name">Nama Lengkap</Label>
