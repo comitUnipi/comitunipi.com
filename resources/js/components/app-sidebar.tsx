@@ -71,32 +71,32 @@ export function AppSidebar() {
   const masterNavItems: NavItem[] = [
     {
       title: 'Data Anggota',
-      href: '/users',
+      href: '/data-master/data-anggota',
       icon: Users,
     },
     {
       title: 'Data Absensi',
-      href: '/absensi',
+      href: '/data-master/data-absensi',
       icon: Users2,
     },
     {
       title: 'Data Kegiatan',
-      href: '/kegiatan',
+      href: '/data-master/data-kegiatan',
       icon: Calendar,
     },
     {
       title: 'Data Uang KAS',
-      href: '/kas',
+      href: '/data-master/data-kas',
       icon: Dock,
     },
     {
       title: 'Data Pemasukan',
-      href: '/pemasukan',
+      href: '/data-master/data-pemasukan',
       icon: ArrowBigDown,
     },
     {
       title: 'Data Pengeluaran',
-      href: '/pengeluaran',
+      href: '/data-master/data-pengeluaran',
       icon: ArrowBigUp,
     },
   ];
