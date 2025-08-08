@@ -29,7 +29,7 @@ class KegiatanController extends Controller
 
         $kegiatan = $query->orderByDesc('date')->paginate(10)->withQueryString();
 
-        return Inertia::render('Kegiatan/Index', [
+        return Inertia::render('DataMaster/Kegiatan', [
             'kegiatan' => $kegiatan,
             'filters' => [
                 'search' => $search,
