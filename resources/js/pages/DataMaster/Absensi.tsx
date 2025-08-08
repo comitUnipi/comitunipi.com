@@ -22,7 +22,7 @@ interface Props {
   };
 }
 
-export default function AbsensiIndex({ scans, filters }: Props) {
+export default function Pages({ scans, filters }: Props) {
   const [searchTerm, setSearchTerm] = useState(filters.search);
 
   const handleSearch = (e: React.FormEvent) => {

@@ -1,7 +1,7 @@
 import FinancialBarChart from '@/components/analytics/financial-bar-chart';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
-import { User, type BreadcrumbItem } from '@/types';
+import { User } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
 import { CheckCircle, Clock, UserCog, Users } from 'lucide-react';
 
@@ -23,13 +23,6 @@ type PageProps = {
   };
 };
 
-const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: 'Dashboard',
-    href: '/dashboard',
-  },
-];
-
 export default function Pages({
   stats = {
     totalUsers: 0,
@@ -45,7 +38,14 @@ export default function Pages({
   const user = auth?.user;
 
   return (
-    <AppLayout breadcrumbs={breadcrumbs}>
+    <AppLayout
+      breadcrumbs={[
+        {
+          title: 'Dashboard',
+          href: '/dashboard',
+        },
+      ]}
+    >
       <Head title="Dashboard" />
       <div className="from-background to-muted/20 flex h-full flex-1 flex-col gap-6 rounded-xl bg-gradient-to-br p-6">
         <div className="flex items-center justify-between">

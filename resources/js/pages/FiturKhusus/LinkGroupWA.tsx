@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
-import { BreadcrumbItem } from '@/types';
 import { Head, router } from '@inertiajs/react';
 import { FormEvent, useEffect, useState } from 'react';
 
@@ -19,13 +18,6 @@ interface Props {
 interface FormErrors {
   [key: string]: string | undefined;
 }
-
-const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: 'Group WhatsApp',
-    href: '/fitur-khusus/group-whatsapp',
-  },
-];
 
 export default function Pages({ whatsappLink, flash }: Props) {
   const [link, setLink] = useState<string>(whatsappLink || '');
@@ -74,7 +66,14 @@ export default function Pages({ whatsappLink, flash }: Props) {
   };
 
   return (
-    <AppLayout breadcrumbs={breadcrumbs}>
+    <AppLayout
+      breadcrumbs={[
+        {
+          title: 'Group WhatsApp',
+          href: '/fitur-khusus/group-whatsapp',
+        },
+      ]}
+    >
       <Head title="Link Group WhatsApp" />
       <div className="flex">
         <div className="from-background to-muted/20 flex w-full max-w-md flex-col gap-4 rounded-xl bg-gradient-to-br p-3 sm:gap-6 sm:p-4 md:p-6">

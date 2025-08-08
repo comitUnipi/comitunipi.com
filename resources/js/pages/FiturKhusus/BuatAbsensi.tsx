@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
 import { capitalizeFirstLetter } from '@/lib/capitalize-first-letter';
-import { Kegiatan, type BreadcrumbItem } from '@/types';
+import { Kegiatan } from '@/types';
 import { Head, router, useForm } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
@@ -32,8 +32,6 @@ interface Props {
   qrData?: QrData;
   qrCodeSvg?: string;
 }
-
-const breadcrumbs: BreadcrumbItem[] = [{ title: 'Buat Absensi', href: '/fitur-khusus/buat-absensi' }];
 
 export default function Pages({ kegiatan, qrData, qrCodeSvg, flash }: Props) {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -109,7 +107,7 @@ export default function Pages({ kegiatan, qrData, qrCodeSvg, flash }: Props) {
   };
 
   return (
-    <AppLayout breadcrumbs={breadcrumbs}>
+    <AppLayout breadcrumbs={[{ title: 'Buat Absensi', href: '/fitur-khusus/buat-absensi' }]}>
       <Head title="Buat Absensi" />
       <div className="flex">
         <div className="from-background to-muted/20 flex w-full max-w-2xl flex-col gap-4 rounded-xl bg-gradient-to-br p-3 sm:gap-6 sm:p-4 md:p-6">
