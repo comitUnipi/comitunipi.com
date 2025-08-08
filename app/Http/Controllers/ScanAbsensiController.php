@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
-class QrCodeScanController extends Controller
+class ScanAbsensiController extends Controller
 {
     public function index()
     {
@@ -63,12 +63,10 @@ class QrCodeScanController extends Controller
 
         $alreadyScanned = QrCodeScan::where('qr_code_id', $qrCode->id)
             ->where('user_id', Auth::id())
-            ->where('scan_date', $today)
-            ->where('status', $status)
             ->first();
 
         if ($alreadyScanned) {
-            return redirect()->back()->with('error', "Anda sudah melakukan absen dengan status '{$status}' hari ini pada ".$alreadyScanned->scanned_at->format('H:i:s').'.');
+            return redirect()->back()->with('error', "Kamu sudah melakukan absen pada kegiatan ini dengan status {$alreadyScanned->status}.");
         }
 
         QrCodeScan::create([

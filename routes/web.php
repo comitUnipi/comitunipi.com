@@ -3,6 +3,7 @@
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\BuatAbsensiController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FormIzinController;
 use App\Http\Controllers\KasController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\LaporanAbsensiController;
@@ -10,7 +11,7 @@ use App\Http\Controllers\LaporanKeuanganController;
 use App\Http\Controllers\LinkGrupWAController;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
-use App\Http\Controllers\QrCodeScanController;
+use App\Http\Controllers\ScanAbsensiController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -58,10 +59,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/api/kegiatan/notification', [KegiatanController::class, 'notifications'])->name('kegiatan.notifications');
 
     Route::get('/fitur-utama/jadwal-kegiatan', [KegiatanController::class, 'terbaru'])->name('kegiatan.terbaru');
-    Route::get('/fitur-utama/scan-absensi', [QrCodeScanController::class, 'index'])->name('qr.scan.form');
-    Route::post('/fitur-utama/scan-absensi', [QrCodeScanController::class, 'store'])->name('qr.scan.store');
-    Route::get('/fitur-utama/form-izin', [AbsensiController::class, 'create'])->name('absensi.create');
-    Route::post('/fitur-utama/form-izin', [AbsensiController::class, 'store'])->name('absensi.store');
+    Route::get('/fitur-utama/scan-absensi', [ScanAbsensiController::class, 'index'])->name('qr.scan.form');
+    Route::post('/fitur-utama/scan-absensi', [ScanAbsensiController::class, 'store'])->name('qr.scan.store');
+    Route::get('/fitur-utama/form-izin', [FormIzinController::class, 'create'])->name('absensi.create');
+    Route::post('/fitur-utama/form-izin', [FormIzinController::class, 'store'])->name('absensi.store');
 });
 
 require __DIR__.'/public.php';
