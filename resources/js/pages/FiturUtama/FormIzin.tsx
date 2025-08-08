@@ -60,7 +60,7 @@ export default function Pages({ kegiatan, flash }: Props) {
       ]}
     >
       <Head title="Form Permohonan Izin" />
-      <div className="from-background to-muted/20 flex flex-col gap-6 rounded-xl bg-gradient-to-br p-4 md:p-6">
+      <div className="flex flex-col gap-6 rounded-xl p-4 md:p-6">
         <Heading title="Form Permohonan Izin" description="Ajukan permohonan izin atau sakit untuk kegiatan aktif." />
         <div className="max-w-md space-y-6">
           {kegiatan ? (

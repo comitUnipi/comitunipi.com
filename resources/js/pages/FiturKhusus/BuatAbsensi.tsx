@@ -110,7 +110,7 @@ export default function Pages({ kegiatan, qrData, qrCodeSvg, flash }: Props) {
     <AppLayout breadcrumbs={[{ title: 'Buat Absensi', href: '/fitur-khusus/buat-absensi' }]}>
       <Head title="Buat Absensi" />
       <div className="flex">
-        <div className="from-background to-muted/20 flex w-full max-w-2xl flex-col gap-4 rounded-xl bg-gradient-to-br p-3 sm:gap-6 sm:p-4 md:p-6">
+        <div className="flex w-full max-w-2xl flex-col gap-4 rounded-xl p-3 sm:gap-6 sm:p-4 md:p-6">
           <ToastNotification message={toastMessage} type={toastType} visible={showToast} />
           <ModalConfirm
             open={showConfirmModal}
@@ -178,7 +178,7 @@ export default function Pages({ kegiatan, qrData, qrCodeSvg, flash }: Props) {
                     Nonaktifkan QRCode
                   </Button>
                 )}
-                <Button variant="outline" onClick={handlePreviewQrInNewTab}>
+                <Button variant="default" onClick={handlePreviewQrInNewTab}>
                   Preview QRCode
                 </Button>
               </div>
