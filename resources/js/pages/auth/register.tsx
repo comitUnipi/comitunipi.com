@@ -4,11 +4,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { JENIS_KELAMIN_OPTIONS, JURUSAN_OPTIONS, MINAT_KEAHLIAN_OPTIONS } from '@/constants/form-options';
 import AuthLayout from '@/layouts/auth-layout';
 import { Head, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
-import { JENIS_KELAMIN_OPTIONS, JURUSAN_OPTIONS, MINAT_KEAHLIAN_OPTIONS } from '../Users/constants/form-option';
 
 type RegisterForm = {
   name: string;
@@ -45,7 +46,7 @@ export default function Register() {
   };
 
   return (
-    <AuthLayout title="Pendaftaran COMIT" description="Isi form ini sesuai dengan data diri, untuk daftar COMIT.">
+    <AuthLayout title="Pendaftaran Akun" description="Isi form ini sesuai dengan data diri, untuk daftar COMIT.">
       <Head title="Pendaftaran Anggota" />
       <form className="mt-2 flex flex-col gap-6" onSubmit={submit}>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -189,7 +190,7 @@ export default function Register() {
         </div>
         <div className="grid gap-2">
           <Label htmlFor="alasan">Alasan Mengikuti</Label>
-          <textarea
+          <Textarea
             id="alasan"
             required
             value={data.alasan}
