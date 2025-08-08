@@ -118,7 +118,7 @@ class AbsensiController extends Controller
         $scans = $query->orderByDesc('scan_date')->paginate(10)->withQueryString();
         $users = User::select('id', 'name')->get();
 
-        return Inertia::render('Absensi/Index', [
+        return Inertia::render('DataMaster/Absensi', [
             'scans' => $scans,
             'users' => $users,
             'filters' => [
