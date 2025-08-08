@@ -5,7 +5,7 @@ import { kegiatan } from '@/constants/kegiatan';
 import MainLayout from '@/layouts/main-layout';
 import { Head } from '@inertiajs/react';
 
-export default function Kegiatan() {
+export default function Pages() {
   return (
     <>
       <Head title="Berbagai Kegiatan Kami">

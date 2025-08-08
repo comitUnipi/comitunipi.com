@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class CalonAnggotaController extends Controller
+class PendaftaranAnggotaController extends Controller
 {
     public function create(): Response
     {
-        return Inertia::render('CalonAnggota/Register');
+        return Inertia::render('Core/PendaftaranAnggota');
     }
 
     public function store(Request $request)
@@ -21,7 +21,6 @@ class CalonAnggotaController extends Controller
             'name' => 'required|string|max:255',
             'npm' => 'required|string|max:20|unique:users,npm',
             'email' => 'required|email|unique:users,email',
-            // 'password' => ['required', 'confirmed', \Illuminate\Validation\Rules\Password::defaults()],
             'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
             'no_wa' => 'required|string|max:20',
             'jurusan' => 'required|string',

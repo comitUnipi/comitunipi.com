@@ -12,7 +12,7 @@ type GaleriItem = {
   alt: string;
 };
 
-export default function Galeri() {
+export default function Pages() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string>('');
 

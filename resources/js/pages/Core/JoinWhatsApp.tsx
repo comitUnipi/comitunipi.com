@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Head } from '@inertiajs/react';
 
-export default function JoinWhatsApp({ whatsappLink }: { whatsappLink: string }) {
+export default function Pages({ whatsappLink }: { whatsappLink: string }) {
   return (
     <>
       <Head title="Gabung Grup WhatsApp" />

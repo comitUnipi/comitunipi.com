@@ -5,7 +5,7 @@ import { mentors } from '@/constants/mentor';
 import MainLayout from '@/layouts/main-layout';
 import { Head } from '@inertiajs/react';
 
-export default function MentorKami() {
+export default function Pages() {
   return (
     <>
       <Head title="Pengenalan Mentor Berpengalaman Kami">

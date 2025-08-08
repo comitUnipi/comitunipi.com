@@ -4,10 +4,11 @@ import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { JENIS_KELAMIN_OPTIONS, JURUSAN_OPTIONS, MINAT_KEAHLIAN_OPTIONS } from '@/constants/form-options';
 import { Head, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
-import { JENIS_KELAMIN_OPTIONS, JURUSAN_OPTIONS, MINAT_KEAHLIAN_OPTIONS } from '../Users/constants/form-option';
 
 type RegisterForm = {
   name: string;
@@ -22,7 +23,7 @@ type RegisterForm = {
   alasan: string;
 };
 
-export default function Register() {
+export default function Pages() {
   const { data, setData, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
     name: '',
     npm: '',
@@ -207,7 +208,7 @@ export default function Register() {
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="alasan">Alasan Mengikuti</Label>
-                <textarea
+                <Textarea
                   id="alasan"
                   value={data.alasan}
                   onChange={(e) => setData('alasan', e.target.value)}
