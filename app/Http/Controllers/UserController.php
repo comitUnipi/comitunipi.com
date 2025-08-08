@@ -45,7 +45,7 @@ class UserController extends Controller
 
         $users = $query->paginate(10)->withQueryString();
 
-        return Inertia::render('Users/Index', [
+        return Inertia::render('DataMaster/Anggota', [
             'users' => $users,
             'filters' => [
                 'search' => request('search', ''),
@@ -64,7 +64,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        return Inertia::render('Users/Show', [
+        return Inertia::render('DataMaster/AnggotaDetail', [
             'user' => $user,
         ]);
     }
@@ -181,7 +181,7 @@ class UserController extends Controller
             fclose($handle);
         });
 
-        $filename = 'users_export_' . now()->format('Ymd_His') . '.csv';
+        $filename = 'users_export_'.now()->format('Ymd_His').'.csv';
 
         $response->headers->set('Content-Type', 'text/csv');
         $response->headers->set('Content-Disposition', "attachment; filename=\"$filename\"");
