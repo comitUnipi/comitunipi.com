@@ -4,17 +4,17 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { formatRupiah } from '@/lib/format-rupiah';
 import { parseRupiah } from '@/lib/parse-rupiah';
-import { Pemasukan } from '@/types';
+import { Pengeluaran } from '@/types';
 
 type Props = {
-  data: Pemasukan;
-  editingPemasukan: boolean;
+  data: Pengeluaran;
+  editingPengeluaran: boolean;
   processing: boolean;
-  setData: <K extends keyof Pemasukan>(key: K, value: Pemasukan[K]) => void;
+  setData: <K extends keyof Pengeluaran>(key: K, value: Pengeluaran[K]) => void;
   handleSubmit: React.FormEventHandler<HTMLFormElement>;
 };
 
-export default function FormPemasukan({ data, setData, editingPemasukan, handleSubmit, processing }: Props) {
+export default function FormPengeluaran({ data, setData, editingPengeluaran, handleSubmit, processing }: Props) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -52,12 +52,12 @@ export default function FormPemasukan({ data, setData, editingPemasukan, handleS
           value={data.description}
           onChange={(e) => setData('description', e.target.value)}
           disabled={processing}
-          placeholder="Jelaskan keterangan dari pemasukan ini"
+          placeholder="Jelaskan keterangan dari pengeluaran ini"
           className="border-input bg-background ring-offset-background focus-visible:ring-ring placeholder:text-muted-foreground flex w-full rounded-md border px-3 py-2 text-sm shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
         />
       </div>
       <Button type="submit" disabled={processing} className="w-full">
-        {editingPemasukan ? 'Ubah Data pemasukan' : 'Tambah Data'}
+        {editingPengeluaran ? 'Ubah Data Pengeluaran' : 'Tambah Data'}
       </Button>
     </form>
   );
