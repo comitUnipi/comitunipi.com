@@ -35,7 +35,7 @@ class LaporanAbsensiController extends Controller
 
             $statusCounts = [
                 'hadir' => $laporan->where('status', 'hadir')->count(),
-                'izin' => $laporan->where('status', 'ijin')->count(),
+                'izin' => $laporan->where('status', 'izin')->count(),
                 'sakit' => $laporan->where('status', 'sakit')->count(),
             ];
 
@@ -101,7 +101,7 @@ class LaporanAbsensiController extends Controller
             fputcsv($handle, []);
 
             fputcsv($handle, ['Total Hadir', $statusCounts['hadir']]);
-            fputcsv($handle, ['Total Ijin', $statusCounts['ijin']]);
+            fputcsv($handle, ['Total Izin', $statusCounts['izin']]);
             fputcsv($handle, ['Total Sakit', $statusCounts['sakit']]);
             fputcsv($handle, ['Total Absensi', $laporan->count()]);
 

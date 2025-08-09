@@ -16,7 +16,7 @@ interface Props {
   totalScan: number;
   statusCounts: {
     hadir: number;
-    ijin: number;
+    izin: number;
     sakit: number;
   };
 }

@@ -69,7 +69,7 @@ class LaporanKeuanganController extends Controller
         $totalDebit = $laporan->where('real_type', 'plus')->sum('amount');
         $totalKredit = $laporan->where('real_type', 'minus')->sum('amount');
 
-        return Inertia::render('Laporan/Index', [
+        return Inertia::render('Laporan/Keuangan', [
             'laporan' => $laporan->toArray(),
             'periode' => [
                 'start' => $start->toDateString(),
