@@ -102,8 +102,9 @@ class UserController extends Controller
         ]);
 
         $user->update($validated);
+        $redirectRoute = $request->input('redirect_to', 'users.index');
 
-        return redirect()->route('users.index')->with('success', 'Anggota berhasil di update!');
+        return redirect()->route($redirectRoute)->with('success', 'Data berhasil di update!');
     }
 
     public function destroy(User $user)

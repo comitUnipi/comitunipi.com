@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\BadanPengurusHarianController;
 use App\Http\Controllers\BuatAbsensiController;
+use App\Http\Controllers\CalonAnggotaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormIzinController;
 use App\Http\Controllers\KasController;
@@ -49,6 +51,10 @@ Route::middleware(['auth', 'verified', 'role:Super Admin'])->group(function () {
 
     Route::get('/fitur-khusus/buat-absensi', [BuatAbsensiController::class, 'generate'])->name('qr.create');
     Route::get('/fitur-khusus/group-whatsapp', [LinkGrupWAController::class, 'index'])->name('link.group-whatsapp.index');
+    Route::get('/fitur-khusus/badan-pengurus-harian', [BadanPengurusHarianController::class, 'index'])->name('badan-pengurus-harian.index');
+    Route::get('/fitur-khusus/badan-pengurus-harian/{id}', [BadanPengurusHarianController::class, 'show'])->name('badan-pengurus-harian.show');
+    Route::get('/fitur-khusus/calon-anggota', [CalonAnggotaController::class, 'index'])->name('calon-anggota.index');
+    Route::get('/fitur-khusus/calon-anggota/{id}', [CalonAnggotaController::class, 'show'])->name('calon-anggota.show');
     Route::post('/fitur-khusus/buat-absensi', [BuatAbsensiController::class, 'store'])->name('qr.store');
     Route::post('/fitur-khusus/buat-absensi/{id}/deactivate', [BuatAbsensiController::class, 'deactivate'])->name('qr.deactivate');
     Route::post('/fitur-khusus/group-whatsapp', [LinkGrupWAController::class, 'update'])->name('link.group-whatsapp.update');

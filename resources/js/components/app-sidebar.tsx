@@ -62,6 +62,16 @@ export function AppSidebar() {
       icon: QrCode,
     },
     {
+      title: 'Badan Pengurus Harian',
+      href: '/fitur-khusus/badan-pengurus-harian',
+      icon: Users,
+    },
+    {
+      title: 'Calon Anggota',
+      href: '/fitur-khusus/calon-anggota',
+      icon: Users,
+    },
+    {
       title: 'Link Group WA',
       href: '/fitur-khusus/group-whatsapp',
       icon: TabletSmartphone,
