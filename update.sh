@@ -9,7 +9,7 @@ echo "Pull branch main..."
 git pull origin main
 
 echo "Install dependencies PHP (Composer)..."
-composer install --ignore-platform-req=ext-fileinfo
+composer install --ignore-platform-req=ext-fileinfo --no-dev --optimize-autoloader
 
 echo "Clear Laravel cache..."
 php artisan cache:clear
