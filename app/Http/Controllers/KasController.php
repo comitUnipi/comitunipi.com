@@ -32,7 +32,7 @@ class KasController extends Controller
 
         $users = User::select('id', 'name')->get();
 
-        return Inertia::render('Kas/Index', [
+        return Inertia::render('DataMaster/Kas', [
             'kas' => $kas,
             'users' => $users,
             'filters' => [

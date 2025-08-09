@@ -80,3 +80,25 @@ export interface Laporan {
   real_type: 'plus' | 'minus';
   amount: number;
 }
+
+export interface Kegiatan {
+  id?: number;
+  name: string;
+  description: string;
+  date: string;
+  time: string;
+  location: string;
+  audiens: string;
+}
+
+export interface Absensi {
+  id: number | string;
+  user?: User;
+  qr_code?: {
+    kegiatan?: Kegiatan;
+  };
+  status: string;
+  description?: string;
+  scan_date: string;
+  scanned_at: string;
+}

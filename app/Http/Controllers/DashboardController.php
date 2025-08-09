@@ -24,7 +24,7 @@ class DashboardController extends Controller
             'totalPengeluaran' => Pengeluaran::sum('amount'),
         ];
 
-        return Inertia::render('Dashboard', [
+        return Inertia::render('FiturUtama/Dashboard', [
             'stats' => $stats,
             'flash' => [
                 'success' => session('success'),

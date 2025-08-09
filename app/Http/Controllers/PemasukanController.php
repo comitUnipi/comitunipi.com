@@ -19,7 +19,7 @@ class PemasukanController extends Controller
 
         $pemasukan = $query->orderByDesc('date')->paginate(10)->withQueryString();
 
-        return Inertia::render('Pemasukan/Index', [
+        return Inertia::render('DataMaster/Pemasukan', [
             'pemasukan' => $pemasukan,
             'filters' => [
                 'start_date' => $request->input('start_date', ''),
@@ -64,6 +64,7 @@ class PemasukanController extends Controller
     {
         $pemasukan = Pemasukan::findOrFail($id);
         $pemasukan->delete();
+
         return redirect()->route('pemasukan.index')->with('success', 'Data berhasil dihapus!');
     }
 
@@ -92,7 +93,7 @@ class PemasukanController extends Controller
             fclose($handle);
         });
 
-        $filename = 'pemasukan_export_' . now()->format('Ymd_His') . '.csv';
+        $filename = 'pemasukan_export_'.now()->format('Ymd_His').'.csv';
         $response->headers->set('Content-Type', 'text/csv');
         $response->headers->set('Content-Disposition', "attachment; filename=\"$filename\"");
 

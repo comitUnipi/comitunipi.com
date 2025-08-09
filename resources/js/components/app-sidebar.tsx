@@ -2,7 +2,7 @@ import { NavMain } from '@/components/nav-main';
 import { Sidebar, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { ArrowBigDown, ArrowBigUp, Dock, LayoutGrid, User, Users } from 'lucide-react';
+import { ArrowBigDown, ArrowBigUp, Calendar, Camera, Dock, LayoutGrid, MailIcon, QrCode, TabletSmartphone, User, Users, Users2 } from 'lucide-react';
 import AppLogo from './app-logo';
 
 type Role = 'Super Admin' | 'Admin' | 'Finance' | 'User' | 'Guest' | 'LimitedAccess';
@@ -38,27 +38,75 @@ export function AppSidebar() {
       href: '/dashboard',
       icon: LayoutGrid,
     },
+    {
+      title: 'Jadwal Kegiatan',
+      href: '/fitur-utama/jadwal-kegiatan',
+      icon: Calendar,
+    },
+    {
+      title: 'Scan Absensi',
+      href: '/fitur-utama/scan-absensi',
+      icon: Camera,
+    },
+    {
+      title: 'Form Izin',
+      href: '/fitur-utama/form-izin',
+      icon: MailIcon,
+    },
+  ];
+
+  const fiturNavItems: NavItem[] = [
+    {
+      title: 'Buat Absensi',
+      href: '/fitur-khusus/buat-absensi',
+      icon: QrCode,
+    },
+    {
+      title: 'Badan Pengurus Harian',
+      href: '/fitur-khusus/badan-pengurus-harian',
+      icon: Users,
+    },
+    {
+      title: 'Calon Anggota',
+      href: '/fitur-khusus/calon-anggota',
+      icon: Users,
+    },
+    {
+      title: 'Link Group WA',
+      href: '/fitur-khusus/group-whatsapp',
+      icon: TabletSmartphone,
+    },
   ];
 
   const masterNavItems: NavItem[] = [
     {
       title: 'Data Anggota',
-      href: '/users',
+      href: '/data-master/data-anggota',
       icon: Users,
     },
     {
+      title: 'Data Absensi',
+      href: '/data-master/data-absensi',
+      icon: Users2,
+    },
+    {
+      title: 'Data Kegiatan',
+      href: '/data-master/data-kegiatan',
+      icon: Calendar,
+    },
+    {
       title: 'Data Uang KAS',
-      href: '/kas',
+      href: '/data-master/data-kas',
       icon: Dock,
     },
     {
       title: 'Data Pemasukan',
-      href: '/pemasukan',
+      href: '/data-master/data-pemasukan',
       icon: ArrowBigDown,
     },
     {
       title: 'Data Pengeluaran',
-      href: '/pengeluaran',
+      href: '/data-master/data-pengeluaran',
       icon: ArrowBigUp,
     },
   ];
@@ -66,8 +114,13 @@ export function AppSidebar() {
   const laporanNavItems: NavItem[] = [
     {
       title: 'Laporan Keuangan',
-      href: '/laporan',
+      href: '/laporan/keuangan',
       icon: Dock,
+    },
+    {
+      title: 'Laporan Absensi',
+      href: '/laporan/absensi',
+      icon: Users2,
     },
   ];
 
@@ -79,9 +132,18 @@ export function AppSidebar() {
     },
   ];
 
-  const roleAccessMap: Record<Role, { master?: boolean; laporan?: boolean; setting?: boolean }> = {
+  const roleAccessMap: Record<
+    Role,
+    {
+      master?: boolean;
+      special?: boolean;
+      laporan?: boolean;
+      setting?: boolean;
+    }
+  > = {
     'Super Admin': {
       master: true,
+      special: true,
       laporan: true,
       setting: true,
     },
@@ -125,6 +187,7 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <NavMain label="Fitur Utama" items={mainNavItems} />
+        {access.special && <NavMain label="Fitur Khusus" items={fiturNavItems} />}
         {access.master && <NavMain label="Data Master" items={masterNavItems} />}
         {access.laporan && <NavMain label="Laporan" items={laporanNavItems} />}
         {access.setting && <NavMain label="Pengaturan" items={settingNavItems} />}

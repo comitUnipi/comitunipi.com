@@ -19,7 +19,7 @@ class PengeluaranController extends Controller
 
         $pengeluaran = $query->orderByDesc('date')->paginate(10)->withQueryString();
 
-        return Inertia::render('Pengeluaran/Index', [
+        return Inertia::render('DataMaster/Pengeluaran', [
             'pengeluaran' => $pengeluaran,
             'filters' => [
                 'start_date' => $request->input('start_date', ''),
@@ -64,6 +64,7 @@ class PengeluaranController extends Controller
     {
         $pengeluaran = Pengeluaran::findOrFail($id);
         $pengeluaran->delete();
+
         return redirect()->route('pengeluaran.index')->with('success', 'Data berhasil dihapus!');
     }
 
@@ -92,7 +93,7 @@ class PengeluaranController extends Controller
             fclose($handle);
         });
 
-        $filename = 'pengeluaran_export_' . now()->format('Ymd_His') . '.csv';
+        $filename = 'pengeluaran_export_'.now()->format('Ymd_His').'.csv';
         $response->headers->set('Content-Type', 'text/csv');
         $response->headers->set('Content-Disposition', "attachment; filename=\"$filename\"");
 

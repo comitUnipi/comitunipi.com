@@ -30,6 +30,7 @@ export default function Navbar() {
     { label: 'Humas Internal', href: '/kepengurusan/humas-internal' },
     { label: 'Humas Eksternal', href: '/kepengurusan/humas-eksternal' },
     { label: 'Koordinator', href: '/kepengurusan/koordinator' },
+    { label: 'Prasarana', href: '/kepengurusan/prasarana' },
     { label: 'Kominfo', href: '/kepengurusan/kominfo' },
     { label: 'Staff Design Grafis', href: '/kepengurusan/staff-design-grafis' },
     { label: 'Staff Programming', href: '/kepengurusan/staff-programming' },
@@ -41,18 +42,18 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 bg-blue-600 shadow-lg backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
-          <a href="/" className="h-16 w-16 object-contain sm:h-20 sm:w-20">
+          <Link href="/" className="h-16 w-16 object-contain sm:h-20 sm:w-20">
             <img className="h-16 w-16 object-contain sm:h-20 sm:w-20" src="/logo_white.png" alt="Logo" />
-          </a>
+          </Link>
 
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
-              <a
+              <Link
                 href="/visi-dan-misi"
                 className="rounded-md px-3 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
               >
                 Visi dan Misi
-              </a>
+              </Link>
 
               <div className="relative">
                 <button
@@ -66,32 +67,32 @@ export default function Navbar() {
                 {isKepengurusanOpen && (
                   <div className="ring-opacity-5 absolute left-0 z-50 mt-2 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black">
                     {kepengurusan.map((item, index) => (
-                      <a key={index} href={item.href} className="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100">
+                      <Link key={index} href={item.href} className="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100">
                         {item.label}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 )}
               </div>
 
-              <a
+              <Link
                 href="/mentor-kami"
                 className="rounded-md px-3 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
               >
                 Mentor Kami
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/kegiatan-kami"
                 className="rounded-md px-3 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
               >
                 Kegiatan
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/galeri-kami"
                 className="rounded-md px-3 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
               >
                 Galeri
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -132,12 +133,12 @@ export default function Navbar() {
       {isMenuOpen && (
         <div className="md:hidden">
           <div className="space-y-1 border-t border-white/20 bg-blue-600/95 px-2 pt-2 pb-3 backdrop-blur-md sm:px-3">
-            <a
+            <Link
               href="/visi-dan-misi"
               className="block rounded-md px-3 py-2 text-base font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
             >
               Visi dan Misi
-            </a>
+            </Link>
 
             <div>
               <button
@@ -151,36 +152,36 @@ export default function Navbar() {
               {isMobileKepengurusanOpen && (
                 <div className="mt-1 ml-4 space-y-1">
                   {kepengurusan.map((item, index) => (
-                    <a
+                    <Link
                       key={index}
                       href={item.href}
                       className="block rounded-md px-3 py-2 text-sm text-white/80 transition-colors hover:bg-white/10 hover:text-white"
                     >
                       {item.label}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}
             </div>
 
-            <a
+            <Link
               href="/mentor-kami"
               className="block rounded-md px-3 py-2 text-base font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
             >
               Mentor Kami
-            </a>
-            <a
+            </Link>
+            <Link
               href="/kegiatan-kami"
               className="block rounded-md px-3 py-2 text-base font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
             >
               Kegiatan
-            </a>
-            <a
+            </Link>
+            <Link
               href="/galeri-kami"
               className="block rounded-md px-3 py-2 text-base font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
             >
               Galeri
-            </a>
+            </Link>
           </div>
 
           <div className="border-t border-white/20 bg-blue-600/95 px-2 pt-2 pb-3 backdrop-blur-md">
