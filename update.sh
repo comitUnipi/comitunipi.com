@@ -10,8 +10,10 @@ git pull origin main
 
 echo "Install dependencies PHP (Composer)..."
 composer install --ignore-platform-req=ext-fileinfo --no-dev --optimize-autoloader
+composer dump-autoload --optimize
 
 echo "Clear Laravel cache..."
+php artisan optimize:clear
 php artisan cache:clear
 php artisan config:clear
 php artisan route:clear
@@ -23,7 +25,7 @@ php artisan route:cache
 php artisan view:cache
 
 echo "Install dependencies JS (npm)..."
-npm install
+npm ci
 
 echo "Build SSR..."
 npm run build:ssr
