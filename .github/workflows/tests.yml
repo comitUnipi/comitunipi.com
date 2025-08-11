@@ -14,6 +14,22 @@ jobs:
   ci:
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test_db
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -u user -ppassword"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -42,6 +58,22 @@ jobs:
 
       - name: Copy Environment File
         run: cp .env.example .env
+
+      - name: Set Environment Variables for MySQL
+        run: |
+          echo "DB_CONNECTION=mysql" >> .env
+          echo "DB_HOST=127.0.0.1" >> .env
+          echo "DB_PORT=3306" >> .env
+          echo "DB_DATABASE=test_db" >> .env
+          echo "DB_USERNAME=user" >> .env
+          echo "DB_PASSWORD=password" >> .env
+
+      - name: Wait for MySQL
+        run: |
+          echo "Waiting for MySQL to be ready..."
+          until mysqladmin ping -h 127.0.0.1 -u user -ppassword --silent; do
+            sleep 1
+          done
 
       - name: Generate Application Key
         run: php artisan key:generate
