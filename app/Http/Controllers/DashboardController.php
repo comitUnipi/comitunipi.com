@@ -13,15 +13,15 @@ class DashboardController extends Controller
     public function index()
     {
         $stats = [
-            'totalUsers' => User::all()->count(),
+            'totalUsers' => User::count(),
             'totalUsersAktif' => User::where('is_active', true)->count(),
             'totalUsersNonaktif' => User::where('is_active', false)->count(),
             'totalPengurus' => User::where('is_active', true)
                 ->whereNotIn('role', ['User', 'Guest'])
                 ->count(),
-            'totalKAS' => Kas::sum('amount'),
-            'totalPemasukan' => Pemasukan::sum('amount'),
-            'totalPengeluaran' => Pengeluaran::sum('amount'),
+            'totalKAS' => number_format(Kas::sum('amount'), 2, '.', ''),
+            'totalPemasukan' => number_format(Pemasukan::sum('amount'), 2, '.', ''),
+            'totalPengeluaran' => number_format(Pengeluaran::sum('amount'), 2, '.', ''),
         ];
 
         return Inertia::render('FiturUtama/Dashboard', [

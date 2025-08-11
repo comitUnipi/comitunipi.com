@@ -14,7 +14,7 @@ class KasFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'amount' => $this->faker->numberBetween(10000, 20000),
+            'amount' => $this->faker->randomFloat(2, 10000, 20000),
             'date' => $this->faker->date(),
             'type' => $this->faker->randomElement(['Pengurus', 'Anggota']),
         ];

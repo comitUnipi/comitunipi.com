@@ -12,7 +12,7 @@ class PemasukanFactory extends Factory
     public function definition(): array
     {
         return [
-            'amount' => $this->faker->numberBetween(10000, 500000),
+            'amount' => $this->faker->randomFloat(2, 10000, 200000),
             'date' => $this->faker->date(),
             'description' => $this->faker->sentence(),
         ];
