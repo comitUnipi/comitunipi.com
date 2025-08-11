@@ -21,4 +21,8 @@ class Kas extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    protected $casts = [
+        'amount' => 'decimal:2',
+    ];
 }
