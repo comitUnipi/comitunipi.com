@@ -35,7 +35,7 @@ jobs:
         run: npm ci
 
       - name: Build Assets
-        run: npm run build
+        run: npm run build:ssr
 
       - name: Install Dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
@@ -46,5 +46,8 @@ jobs:
       - name: Generate Application Key
         run: php artisan key:generate
 
-      # - name: Tests
-        # run: ./vendor/bin/phpunit
+      - name: Migrate Database
+        run: php artisan migrate --force
+
+      - name: Tests Feature
+        run: php artisan test tests/Feature
