@@ -29,14 +29,14 @@ npm run build:ssr
 echo "Menghapus hasil build sebelumnya di folder tujuan..."
 rm -rf ../favicon ../build ../images ../robots.txt
 
+echo "Migrate database..."
+php artisan migrate --force
+
 echo "Memindahkan hasil build ke folder parent..."
 cd public/
 cp -r build/ ../../
 cp -r favicon/ ../../
 cp -r images/ ../../
 cp -r robots.txt ../../
-
-echo "Migrate database..."
-php artisan migrate --force
 
 echo "✅Update selesai."
