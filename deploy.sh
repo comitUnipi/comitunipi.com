@@ -6,15 +6,12 @@ echo "Reset repo & Pull branch main..."
 git reset --hard HEAD
 git pull origin main
 
-echo "Install dependencies JS (npm)..."
-npm ci
-
-echo "Build SSR..."
-npm run build:ssr
-
 echo "Install dependencies PHP (Composer)..."
 composer install --ignore-platform-req=ext-fileinfo --no-dev --optimize-autoloader
 composer dump-autoload --optimize
+
+echo "Migration database..."
+php artisan migrate --force
 
 echo "Clear Laravel cache..."
 php artisan optimize:clear
@@ -24,8 +21,11 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-echo "Migration database..."
-php artisan migrate --force
+echo "Install dependencies JS (npm)..."
+npm ci
+
+echo "Build SSR..."
+npm run build:ssr
 
 echo "Menghapus hasil build sebelumnya di folder tujuan..."
 rm -rf ../favicon ../build ../images ../robots.txt
