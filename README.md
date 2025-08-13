@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./public/logo_white.png" width="160" alt="logo">
+  <img src="./public/images/logo/logo_white.png" width="160" alt="logo">
 </p>
 
 <p align="center">
@@ -18,10 +18,10 @@ Dibangun menggunakan **Laravel** dan **React**, didesain elegan dan minimalist d
 
 ### Fitur Utama
 
-- Profil Organisisi, tampilan informasi lengkap tentang apa itu COMIT.
-- Manajemen Keanggotaan, sistem pendaftaran anggota.
-- Manajemen Keuangan, sistem mengelola dan memantau keuangan, dan laporan keuangan.
-- Manajemen Kegiatan, sistem mengelola semua kegiatan, beserta absensi digital.
+- Profil Organisasi, tampilan informasi lengkap tentang apa itu COMIT.
+- Manajemen data Keanggotaan, sistem pendaftaran anggota.
+- Manajemen data Keuangan, sistem mengelola dan memantau keuangan, dan laporan keuangan.
+- Manajemen data Kegiatan, sistem mengelola semua kegiatan, beserta absensi digital dan laporan absensi.
 
 ### License
 
