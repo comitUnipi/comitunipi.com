@@ -26,11 +26,11 @@ npm ci
 echo "Build SSR..."
 npm run build:ssr
 
-echo "Menghapus hasil build sebelumnya di folder tujuan..."
-rm -rf ../favicon ../build ../images ../robots.txt
-
 echo "Migrate database..."
 php artisan migrate --force
+
+echo "Menghapus hasil build sebelumnya di folder tujuan..."
+rm -rf ../favicon ../build ../images ../robots.txt
 
 echo "Memindahkan hasil build ke folder parent..."
 cd public/
