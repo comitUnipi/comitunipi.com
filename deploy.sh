@@ -32,9 +32,9 @@ rm -rf ../favicon ../build ../images ../robots.txt
 
 echo "Memindahkan hasil build ke folder parent..."
 cd public/
-mv build/ ../../
+cp -r build/ ../../
 cp -r favicon/ ../../
 cp -r images/ ../../
-cp -r robots.txt ../../
+cp robots.txt ../../
 
 echo "✅Update selesai."
