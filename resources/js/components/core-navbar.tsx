@@ -43,7 +43,7 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
           <Link href="/" className="h-16 w-16 object-contain sm:h-20 sm:w-20">
-            <img className="h-16 w-16 object-contain sm:h-20 sm:w-20" src="/logo_white.png" alt="Logo" />
+            <img className="h-16 w-16 object-contain sm:h-20 sm:w-20" src="/images/logo/logo_white.png" alt="Logo" />
           </Link>
 
           <div className="hidden md:block">

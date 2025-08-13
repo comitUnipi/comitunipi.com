@@ -54,11 +54,11 @@ export default function Footer() {
               <div className="mb-8">
                 <div className="mb-6 flex items-center gap-6">
                   <div className="group cursor-pointer">
-                    <img src="/logo_white.png" alt="logo" className="max-w-[160px] transition-transform duration-300 group-hover:scale-105" />
+                    <img src="/images/logo/logo_white.png" alt="logo" className="max-w-[160px] transition-transform duration-300 group-hover:scale-105" />
                   </div>
                   <div className="h-12 w-px bg-gradient-to-b from-transparent via-white/30 to-transparent"></div>
                   <a href="https://unipem.ac.id/" target="_blank" className="group block">
-                    <img src="/images/unipi.png" alt="unipi" className="max-w-[100px] transition-transform duration-300 group-hover:scale-105" />
+                    <img src="/images/logo/unipi.png" alt="unipi" className="max-w-[100px] transition-transform duration-300 group-hover:scale-105" />
                   </a>
                 </div>
 
