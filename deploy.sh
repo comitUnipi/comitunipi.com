@@ -2,16 +2,15 @@
 
 set -e
 
-echo "Reset repo & Pull branch main..."
+echo "Reset repo..."
 git reset --hard HEAD
+
+echo "Pull branch main..."
 git pull origin main
 
 echo "Install dependencies PHP (Composer)..."
 composer install --ignore-platform-req=ext-fileinfo --no-dev --optimize-autoloader
 composer dump-autoload --optimize
-
-echo "Migration database..."
-php artisan migrate --force
 
 echo "Clear Laravel cache..."
 php artisan optimize:clear
@@ -35,6 +34,9 @@ cd public/
 cp -r build/ ../../
 cp -r favicon/ ../../
 cp -r images/ ../../
-cp robots.txt ../../
+cp -r robots.txt ../../
+
+echo "Migrate database..."
+php artisan migrate --force
 
 echo "✅Update selesai."
