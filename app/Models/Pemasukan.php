@@ -7,12 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pemasukan extends Model
 {
-    protected $table = 'pemasukan'; 
+    protected $table = 'pemasukan';
+
     use HasFactory;
 
     protected $fillable = [
         'amount',
         'date',
         'description',
+    ];
+
+    protected $casts = [
+        'amount' => 'decimal:2',
     ];
 }

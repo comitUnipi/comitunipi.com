@@ -30,6 +30,6 @@ export const STATUS_OPTIONS = [
 
 export const MINAT_KEAHLIAN_OPTIONS = ['Programming', 'Design Grafis', 'Computer & Networking', 'Microsoft Office'];
 
-export const JURUSAN_OPTIONS = ['Teknologi Informasi', 'Sistem Informasi', 'Software Enginner', 'Akutansi', 'Manajemen'];
+export const JURUSAN_OPTIONS = ['Teknologi Informasi', 'Sistem Informasi', 'Software Enginner', 'Akutansi', 'Manajemen', 'Hukum'];
 
 export const JENIS_KELAMIN_OPTIONS = ['Laki-Laki', 'Perempuan'];

@@ -1,23 +1,18 @@
-import { type BreadcrumbItem, type SharedData } from '@/types';
-import { Transition } from '@headlessui/react';
-import { Head, Link, useForm, usePage } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
-
 import DeleteUser from '@/components/delete-user';
 import HeadingSmall from '@/components/heading-small';
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { JENIS_KELAMIN_OPTIONS, JURUSAN_OPTIONS, MINAT_KEAHLIAN_OPTIONS } from '@/constants/form-options';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
-
-const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: 'Pengaturan profile',
-    href: '/settings/profile',
-  },
-];
+import { type SharedData } from '@/types';
+import { Transition } from '@headlessui/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
+import { FormEventHandler } from 'react';
 
 type ProfileForm = {
   name: string;
@@ -51,7 +46,14 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
   };
 
   return (
-    <AppLayout breadcrumbs={breadcrumbs}>
+    <AppLayout
+      breadcrumbs={[
+        {
+          title: 'Pengaturan profile',
+          href: '/settings/profile',
+        },
+      ]}
+    >
       <Head title="Pengaturan profile" />
       <SettingsLayout>
         <div className="space-y-6">
@@ -64,7 +66,6 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                 className="mt-1 block w-full"
                 value={data.name}
                 onChange={(e) => setData('name', e.target.value)}
-                required
                 autoComplete="name"
                 placeholder="Nama Lengkap"
               />
@@ -78,7 +79,6 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                 className="mt-1 block w-full"
                 value={data.email}
                 onChange={(e) => setData('email', e.target.value)}
-                required
                 autoComplete="username"
                 placeholder="Email address"
               />
@@ -104,17 +104,18 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
             )}
             <div className="grid gap-2">
               <Label htmlFor="jenis_kelamin">Jenis Kelamin</Label>
-              <select
-                id="jenis_kelamin"
-                value={data.jenis_kelamin}
-                onChange={(e) => setData('jenis_kelamin', e.target.value)}
-                required
-                className="border-input bg-background ring-offset-background focus-visible:ring-ring placeholder:text-muted-foreground flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-              >
-                <option value="">Pilih jenis kelamin</option>
-                <option value="Laki-Laki">Laki-Laki</option>
-                <option value="Perempuan">Perempuan</option>
-              </select>
+              <Select value={data.jenis_kelamin} onValueChange={(val) => setData('jenis_kelamin', val)}>
+                <SelectTrigger id="jenis_kelamin" disabled={processing}>
+                  <SelectValue placeholder="Pilih Jenis Kelamin" />
+                </SelectTrigger>
+                <SelectContent>
+                  {JENIS_KELAMIN_OPTIONS.map((value) => (
+                    <SelectItem key={value} value={value}>
+                      {value}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <InputError message={errors.jenis_kelamin} />
             </div>
             <div className="grid gap-2">
@@ -122,7 +123,6 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
               <Input
                 id="no_wa"
                 type="tel"
-                required
                 value={data.no_wa}
                 onChange={(e) => setData('no_wa', e.target.value)}
                 disabled={processing}
@@ -132,46 +132,40 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
             </div>
             <div className="grid gap-2">
               <Label htmlFor="jurusan">Jurusan</Label>
-              <select
-                id="jurusan"
-                value={data.jurusan}
-                onChange={(e) => setData('jurusan', e.target.value)}
-                disabled={processing}
-                required
-                className="border-input bg-background ring-offset-background focus-visible:ring-ring placeholder:text-muted-foreground flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-              >
-                <option value="">Pilih jurusan</option>
-                <option value="Sistem Informasi">Sistem Informasi</option>
-                <option value="Teknologi Informasi">Teknologi Informasi</option>
-                <option value="Software Enginner">Software Enginner</option>
-                <option value="Akutansi">Akutansi</option>
-                <option value="Manajemen">Manajemen</option>
-              </select>
+              <Select value={data.jurusan} onValueChange={(val) => setData('jurusan', val)}>
+                <SelectTrigger id="jurusan" disabled={processing}>
+                  <SelectValue placeholder="Pilih Jurusan" />
+                </SelectTrigger>
+                <SelectContent>
+                  {JURUSAN_OPTIONS.map((value) => (
+                    <SelectItem key={value} value={value}>
+                      {value}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <InputError message={errors.jurusan} />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="minat_keahlian">Minat Keahlian</Label>
-              <select
-                id="minat_keahlian"
-                value={data.minat_keahlian}
-                onChange={(e) => setData('minat_keahlian', e.target.value)}
-                disabled={processing}
-                required
-                className="border-input bg-background ring-offset-background focus-visible:ring-ring placeholder:text-muted-foreground flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-              >
-                <option value="">Pilih minat keahlian</option>
-                <option value="Programming">Programming</option>
-                <option value="Design Grafis">Design Grafis</option>
-                <option value="Microsoft Office">Microsoft Office</option>
-              </select>
+              <Select value={data.minat_keahlian} onValueChange={(val) => setData('minat_keahlian', val)}>
+                <SelectTrigger id="minat_keahlian" disabled={processing}>
+                  <SelectValue placeholder="Pilih Minat Keahlian" />
+                </SelectTrigger>
+                <SelectContent>
+                  {MINAT_KEAHLIAN_OPTIONS.map((value) => (
+                    <SelectItem key={value} value={value}>
+                      {value}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <InputError message={errors.minat_keahlian} />
             </div>
-
             <div className="grid gap-2">
               <Label htmlFor="alasan">Alasan Mengikuti</Label>
-              <textarea
+              <Textarea
                 id="alasan"
-                required
                 value={data.alasan}
                 onChange={(e) => setData('alasan', e.target.value)}
                 disabled={processing}

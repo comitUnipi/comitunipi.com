@@ -230,8 +230,7 @@ export default function Pages({ kas, users, filters, flash }: Props) {
                 <DialogTrigger>
                   <div className="bg-primary hover:bg-primary/90 flex cursor-pointer items-center rounded-md px-3 py-2 text-sm whitespace-nowrap text-white shadow-lg dark:text-black">
                     <Plus className="mr-2 h-4 w-4" />
-                    <span className="xs:inline hidden sm:hidden md:inline">Tambah Data</span>
-                    <span className="xs:hidden sm:inline md:hidden">Tambah</span>
+                    <span className="md:inline">Tambah Data</span>
                   </div>
                 </DialogTrigger>
                 <DialogContent className="max-h-[90vh] w-[calc(100vw-2rem)] overflow-y-auto sm:max-w-[600px]">
