@@ -19,7 +19,11 @@ export default function KegiatanCard({ img, title, description }: Props) {
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
           </div>
           <div className="absolute -top-3 -right-3 h-16 w-16 overflow-hidden rounded-full border-4 border-white bg-white shadow-lg transition-all duration-500 group-hover:scale-110 group-hover:border-blue-200 group-hover:shadow-xl">
-            <img src="/logo_black.png" alt="logo comit" className="h-full w-full object-cover transition-all duration-500 group-hover:scale-105" />
+            <img
+              src="/images/logo/logo_black.png"
+              alt="logo comit"
+              className="h-full w-full object-cover transition-all duration-500 group-hover:scale-105"
+            />
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-blue-700/10 transition-opacity duration-500 group-hover:opacity-0" />
           </div>
         </div>
