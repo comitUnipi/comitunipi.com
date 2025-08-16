@@ -22,4 +22,11 @@ class QrCode extends Model
     {
         return $this->belongsTo(Kegiatan::class);
     }
+
+    protected function casts(): array
+    {
+        return [
+            'is_active' => 'boolean',
+        ];
+    }
 }
