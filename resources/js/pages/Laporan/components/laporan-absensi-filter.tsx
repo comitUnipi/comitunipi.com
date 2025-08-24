@@ -1,38 +1,35 @@
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 
 type Props = {
-  selectedDate: string;
-  setSelectedDate: (date: string) => void;
-  handleFilterTanggal: () => void;
-  handleResetTanggal: () => void;
+  selectedKegiatan: string;
+  setSelectedKegiatan: (id: string) => void;
+  kegiatanList: { id: number; name: string }[];
+  handleFilter: () => void;
+  handleReset: () => void;
 };
 
-export default function FilterLaporanAbsensi({ selectedDate, setSelectedDate, handleFilterTanggal, handleResetTanggal }: Props) {
+export default function FilterLaporanAbsensi({ selectedKegiatan, setSelectedKegiatan, kegiatanList, handleFilter, handleReset }: Props) {
   return (
-    <div className="flex flex-col gap-2 sm:gap-4">
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-end">
-        <div className="flex0 flex flex-col gap-2 sm:flex-row sm:gap-3">
-          <div className="flex0 flex flex-col gap-1">
-            <label className="text-gray-599 text-xs font-medium sm:hidden">Tanggal</label>
-            <Input
-              type="date"
-              value={selectedDate}
-              onChange={(e) => setSelectedDate(e.target.value)}
-              placeholder="Tanggal Mulai"
-              className="w-full"
-            />
-          </div>
-        </div>
-        <div className="flex gap-1 sm:gap-3">
-          <Button onClick={handleFilterTanggal} className="flex0 text-xs sm:flex-none sm:text-sm">
-            <span className="sm:inline">Filter tanggal</span>
-          </Button>
-          <Button variant="outline" onClick={handleResetTanggal} className="flex0 text-xs sm:flex-none sm:text-sm">
-            Reset
-          </Button>
-        </div>
+    <div className="flex items-end gap-3">
+      <div className="flex flex-col gap-1">
+        <label className="text-xs font-medium">Kegiatan</label>
+        <select
+          value={selectedKegiatan}
+          onChange={(e) => setSelectedKegiatan(e.target.value)}
+          className="w-64 rounded-md border border-gray-300 p-2 text-sm"
+        >
+          <option value="">Semua Kegiatan</option>
+          {kegiatanList.map((k) => (
+            <option key={k.id} value={k.id}>
+              {k.name}
+            </option>
+          ))}
+        </select>
       </div>
+      <Button onClick={handleFilter}>Filter</Button>
+      <Button variant="outline" onClick={handleReset}>
+        Reset
+      </Button>
     </div>
   );
 }
