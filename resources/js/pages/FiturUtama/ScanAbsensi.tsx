@@ -33,8 +33,17 @@ export default function Pages() {
         return;
       }
 
-      const selectedDevice =
-        devices.find((device) => device.label.toLowerCase().includes('back') || device.label.toLowerCase().includes('rear')) || devices[0];
+      // const selectedDevice =
+      //   devices.find((device) => device.label.toLowerCase().includes('back') || device.label.toLowerCase().includes('rear')) || devices[0];
+
+      const selectedDevice = devices.find((device) => device.label.toLowerCase().includes('back') || device.label.toLowerCase().includes('rear'));
+
+      if (!selectedDevice) {
+        setGeneralError('Kamera belakang tidak ditemukan.');
+        return;
+      }
+
+      console.log({ devices });
 
       const html5QrCode = new Html5Qrcode('reader');
       html5QrCodeRef.current = html5QrCode;
