@@ -5,6 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { formatRupiah } from '@/lib/format-rupiah';
 import { parseRupiah } from '@/lib/parse-rupiah';
 import { Kas, User } from '@/types';
+import { useState } from 'react';
 
 interface Props {
   data: Kas;
@@ -16,6 +17,10 @@ interface Props {
 }
 
 export default function FormKas({ data, setData, editingKAS, handleSubmit, processing, users }: Props) {
+  const [search, setSearch] = useState('');
+
+  const filteredUsers = users.filter((u) => u.name.toLowerCase().includes(search.toLowerCase()));
+
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {editingKAS ? (
@@ -70,17 +75,22 @@ export default function FormKas({ data, setData, editingKAS, handleSubmit, proce
               <Label htmlFor="user_id" className="text-sm font-medium">
                 Pilih Anggota
               </Label>
+              <Input placeholder="Cari anggota dan kemudian pilih..." value={search} onChange={(e) => setSearch(e.target.value)} className="w-full" />
               <Select value={data.user_id?.toString()} onValueChange={(val) => setData('user_id', parseInt(val))}>
                 <SelectTrigger id="user_id" className="w-full">
                   <SelectValue placeholder="Pilih Anggota" />
                 </SelectTrigger>
                 <SelectContent>
-                  {users.map((user) =>
-                    user.id !== undefined ? (
-                      <SelectItem key={user.id} value={user.id.toString()}>
-                        {user.name}
-                      </SelectItem>
-                    ) : null,
+                  {filteredUsers.length > 0 ? (
+                    filteredUsers.map((user) =>
+                      user.id !== undefined ? (
+                        <SelectItem key={user.id} value={user.id.toString()}>
+                          {user.name}
+                        </SelectItem>
+                      ) : null,
+                    )
+                  ) : (
+                    <div className="text-muted-foreground p-2 text-sm">Anggota tidak ditemukan</div>
                   )}
                 </SelectContent>
               </Select>

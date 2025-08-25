@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\QrCodeScan;
 use App\Models\Kegiatan;
+use App\Models\QrCodeScan;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -13,6 +13,10 @@ class LaporanAbsensiController extends Controller
     public function index(Request $request)
     {
         $kegiatanId = $request->query('kegiatan_id');
+
+        if ($kegiatanId === '') {
+            $kegiatanId = null;
+        }
 
         $laporan = QrCodeScan::with(['user', 'qrCode.kegiatan'])
             ->when($kegiatanId, function ($query, $kegiatanId) {
@@ -25,13 +29,13 @@ class LaporanAbsensiController extends Controller
 
         $statusCounts = [
             'hadir' => $laporan->where('status', 'hadir')->count(),
-            'izin'  => $laporan->where('status', 'izin')->count(),
+            'izin' => $laporan->where('status', 'izin')->count(),
             'sakit' => $laporan->where('status', 'sakit')->count(),
         ];
 
         return Inertia::render('Laporan/Absensi', [
-            'laporan'      => $laporan,
-            'totalScan'    => $laporan->count(),
+            'laporan' => $laporan,
+            'totalScan' => $laporan->count(),
             'statusCounts' => $statusCounts,
             'kegiatanList' => Kegiatan::select('id', 'name')->orderBy('name')->get(),
             'selectedKegiatan' => $kegiatanId,
@@ -57,7 +61,7 @@ class LaporanAbsensiController extends Controller
 
         $statusCounts = [
             'hadir' => $laporan->where('status', 'hadir')->count(),
-            'izin'  => $laporan->where('status', 'izin')->count(),
+            'izin' => $laporan->where('status', 'izin')->count(),
             'sakit' => $laporan->where('status', 'sakit')->count(),
         ];
 
@@ -67,12 +71,14 @@ class LaporanAbsensiController extends Controller
 
             foreach ($laporan as $item) {
                 fputcsv($handle, [
-                    $item->scan_date->format('d M Y'),
+                    $item->scan_date?->format('d M Y') ?? '-',
                     $item->user->name ?? '-',
                     $item->qrCode->kegiatan->name ?? '-',
                     ucfirst($item->status),
                     $item->description ?? '-',
-                    $item->status === 'hadir' ? $item->scan_date->format('H:i') : '-',
+                    $item->status === 'hadir'
+                        ? ($item->scanned_at?->format('H:i') ?? '-')
+                        : '-',
                 ]);
             }
 
@@ -85,7 +91,7 @@ class LaporanAbsensiController extends Controller
             fclose($handle);
         });
 
-        $filename = 'laporan_absensi_' . ($kegiatanId ?? 'semua') . '.csv';
+        $filename = 'laporan_absensi_'.($kegiatanId ?? 'semua').'.csv';
         $response->headers->set('Content-Type', 'text/csv');
         $response->headers->set('Content-Disposition', "attachment; filename=\"$filename\"");
 
