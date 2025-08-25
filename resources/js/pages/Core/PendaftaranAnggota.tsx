@@ -96,7 +96,7 @@ export default function Pages() {
             <div className="mb-4 flex flex-col items-center justify-center gap-2">
               <div className="relative mx-auto mb-6 w-fit">
                 <div className="mx-auto flex h-28 w-28 transform items-center justify-center bg-transparent transition-transform duration-300 hover:scale-110">
-                  <img src="/logo/logo_black.png" alt="LOGO COMIT" />
+                  <img src="/images/logo/logo_black.png" alt="LOGO COMIT" />
                 </div>
                 <div className="absolute top-1/2 left-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 transform animate-ping rounded-full border-4 border-blue-300 opacity-30" />
                 <div

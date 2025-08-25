@@ -28,6 +28,13 @@ export const kegiatan = [
       'Workshop Arduino yang telah kami selenggarakan memberikan pengalaman langsung kepada peserta dalam dunia elektronik dan pemrograman. Peserta belajar menggunakan platform Arduino untuk merancang dan mengembangkan project tentang lampu pintar.',
   },
   {
+    img: '/images/100108.png',
+    title: 'LDC Comit 2023 - Hapus Batas Dunia Menjelajah Lebih Luas Dengan Teknologi',
+    date: '2023-10-7',
+    description:
+      'Teknologi adalah kunci masa depan, dan kita adalah pemimpinnya. Bersiap untuk memimpin dalam dunia yang terus berubah ini. Kepemimpinan teknologi bukan hanya sebuah posisi, tetapi panggilan untuk berinovasi.',
+  },
+  {
     img: '/images/100103.png',
     title: 'Workshop Data Analyst 2023 - Bagaimana menjadi data analyst? peluang karir bagi generasi milenial',
     date: '2023-03-19',

@@ -126,7 +126,7 @@ export default function Footer() {
                 <div className="absolute -bottom-2 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-transparent"></div>
               </h4>
               <ul className="space-y-3">
-                {['Workshop Data Analyst', 'Workshop Arduino', 'LDC - Latihan Dasar COMIT'].map((event, index) => (
+                {['Workshop Data Analyst', 'Workshop Arduino', 'LDC - Latihan Dasar COMIT', 'Digidraw COMIT'].map((event, index) => (
                   <li key={index}>
                     <a className="group flex cursor-pointer items-center text-blue-100 transition-all duration-300 hover:text-white">
                       <span className="mr-3 h-2 w-2 rounded-full bg-blue-400 transition-all duration-300 group-hover:scale-125 group-hover:bg-white"></span>
@@ -144,11 +144,11 @@ export default function Footer() {
           <div className="border-t border-white/20 pt-8 pb-8">
             <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
               <div className="flex flex-wrap gap-6">
-                <a className="group relative text-blue-100 transition-colors duration-300 hover:text-white">
+                <a href="#" className="group relative text-blue-100 transition-colors duration-300 hover:text-white">
                   Privacy Policy
                   <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-white transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a className="group relative text-blue-100 transition-colors duration-300 hover:text-white">
+                <a href="#" className="group relative text-blue-100 transition-colors duration-300 hover:text-white">
                   Terms of Service
                   <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-white transition-all duration-300 group-hover:w-full"></span>
                 </a>

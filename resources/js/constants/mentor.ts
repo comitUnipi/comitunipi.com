@@ -1,7 +1,7 @@
 export const mentors = [
   {
     id: 1,
-    nama: 'Idham Mubarok',
+    nama: 'Idham Mubarok, S.Kom',
     img: '/images/mentor/mentor-program-1.png',
     job: 'Mentor Programming',
     sosmed: [
@@ -24,7 +24,7 @@ export const mentors = [
   },
   {
     id: 1,
-    nama: 'Eko Aulian Saputra',
+    nama: 'Eko Aulian Saputra, S.Kom',
     img: '/images/mentor/mentor-program-2.png',
     job: 'Mentor Programming',
     sosmed: [
@@ -37,7 +37,7 @@ export const mentors = [
   },
   {
     id: 3,
-    nama: 'Hidayatulloh',
+    nama: 'Hidayatulloh, S.Kom',
     img: '/images/mentor/mentor-design-1.png',
     job: 'Mentor Design Grafis',
     sosmed: [
@@ -50,7 +50,7 @@ export const mentors = [
   },
   {
     id: 4,
-    nama: 'Aditya Anwary',
+    nama: 'Aditya Anwary, S.Kom',
     img: '/images/mentor/mentor-design-2.png',
     job: 'Mentor Design Grafis',
     sosmed: [
@@ -73,7 +73,7 @@ export const mentors = [
   },
   {
     id: 5,
-    nama: 'Vikri Fahruroji',
+    nama: 'Vikri Fahruroji, S.Kom',
     img: '/images/mentor/mentor-design-3.png',
     job: 'Mentor Design Grafis',
     sosmed: [
@@ -91,7 +91,7 @@ export const mentors = [
   },
   {
     id: 6,
-    nama: 'Duta Kusuma Dewa',
+    nama: 'Duta Kusuma Dewa, S.Kom',
     img: '/images/mentor/mentor-comp-and-network-1.png',
     job: 'Mentor Comp & Network',
     sosmed: [
@@ -104,7 +104,7 @@ export const mentors = [
   },
   {
     id: 7,
-    nama: 'Romi Aji S',
+    nama: 'Romi Aji, S.Kom',
     img: '/images/mentor/mentor-comp-and-network-2.png',
     job: 'Mentor Comp & Network',
     sosmed: [
@@ -117,7 +117,7 @@ export const mentors = [
   },
   {
     id: 8,
-    nama: 'M Hussein Hamid',
+    nama: 'M Hussein Hamid, S.Kom',
     img: '/images/mentor/mentor-comp-and-network-3.png',
     job: 'Mentor Comp & Network',
     sosmed: [
@@ -148,7 +148,7 @@ export const mentors = [
   },
   {
     id: 9,
-    nama: 'Risna Ayu Lestari',
+    nama: 'Risna Ayu Lestari, S.Kom',
     img: '/images/mentor/mentor-ms-office-1.png',
     job: 'Mentor Microsoft Office',
     sosmed: [
