@@ -1,7 +1,6 @@
 import ButtonExport from '@/components/app-button-export';
 import Heading from '@/components/heading';
 import AppLayout from '@/layouts/app-layout';
-import { formatDate } from '@/lib/format-date';
 import { Absensi } from '@/types';
 import { Head, router } from '@inertiajs/react';
 import { useState } from 'react';
@@ -10,26 +9,23 @@ import TableLaporanAbsensi from './components/laporan-absensi-table';
 
 interface Props {
   laporan: Absensi[];
-  periode?: {
-    date: string;
-  };
   totalScan: number;
   statusCounts: {
     hadir: number;
     izin: number;
     sakit: number;
   };
+  kegiatanList: { id: number; name: string }[];
+  selectedKegiatan?: string;
 }
 
-export default function Pages({ laporan, periode, totalScan, statusCounts }: Props) {
-  const [selectedDate, setSelectedDate] = useState(periode?.date ?? '');
+export default function Pages({ laporan, totalScan, statusCounts, kegiatanList, selectedKegiatan }: Props) {
+  const [selectedKegiatanId, setSelectedKegiatanId] = useState(selectedKegiatan ?? '');
 
-  const handleFilterTanggal = () => {
+  const handleFilter = () => {
     router.get(
       route('laporan.absensi.index'),
-      {
-        date: selectedDate,
-      },
+      { kegiatan_id: selectedKegiatanId },
       {
         preserveState: true,
         preserveScroll: true,
@@ -37,8 +33,8 @@ export default function Pages({ laporan, periode, totalScan, statusCounts }: Pro
     );
   };
 
-  const handleResetTanggal = () => {
-    setSelectedDate('');
+  const handleReset = () => {
+    setSelectedKegiatanId('');
     router.get(route('laporan.absensi.index'));
   };
 
@@ -59,16 +55,16 @@ export default function Pages({ laporan, periode, totalScan, statusCounts }: Pro
             description="Manajemen untuk mengelola laporan hasil absensi dari scan absensi berdasarkan tanggal tertentu."
           />
           <div className="flex gap-2 sm:gap-4">
-            <ButtonExport exportUrl={`/laporan/absensi/export/csv?date=${selectedDate}`} />
+            <ButtonExport exportUrl={`/laporan/absensi/export/csv?kegiatan=${selectedKegiatanId}`} />
           </div>
         </div>
         <FilterLaporanAbsensi
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-          handleFilterTanggal={handleFilterTanggal}
-          handleResetTanggal={handleResetTanggal}
+          selectedKegiatan={selectedKegiatanId}
+          setSelectedKegiatan={setSelectedKegiatanId}
+          kegiatanList={kegiatanList}
+          handleFilter={handleFilter}
+          handleReset={handleReset}
         />
-        {periode && <p>Data anggota yang melakukan absensi pada {formatDate(periode.date)}</p>}
         <TableLaporanAbsensi laporan={laporan} totalScan={totalScan} statusCounts={statusCounts} />
       </div>
     </AppLayout>
