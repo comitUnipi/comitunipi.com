@@ -29,7 +29,8 @@ export default function Pages() {
     try {
       const devices = await Html5Qrcode.getCameras();
       setCameras(devices);
-    } catch (e) {
+    } catch (error) {
+      console.error(error);
       setGeneralError('Gagal mendapatkan daftar kamera');
     }
   };
