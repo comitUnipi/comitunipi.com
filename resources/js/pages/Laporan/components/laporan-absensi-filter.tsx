@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 type Props = {
   selectedKegiatan: string;
@@ -12,19 +13,19 @@ export default function FilterLaporanAbsensi({ selectedKegiatan, setSelectedKegi
   return (
     <div className="flex items-end gap-3">
       <div className="flex flex-col gap-1">
-        <label className="text-xs font-medium">Kegiatan</label>
-        <select
-          value={selectedKegiatan}
-          onChange={(e) => setSelectedKegiatan(e.target.value)}
-          className="w-64 rounded-md border border-gray-300 p-2 text-sm"
-        >
-          <option value="">Semua Kegiatan</option>
-          {kegiatanList.map((k) => (
-            <option key={k.id} value={k.id}>
-              {k.name}
-            </option>
-          ))}
-        </select>
+        <label className="text-xs font-medium">Filter Kegiatan</label>
+        <Select value={selectedKegiatan} onValueChange={(val) => setSelectedKegiatan(val)}>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Semua Kegiatan" />
+          </SelectTrigger>
+          <SelectContent>
+            {kegiatanList.map((k) => (
+              <SelectItem key={k.id} value={k.id.toString()}>
+                {k.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
       <Button onClick={handleFilter}>Filter</Button>
       <Button variant="outline" onClick={handleReset}>

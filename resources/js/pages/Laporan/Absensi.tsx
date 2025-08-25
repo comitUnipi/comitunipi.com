@@ -23,14 +23,11 @@ export default function Pages({ laporan, totalScan, statusCounts, kegiatanList, 
   const [selectedKegiatanId, setSelectedKegiatanId] = useState(selectedKegiatan ?? '');
 
   const handleFilter = () => {
-    router.get(
-      route('laporan.absensi.index'),
-      { kegiatan_id: selectedKegiatanId },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
+    const params = selectedKegiatanId ? { kegiatan_id: selectedKegiatanId } : {};
+    router.get(route('laporan.absensi.index'), params, {
+      preserveState: true,
+      preserveScroll: true,
+    });
   };
 
   const handleReset = () => {
@@ -55,7 +52,7 @@ export default function Pages({ laporan, totalScan, statusCounts, kegiatanList, 
             description="Manajemen untuk mengelola laporan hasil absensi dari scan absensi berdasarkan tanggal tertentu."
           />
           <div className="flex gap-2 sm:gap-4">
-            <ButtonExport exportUrl={`/laporan/absensi/export/csv?kegiatan=${selectedKegiatanId}`} />
+            <ButtonExport exportUrl={`/laporan/absensi/export/csv?kegiatan_id=${selectedKegiatanId}`} />
           </div>
         </div>
         <FilterLaporanAbsensi
