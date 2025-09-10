@@ -5,11 +5,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { capitalizeFirstLetter } from '@/lib/capitalize-first-letter';
 import { Kegiatan } from '@/types';
 import { Head, router, useForm } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface QrData {
   id: number;
@@ -34,31 +35,14 @@ interface Props {
 }
 
 export default function Pages({ kegiatan, qrData, qrCodeSvg, flash }: Props) {
+  const { showToast, toastMessage, toastType } = useToastFlash(flash);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
-  const [toastType, setToastType] = useState<'success' | 'error'>('success');
 
   const { data, setData, post, processing, reset, errors } = useForm({
     kegiatan_id: '',
     start_time: '',
     end_time: '',
   });
-
-  useEffect(() => {
-    if (flash?.success || flash?.error) {
-      setToastMessage(flash.success || flash.error || '');
-      setToastType(flash.success ? 'success' : 'error');
-      setShowToast(true);
-    }
-  }, [flash]);
-
-  useEffect(() => {
-    if (showToast) {
-      const timer = setTimeout(() => setShowToast(false), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [showToast]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

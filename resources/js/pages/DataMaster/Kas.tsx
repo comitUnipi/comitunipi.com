@@ -4,11 +4,12 @@ import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { Kas, User } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import FilterKas from './components/kas-filter';
 import FormKas from './components/kas-form';
 import TableKas from './components/kas-table';
@@ -43,6 +44,7 @@ type PageProps = {
 };
 
 export default function Pages({ kas, users, filters, flash }: Props) {
+  const { showToast, toastMessage, toastType } = useToastFlash(flash);
   const [isOpen, setIsOpen] = useState(false);
   const [editingKAS, setEditingKAS] = useState<Kas | null>(null);
   const [searchTerm, setSearchTerm] = useState(filters.search);
@@ -50,31 +52,9 @@ export default function Pages({ kas, users, filters, flash }: Props) {
   const [startDate, setStartDate] = useState(filters.start_date);
   const [endDate, setEndDate] = useState(filters.end_date);
   const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
-  const [toastType, setToastType] = useState<'success' | 'error'>('success');
 
   const { auth } = usePage<PageProps>().props;
   const user = auth?.user;
-
-  useEffect(() => {
-    if (flash?.success) {
-      setToastMessage(flash.success);
-      setToastType('success');
-      setShowToast(true);
-    } else if (flash?.error) {
-      setToastMessage(flash.error);
-      setToastType('error');
-      setShowToast(true);
-    }
-  }, [flash]);
-
-  useEffect(() => {
-    if (showToast) {
-      const timer = setTimeout(() => setShowToast(false), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [showToast]);
 
   const {
     data,

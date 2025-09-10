@@ -2,10 +2,11 @@ import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { User } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Filter from './components/filter';
 import Form from './components/form';
 import Table from './components/table';
@@ -36,34 +37,13 @@ type PageProps = {
 };
 
 export default function Pages({ users, filters, flash }: Props) {
+  const { showToast, toastMessage, toastType } = useToastFlash(flash);
   const [searchTerm, setSearchTerm] = useState(filters.search);
   const [isOpen, setIsOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
-  const [toastType, setToastType] = useState<'success' | 'error'>('success');
 
   const { auth } = usePage<PageProps>().props;
   const user = auth?.user;
-
-  useEffect(() => {
-    if (flash?.success) {
-      setToastMessage(flash.success);
-      setToastType('success');
-      setShowToast(true);
-    } else if (flash?.error) {
-      setToastMessage(flash.error);
-      setToastType('error');
-      setShowToast(true);
-    }
-  }, [flash]);
-
-  useEffect(() => {
-    if (showToast) {
-      const timer = setTimeout(() => setShowToast(false), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [showToast]);
 
   const { data, setData, processing, reset } = useForm({
     name: '',
