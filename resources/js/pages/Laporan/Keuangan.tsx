@@ -2,7 +2,7 @@ import ButtonExport from '@/components/app-button-export';
 import Heading from '@/components/heading';
 import AppLayout from '@/layouts/app-layout';
 import { Laporan, User } from '@/types';
-import { Head, router, usePage } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
 import { useState } from 'react';
 import FilterLaporanKeuangan from './components/laporan-keuangan-filter';
 import TableLaporanKeuangan from './components/laporan-keuangan-table';
@@ -18,18 +18,15 @@ interface Props {
   totalSaldo: number;
   totalDebit: number;
   totalKredit: number;
-}
-
-type PageProps = {
   auth: {
     user: User;
   };
-};
+}
 
-export default function Pages({ laporan, periode, totalSaldo, totalDebit, totalKredit }: Props) {
+export default function Pages({ laporan, periode, totalSaldo, totalDebit, totalKredit, auth }: Props) {
   const [startDate, setStartDate] = useState(periode?.start ?? '');
   const [endDate, setEndDate] = useState(periode?.end ?? '');
-  const { auth } = usePage<PageProps>().props;
+
   const user = auth?.user;
 
   const handleFilterTanggal = () => {

@@ -9,7 +9,7 @@ import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { User } from '@/types';
-import { Head, router, useForm, usePage } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import FilterAnggota from './components/anggota-filter';
@@ -38,15 +38,12 @@ interface Props {
     success?: string;
     error?: string;
   };
-}
-
-type PageProps = {
   auth: {
     user: User;
   };
-};
+}
 
-export default function Pages({ users, filters, flash }: Props) {
+export default function Pages({ users, filters, flash, auth }: Props) {
   const { showToast, toastMessage, toastType } = useToastFlash(flash);
   const [isOpen, setIsOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
@@ -58,7 +55,6 @@ export default function Pages({ users, filters, flash }: Props) {
   const [positionFilter, setPositionFilter] = useState(filters.position);
   const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
 
-  const { auth } = usePage<PageProps>().props;
   const user = auth?.user;
 
   const {

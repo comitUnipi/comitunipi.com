@@ -7,7 +7,7 @@ import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { User } from '@/types';
-import { Head, router, useForm, usePage } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 import Filter from './components/filter';
 import Form from './components/form';
@@ -30,15 +30,12 @@ interface Props {
     success?: string;
     error?: string;
   };
-}
-
-type PageProps = {
   auth: {
     user: User;
   };
-};
+}
 
-export default function Pages({ users, filters, flash }: Props) {
+export default function Pages({ users, filters, flash, auth }: Props) {
   const { showToast, toastMessage, toastType } = useToastFlash(flash);
   const [searchTerm, setSearchTerm] = useState(filters.search);
   const [isOpen, setIsOpen] = useState(false);
@@ -53,7 +50,6 @@ export default function Pages({ users, filters, flash }: Props) {
     getFilterParams,
   });
 
-  const { auth } = usePage<PageProps>().props;
   const user = auth?.user;
 
   const { data, setData, processing, reset } = useForm({

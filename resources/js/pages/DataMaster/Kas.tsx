@@ -9,7 +9,7 @@ import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { Kas, User } from '@/types';
-import { Head, router, useForm, usePage } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import FilterKas from './components/kas-filter';
@@ -37,15 +37,12 @@ interface Props {
     success?: string;
     error?: string;
   };
-}
-
-type PageProps = {
   auth: {
     user: User;
   };
-};
+}
 
-export default function Pages({ kas, users, filters, flash }: Props) {
+export default function Pages({ kas, users, filters, flash, auth }: Props) {
   const { showToast, toastMessage, toastType } = useToastFlash(flash);
   const [isOpen, setIsOpen] = useState(false);
   const [editingKAS, setEditingKAS] = useState<Kas | null>(null);
@@ -64,7 +61,6 @@ export default function Pages({ kas, users, filters, flash }: Props) {
     getFilterParams,
   });
 
-  const { auth } = usePage<PageProps>().props;
   const user = auth?.user;
 
   const {

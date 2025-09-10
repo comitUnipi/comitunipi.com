@@ -9,7 +9,7 @@ import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { Kegiatan, User } from '@/types';
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import FilterKegiatan from './components/kegiatan-filter';
@@ -33,15 +33,12 @@ interface Props {
     success?: string;
     error?: string;
   };
-}
-
-type PageProps = {
   auth: {
     user: User;
   };
-};
+}
 
-export default function Pages({ kegiatan, filters, flash }: Props) {
+export default function Pages({ kegiatan, filters, flash, auth }: Props) {
   const { showToast, toastMessage, toastType } = useToastFlash(flash);
   const [isOpen, setIsOpen] = useState(false);
   const [editing, setEditing] = useState<Kegiatan | null>(null);
@@ -57,7 +54,6 @@ export default function Pages({ kegiatan, filters, flash }: Props) {
     getFilterParams,
   });
 
-  const { auth } = usePage<PageProps>().props;
   const user = auth?.user;
 
   const {
