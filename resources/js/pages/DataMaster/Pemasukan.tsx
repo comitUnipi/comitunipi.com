@@ -62,7 +62,7 @@ export default function Pages({ pemasukan, filters, flash, auth }: Props) {
     });
   };
 
-  const queryParams = new URLSearchParams(Object.fromEntries(Object.entries(filters).filter(([_, v]) => v !== '' && v !== null))).toString();
+  const queryParams = new URLSearchParams(Object.fromEntries(Object.entries(filters).filter(([value]) => value !== '' && value !== null))).toString();
   const exportUrl = `/pemasukan/export/csv?${queryParams}`;
 
   return (

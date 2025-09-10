@@ -62,7 +62,7 @@ export default function Pages({ pengeluaran, filters, flash, auth }: Props) {
     });
   };
 
-  const queryParams = new URLSearchParams(Object.fromEntries(Object.entries(filters).filter(([_, v]) => v !== '' && v !== null))).toString();
+  const queryParams = new URLSearchParams(Object.fromEntries(Object.entries(filters).filter(([value]) => value !== '' && value !== null))).toString();
   const exportUrl = `/pengeluaran/export/csv?${queryParams}`;
 
   return (
