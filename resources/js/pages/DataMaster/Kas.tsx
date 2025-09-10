@@ -4,6 +4,7 @@ import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import usePaginate from '@/hooks/use-paginate';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { Kas, User } from '@/types';
@@ -52,6 +53,15 @@ export default function Pages({ kas, users, filters, flash }: Props) {
   const [startDate, setStartDate] = useState(filters.start_date);
   const [endDate, setEndDate] = useState(filters.end_date);
   const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
+
+  const getFilterParams = () => ({
+    search: searchTerm,
+  });
+
+  const { handlePageChange } = usePaginate({
+    routeName: 'kas.index',
+    getFilterParams,
+  });
 
   const { auth } = usePage<PageProps>().props;
   const user = auth?.user;
@@ -158,20 +168,6 @@ export default function Pages({ kas, users, filters, flash }: Props) {
     setStartDate('');
     setEndDate('');
     router.get(route('kas.index'));
-  };
-
-  const handlePageChange = (page: number) => {
-    router.get(
-      route('kas.index'),
-      {
-        page,
-        search: searchTerm,
-      },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
   };
 
   const queryParams = new URLSearchParams(

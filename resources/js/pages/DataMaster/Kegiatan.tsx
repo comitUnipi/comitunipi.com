@@ -4,6 +4,7 @@ import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import usePaginate from '@/hooks/use-paginate';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { Kegiatan, User } from '@/types';
@@ -45,6 +46,15 @@ export default function Pages({ kegiatan, filters, flash }: Props) {
   const [editing, setEditing] = useState<Kegiatan | null>(null);
   const [searchTerm, setSearchTerm] = useState(filters.search);
   const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
+
+  const getFilterParams = () => ({
+    search: searchTerm,
+  });
+
+  const { handlePageChange } = usePaginate({
+    routeName: 'kegiatan.index',
+    getFilterParams,
+  });
 
   const { auth } = usePage<PageProps>().props;
   const user = auth?.user;
@@ -109,20 +119,6 @@ export default function Pages({ kegiatan, filters, flash }: Props) {
     router.get(
       route('kegiatan.index'),
       { search: searchTerm },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
-  };
-
-  const handlePageChange = (page: number) => {
-    router.get(
-      route('kegiatan.index'),
-      {
-        page,
-        search: searchTerm,
-      },
       {
         preserveState: true,
         preserveScroll: true,

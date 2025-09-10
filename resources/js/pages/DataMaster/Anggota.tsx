@@ -4,6 +4,7 @@ import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import usePaginate from '@/hooks/use-paginate';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { User } from '@/types';
@@ -230,19 +231,10 @@ export default function Pages({ users, filters, flash }: Props) {
     router.get(route('users.index'));
   };
 
-  const handlePageChange = (page: number) => {
-    router.get(
-      route('users.index'),
-      {
-        ...getFilterParams(),
-        page,
-      },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
-  };
+  const { handlePageChange } = usePaginate({
+    routeName: 'users.index',
+    getFilterParams,
+  });
 
   const exportUrl =
     `/users/export/csv?` +
