@@ -5,10 +5,11 @@ import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import usePaginate from '@/hooks/use-paginate';
+import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { Kegiatan, User } from '@/types';
-import { Head, router, useForm, usePage } from '@inertiajs/react';
+import { Head, useForm, usePage } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import FilterKegiatan from './components/kegiatan-filter';
@@ -114,17 +115,10 @@ export default function Pages({ kegiatan, filters, flash }: Props) {
     destroy(route('kegiatan.destroy', id));
   };
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    router.get(
-      route('kegiatan.index'),
-      { search: searchTerm },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
-  };
+  const { handleSearch } = useSearch({
+    routeName: 'kegiatan.index',
+    getFilterParams,
+  });
 
   const queryParams = new URLSearchParams(
     Object.fromEntries(Object.entries(filters).filter(([, value]) => value !== '' && value !== null)),

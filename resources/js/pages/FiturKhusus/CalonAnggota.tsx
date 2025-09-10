@@ -3,6 +3,7 @@ import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import usePaginate from '@/hooks/use-paginate';
+import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { User } from '@/types';
@@ -106,27 +107,10 @@ export default function Pages({ users, filters, flash }: Props) {
     setIsOpen(true);
   };
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    router.get(route('calon-anggota.index'), getFilterParams(), {
-      preserveState: true,
-      preserveScroll: true,
-    });
-  };
-
-  // const handlePageChange = (page: number) => {
-  //   router.get(
-  //     route('calon-anggota.index'),
-  //     {
-  //       ...getFilterParams(),
-  //       page,
-  //     },
-  //     {
-  //       preserveState: true,
-  //       preserveScroll: true,
-  //     },
-  //   );
-  // };
+  const { handleSearch } = useSearch({
+    routeName: 'calon-anggota.index',
+    getFilterParams,
+  });
 
   return (
     <AppLayout

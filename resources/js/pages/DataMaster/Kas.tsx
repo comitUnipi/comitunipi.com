@@ -5,6 +5,7 @@ import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import usePaginate from '@/hooks/use-paginate';
+import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { Kas, User } from '@/types';
@@ -134,18 +135,6 @@ export default function Pages({ kas, users, filters, flash }: Props) {
     destroy(route('kas.destroy', id));
   };
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    router.get(
-      route('kas.index'),
-      { search: searchTerm },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
-  };
-
   const handleFilterKas = () => {
     router.get(
       route('kas.index'),
@@ -169,6 +158,11 @@ export default function Pages({ kas, users, filters, flash }: Props) {
     setEndDate('');
     router.get(route('kas.index'));
   };
+
+  const { handleSearch } = useSearch({
+    routeName: 'kas.index',
+    getFilterParams,
+  });
 
   const queryParams = new URLSearchParams(
     Object.fromEntries(Object.entries(filters).filter(([, value]) => value !== '' && value !== null)),

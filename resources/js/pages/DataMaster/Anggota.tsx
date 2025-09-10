@@ -5,6 +5,7 @@ import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import usePaginate from '@/hooks/use-paginate';
+import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { User } from '@/types';
@@ -213,14 +214,6 @@ export default function Pages({ users, filters, flash }: Props) {
     );
   };
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    router.get(route('users.index'), getFilterParams(), {
-      preserveState: true,
-      preserveScroll: true,
-    });
-  };
-
   const handleResetFilters = () => {
     setSearchTerm('');
     setRoleFilter('all');
@@ -230,6 +223,11 @@ export default function Pages({ users, filters, flash }: Props) {
     setStatusFilter('all');
     router.get(route('users.index'));
   };
+
+  const { handleSearch } = useSearch({
+    routeName: 'users.index',
+    getFilterParams,
+  });
 
   const { handlePageChange } = usePaginate({
     routeName: 'users.index',
