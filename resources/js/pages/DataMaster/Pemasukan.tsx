@@ -10,7 +10,7 @@ import usePaginate from '@/hooks/use-paginate';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { Pemasukan, User } from '@/types';
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import FilterPemasukan from './components/pemasukan-filter';
@@ -35,15 +35,12 @@ interface Props {
     success?: string;
     error?: string;
   };
-}
-
-type PageProps = {
   auth: {
     user: User;
   };
-};
+}
 
-export default function Pages({ pemasukan, filters, flash }: Props) {
+export default function Pages({ pemasukan, filters, flash, auth }: Props) {
   const { showToast, toastMessage, toastType } = useToastFlash(flash);
   const { handlePageChange } = usePaginate({ routeName: 'pemasukan.index' });
   const { data, setData, handleSubmit, processing, isOpen, setIsOpen, editingPemasukan, handleEdit } = usePemasukanForm();
@@ -53,9 +50,8 @@ export default function Pages({ pemasukan, filters, flash }: Props) {
   );
 
   const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
-  const { auth } = usePage<PageProps>().props;
-  const user = auth?.user;
 
+  const user = auth?.user;
   const form = useForm();
 
   const handleDelete = (id: number) => {
