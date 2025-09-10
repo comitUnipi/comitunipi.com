@@ -6,7 +6,7 @@ import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import usePemasukanFilterDate from '@/hooks/pemasukan/use-pemasukan-filter-date';
 import usePemasukanForm from '@/hooks/pemasukan/use-pemasukan-form';
-import usePemasukanPaginate from '@/hooks/pemasukan/use-pemasukan-paginate';
+import usePaginate from '@/hooks/use-paginate';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { Pemasukan, User } from '@/types';
@@ -45,7 +45,7 @@ type PageProps = {
 
 export default function Pages({ pemasukan, filters, flash }: Props) {
   const { showToast, toastMessage, toastType } = useToastFlash(flash);
-  const { handlePageChange } = usePemasukanPaginate();
+  const { handlePageChange } = usePaginate({ routeName: 'pemasukan.index' });
   const { data, setData, handleSubmit, processing, isOpen, setIsOpen, editingPemasukan, handleEdit } = usePemasukanForm();
   const { startDate, endDate, setStartDate, setEndDate, handleFilterTanggal, handleResetFilter } = usePemasukanFilterDate(
     filters.start_date,

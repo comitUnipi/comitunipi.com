@@ -1,9 +1,13 @@
 import { router } from '@inertiajs/react';
 
-export default function usePengeluaranPaginate() {
+interface Props {
+  routeName: string;
+}
+
+export default function usePaginate({ routeName }: Props) {
   const handlePageChange = (page: number) => {
     router.get(
-      route('pengeluaran.index'),
+      route(routeName),
       { page },
       {
         preserveState: true,
