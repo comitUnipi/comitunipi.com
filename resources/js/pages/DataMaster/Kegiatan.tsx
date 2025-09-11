@@ -4,6 +4,7 @@ import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import useKegiatanForm from '@/hooks/use-kegiatan-form';
 import usePaginate from '@/hooks/use-paginate';
 import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
@@ -40,8 +41,8 @@ interface Props {
 
 export default function Pages({ kegiatan, filters, flash, auth }: Props) {
   const { showToast, toastMessage, toastType } = useToastFlash(flash);
-  const [isOpen, setIsOpen] = useState(false);
-  const [editing, setEditing] = useState<Kegiatan | null>(null);
+  const { data, setData, handleSubmit, processing, isOpen, setIsOpen, editing, handleEdit } = useKegiatanForm();
+
   const [searchTerm, setSearchTerm] = useState(filters.search);
   const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
 
@@ -55,60 +56,14 @@ export default function Pages({ kegiatan, filters, flash, auth }: Props) {
   });
 
   const user = auth?.user;
-
-  const {
-    data,
-    setData,
-    post,
-    put,
-    processing,
-    reset,
-    delete: destroy,
-  } = useForm({
-    name: '',
-    description: '',
-    date: '',
-    time: '',
-    location: '',
-    audiens: '',
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (editing) {
-      put(route('kegiatan.update', editing.id), {
-        onSuccess: () => {
-          setIsOpen(false);
-          setEditing(null);
-          reset();
-        },
-      });
-    } else {
-      post(route('kegiatan.store'), {
-        onSuccess: () => {
-          setIsOpen(false);
-          reset();
-        },
-      });
-    }
-  };
-
-  const handleEdit = (kegiatanItem: Kegiatan) => {
-    setEditing(kegiatanItem);
-    setData({
-      name: kegiatanItem.name,
-      description: kegiatanItem.description,
-      date: kegiatanItem.date,
-      time: kegiatanItem.time,
-      location: kegiatanItem.location,
-      audiens: kegiatanItem.audiens,
-    });
-    setIsOpen(true);
-  };
+  const form = useForm();
 
   const handleDelete = (id: number) => {
-    destroy(route('kegiatan.destroy', id));
+    form.delete(route('kegiatan.destroy', id), {
+      onSuccess: () => {
+        setConfirmDeleteId(null);
+      },
+    });
   };
 
   const { handleSearch } = useSearch({
