@@ -2,12 +2,13 @@ import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import useBphForm from '@/hooks/use-bph-form';
 import usePaginate from '@/hooks/use-paginate';
 import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { User } from '@/types';
-import { Head, router, useForm } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { useState } from 'react';
 import Filter from './components/filter';
 import Form from './components/form';
@@ -37,9 +38,9 @@ interface Props {
 
 export default function Pages({ users, filters, flash, auth }: Props) {
   const { showToast, toastMessage, toastType } = useToastFlash(flash);
+  const { data, setData, handleSubmit, processing, isOpen, setIsOpen, editing, handleEdit } = useBphForm();
+
   const [searchTerm, setSearchTerm] = useState(filters.search);
-  const [isOpen, setIsOpen] = useState(false);
-  const [editingUser, setEditingUser] = useState<User | null>(null);
 
   const getFilterParams = () => ({
     search: searchTerm,
@@ -51,57 +52,6 @@ export default function Pages({ users, filters, flash, auth }: Props) {
   });
 
   const user = auth?.user;
-
-  const { data, setData, processing, reset } = useForm({
-    name: '',
-    email: '',
-    npm: '',
-    password: '',
-    password_confirmation: '',
-    role: '',
-    position: '',
-    jenis_kelamin: '',
-    no_wa: '',
-    jurusan: '',
-    minat_keahlian: '',
-    alasan: '',
-    is_active: false as boolean,
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (editingUser) {
-      router.put(
-        route('users.update', editingUser.id),
-        {
-          role: data.role,
-          position: data.position,
-          is_active: data.is_active,
-          redirect_to: 'badan-pengurus-harian.index',
-        },
-        {
-          onSuccess: () => {
-            setIsOpen(false);
-            setEditingUser(null);
-            reset();
-          },
-          preserveState: true,
-        },
-      );
-    }
-  };
-
-  const handleEdit = (user: User) => {
-    setEditingUser(user);
-    setData((previousData) => ({
-      ...previousData,
-      role: user.role,
-      position: user.position,
-      is_active: user.is_active,
-    }));
-    setIsOpen(true);
-  };
 
   const { handleSearch } = useSearch({
     routeName: 'badan-pengurus-harian.index',
@@ -129,7 +79,7 @@ export default function Pages({ users, filters, flash, auth }: Props) {
                   <DialogHeader>
                     <DialogTitle className="text-lg sm:text-xl">Ubah Data</DialogTitle>
                   </DialogHeader>
-                  <Form editingUser={editingUser !== null} handleSubmit={handleSubmit} data={data} setData={setData} processing={processing} />
+                  <Form editingUser={editing !== null} handleSubmit={handleSubmit} data={data} setData={setData} processing={processing} />
                 </DialogContent>
               </Dialog>
             </div>
