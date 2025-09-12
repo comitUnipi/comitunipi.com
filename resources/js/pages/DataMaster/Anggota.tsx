@@ -4,6 +4,7 @@ import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import useAnggotaForm from '@/hooks/use-anggota-form';
 import usePaginate from '@/hooks/use-paginate';
 import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
@@ -45,8 +46,8 @@ interface Props {
 
 export default function Pages({ users, filters, flash, auth }: Props) {
   const { showToast, toastMessage, toastType } = useToastFlash(flash);
-  const [isOpen, setIsOpen] = useState(false);
-  const [editingUser, setEditingUser] = useState<User | null>(null);
+  const { data, setData, errors, handleSubmit, processing, isOpen, setIsOpen, editing, handleEdit } = useAnggotaForm();
+
   const [searchTerm, setSearchTerm] = useState(filters.search);
   const [roleFilter, setRoleFilter] = useState(filters.role);
   const [statusFilter, setStatusFilter] = useState(filters.status);
@@ -56,75 +57,7 @@ export default function Pages({ users, filters, flash, auth }: Props) {
   const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
 
   const user = auth?.user;
-
-  const {
-    data,
-    setData,
-    post,
-    processing,
-    reset,
-    errors,
-    delete: destroy,
-  } = useForm({
-    name: '',
-    email: '',
-    npm: '',
-    password: '',
-    password_confirmation: '',
-    role: '',
-    position: '',
-    jenis_kelamin: '',
-    no_wa: '',
-    jurusan: '',
-    minat_keahlian: '',
-    alasan: '',
-    is_active: false as boolean,
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (editingUser) {
-      router.put(
-        route('users.update', editingUser.id),
-        {
-          role: data.role,
-          position: data.position,
-          is_active: data.is_active,
-        },
-        {
-          onSuccess: () => {
-            setIsOpen(false);
-            setEditingUser(null);
-            reset();
-          },
-          preserveState: true,
-        },
-      );
-    } else {
-      post(route('users.store'), {
-        onSuccess: () => {
-          setIsOpen(false);
-          reset();
-        },
-      });
-    }
-  };
-
-  const handleEdit = (user: User) => {
-    setEditingUser(user);
-    setData((previousData) => ({
-      ...previousData,
-      role: user.role,
-      position: user.position,
-      is_active: user.is_active,
-    }));
-    setIsOpen(true);
-  };
-
-  const handleDelete = (id: number) => {
-    destroy(route('users.destroy', id));
-  };
+  const form = useForm();
 
   const getFilterParams = () => ({
     search: searchTerm,
@@ -220,6 +153,14 @@ export default function Pages({ users, filters, flash, auth }: Props) {
     router.get(route('users.index'));
   };
 
+  const handleDelete = (id: number) => {
+    form.delete(route('kas.destroy', id), {
+      onSuccess: () => {
+        setConfirmDeleteId(null);
+      },
+    });
+  };
+
   const { handleSearch } = useSearch({
     routeName: 'users.index',
     getFilterParams,
@@ -277,10 +218,10 @@ export default function Pages({ users, filters, flash, auth }: Props) {
                 </DialogTrigger>
                 <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-[600px]">
                   <DialogHeader>
-                    <DialogTitle className="text-lg sm:text-xl">{editingUser ? 'Ubah Anggota' : 'Tambah Anggota'}</DialogTitle>
+                    <DialogTitle className="text-lg sm:text-xl">{editing ? 'Ubah Anggota' : 'Tambah Anggota'}</DialogTitle>
                   </DialogHeader>
                   <FormAnggota
-                    editingUser={editingUser !== null}
+                    editingUser={editing !== null}
                     handleSubmit={handleSubmit}
                     data={data}
                     setData={setData}
