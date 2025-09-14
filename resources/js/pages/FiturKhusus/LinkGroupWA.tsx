@@ -4,9 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import useToastFlash from '@/hooks/use-toast-flash';
+import useWaLinkForm from '@/hooks/use-wa-link-form';
 import AppLayout from '@/layouts/app-layout';
-import { Head, router } from '@inertiajs/react';
-import { FormEvent, useState } from 'react';
+import { Head } from '@inertiajs/react';
 
 interface Props {
   whatsappLink: string;
@@ -18,20 +18,7 @@ interface Props {
 
 export default function Pages({ whatsappLink, flash }: Props) {
   const { showToast, toastMessage, toastType } = useToastFlash(flash);
-
-  const [link, setLink] = useState<string>(whatsappLink || '');
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    router.post(
-      route('link.group-whatsapp.update'),
-      { whatsapp_link: link },
-      {
-        preserveScroll: true,
-      },
-    );
-  };
+  const { link, setLink, handleSubmit } = useWaLinkForm(whatsappLink);
 
   return (
     <AppLayout
