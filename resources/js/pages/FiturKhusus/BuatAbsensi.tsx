@@ -5,12 +5,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import useQrDeactivate from '@/hooks/use-qr-deactivate';
+import useQrForm from '@/hooks/use-qr-form';
+import useQrPreview from '@/hooks/use-qr-preview';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { capitalizeFirstLetter } from '@/lib/capitalize-first-letter';
 import { Kegiatan } from '@/types';
-import { Head, router, useForm } from '@inertiajs/react';
-import { useState } from 'react';
+import { Head } from '@inertiajs/react';
 
 interface QrData {
   id: number;
@@ -36,59 +38,9 @@ interface Props {
 
 export default function Pages({ kegiatan, qrData, qrCodeSvg, flash }: Props) {
   const { showToast, toastMessage, toastType } = useToastFlash(flash);
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
-
-  const { data, setData, post, processing, reset, errors } = useForm({
-    kegiatan_id: '',
-    start_time: '',
-    end_time: '',
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    post(route('qr.store'), {
-      preserveScroll: true,
-      onSuccess: () => {
-        reset();
-        router.visit(route('qr.create'), {
-          preserveScroll: true,
-          preserveState: true,
-        });
-      },
-    });
-  };
-
-  const handleDeactivate = () => {
-    setShowConfirmModal(true);
-  };
-
-  const confirmDeactivate = () => {
-    setShowConfirmModal(false);
-    if (qrData) {
-      router.post(
-        route('qr.deactivate', { id: qrData.id }),
-        {},
-        {
-          preserveScroll: true,
-        },
-      );
-    }
-  };
-
-  const handlePreviewQrInNewTab = () => {
-    if (!qrCodeSvg) return;
-    const newWindow = window.open('', '_blank', 'width=300,height=300');
-    if (newWindow) {
-      newWindow.document.write(`
-        <html><head><title>QR Preview</title></head>
-        <body style="margin:0;display:flex;align-items:center;justify-content:center;height:100vh">
-          ${qrCodeSvg}
-        </body></html>
-      `);
-      newWindow.document.close();
-    }
-  };
+  const { data, setData, handleSubmit, processing, errors } = useQrForm();
+  const { showConfirmModal, openModal, closeModal, confirmDeactivate } = useQrDeactivate(qrData?.id);
+  const previewQr = useQrPreview(qrCodeSvg);
 
   return (
     <AppLayout breadcrumbs={[{ title: 'Buat Absensi', href: '/fitur-khusus/buat-absensi' }]}>
@@ -100,7 +52,7 @@ export default function Pages({ kegiatan, qrData, qrCodeSvg, flash }: Props) {
             open={showConfirmModal}
             title="Nonaktifkan QR Code"
             description="Yakin ingin menonaktifkan QR Code ini?"
-            onCancel={() => setShowConfirmModal(false)}
+            onCancel={closeModal}
             onConfirm={confirmDeactivate}
           />
           <Heading title="Buat Absensi" description="Generate QRCode berdasarkan kegiatan yang akan dijadwalkan." />
@@ -158,11 +110,11 @@ export default function Pages({ kegiatan, qrData, qrCodeSvg, flash }: Props) {
               </div>
               <div className="mt-6 flex items-center justify-center gap-4">
                 {qrData.is_active && (
-                  <Button variant="destructive" onClick={handleDeactivate}>
+                  <Button variant="destructive" onClick={openModal}>
                     Nonaktifkan QRCode
                   </Button>
                 )}
-                <Button variant="default" onClick={handlePreviewQrInNewTab}>
+                <Button variant="default" onClick={previewQr}>
                   Preview QRCode
                 </Button>
               </div>
