@@ -4,13 +4,14 @@ import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import useAnggotaFilter from '@/hooks/use-anggota-filter';
 import useAnggotaForm from '@/hooks/use-anggota-form';
 import usePaginate from '@/hooks/use-paginate';
 import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { User } from '@/types';
-import { Head, router, useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import FilterAnggota from './components/anggota-filter';
@@ -47,111 +48,27 @@ interface Props {
 export default function Pages({ users, filters, flash, auth }: Props) {
   const { showToast, toastMessage, toastType } = useToastFlash(flash);
   const { data, setData, errors, handleSubmit, processing, isOpen, setIsOpen, editing, handleEdit } = useAnggotaForm();
+  const {
+    searchTerm,
+    setSearchTerm,
+    roleFilter,
+    positionFilter,
+    statusFilter,
+    jurusanFilter,
+    minatKeahlianFilter,
+    getFilterParams,
+    handleFilterRoleChange,
+    handleFilterPositionChange,
+    handleFilterStatusChange,
+    handleFilterJurusanChange,
+    handleFilterMinatKeahlianChange,
+    handleResetFilters,
+  } = useAnggotaFilter({ initialFilters: filters });
 
-  const [searchTerm, setSearchTerm] = useState(filters.search);
-  const [roleFilter, setRoleFilter] = useState(filters.role);
-  const [statusFilter, setStatusFilter] = useState(filters.status);
-  const [jurusanFilter, setJurusanFilter] = useState(filters.status);
-  const [minatKeahlianFilter, setMinatKeahlianFilter] = useState(filters.minat_keahlian);
-  const [positionFilter, setPositionFilter] = useState(filters.position);
   const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
 
   const user = auth?.user;
   const form = useForm();
-
-  const getFilterParams = () => ({
-    search: searchTerm,
-    role: roleFilter === 'all' ? '' : roleFilter,
-    position: positionFilter === 'all' ? '' : positionFilter,
-    jurusan: jurusanFilter === 'all' ? '' : jurusanFilter,
-    minat_keahlian: minatKeahlianFilter === 'all' ? '' : minatKeahlianFilter,
-    is_active: statusFilter === 'all' ? '' : statusFilter,
-  });
-
-  const handleFilterRoleChange = (value: string) => {
-    setRoleFilter(value);
-    router.get(
-      route('users.index'),
-      {
-        ...getFilterParams(),
-        role: value === 'all' ? '' : value,
-      },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
-  };
-
-  const handleFilterPositionChange = (value: string) => {
-    setPositionFilter(value);
-    router.get(
-      route('users.index'),
-      {
-        ...getFilterParams(),
-        position: value === 'all' ? '' : value,
-      },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
-  };
-
-  const handleFilterStatusChange = (value: string) => {
-    setStatusFilter(value);
-    router.get(
-      route('users.index'),
-      {
-        ...getFilterParams(),
-        is_active: value === 'all' ? '' : value,
-      },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
-  };
-
-  const handleFilterJurusanChange = (value: string) => {
-    setJurusanFilter(value);
-    router.get(
-      route('users.index'),
-      {
-        ...getFilterParams(),
-        jurusan: value === 'all' ? '' : value,
-      },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
-  };
-
-  const handleFilterMinatKeahlianChange = (value: string) => {
-    setMinatKeahlianFilter(value);
-    router.get(
-      route('users.index'),
-      {
-        ...getFilterParams(),
-        minat_keahlian: value === 'all' ? '' : value,
-      },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
-  };
-
-  const handleResetFilters = () => {
-    setSearchTerm('');
-    setRoleFilter('all');
-    setPositionFilter('all');
-    setJurusanFilter('all');
-    setMinatKeahlianFilter('all');
-    setStatusFilter('all');
-    router.get(route('users.index'));
-  };
 
   const handleDelete = (id: number) => {
     form.delete(route('kas.destroy', id), {
