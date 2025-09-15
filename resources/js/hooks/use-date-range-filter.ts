@@ -1,13 +1,13 @@
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function usePemasukanFilterDate(initialStart: string, initialEnd: string) {
+export default function useDateRangeFilter(routeName: string, initialStart = '', initialEnd = '') {
   const [startDate, setStartDate] = useState(initialStart);
   const [endDate, setEndDate] = useState(initialEnd);
 
   const handleFilterTanggal = () => {
     router.get(
-      route('pemasukan.index'),
+      route(routeName),
       { start_date: startDate, end_date: endDate },
       {
         preserveState: true,
@@ -16,10 +16,10 @@ export default function usePemasukanFilterDate(initialStart: string, initialEnd:
     );
   };
 
-  const handleResetFilter = () => {
+  const handleResetTanggal = () => {
     setStartDate('');
     setEndDate('');
-    router.get(route('pemasukan.index'));
+    router.get(route(routeName));
   };
 
   return {
@@ -28,6 +28,6 @@ export default function usePemasukanFilterDate(initialStart: string, initialEnd:
     setStartDate,
     setEndDate,
     handleFilterTanggal,
-    handleResetFilter,
+    handleResetTanggal,
   };
 }

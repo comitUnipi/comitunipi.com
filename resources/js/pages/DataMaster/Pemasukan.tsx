@@ -4,8 +4,8 @@ import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import useDateRangeFilter from '@/hooks/use-date-range-filter';
 import usePaginate from '@/hooks/use-paginate';
-import usePemasukanFilterDate from '@/hooks/use-pemasukan-filter-date';
 import usePemasukanForm from '@/hooks/use-pemasukan-form';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
@@ -44,10 +44,14 @@ export default function Pages({ pemasukan, filters, flash, auth }: Props) {
   const { showToast, toastMessage, toastType } = useToastFlash(flash);
   const { handlePageChange } = usePaginate({ routeName: 'pemasukan.index' });
   const { data, setData, handleSubmit, processing, isOpen, setIsOpen, editingPemasukan, handleEdit } = usePemasukanForm();
-  const { startDate, endDate, setStartDate, setEndDate, handleFilterTanggal, handleResetFilter } = usePemasukanFilterDate(
-    filters.start_date,
-    filters.end_date,
-  );
+  const {
+    startDate,
+    endDate,
+    setStartDate,
+    setEndDate,
+    handleFilterTanggal,
+    handleResetTanggal: handleResetFilter,
+  } = useDateRangeFilter('pemasukan.index', filters.start_date, filters.end_date);
 
   const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
 

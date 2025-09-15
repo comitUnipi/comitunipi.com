@@ -4,6 +4,7 @@ import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import useDateRangeFilter from '@/hooks/use-date-range-filter';
 import useKasForm from '@/hooks/use-kas-form';
 import usePaginate from '@/hooks/use-paginate';
 import useSearch from '@/hooks/use-search';
@@ -46,11 +47,10 @@ interface Props {
 export default function Pages({ kas, users, filters, flash, auth }: Props) {
   const { showToast, toastMessage, toastType } = useToastFlash(flash);
   const { data, setData, handleSubmit, processing, isOpen, setIsOpen, editing, handleEdit } = useKasForm();
+  const { startDate, endDate, setStartDate, setEndDate, handleResetTanggal } = useDateRangeFilter('kas.index', filters.start_date, filters.end_date);
 
   const [searchTerm, setSearchTerm] = useState(filters.search);
   const [typeFilter, setTypeFilter] = useState(filters.type);
-  const [startDate, setStartDate] = useState(filters.start_date);
-  const [endDate, setEndDate] = useState(filters.end_date);
   const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
 
   const getFilterParams = () => ({
@@ -101,8 +101,7 @@ export default function Pages({ kas, users, filters, flash, auth }: Props) {
   const handleResetKas = () => {
     setSearchTerm('');
     setTypeFilter('all');
-    setStartDate('');
-    setEndDate('');
+    handleResetTanggal();
     router.get(route('kas.index'));
   };
 

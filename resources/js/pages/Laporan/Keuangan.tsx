@@ -1,6 +1,6 @@
 import ButtonExport from '@/components/app-button-export';
 import Heading from '@/components/heading';
-import useLaporanKeuanganFilter from '@/hooks/use-laporan-keuangan-filter';
+import useDateRangeFilter from '@/hooks/use-date-range-filter';
 import AppLayout from '@/layouts/app-layout';
 import { Laporan, User } from '@/types';
 import { Head } from '@inertiajs/react';
@@ -24,7 +24,11 @@ interface Props {
 }
 
 export default function Pages({ laporan, periode, totalSaldo, totalDebit, totalKredit, auth }: Props) {
-  const { startDate, endDate, setStartDate, setEndDate, handleFilterTanggal, handleResetTanggal } = useLaporanKeuanganFilter(periode);
+  const { startDate, endDate, setStartDate, setEndDate, handleFilterTanggal, handleResetTanggal } = useDateRangeFilter(
+    'laporan.index',
+    periode?.start ?? '',
+    periode?.end ?? '',
+  );
 
   const user = auth?.user;
 
