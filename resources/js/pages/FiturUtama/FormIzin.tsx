@@ -5,13 +5,13 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import useIzinForm from '@/hooks/use-izin-form';
 import AppLayout from '@/layouts/app-layout';
 import { capitalizeFirstLetter } from '@/lib/capitalize-first-letter';
 import { formatDate } from '@/lib/format-date';
 import { Kegiatan } from '@/types';
-import { Head, useForm } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { Calendar, CalendarDays, Clock, MapPin, Users } from 'lucide-react';
-import { useEffect, useState } from 'react';
 
 interface Props {
   flash?: {
@@ -31,24 +31,7 @@ const DetailItem = ({ icon, text }: { icon: React.ReactNode; text: string }) => 
 };
 
 export default function Pages({ kegiatan, flash }: Props) {
-  const { data, setData, post, processing } = useForm({
-    tanggal_izin: '',
-    alasan: '',
-    status: 'izin',
-  });
-
-  const [agreed, setAgreed] = useState<boolean>(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!agreed) return;
-    post(route('absensi.store'));
-  };
-
-  useEffect(() => {
-    const today = new Date().toISOString().split('T')[0];
-    setData('tanggal_izin', today);
-  }, [setData]);
+  const { data, setData, processing, agreed, setAgreed, handleSubmit } = useIzinForm();
 
   return (
     <AppLayout
