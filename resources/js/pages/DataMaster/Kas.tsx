@@ -5,13 +5,14 @@ import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import useDateRangeFilter from '@/hooks/use-date-range-filter';
+import useKasFilter from '@/hooks/use-kas-filter';
 import useKasForm from '@/hooks/use-kas-form';
 import usePaginate from '@/hooks/use-paginate';
 import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { Kas, User } from '@/types';
-import { Head, router, useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import FilterKas from './components/kas-filter';
@@ -50,8 +51,16 @@ export default function Pages({ kas, users, filters, flash, auth }: Props) {
   const { startDate, endDate, setStartDate, setEndDate, handleResetTanggal } = useDateRangeFilter('kas.index', filters.start_date, filters.end_date);
 
   const [searchTerm, setSearchTerm] = useState(filters.search);
-  const [typeFilter, setTypeFilter] = useState(filters.type);
   const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
+
+  const { typeFilter, handleFilterKas, handleFilterTypeChange, handleResetKas } = useKasFilter({
+    searchTerm,
+    setSearchTerm,
+    initialFilter: filters.type,
+    startDate,
+    endDate,
+    handleResetTanggal,
+  });
 
   const getFilterParams = () => ({
     search: searchTerm,
@@ -64,46 +73,6 @@ export default function Pages({ kas, users, filters, flash, auth }: Props) {
 
   const user = auth?.user;
   const form = useForm();
-
-  const handleFilterTypeChange = (value: string) => {
-    setTypeFilter(value);
-    router.get(
-      route('kas.index'),
-      {
-        search: searchTerm,
-        start_date: startDate,
-        end_date: endDate,
-        type: value === 'all' ? '' : value,
-      },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
-  };
-
-  const handleFilterKas = () => {
-    router.get(
-      route('kas.index'),
-      {
-        search: searchTerm,
-        type: typeFilter,
-        start_date: startDate,
-        end_date: endDate,
-      },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
-  };
-
-  const handleResetKas = () => {
-    setSearchTerm('');
-    setTypeFilter('all');
-    handleResetTanggal();
-    router.get(route('kas.index'));
-  };
 
   const handleDelete = (id: number) => {
     form.delete(route('kas.destroy', id), {
