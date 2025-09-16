@@ -17,10 +17,7 @@ interface Props {
 export default function useKasFilter({
   getFilterParams,
   initialFilter,
-  searchTerm,
   setSearchTerm,
-  startDate,
-  endDate,
   handleResetTanggal,
 }: Props) {
   const [typeFilter, setTypeFilter] = useState(initialFilter);
