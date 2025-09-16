@@ -6,14 +6,14 @@ import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import useAnggotaFilter from '@/hooks/use-anggota-filter';
 import useAnggotaForm from '@/hooks/use-anggota-form';
+import useDelete from '@/hooks/use-delete';
 import usePaginate from '@/hooks/use-paginate';
 import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { User } from '@/types';
-import { Head, useForm } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
-import { useState } from 'react';
 import FilterAnggota from './components/anggota-filter';
 import FormAnggota from './components/anggota-form';
 import TableAnggota from './components/anggota-table';
@@ -65,18 +65,9 @@ export default function Pages({ users, filters, flash, auth }: Props) {
     handleResetFilters,
   } = useAnggotaFilter({ initialFilters: filters });
 
-  const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
+  const { confirmDeleteId, setConfirmDeleteId, handleDelete } = useDelete('users.destroy');
 
   const user = auth?.user;
-  const form = useForm();
-
-  const handleDelete = (id: number) => {
-    form.delete(route('kas.destroy', id), {
-      onSuccess: () => {
-        setConfirmDeleteId(null);
-      },
-    });
-  };
 
   const { handleSearch } = useSearch({
     routeName: 'users.index',

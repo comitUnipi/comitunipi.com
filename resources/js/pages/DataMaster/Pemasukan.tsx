@@ -5,14 +5,14 @@ import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import useDateRangeFilter from '@/hooks/use-date-range-filter';
+import useDelete from '@/hooks/use-delete';
 import usePaginate from '@/hooks/use-paginate';
 import usePemasukanForm from '@/hooks/use-pemasukan-form';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { Pemasukan, User } from '@/types';
-import { Head, useForm } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
-import { useState } from 'react';
 import FilterPemasukan from './components/pemasukan-filter';
 import FormPemasukan from './components/pemasukan-form';
 import TablePemasukan from './components/pemasukan-table';
@@ -52,19 +52,9 @@ export default function Pages({ pemasukan, filters, flash, auth }: Props) {
     handleFilterTanggal,
     handleResetTanggal: handleResetFilter,
   } = useDateRangeFilter('pemasukan.index', filters.start_date, filters.end_date);
-
-  const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
+  const { confirmDeleteId, setConfirmDeleteId, handleDelete } = useDelete('pemasukan.destroy');
 
   const user = auth?.user;
-  const form = useForm();
-
-  const handleDelete = (id: number) => {
-    form.delete(route('pemasukan.destroy', id), {
-      onSuccess: () => {
-        setConfirmDeleteId(null);
-      },
-    });
-  };
 
   const queryParams = new URLSearchParams(Object.fromEntries(Object.entries(filters).filter(([value]) => value !== '' && value !== null))).toString();
   const exportUrl = `/pemasukan/export/csv?${queryParams}`;

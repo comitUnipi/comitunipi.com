@@ -5,6 +5,7 @@ import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import useDateRangeFilter from '@/hooks/use-date-range-filter';
+import useDelete from '@/hooks/use-delete';
 import useKasFilter from '@/hooks/use-kas-filter';
 import useKasForm from '@/hooks/use-kas-form';
 import usePaginate from '@/hooks/use-paginate';
@@ -12,7 +13,7 @@ import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { Kas, User } from '@/types';
-import { Head, useForm } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import FilterKas from './components/kas-filter';
@@ -49,9 +50,9 @@ export default function Pages({ kas, users, filters, flash, auth }: Props) {
   const { showToast, toastMessage, toastType } = useToastFlash(flash);
   const { data, setData, handleSubmit, processing, isOpen, setIsOpen, editing, handleEdit } = useKasForm();
   const { startDate, endDate, setStartDate, setEndDate, handleResetTanggal } = useDateRangeFilter('kas.index', filters.start_date, filters.end_date);
+  const { confirmDeleteId, setConfirmDeleteId, handleDelete } = useDelete('kas.destroy');
 
   const [searchTerm, setSearchTerm] = useState(filters.search);
-  const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
 
   const { typeFilter, handleFilterKas, handleFilterTypeChange, handleResetKas } = useKasFilter({
     searchTerm,
@@ -72,15 +73,6 @@ export default function Pages({ kas, users, filters, flash, auth }: Props) {
   });
 
   const user = auth?.user;
-  const form = useForm();
-
-  const handleDelete = (id: number) => {
-    form.delete(route('kas.destroy', id), {
-      onSuccess: () => {
-        setConfirmDeleteId(null);
-      },
-    });
-  };
 
   const { handleSearch } = useSearch({
     routeName: 'kas.index',

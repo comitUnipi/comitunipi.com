@@ -5,14 +5,14 @@ import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import useDateRangeFilter from '@/hooks/use-date-range-filter';
+import useDelete from '@/hooks/use-delete';
 import usePaginate from '@/hooks/use-paginate';
 import usePengeluaranForm from '@/hooks/use-pengeluaran-form';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { Pengeluaran, User } from '@/types';
-import { Head, useForm } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
-import { useState } from 'react';
 import FilterPengeluaran from './components/pengeluaran-filter';
 import FormPengeluaran from './components/pengeluaran-form';
 import TablePengeluaran from './components/pengeluaran-table';
@@ -53,18 +53,9 @@ export default function Pages({ pengeluaran, filters, flash, auth }: Props) {
     handleResetTanggal: handleResetFilter,
   } = useDateRangeFilter('pengeluaran.index', filters.start_date, filters.end_date);
 
-  const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
+  const { confirmDeleteId, setConfirmDeleteId, handleDelete } = useDelete('pengeluaran.destroy');
+
   const user = auth?.user;
-
-  const form = useForm();
-
-  const handleDelete = (id: number) => {
-    form.delete(route('pengeluaran.destroy', id), {
-      onSuccess: () => {
-        setConfirmDeleteId(null);
-      },
-    });
-  };
 
   const queryParams = new URLSearchParams(Object.fromEntries(Object.entries(filters).filter(([value]) => value !== '' && value !== null))).toString();
   const exportUrl = `/pengeluaran/export/csv?${queryParams}`;

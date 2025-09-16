@@ -4,13 +4,14 @@ import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import useDelete from '@/hooks/use-delete';
 import useKegiatanForm from '@/hooks/use-kegiatan-form';
 import usePaginate from '@/hooks/use-paginate';
 import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { Kegiatan, User } from '@/types';
-import { Head, useForm } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import FilterKegiatan from './components/kegiatan-filter';
@@ -44,7 +45,7 @@ export default function Pages({ kegiatan, filters, flash, auth }: Props) {
   const { data, setData, handleSubmit, processing, isOpen, setIsOpen, editing, handleEdit } = useKegiatanForm();
 
   const [searchTerm, setSearchTerm] = useState(filters.search);
-  const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
+  const { confirmDeleteId, setConfirmDeleteId, handleDelete } = useDelete('kegiatan.destroy');
 
   const getFilterParams = () => ({
     search: searchTerm,
@@ -56,15 +57,6 @@ export default function Pages({ kegiatan, filters, flash, auth }: Props) {
   });
 
   const user = auth?.user;
-  const form = useForm();
-
-  const handleDelete = (id: number) => {
-    form.delete(route('kegiatan.destroy', id), {
-      onSuccess: () => {
-        setConfirmDeleteId(null);
-      },
-    });
-  };
 
   const { handleSearch } = useSearch({
     routeName: 'kegiatan.index',
