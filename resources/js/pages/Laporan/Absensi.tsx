@@ -1,9 +1,9 @@
 import ButtonExport from '@/components/app-button-export';
 import Heading from '@/components/heading';
+import useLaporanAbsensiFilter from '@/hooks/use-laporan-absensi-filter';
 import AppLayout from '@/layouts/app-layout';
 import { Absensi } from '@/types';
-import { Head, router } from '@inertiajs/react';
-import { useState } from 'react';
+import { Head } from '@inertiajs/react';
 import FilterLaporanAbsensi from './components/laporan-absensi-filter';
 import TableLaporanAbsensi from './components/laporan-absensi-table';
 
@@ -20,20 +20,7 @@ interface Props {
 }
 
 export default function Pages({ laporan, totalScan, statusCounts, kegiatanList, selectedKegiatan }: Props) {
-  const [selectedKegiatanId, setSelectedKegiatanId] = useState(selectedKegiatan ?? '');
-
-  const handleFilter = () => {
-    const params = selectedKegiatanId ? { kegiatan_id: selectedKegiatanId } : {};
-    router.get(route('laporan.absensi.index'), params, {
-      preserveState: true,
-      preserveScroll: true,
-    });
-  };
-
-  const handleReset = () => {
-    setSelectedKegiatanId('');
-    router.get(route('laporan.absensi.index'));
-  };
+  const { selectedKegiatanId, setSelectedKegiatanId, handleFilter, handleReset } = useLaporanAbsensiFilter(selectedKegiatan);
 
   return (
     <AppLayout

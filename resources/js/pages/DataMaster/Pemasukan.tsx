@@ -4,11 +4,15 @@ import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import useDateRangeFilter from '@/hooks/use-date-range-filter';
+import useDelete from '@/hooks/use-delete';
+import usePaginate from '@/hooks/use-paginate';
+import usePemasukanForm from '@/hooks/use-pemasukan-form';
+import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { Pemasukan, User } from '@/types';
-import { Head, router, useForm, usePage } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
-import { useEffect, useState } from 'react';
 import FilterPemasukan from './components/pemasukan-filter';
 import FormPemasukan from './components/pemasukan-form';
 import TablePemasukan from './components/pemasukan-table';
@@ -31,127 +35,26 @@ interface Props {
     success?: string;
     error?: string;
   };
-}
-
-type PageProps = {
   auth: {
     user: User;
   };
-};
+}
 
-export default function Pages({ pemasukan, filters, flash }: Props) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [editingPemasukan, setEditingPemasukan] = useState<Pemasukan | null>(null);
-  const [startDate, setStartDate] = useState(filters.start_date);
-  const [endDate, setEndDate] = useState(filters.end_date);
-  const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
-  const [toastType, setToastType] = useState<'success' | 'error'>('success');
-
-  const { auth } = usePage<PageProps>().props;
-  const user = auth?.user;
-
-  useEffect(() => {
-    if (flash?.success) {
-      setToastMessage(flash.success);
-      setToastType('success');
-      setShowToast(true);
-    } else if (flash?.error) {
-      setToastMessage(flash.error);
-      setToastType('error');
-      setShowToast(true);
-    }
-  }, [flash]);
-
-  useEffect(() => {
-    if (showToast) {
-      const timer = setTimeout(() => setShowToast(false), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [showToast]);
-
+export default function Pages({ pemasukan, filters, flash, auth }: Props) {
+  const { showToast, toastMessage, toastType } = useToastFlash(flash);
+  const { handlePageChange } = usePaginate({ routeName: 'pemasukan.index' });
+  const { data, setData, handleSubmit, processing, isOpen, setIsOpen, editingPemasukan, handleEdit } = usePemasukanForm();
   const {
-    data,
-    setData,
-    post,
-    put,
-    processing,
-    reset,
-    delete: destroy,
-  } = useForm({
-    amount: 0,
-    date: '',
-    description: '',
-  });
+    startDate,
+    endDate,
+    setStartDate,
+    setEndDate,
+    handleFilterTanggal,
+    handleResetTanggal: handleResetFilter,
+  } = useDateRangeFilter('pemasukan.index', filters.start_date, filters.end_date);
+  const { confirmDeleteId, setConfirmDeleteId, handleDelete } = useDelete('pemasukan.destroy');
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (editingPemasukan) {
-      put(route('pemasukan.update', editingPemasukan.id), {
-        onSuccess: () => {
-          setIsOpen(false);
-          setEditingPemasukan(null);
-          reset();
-        },
-      });
-    } else {
-      post(route('pemasukan.store'), {
-        onSuccess: () => {
-          setIsOpen(false);
-          reset();
-        },
-      });
-    }
-  };
-
-  const handleEdit = (pemasukanItem: Pemasukan) => {
-    setEditingPemasukan(pemasukanItem);
-    setData({
-      amount: pemasukanItem.amount,
-      date: pemasukanItem.date,
-      description: pemasukanItem.description,
-    });
-    setIsOpen(true);
-  };
-
-  const handleDelete = (id: number) => {
-    destroy(route('pemasukan.destroy', id));
-  };
-
-  const handlePageChange = (page: number) => {
-    router.get(
-      route('pemasukan.index'),
-      {
-        page,
-      },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
-  };
-
-  const handleFilterTanggal = () => {
-    router.get(
-      route('pemasukan.index'),
-      {
-        start_date: startDate,
-        end_date: endDate,
-      },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
-  };
-
-  const handleResetFilter = () => {
-    setStartDate('');
-    setEndDate('');
-    router.get(route('pemasukan.index'));
-  };
+  const user = auth?.user;
 
   const queryParams = new URLSearchParams(Object.fromEntries(Object.entries(filters).filter(([value]) => value !== '' && value !== null))).toString();
   const exportUrl = `/pemasukan/export/csv?${queryParams}`;

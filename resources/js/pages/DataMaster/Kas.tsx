@@ -4,11 +4,18 @@ import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import useDateRangeFilter from '@/hooks/use-date-range-filter';
+import useDelete from '@/hooks/use-delete';
+import useKasFilter from '@/hooks/use-kas-filter';
+import useKasForm from '@/hooks/use-kas-form';
+import usePaginate from '@/hooks/use-paginate';
+import useSearch from '@/hooks/use-search';
+import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { Kas, User } from '@/types';
-import { Head, router, useForm, usePage } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import FilterKas from './components/kas-filter';
 import FormKas from './components/kas-form';
 import TableKas from './components/kas-table';
@@ -34,165 +41,43 @@ interface Props {
     success?: string;
     error?: string;
   };
-}
-
-type PageProps = {
   auth: {
     user: User;
   };
-};
+}
 
-export default function Pages({ kas, users, filters, flash }: Props) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [editingKAS, setEditingKAS] = useState<Kas | null>(null);
+export default function Pages({ kas, users, filters, flash, auth }: Props) {
+  const { showToast, toastMessage, toastType } = useToastFlash(flash);
+  const { data, setData, handleSubmit, processing, isOpen, setIsOpen, editing, handleEdit } = useKasForm();
+  const { startDate, endDate, setStartDate, setEndDate, handleResetTanggal } = useDateRangeFilter('kas.index', filters.start_date, filters.end_date);
+  const { confirmDeleteId, setConfirmDeleteId, handleDelete } = useDelete('kas.destroy');
+
   const [searchTerm, setSearchTerm] = useState(filters.search);
-  const [typeFilter, setTypeFilter] = useState(filters.type);
-  const [startDate, setStartDate] = useState(filters.start_date);
-  const [endDate, setEndDate] = useState(filters.end_date);
-  const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
-  const [toastType, setToastType] = useState<'success' | 'error'>('success');
 
-  const { auth } = usePage<PageProps>().props;
-  const user = auth?.user;
-
-  useEffect(() => {
-    if (flash?.success) {
-      setToastMessage(flash.success);
-      setToastType('success');
-      setShowToast(true);
-    } else if (flash?.error) {
-      setToastMessage(flash.error);
-      setToastType('error');
-      setShowToast(true);
-    }
-  }, [flash]);
-
-  useEffect(() => {
-    if (showToast) {
-      const timer = setTimeout(() => setShowToast(false), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [showToast]);
-
-  const {
-    data,
-    setData,
-    post,
-    put,
-    processing,
-    reset,
-    delete: destroy,
-  } = useForm({
-    user_id: 0,
-    amount: 0,
-    date: '',
-    type: '',
+  const { typeFilter, handleFilterKas, handleFilterTypeChange, handleResetKas } = useKasFilter({
+    searchTerm,
+    setSearchTerm,
+    initialFilter: filters.type,
+    startDate,
+    endDate,
+    handleResetTanggal,
   });
 
-  const handleFilterTypeChange = (value: string) => {
-    setTypeFilter(value);
-    router.get(
-      route('kas.index'),
-      {
-        search: searchTerm,
-        start_date: startDate,
-        end_date: endDate,
-        type: value === 'all' ? '' : value,
-      },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
-  };
+  const getFilterParams = () => ({
+    search: searchTerm,
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const { handlePageChange } = usePaginate({
+    routeName: 'kas.index',
+    getFilterParams,
+  });
 
-    if (editingKAS) {
-      put(route('kas.update', editingKAS.id), {
-        onSuccess: () => {
-          setIsOpen(false);
-          setEditingKAS(null);
-          reset();
-        },
-      });
-    } else {
-      post(route('kas.store'), {
-        onSuccess: () => {
-          setIsOpen(false);
-          reset();
-        },
-      });
-    }
-  };
+  const user = auth?.user;
 
-  const handleEdit = (kasItem: Kas) => {
-    setEditingKAS(kasItem);
-    setData((previousData) => ({
-      ...previousData,
-      amount: kasItem.amount,
-      date: kasItem.date,
-      type: kasItem.type,
-    }));
-    setIsOpen(true);
-  };
-
-  const handleDelete = (id: number) => {
-    destroy(route('kas.destroy', id));
-  };
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    router.get(
-      route('kas.index'),
-      { search: searchTerm },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
-  };
-
-  const handleFilterKas = () => {
-    router.get(
-      route('kas.index'),
-      {
-        search: searchTerm,
-        type: typeFilter,
-        start_date: startDate,
-        end_date: endDate,
-      },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
-  };
-
-  const handleResetKas = () => {
-    setSearchTerm('');
-    setTypeFilter('all');
-    setStartDate('');
-    setEndDate('');
-    router.get(route('kas.index'));
-  };
-
-  const handlePageChange = (page: number) => {
-    router.get(
-      route('kas.index'),
-      {
-        page,
-        search: searchTerm,
-      },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
-  };
+  const { handleSearch } = useSearch({
+    routeName: 'kas.index',
+    getFilterParams,
+  });
 
   const queryParams = new URLSearchParams(
     Object.fromEntries(Object.entries(filters).filter(([, value]) => value !== '' && value !== null)),
@@ -235,12 +120,12 @@ export default function Pages({ kas, users, filters, flash }: Props) {
                 </DialogTrigger>
                 <DialogContent className="max-h-[90vh] w-[calc(100vw-2rem)] overflow-y-auto sm:max-w-[600px]">
                   <DialogHeader>
-                    <DialogTitle className="text-lg sm:text-xl">{editingKAS ? 'Ubah Data KAS' : 'Tambah KAS'}</DialogTitle>
+                    <DialogTitle className="text-lg sm:text-xl">{editing ? 'Ubah Data KAS' : 'Tambah KAS'}</DialogTitle>
                   </DialogHeader>
                   <FormKas
                     data={data}
                     setData={setData}
-                    editingKAS={editingKAS !== null}
+                    editingKAS={editing !== null}
                     handleSubmit={handleSubmit}
                     processing={processing}
                     users={users}

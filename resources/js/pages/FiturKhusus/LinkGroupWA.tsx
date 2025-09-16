@@ -3,9 +3,10 @@ import ToastNotification from '@/components/toast-notification';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import useToastFlash from '@/hooks/use-toast-flash';
+import useWaLinkForm from '@/hooks/use-wa-link-form';
 import AppLayout from '@/layouts/app-layout';
-import { Head, router } from '@inertiajs/react';
-import { FormEvent, useEffect, useState } from 'react';
+import { Head } from '@inertiajs/react';
 
 interface Props {
   whatsappLink: string;
@@ -15,55 +16,9 @@ interface Props {
   };
 }
 
-interface FormErrors {
-  [key: string]: string | undefined;
-}
-
 export default function Pages({ whatsappLink, flash }: Props) {
-  const [link, setLink] = useState<string>(whatsappLink || '');
-  const [errors, setErrors] = useState<FormErrors>({});
-  const [showToast, setShowToast] = useState<boolean>(false);
-  const [toastMessage, setToastMessage] = useState<string>('');
-  const [toastType, setToastType] = useState<'success' | 'error'>('success');
-
-  useEffect(() => {
-    if (flash?.success || flash?.error) {
-      setToastMessage(flash.success || flash.error || '');
-      setToastType(flash.success ? 'success' : 'error');
-      setShowToast(true);
-    }
-  }, [flash]);
-
-  useEffect(() => {
-    if (showToast) {
-      const timer = setTimeout(() => setShowToast(false), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [showToast]);
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    router.post(
-      route('link.group-whatsapp.update'),
-      { whatsapp_link: link },
-      {
-        preserveScroll: true,
-        onSuccess: () => {
-          setErrors({});
-          setToastMessage(flash?.success || 'Link berhasil diperbarui.');
-          setToastType('success');
-          setShowToast(true);
-        },
-        onError: (err: FormErrors) => {
-          setErrors(err);
-          setToastMessage(err?.whatsapp_link || 'Terjadi kesalahan saat memperbarui link.');
-          setToastType('error');
-          setShowToast(true);
-        },
-      },
-    );
-  };
+  const { showToast, toastMessage, toastType } = useToastFlash(flash);
+  const { link, setLink, handleSubmit } = useWaLinkForm(whatsappLink);
 
   return (
     <AppLayout
@@ -86,7 +41,6 @@ export default function Pages({ whatsappLink, flash }: Props) {
             <div className="space-y-2">
               <Label htmlFor="whatsapp_link">Link Grup WhatsApp</Label>
               <Input id="whatsapp_link" name="whatsapp_link" type="url" value={link} onChange={(e) => setLink(e.target.value)} />
-              {errors.whatsapp_link && <p className="text-sm text-red-600">{errors.whatsapp_link}</p>}
             </div>
             <Button className="w-full" type="submit">
               Simpan
