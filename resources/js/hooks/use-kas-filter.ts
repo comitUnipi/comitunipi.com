@@ -3,6 +3,10 @@ import { useState } from 'react';
 
 interface Props {
   initialFilter: string;
+  getFilterParams?: () => Record<
+    string,
+    string | number | boolean | null | undefined
+  >;
   searchTerm: string;
   setSearchTerm: (val: string) => void;
   startDate: string;
@@ -11,6 +15,7 @@ interface Props {
 }
 
 export default function useKasFilter({
+  getFilterParams,
   initialFilter,
   searchTerm,
   setSearchTerm,
@@ -24,10 +29,8 @@ export default function useKasFilter({
     router.get(
       route('kas.index'),
       {
-        search: searchTerm,
         type: typeFilter,
-        start_date: startDate,
-        end_date: endDate,
+        ...getFilterParams?.(),
       },
       {
         preserveState: true,
@@ -42,10 +45,8 @@ export default function useKasFilter({
     router.get(
       route('kas.index'),
       {
-        search: searchTerm,
-        start_date: startDate,
-        end_date: endDate,
         type: typeValue,
+        ...getFilterParams?.(),
       },
       {
         preserveState: true,
