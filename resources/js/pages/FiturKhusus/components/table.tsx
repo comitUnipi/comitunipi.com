@@ -29,20 +29,41 @@ export default function Table({ users, user, handleEdit, viewRoute }: Props) {
         <table className="w-full caption-bottom text-sm">
           <thead className="[&_tr]:border-b">
             <tr className="hover:bg-muted/50 border-b transition-colors">
-              <th className="text-muted-foreground h-12 px-4 text-left font-medium">No</th>
-              <th className="text-muted-foreground h-12 px-4 text-left font-medium">Nama Lengkap</th>
-              <th className="text-muted-foreground h-12 px-4 text-left font-medium">NPM</th>
-              <th className="text-muted-foreground h-12 px-4 text-left font-medium">Jurusan</th>
-              <th className="text-muted-foreground h-12 px-4 text-left font-medium">Minat Keahlian</th>
-              <th className="text-muted-foreground h-12 px-4 text-left font-medium">Status</th>
-              <th className="text-muted-foreground h-12 px-4 text-left font-medium">Posisi</th>
-              <th className="text-muted-foreground h-12 px-4 text-left font-medium">Role</th>
-              <th className="text-muted-foreground h-12 px-4 text-center font-medium">Actions</th>
+              <th className="text-muted-foreground h-12 px-4 text-left font-medium">
+                No
+              </th>
+              <th className="text-muted-foreground h-12 px-4 text-left font-medium">
+                Nama Lengkap
+              </th>
+              <th className="text-muted-foreground h-12 px-4 text-left font-medium">
+                NPM
+              </th>
+              <th className="text-muted-foreground h-12 px-4 text-left font-medium">
+                Jurusan
+              </th>
+              <th className="text-muted-foreground h-12 px-4 text-left font-medium">
+                Minat Keahlian
+              </th>
+              <th className="text-muted-foreground h-12 px-4 text-left font-medium">
+                Status
+              </th>
+              <th className="text-muted-foreground h-12 px-4 text-left font-medium">
+                Posisi
+              </th>
+              <th className="text-muted-foreground h-12 px-4 text-left font-medium">
+                Role
+              </th>
+              <th className="text-muted-foreground h-12 px-4 text-center font-medium">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody className="[&_tr:last-child]:border-0">
             {users.data.map((data, index) => (
-              <tr key={data.id} className="hover:bg-muted/50 border-b transition-colors">
+              <tr
+                key={data.id}
+                className="hover:bg-muted/50 border-b transition-colors"
+              >
                 <td className="p-4">{index + 1}</td>
                 <td className="p-4">{data.name}</td>
                 <td className="p-4">{data.npm}</td>
@@ -51,7 +72,9 @@ export default function Table({ users, user, handleEdit, viewRoute }: Props) {
                 <td className="p-4">
                   <span
                     className={`rounded-full px-2 py-1 text-xs font-semibold ${
-                      data.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                      data.is_active
+                        ? 'bg-green-100 text-green-800'
+                        : 'bg-red-100 text-red-800'
                     }`}
                   >
                     {data.is_active ? 'Aktif' : 'Nonaktif'}
@@ -67,7 +90,12 @@ export default function Table({ users, user, handleEdit, viewRoute }: Props) {
                     <Eye className="h-4 w-4" />
                   </Link>
                   {user.role === 'Super Admin' && (
-                    <Button variant="ghost" size="icon" onClick={() => handleEdit(data)} className="hover:text-primary cursor-pointer">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => handleEdit(data)}
+                      className="hover:text-primary cursor-pointer"
+                    >
                       <Pencil className="h-4 w-4" />
                     </Button>
                   )}
@@ -76,7 +104,10 @@ export default function Table({ users, user, handleEdit, viewRoute }: Props) {
             ))}
             {users.data.length === 0 && (
               <tr>
-                <td colSpan={9} className="text-muted-foreground p-4 text-center">
+                <td
+                  colSpan={9}
+                  className="text-muted-foreground p-4 text-center"
+                >
                   Tidak ada data anggota.
                 </td>
               </tr>
@@ -86,7 +117,10 @@ export default function Table({ users, user, handleEdit, viewRoute }: Props) {
       </div>
       <div className="lg:hidden">
         {users.data.map((data) => (
-          <div key={data.id} className="space-y-3 border-b p-4">
+          <div
+            key={data.id}
+            className="space-y-3 border-b p-4"
+          >
             <div className="flex items-start justify-between">
               <div>
                 <h3 className="text-base font-semibold">{data.name}</h3>
@@ -100,7 +134,12 @@ export default function Table({ users, user, handleEdit, viewRoute }: Props) {
                   <Eye className="h-4 w-4" />
                 </Link>
                 {user.role === 'Super Admin' && (
-                  <Button variant="ghost" size="icon" onClick={() => handleEdit(data)} className="hover:text-primary h-8 w-8 cursor-pointer">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => handleEdit(data)}
+                    className="hover:text-primary h-8 w-8 cursor-pointer"
+                  >
                     <Pencil className="h-4 w-4" />
                   </Button>
                 )}
@@ -128,7 +167,9 @@ export default function Table({ users, user, handleEdit, viewRoute }: Props) {
               <span className="text-muted-foreground text-sm">Status:</span>
               <span
                 className={`rounded-full px-2 py-1 text-xs font-semibold ${
-                  data.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                  data.is_active
+                    ? 'bg-green-100 text-green-800'
+                    : 'bg-red-100 text-red-800'
                 }`}
               >
                 {data.is_active ? 'Aktif' : 'Nonaktif'}
@@ -136,7 +177,11 @@ export default function Table({ users, user, handleEdit, viewRoute }: Props) {
             </div>
           </div>
         ))}
-        {users.data.length === 0 && <div className="text-muted-foreground p-6 text-center">Tidak ada data.</div>}
+        {users.data.length === 0 && (
+          <div className="text-muted-foreground p-6 text-center">
+            Tidak ada data.
+          </div>
+        )}
       </div>
     </div>
   );

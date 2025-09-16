@@ -1,7 +1,13 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { formatRupiah } from '@/lib/format-rupiah';
 import { parseRupiah } from '@/lib/parse-rupiah';
 import { Kas, User } from '@/types';
@@ -16,18 +22,33 @@ interface Props {
   handleSubmit: React.FormEventHandler<HTMLFormElement>;
 }
 
-export default function FormKas({ data, setData, editingKAS, handleSubmit, processing, users }: Props) {
+export default function FormKas({
+  data,
+  setData,
+  editingKAS,
+  handleSubmit,
+  processing,
+  users,
+}: Props) {
   const [search, setSearch] = useState('');
 
-  const filteredUsers = users.filter((u) => u.name.toLowerCase().includes(search.toLowerCase()));
+  const filteredUsers = users.filter((u) =>
+    u.name.toLowerCase().includes(search.toLowerCase()),
+  );
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-4"
+    >
       {editingKAS ? (
         <>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="grid gap-2">
-              <Label htmlFor="amount" className="text-sm font-medium">
+              <Label
+                htmlFor="amount"
+                className="text-sm font-medium"
+              >
                 Jumlah
               </Label>
               <Input
@@ -44,16 +65,32 @@ export default function FormKas({ data, setData, editingKAS, handleSubmit, proce
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="date" className="text-sm font-medium">
+              <Label
+                htmlFor="date"
+                className="text-sm font-medium"
+              >
                 Tanggal
               </Label>
-              <Input id="date" type="date" value={data.date} onChange={(e) => setData('date', e.target.value)} required className="w-full" />
+              <Input
+                id="date"
+                type="date"
+                value={data.date}
+                onChange={(e) => setData('date', e.target.value)}
+                required
+                className="w-full"
+              />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="type" className="text-sm font-medium">
+              <Label
+                htmlFor="type"
+                className="text-sm font-medium"
+              >
                 KAS Untuk
               </Label>
-              <Select value={data.type} onValueChange={(val) => setData('type', val)}>
+              <Select
+                value={data.type}
+                onValueChange={(val) => setData('type', val)}
+              >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Pilih Untuk" />
                 </SelectTrigger>
@@ -64,7 +101,11 @@ export default function FormKas({ data, setData, editingKAS, handleSubmit, proce
               </Select>
             </div>
           </div>
-          <Button type="submit" disabled={processing} className="w-full">
+          <Button
+            type="submit"
+            disabled={processing}
+            className="w-full"
+          >
             {editingKAS ? 'Ubah Data Uang KAS' : 'Tambah Data'}
           </Button>
         </>
@@ -72,31 +113,53 @@ export default function FormKas({ data, setData, editingKAS, handleSubmit, proce
         <>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="grid gap-2">
-              <Label htmlFor="user_id" className="text-sm font-medium">
+              <Label
+                htmlFor="user_id"
+                className="text-sm font-medium"
+              >
                 Pilih Anggota
               </Label>
-              <Input placeholder="Cari anggota dan kemudian pilih..." value={search} onChange={(e) => setSearch(e.target.value)} className="w-full" />
-              <Select value={data.user_id?.toString()} onValueChange={(val) => setData('user_id', parseInt(val))}>
-                <SelectTrigger id="user_id" className="w-full">
+              <Input
+                placeholder="Cari anggota dan kemudian pilih..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full"
+              />
+              <Select
+                value={data.user_id?.toString()}
+                onValueChange={(val) => setData('user_id', parseInt(val))}
+              >
+                <SelectTrigger
+                  id="user_id"
+                  className="w-full"
+                >
                   <SelectValue placeholder="Pilih Anggota" />
                 </SelectTrigger>
                 <SelectContent>
                   {filteredUsers.length > 0 ? (
                     filteredUsers.map((user) =>
                       user.id !== undefined ? (
-                        <SelectItem key={user.id} value={user.id.toString()}>
+                        <SelectItem
+                          key={user.id}
+                          value={user.id.toString()}
+                        >
                           {user.name}
                         </SelectItem>
                       ) : null,
                     )
                   ) : (
-                    <div className="text-muted-foreground p-2 text-sm">Anggota tidak ditemukan</div>
+                    <div className="text-muted-foreground p-2 text-sm">
+                      Anggota tidak ditemukan
+                    </div>
                   )}
                 </SelectContent>
               </Select>
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="amount" className="text-sm font-medium">
+              <Label
+                htmlFor="amount"
+                className="text-sm font-medium"
+              >
                 Jumlah
               </Label>
               <Input
@@ -113,16 +176,32 @@ export default function FormKas({ data, setData, editingKAS, handleSubmit, proce
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="date" className="text-sm font-medium">
+              <Label
+                htmlFor="date"
+                className="text-sm font-medium"
+              >
                 Tanggal
               </Label>
-              <Input id="date" type="date" value={data.date} onChange={(e) => setData('date', e.target.value)} required className="w-full" />
+              <Input
+                id="date"
+                type="date"
+                value={data.date}
+                onChange={(e) => setData('date', e.target.value)}
+                required
+                className="w-full"
+              />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="type" className="text-sm font-medium">
+              <Label
+                htmlFor="type"
+                className="text-sm font-medium"
+              >
                 KAS Untuk
               </Label>
-              <Select value={data.type} onValueChange={(val) => setData('type', val)}>
+              <Select
+                value={data.type}
+                onValueChange={(val) => setData('type', val)}
+              >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Pilih Untuk" />
                 </SelectTrigger>
@@ -133,7 +212,11 @@ export default function FormKas({ data, setData, editingKAS, handleSubmit, proce
               </Select>
             </div>
           </div>
-          <Button type="submit" disabled={processing} className="w-full">
+          <Button
+            type="submit"
+            disabled={processing}
+            className="w-full"
+          >
             {editingKAS ? 'Ubah Data Uang KAS' : 'Tambah Data'}
           </Button>
         </>

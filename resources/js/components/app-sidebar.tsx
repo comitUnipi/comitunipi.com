@@ -1,11 +1,37 @@
 import { NavMain } from '@/components/nav-main';
-import { Sidebar, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { ArrowBigDown, ArrowBigUp, Calendar, Camera, Dock, LayoutGrid, MailIcon, QrCode, TabletSmartphone, User, Users, Users2 } from 'lucide-react';
+import {
+  ArrowBigDown,
+  ArrowBigUp,
+  Calendar,
+  Camera,
+  Dock,
+  LayoutGrid,
+  MailIcon,
+  QrCode,
+  TabletSmartphone,
+  User,
+  Users,
+  Users2,
+} from 'lucide-react';
 import AppLogo from './app-logo';
 
-type Role = 'Super Admin' | 'Admin' | 'Finance' | 'User' | 'Guest' | 'LimitedAccess';
+type Role =
+  | 'Super Admin'
+  | 'Admin'
+  | 'Finance'
+  | 'User'
+  | 'Guest'
+  | 'LimitedAccess';
 
 interface UserType {
   id: number;
@@ -168,17 +194,29 @@ export function AppSidebar() {
     },
   };
 
-  const normalizedRole: Role = ['Finance', 'Admin', 'Super Admin'].includes(user.role) && !user.is_active ? 'LimitedAccess' : user.role;
+  const normalizedRole: Role =
+    ['Finance', 'Admin', 'Super Admin'].includes(user.role) && !user.is_active
+      ? 'LimitedAccess'
+      : user.role;
 
   const access = roleAccessMap[normalizedRole] || {};
 
   return (
-    <Sidebar collapsible="icon" variant="inset">
+    <Sidebar
+      collapsible="icon"
+      variant="inset"
+    >
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
-              <Link href="/dashboard" prefetch>
+            <SidebarMenuButton
+              size="lg"
+              asChild
+            >
+              <Link
+                href="/dashboard"
+                prefetch
+              >
                 <AppLogo />
               </Link>
             </SidebarMenuButton>
@@ -186,11 +224,34 @@ export function AppSidebar() {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain label="Fitur Utama" items={mainNavItems} />
-        {access.special && <NavMain label="Fitur Khusus" items={fiturNavItems} />}
-        {access.master && <NavMain label="Data Master" items={masterNavItems} />}
-        {access.laporan && <NavMain label="Laporan" items={laporanNavItems} />}
-        {access.setting && <NavMain label="Pengaturan" items={settingNavItems} />}
+        <NavMain
+          label="Fitur Utama"
+          items={mainNavItems}
+        />
+        {access.special && (
+          <NavMain
+            label="Fitur Khusus"
+            items={fiturNavItems}
+          />
+        )}
+        {access.master && (
+          <NavMain
+            label="Data Master"
+            items={masterNavItems}
+          />
+        )}
+        {access.laporan && (
+          <NavMain
+            label="Laporan"
+            items={laporanNavItems}
+          />
+        )}
+        {access.setting && (
+          <NavMain
+            label="Pengaturan"
+            items={settingNavItems}
+          />
+        )}
       </SidebarContent>
     </Sidebar>
   );

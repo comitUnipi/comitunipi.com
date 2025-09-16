@@ -10,7 +10,9 @@ import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
 
 export default function ConfirmPassword() {
-  const { data, setData, post, processing, errors, reset } = useForm<Required<{ password: string }>>({
+  const { data, setData, post, processing, errors, reset } = useForm<
+    Required<{ password: string }>
+  >({
     password: '',
   });
 
@@ -23,7 +25,10 @@ export default function ConfirmPassword() {
   };
 
   return (
-    <AuthLayout title="Confirm your password" description="This is a secure area of the application. Please confirm your password before continuing.">
+    <AuthLayout
+      title="Confirm your password"
+      description="This is a secure area of the application. Please confirm your password before continuing."
+    >
       <Head title="Confirm password" />
 
       <form onSubmit={submit}>
@@ -45,7 +50,10 @@ export default function ConfirmPassword() {
           </div>
 
           <div className="flex items-center">
-            <Button className="w-full" disabled={processing}>
+            <Button
+              className="w-full"
+              disabled={processing}
+            >
               {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
               Confirm password
             </Button>

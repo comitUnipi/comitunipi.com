@@ -3,9 +3,19 @@ import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { JENIS_KELAMIN_OPTIONS, JURUSAN_OPTIONS, MINAT_KEAHLIAN_OPTIONS } from '@/constants/form-options';
+import {
+  JENIS_KELAMIN_OPTIONS,
+  JURUSAN_OPTIONS,
+  MINAT_KEAHLIAN_OPTIONS,
+} from '@/constants/form-options';
 import AuthLayout from '@/layouts/auth-layout';
 import { Head, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
@@ -25,7 +35,9 @@ type RegisterForm = {
 };
 
 export default function Register() {
-  const { data, setData, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
+  const { data, setData, post, processing, errors, reset } = useForm<
+    Required<RegisterForm>
+  >({
     name: '',
     npm: '',
     email: '',
@@ -46,9 +58,15 @@ export default function Register() {
   };
 
   return (
-    <AuthLayout title="Pendaftaran Akun" description="Isi form ini sesuai dengan data diri, untuk daftar COMIT.">
+    <AuthLayout
+      title="Pendaftaran Akun"
+      description="Isi form ini sesuai dengan data diri, untuk daftar COMIT."
+    >
       <Head title="Pendaftaran Anggota" />
-      <form className="mt-2 flex flex-col gap-6" onSubmit={submit}>
+      <form
+        className="mt-2 flex flex-col gap-6"
+        onSubmit={submit}
+      >
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="grid gap-2">
             <Label htmlFor="name">Nama Lengkap</Label>
@@ -64,7 +82,10 @@ export default function Register() {
               disabled={processing}
               placeholder="Nama Lengkap"
             />
-            <InputError message={errors.name} className="mt-2" />
+            <InputError
+              message={errors.name}
+              className="mt-2"
+            />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="npm">NPM</Label>
@@ -79,7 +100,10 @@ export default function Register() {
               disabled={processing}
               placeholder="NPM"
             />
-            <InputError message={errors.npm} className="mt-2" />
+            <InputError
+              message={errors.npm}
+              className="mt-2"
+            />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
@@ -141,13 +165,22 @@ export default function Register() {
           </div>
           <div className="grid gap-2">
             <Label htmlFor="jenis_kelamin">Jenis Kelamin</Label>
-            <Select value={data.jenis_kelamin} onValueChange={(val) => setData('jenis_kelamin', val)}>
-              <SelectTrigger id="jenis_kelamin" disabled={processing}>
+            <Select
+              value={data.jenis_kelamin}
+              onValueChange={(val) => setData('jenis_kelamin', val)}
+            >
+              <SelectTrigger
+                id="jenis_kelamin"
+                disabled={processing}
+              >
                 <SelectValue placeholder="Pilih Jenis Kelamin" />
               </SelectTrigger>
               <SelectContent>
                 {JENIS_KELAMIN_OPTIONS.map((value) => (
-                  <SelectItem key={value} value={value}>
+                  <SelectItem
+                    key={value}
+                    value={value}
+                  >
                     {value}
                   </SelectItem>
                 ))}
@@ -157,13 +190,22 @@ export default function Register() {
           </div>
           <div className="grid gap-2">
             <Label htmlFor="jurusan">Jurusan</Label>
-            <Select value={data.jurusan} onValueChange={(val) => setData('jurusan', val)}>
-              <SelectTrigger id="jurusan" disabled={processing}>
+            <Select
+              value={data.jurusan}
+              onValueChange={(val) => setData('jurusan', val)}
+            >
+              <SelectTrigger
+                id="jurusan"
+                disabled={processing}
+              >
                 <SelectValue placeholder="Pilih Jurusan" />
               </SelectTrigger>
               <SelectContent>
                 {JURUSAN_OPTIONS.map((value) => (
-                  <SelectItem key={value} value={value}>
+                  <SelectItem
+                    key={value}
+                    value={value}
+                  >
                     {value}
                   </SelectItem>
                 ))}
@@ -173,13 +215,22 @@ export default function Register() {
           </div>
           <div className="grid gap-2">
             <Label htmlFor="minat_keahlian">Minat Keahlian</Label>
-            <Select value={data.minat_keahlian} onValueChange={(val) => setData('minat_keahlian', val)}>
-              <SelectTrigger id="minat_keahlian" disabled={processing}>
+            <Select
+              value={data.minat_keahlian}
+              onValueChange={(val) => setData('minat_keahlian', val)}
+            >
+              <SelectTrigger
+                id="minat_keahlian"
+                disabled={processing}
+              >
                 <SelectValue placeholder="Pilih Minat Keahlian" />
               </SelectTrigger>
               <SelectContent>
                 {MINAT_KEAHLIAN_OPTIONS.map((value) => (
-                  <SelectItem key={value} value={value}>
+                  <SelectItem
+                    key={value}
+                    value={value}
+                  >
                     {value}
                   </SelectItem>
                 ))}
@@ -201,13 +252,21 @@ export default function Register() {
           />
           <InputError message={errors.alasan} />
         </div>
-        <Button type="submit" className="mt-2 w-full bg-blue-500 hover:bg-blue-600 dark:text-white" tabIndex={5} disabled={processing}>
+        <Button
+          type="submit"
+          className="mt-2 w-full bg-blue-500 hover:bg-blue-600 dark:text-white"
+          tabIndex={5}
+          disabled={processing}
+        >
           {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
           Daftar Sekarang
         </Button>
         <div className="text-muted-foreground text-center text-sm">
           Kamu sudah daftar COMIT?{' '}
-          <TextLink href={route('login')} tabIndex={6}>
+          <TextLink
+            href={route('login')}
+            tabIndex={6}
+          >
             Masuk
           </TextLink>
         </div>

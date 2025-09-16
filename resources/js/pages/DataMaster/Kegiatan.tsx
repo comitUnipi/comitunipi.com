@@ -3,7 +3,13 @@ import ModalConfirm from '@/components/app-modal-confirm';
 import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import useDelete from '@/hooks/use-delete';
 import useKegiatanForm from '@/hooks/use-kegiatan-form';
 import usePaginate from '@/hooks/use-paginate';
@@ -42,10 +48,20 @@ interface Props {
 
 export default function Pages({ kegiatan, filters, flash, auth }: Props) {
   const { showToast, toastMessage, toastType } = useToastFlash(flash);
-  const { data, setData, handleSubmit, processing, isOpen, setIsOpen, editing, handleEdit } = useKegiatanForm();
+  const {
+    data,
+    setData,
+    handleSubmit,
+    processing,
+    isOpen,
+    setIsOpen,
+    editing,
+    handleEdit,
+  } = useKegiatanForm();
 
   const [searchTerm, setSearchTerm] = useState(filters.search);
-  const { confirmDeleteId, setConfirmDeleteId, handleDelete } = useDelete('kegiatan.destroy');
+  const { confirmDeleteId, setConfirmDeleteId, handleDelete } =
+    useDelete('kegiatan.destroy');
 
   const getFilterParams = () => ({
     search: searchTerm,
@@ -64,7 +80,11 @@ export default function Pages({ kegiatan, filters, flash, auth }: Props) {
   });
 
   const queryParams = new URLSearchParams(
-    Object.fromEntries(Object.entries(filters).filter(([, value]) => value !== '' && value !== null)),
+    Object.fromEntries(
+      Object.entries(filters).filter(
+        ([, value]) => value !== '' && value !== null,
+      ),
+    ),
   ).toString();
   const exportUrl = `/kegiatan/export/csv?${queryParams}`;
 
@@ -79,9 +99,16 @@ export default function Pages({ kegiatan, filters, flash, auth }: Props) {
     >
       <Head title="Data Kegiatan" />
       <div className="from-background to-muted/20 flex h-full flex-1 flex-col gap-4 rounded-xl bg-gradient-to-br p-3 sm:gap-6 sm:p-4 md:p-6">
-        <ToastNotification message={toastMessage} type={toastType} visible={showToast} />
+        <ToastNotification
+          message={toastMessage}
+          type={toastType}
+          visible={showToast}
+        />
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <Heading title="Data Kegiatan" description="Manajemen untuk mengelola data kegiatan atau event besar." />
+          <Heading
+            title="Data Kegiatan"
+            description="Manajemen untuk mengelola data kegiatan atau event besar."
+          />
           <ModalConfirm
             open={confirmDeleteId !== null}
             onCancel={() => setConfirmDeleteId(null)}
@@ -95,7 +122,10 @@ export default function Pages({ kegiatan, filters, flash, auth }: Props) {
           {['Super Admin', 'Finance'].includes(user.role) && (
             <div className="flex gap-4">
               <ButtonExport exportUrl={exportUrl} />
-              <Dialog open={isOpen} onOpenChange={setIsOpen}>
+              <Dialog
+                open={isOpen}
+                onOpenChange={setIsOpen}
+              >
                 <DialogTrigger>
                   <div className="bg-primary hover:bg-primary/90 flex cursor-pointer items-center rounded-md px-3 py-2 text-sm whitespace-nowrap text-white shadow-lg dark:text-black">
                     <Plus className="mr-2 h-4 w-4" />
@@ -104,16 +134,33 @@ export default function Pages({ kegiatan, filters, flash, auth }: Props) {
                 </DialogTrigger>
                 <DialogContent className="max-h-[90vh] w-[calc(100vw-2rem)] overflow-y-auto sm:max-w-[600px]">
                   <DialogHeader>
-                    <DialogTitle className="text-lg sm:text-xl">{editing ? 'Ubah Data ' : 'Tambah Data'}</DialogTitle>
+                    <DialogTitle className="text-lg sm:text-xl">
+                      {editing ? 'Ubah Data ' : 'Tambah Data'}
+                    </DialogTitle>
                   </DialogHeader>
-                  <FormKegiatan data={data} setData={setData} editing={editing !== null} handleSubmit={handleSubmit} processing={processing} />
+                  <FormKegiatan
+                    data={data}
+                    setData={setData}
+                    editing={editing !== null}
+                    handleSubmit={handleSubmit}
+                    processing={processing}
+                  />
                 </DialogContent>
               </Dialog>
             </div>
           )}
         </div>
-        <FilterKegiatan searchTerm={searchTerm} setSearchTerm={setSearchTerm} handleSearch={handleSearch} />
-        <TableKegiatan kegiatan={kegiatan} user={user} handleEdit={handleEdit} setConfirmDeleteId={setConfirmDeleteId} />
+        <FilterKegiatan
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          handleSearch={handleSearch}
+        />
+        <TableKegiatan
+          kegiatan={kegiatan}
+          user={user}
+          handleEdit={handleEdit}
+          setConfirmDeleteId={setConfirmDeleteId}
+        />
         <Pagination
           currentPage={kegiatan.current_page}
           totalItems={kegiatan.total}

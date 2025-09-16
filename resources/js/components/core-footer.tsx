@@ -61,12 +61,23 @@ export default function Footer() {
                     />
                   </div>
                   <div className="h-12 w-px bg-gradient-to-b from-transparent via-white/30 to-transparent"></div>
-                  <a href="https://unipem.ac.id/" target="_blank" className="group block">
-                    <img src="/images/logo/unipi.png" alt="unipi" className="max-w-[100px] transition-transform duration-300 group-hover:scale-105" />
+                  <a
+                    href="https://unipem.ac.id/"
+                    target="_blank"
+                    className="group block"
+                  >
+                    <img
+                      src="/images/logo/unipi.png"
+                      alt="unipi"
+                      className="max-w-[100px] transition-transform duration-300 group-hover:scale-105"
+                    />
                   </a>
                 </div>
 
-                <p className="mb-8 text-lg leading-relaxed text-blue-100">Pelajari lebih dalam tentang ilmu teknologi dan komputer bersama kami</p>
+                <p className="mb-8 text-lg leading-relaxed text-blue-100">
+                  Pelajari lebih dalam tentang ilmu teknologi dan komputer
+                  bersama kami
+                </p>
 
                 <div className="flex gap-4">
                   {socialLinks.map((social, index) => (
@@ -83,7 +94,11 @@ export default function Footer() {
                         className={`absolute inset-0 rounded-full bg-gradient-to-r ${social.color} opacity-0 blur-sm transition-opacity duration-300 group-hover:opacity-100`}
                       ></div>
                       <div className="relative flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-sm transition-all duration-300 group-hover:scale-110 group-hover:bg-white/20">
-                        <img src={social.icon} alt={social.name} className="h-6 w-6 transition-transform duration-300 group-hover:scale-110" />
+                        <img
+                          src={social.icon}
+                          alt={social.name}
+                          className="h-6 w-6 transition-transform duration-300 group-hover:scale-110"
+                        />
                       </div>
                       {hoveredSocial === index && (
                         <div className="absolute -top-12 left-1/2 -translate-x-1/2 transform rounded bg-black/80 px-2 py-1 text-xs whitespace-nowrap text-white">
@@ -108,7 +123,10 @@ export default function Footer() {
                   { text: 'Kegiatan Kami', href: '/kegiatan-kami' },
                 ].map((item, index) => (
                   <li key={index}>
-                    <a href={item.href} className="group flex items-center text-blue-100 transition-all duration-300 hover:text-white">
+                    <a
+                      href={item.href}
+                      className="group flex items-center text-blue-100 transition-all duration-300 hover:text-white"
+                    >
                       <span className="mr-3 h-2 w-2 rounded-full bg-blue-400 transition-all duration-300 group-hover:scale-125 group-hover:bg-white"></span>
                       <span className="relative">
                         {item.text}
@@ -126,7 +144,12 @@ export default function Footer() {
                 <div className="absolute -bottom-2 left-0 h-0.5 w-12 bg-gradient-to-r from-blue-400 to-transparent"></div>
               </h4>
               <ul className="space-y-3">
-                {['Workshop Data Analyst', 'Workshop Arduino', 'LDC - Latihan Dasar COMIT', 'Digidraw COMIT'].map((event, index) => (
+                {[
+                  'Workshop Data Analyst',
+                  'Workshop Arduino',
+                  'LDC - Latihan Dasar COMIT',
+                  'Digidraw COMIT',
+                ].map((event, index) => (
                   <li key={index}>
                     <a className="group flex cursor-pointer items-center text-blue-100 transition-all duration-300 hover:text-white">
                       <span className="mr-3 h-2 w-2 rounded-full bg-blue-400 transition-all duration-300 group-hover:scale-125 group-hover:bg-white"></span>
@@ -144,11 +167,17 @@ export default function Footer() {
           <div className="border-t border-white/20 pt-8 pb-8">
             <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
               <div className="flex flex-wrap gap-6">
-                <a href="#" className="group relative text-blue-100 transition-colors duration-300 hover:text-white">
+                <a
+                  href="#"
+                  className="group relative text-blue-100 transition-colors duration-300 hover:text-white"
+                >
                   Privacy Policy
                   <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-white transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="#" className="group relative text-blue-100 transition-colors duration-300 hover:text-white">
+                <a
+                  href="#"
+                  className="group relative text-blue-100 transition-colors duration-300 hover:text-white"
+                >
                   Terms of Service
                   <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-white transition-all duration-300 group-hover:w-full"></span>
                 </a>
@@ -157,7 +186,11 @@ export default function Footer() {
               <div className="flex items-center gap-2 text-blue-100">
                 <span>© 2024 </span>
                 <div className="flex items-center gap-2">
-                  <img src="/images/icons/github.png" alt="github" className="h-5 w-5" />
+                  <img
+                    src="/images/icons/github.png"
+                    alt="github"
+                    className="h-5 w-5"
+                  />
                   <a
                     href="https://github.com/comitUnipi"
                     target="_blank"

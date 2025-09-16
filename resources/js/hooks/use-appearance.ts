@@ -20,7 +20,8 @@ const setCookie = (name: string, value: string, days = 365) => {
 };
 
 const applyTheme = (appearance: Appearance) => {
-  const isDark = appearance === 'dark' || (appearance === 'system' && prefersDark());
+  const isDark =
+    appearance === 'dark' || (appearance === 'system' && prefersDark());
 
   document.documentElement.classList.toggle('dark', isDark);
 };
@@ -39,7 +40,8 @@ const handleSystemThemeChange = () => {
 };
 
 export function initializeTheme() {
-  const savedAppearance = (localStorage.getItem('appearance') as Appearance) || 'light';
+  const savedAppearance =
+    (localStorage.getItem('appearance') as Appearance) || 'light';
 
   applyTheme(savedAppearance);
 
@@ -63,10 +65,13 @@ export function useAppearance() {
   }, []);
 
   useEffect(() => {
-    const savedAppearance = localStorage.getItem('appearance') as Appearance | null;
+    const savedAppearance = localStorage.getItem(
+      'appearance',
+    ) as Appearance | null;
     updateAppearance(savedAppearance || 'light');
 
-    return () => mediaQuery()?.removeEventListener('change', handleSystemThemeChange);
+    return () =>
+      mediaQuery()?.removeEventListener('change', handleSystemThemeChange);
   }, [updateAppearance]);
 
   return { appearance, updateAppearance } as const;

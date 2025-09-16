@@ -9,25 +9,55 @@ export default function Pages() {
   return (
     <>
       <Head title="Pengenalan Mentor Berpengalaman Kami">
-        <meta name="robots" content="index, follow" />
-        <meta rel="canonical" content="https://comitunipi.com/mentor-kami" />
+        <meta
+          name="robots"
+          content="index, follow"
+        />
+        <meta
+          rel="canonical"
+          content="https://comitunipi.com/mentor-kami"
+        />
         <meta
           name="description"
           content="Temukan mentor-mentor berpengalaman dari COMIT yang siap membimbing kamu di bidang IT dan pengembangan diri."
         />
 
-        <meta property="og:title" content="Pengenalan Mentor Berpengalaman Kami - COMIT" />
+        <meta
+          property="og:title"
+          content="Pengenalan Mentor Berpengalaman Kami - COMIT"
+        />
         <meta
           property="og:description"
           content="Temukan mentor-mentor berpengalaman dari COMIT yang siap membimbing kamu di bidang IT dan pengembangan diri."
         />
-        <meta property="og:image" content="https://comitunipi.com/images/banner.png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:url" content="https://comitunipi.com/mentor-kami" />
-        <meta property="og:type" content="profile" />
-        <meta property="og:site_name" content="COMIT UNIPI" />
-        <meta property="og:locale" content="id_ID" />
+        <meta
+          property="og:image"
+          content="https://comitunipi.com/images/banner.png"
+        />
+        <meta
+          property="og:image:width"
+          content="1200"
+        />
+        <meta
+          property="og:image:height"
+          content="630"
+        />
+        <meta
+          property="og:url"
+          content="https://comitunipi.com/mentor-kami"
+        />
+        <meta
+          property="og:type"
+          content="profile"
+        />
+        <meta
+          property="og:site_name"
+          content="COMIT UNIPI"
+        />
+        <meta
+          property="og:locale"
+          content="id_ID"
+        />
 
         <script type="application/ld+json">
           {JSON.stringify({
@@ -51,7 +81,11 @@ export default function Pages() {
                 };
               }),
             },
-            sameAs: ['https://www.instagram.com/comit.ipem/', 'https://www.tiktok.com/@comit_unipi', 'https://github.com/comitUnipi'],
+            sameAs: [
+              'https://www.instagram.com/comit.ipem/',
+              'https://www.tiktok.com/@comit_unipi',
+              'https://github.com/comitUnipi',
+            ],
           })}
         </script>
       </Head>
@@ -66,7 +100,10 @@ export default function Pages() {
             />
             <div className="mx-4 flex flex-wrap justify-center">
               {mentors.map((mentor) => (
-                <MentorCard key={mentor.id} mentor={mentor} />
+                <MentorCard
+                  key={mentor.id}
+                  mentor={mentor}
+                />
               ))}
             </div>
           </div>

@@ -19,8 +19,19 @@ interface Props {
   selectedKegiatan?: string;
 }
 
-export default function Pages({ laporan, totalScan, statusCounts, kegiatanList, selectedKegiatan }: Props) {
-  const { selectedKegiatanId, setSelectedKegiatanId, handleFilter, handleReset } = useLaporanAbsensiFilter(selectedKegiatan);
+export default function Pages({
+  laporan,
+  totalScan,
+  statusCounts,
+  kegiatanList,
+  selectedKegiatan,
+}: Props) {
+  const {
+    selectedKegiatanId,
+    setSelectedKegiatanId,
+    handleFilter,
+    handleReset,
+  } = useLaporanAbsensiFilter(selectedKegiatan);
 
   return (
     <AppLayout
@@ -39,7 +50,9 @@ export default function Pages({ laporan, totalScan, statusCounts, kegiatanList, 
             description="Manajemen untuk mengelola laporan hasil absensi dari scan absensi berdasarkan tanggal tertentu."
           />
           <div className="flex gap-2 sm:gap-4">
-            <ButtonExport exportUrl={`/laporan/absensi/export/csv?kegiatan_id=${selectedKegiatanId}`} />
+            <ButtonExport
+              exportUrl={`/laporan/absensi/export/csv?kegiatan_id=${selectedKegiatanId}`}
+            />
           </div>
         </div>
         <FilterLaporanAbsensi
@@ -49,7 +62,11 @@ export default function Pages({ laporan, totalScan, statusCounts, kegiatanList, 
           handleFilter={handleFilter}
           handleReset={handleReset}
         />
-        <TableLaporanAbsensi laporan={laporan} totalScan={totalScan} statusCounts={statusCounts} />
+        <TableLaporanAbsensi
+          laporan={laporan}
+          totalScan={totalScan}
+          statusCounts={statusCounts}
+        />
       </div>
     </AppLayout>
   );

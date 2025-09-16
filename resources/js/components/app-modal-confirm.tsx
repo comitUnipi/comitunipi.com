@@ -1,5 +1,10 @@
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 interface Props {
   open: boolean;
@@ -17,17 +22,26 @@ export default function ModalConfirm({
   onConfirm,
 }: Props) {
   return (
-    <Dialog open={open} onOpenChange={onCancel}>
+    <Dialog
+      open={open}
+      onOpenChange={onCancel}
+    >
       <DialogContent className="sm:max-w-[400px]">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
         <p>{description}</p>
         <div className="mt-4 flex justify-end space-x-2">
-          <Button variant="outline" onClick={onCancel}>
+          <Button
+            variant="outline"
+            onClick={onCancel}
+          >
             Batal
           </Button>
-          <Button variant="destructive" onClick={onConfirm}>
+          <Button
+            variant="destructive"
+            onClick={onConfirm}
+          >
             Ya, Hapus
           </Button>
         </div>

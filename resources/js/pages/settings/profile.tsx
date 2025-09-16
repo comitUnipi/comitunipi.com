@@ -4,9 +4,19 @@ import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { JENIS_KELAMIN_OPTIONS, JURUSAN_OPTIONS, MINAT_KEAHLIAN_OPTIONS } from '@/constants/form-options';
+import {
+  JENIS_KELAMIN_OPTIONS,
+  JURUSAN_OPTIONS,
+  MINAT_KEAHLIAN_OPTIONS,
+} from '@/constants/form-options';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { type SharedData } from '@/types';
@@ -24,18 +34,25 @@ type ProfileForm = {
   alasan: string;
 };
 
-export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: boolean; status?: string }) {
+export default function Profile({
+  mustVerifyEmail,
+  status,
+}: {
+  mustVerifyEmail: boolean;
+  status?: string;
+}) {
   const { auth } = usePage<SharedData>().props;
 
-  const { data, setData, patch, errors, processing, recentlySuccessful } = useForm<Required<ProfileForm>>({
-    name: auth.user.name,
-    email: auth.user.email,
-    jenis_kelamin: auth.user.jenis_kelamin,
-    no_wa: auth.user.no_wa,
-    jurusan: auth.user.jurusan,
-    minat_keahlian: auth.user.minat_keahlian,
-    alasan: auth.user.alasan,
-  });
+  const { data, setData, patch, errors, processing, recentlySuccessful } =
+    useForm<Required<ProfileForm>>({
+      name: auth.user.name,
+      email: auth.user.email,
+      jenis_kelamin: auth.user.jenis_kelamin,
+      no_wa: auth.user.no_wa,
+      jurusan: auth.user.jurusan,
+      minat_keahlian: auth.user.minat_keahlian,
+      alasan: auth.user.alasan,
+    });
 
   const submit: FormEventHandler = (e) => {
     e.preventDefault();
@@ -57,8 +74,14 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
       <Head title="Pengaturan profile" />
       <SettingsLayout>
         <div className="space-y-6">
-          <HeadingSmall title="Informasi Profile" description="Perbarui informasi profile kamu secara detail" />
-          <form onSubmit={submit} className="space-y-6">
+          <HeadingSmall
+            title="Informasi Profile"
+            description="Perbarui informasi profile kamu secara detail"
+          />
+          <form
+            onSubmit={submit}
+            className="space-y-6"
+          >
             <div className="grid gap-2">
               <Label htmlFor="name">Nama Lengkap</Label>
               <Input
@@ -69,7 +92,10 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                 autoComplete="name"
                 placeholder="Nama Lengkap"
               />
-              <InputError className="mt-2" message={errors.name} />
+              <InputError
+                className="mt-2"
+                message={errors.name}
+              />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
@@ -82,7 +108,10 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                 autoComplete="username"
                 placeholder="Email address"
               />
-              <InputError className="mt-2" message={errors.email} />
+              <InputError
+                className="mt-2"
+                message={errors.email}
+              />
             </div>
             {mustVerifyEmail && auth.user.email_verified_at === null && (
               <div>
@@ -98,19 +127,30 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                   </Link>
                 </p>
                 {status === 'verification-link-sent' && (
-                  <div className="mt-2 text-sm font-medium text-green-600">A new verification link has been sent to your email address.</div>
+                  <div className="mt-2 text-sm font-medium text-green-600">
+                    A new verification link has been sent to your email address.
+                  </div>
                 )}
               </div>
             )}
             <div className="grid gap-2">
               <Label htmlFor="jenis_kelamin">Jenis Kelamin</Label>
-              <Select value={data.jenis_kelamin} onValueChange={(val) => setData('jenis_kelamin', val)}>
-                <SelectTrigger id="jenis_kelamin" disabled={processing}>
+              <Select
+                value={data.jenis_kelamin}
+                onValueChange={(val) => setData('jenis_kelamin', val)}
+              >
+                <SelectTrigger
+                  id="jenis_kelamin"
+                  disabled={processing}
+                >
                   <SelectValue placeholder="Pilih Jenis Kelamin" />
                 </SelectTrigger>
                 <SelectContent>
                   {JENIS_KELAMIN_OPTIONS.map((value) => (
-                    <SelectItem key={value} value={value}>
+                    <SelectItem
+                      key={value}
+                      value={value}
+                    >
                       {value}
                     </SelectItem>
                   ))}
@@ -132,13 +172,22 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
             </div>
             <div className="grid gap-2">
               <Label htmlFor="jurusan">Jurusan</Label>
-              <Select value={data.jurusan} onValueChange={(val) => setData('jurusan', val)}>
-                <SelectTrigger id="jurusan" disabled={processing}>
+              <Select
+                value={data.jurusan}
+                onValueChange={(val) => setData('jurusan', val)}
+              >
+                <SelectTrigger
+                  id="jurusan"
+                  disabled={processing}
+                >
                   <SelectValue placeholder="Pilih Jurusan" />
                 </SelectTrigger>
                 <SelectContent>
                   {JURUSAN_OPTIONS.map((value) => (
-                    <SelectItem key={value} value={value}>
+                    <SelectItem
+                      key={value}
+                      value={value}
+                    >
                       {value}
                     </SelectItem>
                   ))}
@@ -148,13 +197,22 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
             </div>
             <div className="grid gap-2">
               <Label htmlFor="minat_keahlian">Minat Keahlian</Label>
-              <Select value={data.minat_keahlian} onValueChange={(val) => setData('minat_keahlian', val)}>
-                <SelectTrigger id="minat_keahlian" disabled={processing}>
+              <Select
+                value={data.minat_keahlian}
+                onValueChange={(val) => setData('minat_keahlian', val)}
+              >
+                <SelectTrigger
+                  id="minat_keahlian"
+                  disabled={processing}
+                >
                   <SelectValue placeholder="Pilih Minat Keahlian" />
                 </SelectTrigger>
                 <SelectContent>
                   {MINAT_KEAHLIAN_OPTIONS.map((value) => (
-                    <SelectItem key={value} value={value}>
+                    <SelectItem
+                      key={value}
+                      value={value}
+                    >
                       {value}
                     </SelectItem>
                   ))}

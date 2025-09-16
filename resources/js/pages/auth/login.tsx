@@ -21,7 +21,9 @@ interface Props {
 }
 
 export default function Login({ status }: Props) {
-  const { data, setData, post, processing, errors, reset } = useForm<Required<LoginForm>>({
+  const { data, setData, post, processing, errors, reset } = useForm<
+    Required<LoginForm>
+  >({
     npm: '',
     password: '',
     remember: false,
@@ -35,9 +37,15 @@ export default function Login({ status }: Props) {
   };
 
   return (
-    <AuthLayout title="Masuk dengan akun" description="Masukan NPM dan password kamu">
+    <AuthLayout
+      title="Masuk dengan akun"
+      description="Masukan NPM dan password kamu"
+    >
       <Head title="Masuk dengan Akun" />
-      <form className="mt-2 flex flex-col gap-6" onSubmit={submit}>
+      <form
+        className="mt-2 flex flex-col gap-6"
+        onSubmit={submit}
+      >
         <div className="grid gap-6">
           <div className="grid gap-2">
             <Label htmlFor="npm">NPM</Label>
@@ -71,7 +79,13 @@ export default function Login({ status }: Props) {
             <InputError message={errors.password} />
           </div>
           <div className="flex items-center space-x-3">
-            <Checkbox id="remember" name="remember" checked={data.remember} onClick={() => setData('remember', !data.remember)} tabIndex={3} />
+            <Checkbox
+              id="remember"
+              name="remember"
+              checked={data.remember}
+              onClick={() => setData('remember', !data.remember)}
+              tabIndex={3}
+            />
             <Label htmlFor="remember">Remember me</Label>
           </div>
           <Button
@@ -86,12 +100,19 @@ export default function Login({ status }: Props) {
         </div>
         <div className="text-muted-foreground text-center text-sm">
           Kamu belum punya akun?{' '}
-          <TextLink href={route('register')} tabIndex={5}>
+          <TextLink
+            href={route('register')}
+            tabIndex={5}
+          >
             Daftar Sekarang!
           </TextLink>
         </div>
       </form>
-      {status && <div className="mb-4 text-center text-sm font-medium text-green-600">{status}</div>}
+      {status && (
+        <div className="mb-4 text-center text-sm font-medium text-green-600">
+          {status}
+        </div>
+      )}
     </AuthLayout>
   );
 }

@@ -23,8 +23,22 @@ interface Props {
   };
 }
 
-export default function Pages({ laporan, periode, totalSaldo, totalDebit, totalKredit, auth }: Props) {
-  const { startDate, endDate, setStartDate, setEndDate, handleFilterTanggal, handleResetTanggal } = useDateRangeFilter(
+export default function Pages({
+  laporan,
+  periode,
+  totalSaldo,
+  totalDebit,
+  totalKredit,
+  auth,
+}: Props) {
+  const {
+    startDate,
+    endDate,
+    setStartDate,
+    setEndDate,
+    handleFilterTanggal,
+    handleResetTanggal,
+  } = useDateRangeFilter(
     'laporan.index',
     periode?.start ?? '',
     periode?.end ?? '',
@@ -44,10 +58,15 @@ export default function Pages({ laporan, periode, totalSaldo, totalDebit, totalK
       <Head title="Laporan Keuangan" />
       <div className="from-background to-muted/20 flex h-full flex-1 flex-col gap-4 rounded-xl bg-gradient-to-br p-3 sm:gap-6 sm:p-4 md:p-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <Heading title="Laporan Keuangan" description="Manajemen untuk mengelola data laporan keuangan mingguan dan bulanan." />
+          <Heading
+            title="Laporan Keuangan"
+            description="Manajemen untuk mengelola data laporan keuangan mingguan dan bulanan."
+          />
           {['Super Admin', 'Finance'].includes(user.role) && (
             <div className="flex gap-2 sm:gap-4">
-              <ButtonExport exportUrl={`/laporan/export/csv?end_date=${endDate}&start_date=${startDate}`} />
+              <ButtonExport
+                exportUrl={`/laporan/export/csv?end_date=${endDate}&start_date=${startDate}`}
+              />
             </div>
           )}
         </div>
@@ -60,7 +79,12 @@ export default function Pages({ laporan, periode, totalSaldo, totalDebit, totalK
           handleFilterTanggal={handleFilterTanggal}
           handleResetTanggal={handleResetTanggal}
         />
-        <TableLaporanKeuangan laporan={laporan} totalDebit={totalDebit} totalKredit={totalKredit} totalSaldo={totalSaldo} />
+        <TableLaporanKeuangan
+          laporan={laporan}
+          totalDebit={totalDebit}
+          totalKredit={totalKredit}
+          totalSaldo={totalSaldo}
+        />
       </div>
     </AppLayout>
   );

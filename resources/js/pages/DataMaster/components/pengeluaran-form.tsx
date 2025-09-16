@@ -14,12 +14,24 @@ type Props = {
   handleSubmit: React.FormEventHandler<HTMLFormElement>;
 };
 
-export default function FormPengeluaran({ data, setData, editingPengeluaran, handleSubmit, processing }: Props) {
+export default function FormPengeluaran({
+  data,
+  setData,
+  editingPengeluaran,
+  handleSubmit,
+  processing,
+}: Props) {
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-4"
+    >
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="grid gap-2">
-          <Label htmlFor="amount" className="text-sm font-medium">
+          <Label
+            htmlFor="amount"
+            className="text-sm font-medium"
+          >
             Jumlah
           </Label>
           <Input
@@ -36,14 +48,27 @@ export default function FormPengeluaran({ data, setData, editingPengeluaran, han
           />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="date" className="text-sm font-medium">
+          <Label
+            htmlFor="date"
+            className="text-sm font-medium"
+          >
             Tanggal
           </Label>
-          <Input id="date" type="date" value={data.date} onChange={(e) => setData('date', e.target.value)} required className="w-full" />
+          <Input
+            id="date"
+            type="date"
+            value={data.date}
+            onChange={(e) => setData('date', e.target.value)}
+            required
+            className="w-full"
+          />
         </div>
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="description" className="text-sm font-medium">
+        <Label
+          htmlFor="description"
+          className="text-sm font-medium"
+        >
           Keterangan
         </Label>
         <Textarea
@@ -56,7 +81,11 @@ export default function FormPengeluaran({ data, setData, editingPengeluaran, han
           className="border-input bg-background ring-offset-background focus-visible:ring-ring placeholder:text-muted-foreground flex w-full rounded-md border px-3 py-2 text-sm shadow-sm transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
         />
       </div>
-      <Button type="submit" disabled={processing} className="w-full">
+      <Button
+        type="submit"
+        disabled={processing}
+        className="w-full"
+      >
         {editingPengeluaran ? 'Ubah Data Pengeluaran' : 'Tambah Data'}
       </Button>
     </form>

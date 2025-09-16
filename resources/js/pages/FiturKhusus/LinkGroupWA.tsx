@@ -32,17 +32,33 @@ export default function Pages({ whatsappLink, flash }: Props) {
       <Head title="Link Group WhatsApp" />
       <div className="flex">
         <div className="from-background to-muted/20 flex w-full max-w-md flex-col gap-4 rounded-xl bg-gradient-to-br p-3 sm:gap-6 sm:p-4 md:p-6">
-          <ToastNotification message={toastMessage} type={toastType} visible={showToast} />
+          <ToastNotification
+            message={toastMessage}
+            type={toastType}
+            visible={showToast}
+          />
           <Heading
             title="Group WhatsApp"
             description="Form untuk mengelola link group WhatsApp calon anggota COMIT yang ada di pendaftaran anggota."
           />
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-4"
+          >
             <div className="space-y-2">
               <Label htmlFor="whatsapp_link">Link Grup WhatsApp</Label>
-              <Input id="whatsapp_link" name="whatsapp_link" type="url" value={link} onChange={(e) => setLink(e.target.value)} />
+              <Input
+                id="whatsapp_link"
+                name="whatsapp_link"
+                type="url"
+                value={link}
+                onChange={(e) => setLink(e.target.value)}
+              />
             </div>
-            <Button className="w-full" type="submit">
+            <Button
+              className="w-full"
+              type="submit"
+            >
               Simpan
             </Button>
           </form>

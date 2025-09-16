@@ -16,7 +16,8 @@ interface Props {
 }
 
 export default function Pages({ flash }: Props) {
-  const { scannerActive, generalError, cameras, startScanner, switchCamera } = useQrScanner();
+  const { scannerActive, generalError, cameras, startScanner, switchCamera } =
+    useQrScanner();
 
   return (
     <AppLayout
@@ -39,14 +40,20 @@ export default function Pages({ flash }: Props) {
           </CardHeader>
           <CardContent className="space-y-4">
             {flash?.success && (
-              <Alert variant="default" className="text-green-500">
+              <Alert
+                variant="default"
+                className="text-green-500"
+              >
                 <CheckCircle />
                 <AlertTitle>Berhasil</AlertTitle>
                 <AlertDescription>{flash.success}</AlertDescription>
               </Alert>
             )}
             {flash?.error && (
-              <Alert variant="default" className="text-red-500">
+              <Alert
+                variant="default"
+                className="text-red-500"
+              >
                 <XCircle />
                 <AlertTitle>Gagal</AlertTitle>
                 <AlertDescription>{flash.error}</AlertDescription>
@@ -68,7 +75,11 @@ export default function Pages({ flash }: Props) {
                     <span>Scanner aktif. Arahkan kamera ke QR code.</span>
                   </p>
                   {cameras.length > 1 && (
-                    <Button onClick={switchCamera} variant="outline" size="sm">
+                    <Button
+                      onClick={switchCamera}
+                      variant="outline"
+                      size="sm"
+                    >
                       <Camera className="mr-1 h-4 w-4" /> Flip Kamera
                     </Button>
                   )}
@@ -76,7 +87,10 @@ export default function Pages({ flash }: Props) {
               )}
             </div>
             <div className="relative">
-              <div id="reader" className="border-muted rounded border shadow-sm" />
+              <div
+                id="reader"
+                className="border-muted rounded border shadow-sm"
+              />
             </div>
           </CardContent>
         </Card>

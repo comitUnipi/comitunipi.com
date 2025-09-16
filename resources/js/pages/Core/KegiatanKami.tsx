@@ -9,25 +9,55 @@ export default function Pages() {
   return (
     <>
       <Head title="Berbagai Kegiatan Kami">
-        <meta name="robots" content="index, follow" />
-        <meta rel="canonical" content="https://comitunipi.com/kegiatan-kami" />
+        <meta
+          name="robots"
+          content="index, follow"
+        />
+        <meta
+          rel="canonical"
+          content="https://comitunipi.com/kegiatan-kami"
+        />
         <meta
           name="description"
           content="Ikuti berbagai kegiatan pelatihan IT, Workshop, dan kegiatan Perlombaan bersama COMIT untuk meningkatkan keterampilanmu di bidang teknologi informasi."
         />
 
-        <meta property="og:title" content="Berbagai Kegiatan Kami - COMIT UNIPI" />
+        <meta
+          property="og:title"
+          content="Berbagai Kegiatan Kami - COMIT UNIPI"
+        />
         <meta
           property="og:description"
           content="Ikuti berbagai kegiatan pelatihan IT, Workshop, dan kegiatan Perlombaan bersama COMIT untuk meningkatkan keterampilanmu di bidang teknologi informasi."
         />
-        <meta property="og:image" content="https://comitunipi.com/images/banner.png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:url" content="https://comitunipi.com/kegiatan-kami" />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="COMIT UNIPI" />
-        <meta property="og:locale" content="id_ID" />
+        <meta
+          property="og:image"
+          content="https://comitunipi.com/images/banner.png"
+        />
+        <meta
+          property="og:image:width"
+          content="1200"
+        />
+        <meta
+          property="og:image:height"
+          content="630"
+        />
+        <meta
+          property="og:url"
+          content="https://comitunipi.com/kegiatan-kami"
+        />
+        <meta
+          property="og:type"
+          content="website"
+        />
+        <meta
+          property="og:site_name"
+          content="COMIT UNIPI"
+        />
+        <meta
+          property="og:locale"
+          content="id_ID"
+        />
 
         <script type="application/ld+json">
           {JSON.stringify({
@@ -40,7 +70,8 @@ export default function Pages() {
               itemListElement: kegiatan.map((event, index) => {
                 const now = new Date();
                 const eventDate = new Date(event.date);
-                const eventStatus = eventDate < now ? 'EventHappened' : 'EventScheduled';
+                const eventStatus =
+                  eventDate < now ? 'EventHappened' : 'EventScheduled';
                 const defaultLocation = {
                   '@type': 'Place',
                   name: 'Universitas Insan Pembangunan Indonesia',
@@ -72,7 +103,11 @@ export default function Pages() {
                 };
               }),
             },
-            sameAs: ['https://www.instagram.com/comit.ipem/', 'https://www.tiktok.com/@comit_unipi', 'https://github.com/comitUnipi'],
+            sameAs: [
+              'https://www.instagram.com/comit.ipem/',
+              'https://www.tiktok.com/@comit_unipi',
+              'https://github.com/comitUnipi',
+            ],
           })}
         </script>
       </Head>
@@ -87,7 +122,12 @@ export default function Pages() {
           />
           <article>
             {kegiatan.map((item, index) => (
-              <KegiatanCard key={index} img={item.img} title={item.title} description={item.description} />
+              <KegiatanCard
+                key={index}
+                img={item.img}
+                title={item.title}
+                description={item.description}
+              />
             ))}
           </article>
         </div>

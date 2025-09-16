@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 
-export default function useToastFlash(flash?: { success?: string; error?: string }) {
+export default function useToastFlash(flash?: {
+  success?: string;
+  error?: string;
+}) {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const [toastType, setToastType] = useState<'success' | 'error'>('success');

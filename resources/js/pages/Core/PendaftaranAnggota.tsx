@@ -3,9 +3,19 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { JENIS_KELAMIN_OPTIONS, JURUSAN_OPTIONS, MINAT_KEAHLIAN_OPTIONS } from '@/constants/form-options';
+import {
+  JENIS_KELAMIN_OPTIONS,
+  JURUSAN_OPTIONS,
+  MINAT_KEAHLIAN_OPTIONS,
+} from '@/constants/form-options';
 import { Head, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
@@ -24,7 +34,9 @@ type RegisterForm = {
 };
 
 export default function Pages() {
-  const { data, setData, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
+  const { data, setData, post, processing, errors, reset } = useForm<
+    Required<RegisterForm>
+  >({
     name: '',
     npm: '',
     email: '',
@@ -50,24 +62,54 @@ export default function Pages() {
   return (
     <>
       <Head title="Pendaftaran Anggota Baru">
-        <meta name="robots" content="index, follow" />
-        <meta rel="canonical" content="https://comitunipi.com/pendaftaran-anggota" />
+        <meta
+          name="robots"
+          content="index, follow"
+        />
+        <meta
+          rel="canonical"
+          content="https://comitunipi.com/pendaftaran-anggota"
+        />
         <meta
           name="description"
           content="Ayo bergabung dengan organisasi di COMIT! Isi formulir pendaftaran COMIT untuk menjadi anggota dan memulai mengembangkan skill kamu dibidang IT."
         />
-        <meta property="og:title" content="Community of Information Technology - COMIT UNIPI" />
+        <meta
+          property="og:title"
+          content="Community of Information Technology - COMIT UNIPI"
+        />
         <meta
           property="og:description"
           content="Ayo bergabung dengan organisasi di COMIT! Isi formulir pendaftaran COMIT untuk menjadi anggota dan memulai mengembangkan skill kamu dibidang IT."
         />
-        <meta property="og:image" content="https://comitunipi.com/images/banner.png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:url" content="https://comitunipi.com/" />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="COMIT UNIPI" />
-        <meta property="og:locale" content="id_ID" />
+        <meta
+          property="og:image"
+          content="https://comitunipi.com/images/banner.png"
+        />
+        <meta
+          property="og:image:width"
+          content="1200"
+        />
+        <meta
+          property="og:image:height"
+          content="630"
+        />
+        <meta
+          property="og:url"
+          content="https://comitunipi.com/"
+        />
+        <meta
+          property="og:type"
+          content="website"
+        />
+        <meta
+          property="og:site_name"
+          content="COMIT UNIPI"
+        />
+        <meta
+          property="og:locale"
+          content="id_ID"
+        />
         <script type="application/ld+json">
           {JSON.stringify({
             '@context': 'https://schema.org',
@@ -83,20 +125,31 @@ export default function Pages() {
               addressRegion: 'Banten',
               addressCountry: 'ID',
             },
-            sameAs: ['https://www.instagram.com/comit.ipem/', 'https://www.tiktok.com/@comit_unipi', 'https://github.com/comitUnipi'],
+            sameAs: [
+              'https://www.instagram.com/comit.ipem/',
+              'https://www.tiktok.com/@comit_unipi',
+              'https://github.com/comitUnipi',
+            ],
           })}
         </script>
       </Head>
       <div className="relative min-h-screen overflow-hidden bg-white">
         <Card className="border-border mx-auto w-full max-w-4xl rounded-md border shadow-md md:my-4">
           <div className="-mt-8 h-[300px] w-full overflow-hidden rounded-t-md">
-            <img src="/images/100114.png" alt="Banner Pendaftaran COMIT" className="block h-full w-full object-cover" />
+            <img
+              src="/images/100114.png"
+              alt="Banner Pendaftaran COMIT"
+              className="block h-full w-full object-cover"
+            />
           </div>
           <CardContent>
             <div className="mb-4 flex flex-col items-center justify-center gap-2">
               <div className="relative mx-auto mb-6 w-fit">
                 <div className="mx-auto flex h-28 w-28 transform items-center justify-center bg-transparent transition-transform duration-300 hover:scale-110">
-                  <img src="/images/logo/logo_black.png" alt="LOGO COMIT" />
+                  <img
+                    src="/images/logo/logo_black.png"
+                    alt="LOGO COMIT"
+                  />
                 </div>
                 <div className="absolute top-1/2 left-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 transform animate-ping rounded-full border-4 border-blue-300 opacity-30" />
                 <div
@@ -104,9 +157,14 @@ export default function Pages() {
                   style={{ animationDelay: '0.5s' }}
                 />
               </div>
-              <CardTitle className="text-primary mt-0 mb-6 text-center text-lg font-bold md:text-2xl">Formulir Pendaftaran Anggota Baru</CardTitle>
+              <CardTitle className="text-primary mt-0 mb-6 text-center text-lg font-bold md:text-2xl">
+                Formulir Pendaftaran Anggota Baru
+              </CardTitle>
             </div>
-            <form className="flex flex-col gap-6" onSubmit={submit}>
+            <form
+              className="flex flex-col gap-6"
+              onSubmit={submit}
+            >
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="grid gap-2">
                   <Label htmlFor="name">Nama Lengkap</Label>
@@ -159,13 +217,22 @@ export default function Pages() {
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="jenis_kelamin">Jenis Kelamin</Label>
-                  <Select value={data.jenis_kelamin} onValueChange={(value) => setData('jenis_kelamin', value)}>
-                    <SelectTrigger id="jenis_kelamin" disabled={processing}>
+                  <Select
+                    value={data.jenis_kelamin}
+                    onValueChange={(value) => setData('jenis_kelamin', value)}
+                  >
+                    <SelectTrigger
+                      id="jenis_kelamin"
+                      disabled={processing}
+                    >
                       <SelectValue placeholder="Pilih Jenis Kelamin" />
                     </SelectTrigger>
                     <SelectContent>
                       {JENIS_KELAMIN_OPTIONS.map((item) => (
-                        <SelectItem key={item} value={item}>
+                        <SelectItem
+                          key={item}
+                          value={item}
+                        >
                           {item}
                         </SelectItem>
                       ))}
@@ -175,13 +242,22 @@ export default function Pages() {
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="jurusan">Jurusan</Label>
-                  <Select value={data.jurusan} onValueChange={(value) => setData('jurusan', value)}>
-                    <SelectTrigger id="jurusan" disabled={processing}>
+                  <Select
+                    value={data.jurusan}
+                    onValueChange={(value) => setData('jurusan', value)}
+                  >
+                    <SelectTrigger
+                      id="jurusan"
+                      disabled={processing}
+                    >
                       <SelectValue placeholder="Pilih Jurusan" />
                     </SelectTrigger>
                     <SelectContent>
                       {JURUSAN_OPTIONS.map((item) => (
-                        <SelectItem key={item} value={item}>
+                        <SelectItem
+                          key={item}
+                          value={item}
+                        >
                           {item}
                         </SelectItem>
                       ))}
@@ -191,13 +267,22 @@ export default function Pages() {
                 </div>
                 <div className="grid gap-2">
                   <Label htmlFor="minat_keahlian">Minat Keahlian</Label>
-                  <Select value={data.minat_keahlian} onValueChange={(value) => setData('minat_keahlian', value)}>
-                    <SelectTrigger id="minat_keahlian" disabled={processing}>
+                  <Select
+                    value={data.minat_keahlian}
+                    onValueChange={(value) => setData('minat_keahlian', value)}
+                  >
+                    <SelectTrigger
+                      id="minat_keahlian"
+                      disabled={processing}
+                    >
                       <SelectValue placeholder="Pilih Minat Keahlian" />
                     </SelectTrigger>
                     <SelectContent>
                       {MINAT_KEAHLIAN_OPTIONS.map((item) => (
-                        <SelectItem key={item} value={item}>
+                        <SelectItem
+                          key={item}
+                          value={item}
+                        >
                           {item}
                         </SelectItem>
                       ))}
@@ -224,7 +309,9 @@ export default function Pages() {
                 className="mt-4 w-full rounded-md bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
                 disabled={processing}
               >
-                {processing && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
+                {processing && (
+                  <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
+                )}
                 Daftar Sekarang
               </Button>
             </form>

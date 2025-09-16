@@ -4,7 +4,9 @@ import { useState } from 'react';
 
 export default function usePemasukanForm() {
   const [isOpen, setIsOpen] = useState(false);
-  const [editingPemasukan, setEditingPemasukan] = useState<Pemasukan | null>(null);
+  const [editingPemasukan, setEditingPemasukan] = useState<Pemasukan | null>(
+    null,
+  );
 
   const form = useForm({
     amount: 0,
