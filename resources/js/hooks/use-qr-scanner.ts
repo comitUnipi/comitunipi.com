@@ -35,13 +35,20 @@ export function useQrScanner() {
       const html5QrCode = new Html5Qrcode('reader');
       html5QrCodeRef.current = html5QrCode;
 
-      await html5QrCode.start(selectedDevice, { fps: 10, qrbox: { width: 250, height: 250 } }, handleScanSuccess, handleScanError);
+      await html5QrCode.start(
+        selectedDevice,
+        { fps: 10, qrbox: { width: 250, height: 250 } },
+        handleScanSuccess,
+        handleScanError,
+      );
 
       isScanningRef.current = true;
       setScannerActive(true);
     } catch (error) {
       console.error('Scanner error:', error);
-      setGeneralError('Gagal mengakses kamera. Pastikan izin kamera sudah diberikan.');
+      setGeneralError(
+        'Gagal mengakses kamera. Pastikan izin kamera sudah diberikan.',
+      );
     }
   };
 

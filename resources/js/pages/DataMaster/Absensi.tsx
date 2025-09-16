@@ -52,8 +52,15 @@ export default function Pages({ scans, filters }: Props) {
     >
       <Head title="Data Absensi" />
       <div className="from-background to-muted/20 flex h-full flex-1 flex-col gap-4 rounded-xl bg-gradient-to-br p-3 sm:gap-6 sm:p-4 md:p-6">
-        <Heading title="Data Absensi" description="Manajemen data anggota yang telah melakukan absensi melalui scan Absensi QRCode." />
-        <FilterAbsensi searchTerm={searchTerm} setSearchTerm={setSearchTerm} handleSearch={handleSearch} />
+        <Heading
+          title="Data Absensi"
+          description="Manajemen data anggota yang telah melakukan absensi melalui scan Absensi QRCode."
+        />
+        <FilterAbsensi
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          handleSearch={handleSearch}
+        />
         <TableAbsensi scans={scans} />
         <Pagination
           currentPage={scans.current_page}

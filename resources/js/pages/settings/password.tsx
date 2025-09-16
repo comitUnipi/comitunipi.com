@@ -22,11 +22,12 @@ export default function Password() {
   const passwordInput = useRef<HTMLInputElement>(null);
   const currentPasswordInput = useRef<HTMLInputElement>(null);
 
-  const { data, setData, errors, put, reset, processing, recentlySuccessful } = useForm({
-    current_password: '',
-    password: '',
-    password_confirmation: '',
-  });
+  const { data, setData, errors, put, reset, processing, recentlySuccessful } =
+    useForm({
+      current_password: '',
+      password: '',
+      password_confirmation: '',
+    });
 
   const updatePassword: FormEventHandler = (e) => {
     e.preventDefault();
@@ -59,7 +60,10 @@ export default function Password() {
 
 "
           />
-          <form onSubmit={updatePassword} className="space-y-6">
+          <form
+            onSubmit={updatePassword}
+            className="space-y-6"
+          >
             <div className="grid gap-2">
               <Label htmlFor="current_password">Password lama</Label>
               <Input
@@ -93,7 +97,9 @@ export default function Password() {
               <Input
                 id="password_confirmation"
                 value={data.password_confirmation}
-                onChange={(e) => setData('password_confirmation', e.target.value)}
+                onChange={(e) =>
+                  setData('password_confirmation', e.target.value)
+                }
                 type="password"
                 className="mt-1 block w-full"
                 autoComplete="new-password"

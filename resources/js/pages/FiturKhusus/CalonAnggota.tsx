@@ -1,7 +1,12 @@
 import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import useCalonAnggotaForm from '@/hooks/use-calon-anggota-form';
 import usePaginate from '@/hooks/use-paginate';
 import useSearch from '@/hooks/use-search';
@@ -38,7 +43,16 @@ interface Props {
 
 export default function Pages({ users, filters, flash, auth }: Props) {
   const { showToast, toastMessage, toastType } = useToastFlash(flash);
-  const { data, setData, handleSubmit, processing, isOpen, setIsOpen, editing, handleEdit } = useCalonAnggotaForm();
+  const {
+    data,
+    setData,
+    handleSubmit,
+    processing,
+    isOpen,
+    setIsOpen,
+    editing,
+    handleEdit,
+  } = useCalonAnggotaForm();
 
   const [searchTerm, setSearchTerm] = useState(filters.search);
 
@@ -69,24 +83,51 @@ export default function Pages({ users, filters, flash, auth }: Props) {
     >
       <Head title="Calon Anggota" />
       <div className="from-background to-muted/20 flex h-full flex-1 flex-col gap-4 rounded-xl bg-gradient-to-br p-3 sm:gap-6 sm:p-4 md:p-6">
-        <ToastNotification message={toastMessage} type={toastType} visible={showToast} />
+        <ToastNotification
+          message={toastMessage}
+          type={toastType}
+          visible={showToast}
+        />
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <Heading title="Calon Anggota" description="Manajemen untuk mengelola semua data calon anggota yang terdaftar." />
+          <Heading
+            title="Calon Anggota"
+            description="Manajemen untuk mengelola semua data calon anggota yang terdaftar."
+          />
           {user.role === 'Super Admin' && (
             <div className="flex gap-4">
-              <Dialog open={isOpen} onOpenChange={setIsOpen}>
+              <Dialog
+                open={isOpen}
+                onOpenChange={setIsOpen}
+              >
                 <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-[600px]">
                   <DialogHeader>
-                    <DialogTitle className="text-lg sm:text-xl">Ubah Data</DialogTitle>
+                    <DialogTitle className="text-lg sm:text-xl">
+                      Ubah Data
+                    </DialogTitle>
                   </DialogHeader>
-                  <Form editingUser={editing !== null} handleSubmit={handleSubmit} data={data} setData={setData} processing={processing} />
+                  <Form
+                    editingUser={editing !== null}
+                    handleSubmit={handleSubmit}
+                    data={data}
+                    setData={setData}
+                    processing={processing}
+                  />
                 </DialogContent>
               </Dialog>
             </div>
           )}
         </div>
-        <Filter handleSearch={handleSearch} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-        <Table viewRoute="calon-anggota.show" users={users} user={user} handleEdit={handleEdit} />
+        <Filter
+          handleSearch={handleSearch}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
+        <Table
+          viewRoute="calon-anggota.show"
+          users={users}
+          user={user}
+          handleEdit={handleEdit}
+        />
         <Pagination
           currentPage={users.current_page}
           totalItems={users.total}

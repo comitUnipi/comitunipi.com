@@ -15,13 +15,15 @@ type LoginForm = {
   remember: boolean;
 };
 
-interface LoginProps {
+interface Props {
   status?: string;
   canResetPassword: boolean;
 }
 
-export default function Login({ status, canResetPassword }: LoginProps) {
-  const { data, setData, post, processing, errors, reset } = useForm<Required<LoginForm>>({
+export default function Login({ status }: Props) {
+  const { data, setData, post, processing, errors, reset } = useForm<
+    Required<LoginForm>
+  >({
     npm: '',
     password: '',
     remember: false,
@@ -35,9 +37,15 @@ export default function Login({ status, canResetPassword }: LoginProps) {
   };
 
   return (
-    <AuthLayout title="Masuk dengan akun" description="Masukan NPM dan password kamu">
+    <AuthLayout
+      title="Masuk dengan akun"
+      description="Masukan NPM dan password kamu"
+    >
       <Head title="Masuk dengan Akun" />
-      <form className="mt-2 flex flex-col gap-6" onSubmit={submit}>
+      <form
+        className="mt-2 flex flex-col gap-6"
+        onSubmit={submit}
+      >
         <div className="grid gap-6">
           <div className="grid gap-2">
             <Label htmlFor="npm">NPM</Label>
@@ -57,11 +65,6 @@ export default function Login({ status, canResetPassword }: LoginProps) {
           <div className="grid gap-2">
             <div className="flex items-center">
               <Label htmlFor="password">Password</Label>
-              {canResetPassword && (
-                <TextLink href={route('password.request')} className="ml-auto text-sm" tabIndex={5}>
-                  Lupa password?
-                </TextLink>
-              )}
             </div>
             <Input
               id="password"
@@ -76,7 +79,13 @@ export default function Login({ status, canResetPassword }: LoginProps) {
             <InputError message={errors.password} />
           </div>
           <div className="flex items-center space-x-3">
-            <Checkbox id="remember" name="remember" checked={data.remember} onClick={() => setData('remember', !data.remember)} tabIndex={3} />
+            <Checkbox
+              id="remember"
+              name="remember"
+              checked={data.remember}
+              onClick={() => setData('remember', !data.remember)}
+              tabIndex={3}
+            />
             <Label htmlFor="remember">Remember me</Label>
           </div>
           <Button
@@ -91,12 +100,19 @@ export default function Login({ status, canResetPassword }: LoginProps) {
         </div>
         <div className="text-muted-foreground text-center text-sm">
           Kamu belum punya akun?{' '}
-          <TextLink href={route('register')} tabIndex={5}>
+          <TextLink
+            href={route('register')}
+            tabIndex={5}
+          >
             Daftar Sekarang!
           </TextLink>
         </div>
       </form>
-      {status && <div className="mb-4 text-center text-sm font-medium text-green-600">{status}</div>}
+      {status && (
+        <div className="mb-4 text-center text-sm font-medium text-green-600">
+          {status}
+        </div>
+      )}
     </AuthLayout>
   );
 }

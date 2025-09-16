@@ -1,7 +1,11 @@
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function useDateRangeFilter(routeName: string, initialStart = '', initialEnd = '') {
+export default function useDateRangeFilter(
+  routeName: string,
+  initialStart = '',
+  initialEnd = '',
+) {
   const [startDate, setStartDate] = useState(initialStart);
   const [endDate, setEndDate] = useState(initialEnd);
 

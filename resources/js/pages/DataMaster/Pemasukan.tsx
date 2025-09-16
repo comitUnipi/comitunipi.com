@@ -3,7 +3,13 @@ import ModalConfirm from '@/components/app-modal-confirm';
 import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import useDateRangeFilter from '@/hooks/use-date-range-filter';
 import useDelete from '@/hooks/use-delete';
 import usePaginate from '@/hooks/use-paginate';
@@ -43,7 +49,16 @@ interface Props {
 export default function Pages({ pemasukan, filters, flash, auth }: Props) {
   const { showToast, toastMessage, toastType } = useToastFlash(flash);
   const { handlePageChange } = usePaginate({ routeName: 'pemasukan.index' });
-  const { data, setData, handleSubmit, processing, isOpen, setIsOpen, editingPemasukan, handleEdit } = usePemasukanForm();
+  const {
+    data,
+    setData,
+    handleSubmit,
+    processing,
+    isOpen,
+    setIsOpen,
+    editingPemasukan,
+    handleEdit,
+  } = usePemasukanForm();
   const {
     startDate,
     endDate,
@@ -51,12 +66,23 @@ export default function Pages({ pemasukan, filters, flash, auth }: Props) {
     setEndDate,
     handleFilterTanggal,
     handleResetTanggal: handleResetFilter,
-  } = useDateRangeFilter('pemasukan.index', filters.start_date, filters.end_date);
-  const { confirmDeleteId, setConfirmDeleteId, handleDelete } = useDelete('pemasukan.destroy');
+  } = useDateRangeFilter(
+    'pemasukan.index',
+    filters.start_date,
+    filters.end_date,
+  );
+  const { confirmDeleteId, setConfirmDeleteId, handleDelete } =
+    useDelete('pemasukan.destroy');
 
   const user = auth?.user;
 
-  const queryParams = new URLSearchParams(Object.fromEntries(Object.entries(filters).filter(([value]) => value !== '' && value !== null))).toString();
+  const queryParams = new URLSearchParams(
+    Object.fromEntries(
+      Object.entries(filters).filter(
+        ([value]) => value !== '' && value !== null,
+      ),
+    ),
+  ).toString();
   const exportUrl = `/pemasukan/export/csv?${queryParams}`;
 
   return (
@@ -70,9 +96,16 @@ export default function Pages({ pemasukan, filters, flash, auth }: Props) {
     >
       <Head title="Data Pemasukan" />
       <div className="from-background to-muted/20 flex h-full flex-1 flex-col gap-4 rounded-xl bg-gradient-to-br p-3 sm:gap-6 sm:p-4 md:p-6">
-        <ToastNotification message={toastMessage} type={toastType} visible={showToast} />
+        <ToastNotification
+          message={toastMessage}
+          type={toastType}
+          visible={showToast}
+        />
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <Heading title="Data Pemasukan" description="Manajemen untuk mengelola data pemasukan keuangan." />
+          <Heading
+            title="Data Pemasukan"
+            description="Manajemen untuk mengelola data pemasukan keuangan."
+          />
           <ModalConfirm
             open={confirmDeleteId !== null}
             onCancel={() => setConfirmDeleteId(null)}
@@ -86,7 +119,10 @@ export default function Pages({ pemasukan, filters, flash, auth }: Props) {
           {['Super Admin', 'Finance'].includes(user.role) && (
             <div className="flex gap-4">
               <ButtonExport exportUrl={exportUrl} />
-              <Dialog open={isOpen} onOpenChange={setIsOpen}>
+              <Dialog
+                open={isOpen}
+                onOpenChange={setIsOpen}
+              >
                 <DialogTrigger>
                   <div className="bg-primary hover:bg-primary/90 flex cursor-pointer items-center rounded-md px-3 py-2 text-sm whitespace-nowrap text-white shadow-lg dark:text-black">
                     <Plus className="mr-2 h-4 w-4" />
@@ -95,7 +131,11 @@ export default function Pages({ pemasukan, filters, flash, auth }: Props) {
                 </DialogTrigger>
                 <DialogContent className="max-h-[90vh] w-[calc(100vw-2rem)] overflow-y-auto sm:max-w-[600px]">
                   <DialogHeader>
-                    <DialogTitle className="text-lg sm:text-xl">{editingPemasukan ? 'Ubah Data Pemasukan' : 'Tambah Pemasukan'}</DialogTitle>
+                    <DialogTitle className="text-lg sm:text-xl">
+                      {editingPemasukan
+                        ? 'Ubah Data Pemasukan'
+                        : 'Tambah Pemasukan'}
+                    </DialogTitle>
                   </DialogHeader>
                   <FormPemasukan
                     data={data}
@@ -117,7 +157,12 @@ export default function Pages({ pemasukan, filters, flash, auth }: Props) {
           handleFilterTanggal={handleFilterTanggal}
           handleResetFilter={handleResetFilter}
         />
-        <TablePemasukan pemasukan={pemasukan} user={user} handleEdit={handleEdit} setConfirmDeleteId={setConfirmDeleteId} />{' '}
+        <TablePemasukan
+          pemasukan={pemasukan}
+          user={user}
+          handleEdit={handleEdit}
+          setConfirmDeleteId={setConfirmDeleteId}
+        />{' '}
         <Pagination
           currentPage={pemasukan.current_page}
           totalItems={pemasukan.total}

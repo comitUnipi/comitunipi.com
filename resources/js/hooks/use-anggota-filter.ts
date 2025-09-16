@@ -17,7 +17,9 @@ export default function useAnggotaFilter({ initialFilters }: Props) {
   const [roleFilter, setRoleFilter] = useState(initialFilters.role);
   const [statusFilter, setStatusFilter] = useState(initialFilters.status);
   const [jurusanFilter, setJurusanFilter] = useState(initialFilters.jurusan);
-  const [minatKeahlianFilter, setMinatKeahlianFilter] = useState(initialFilters.minat_keahlian);
+  const [minatKeahlianFilter, setMinatKeahlianFilter] = useState(
+    initialFilters.minat_keahlian,
+  );
   const [positionFilter, setPositionFilter] = useState(initialFilters.position);
 
   const getFilterParams = () => ({
@@ -80,6 +82,7 @@ export default function useAnggotaFilter({ initialFilters }: Props) {
     handleFilterPositionChange: (val: string) => updateFilter('position', val),
     handleFilterStatusChange: (val: string) => updateFilter('status', val),
     handleFilterJurusanChange: (val: string) => updateFilter('jurusan', val),
-    handleFilterMinatKeahlianChange: (val: string) => updateFilter('minat_keahlian', val),
+    handleFilterMinatKeahlianChange: (val: string) =>
+      updateFilter('minat_keahlian', val),
   };
 }

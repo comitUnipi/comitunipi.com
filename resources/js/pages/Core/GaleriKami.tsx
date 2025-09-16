@@ -29,25 +29,55 @@ export default function Pages() {
   return (
     <>
       <Head title="Galeri Dokumentasi Kegiatan Kami">
-        <meta name="robots" content="index, follow" />
-        <meta rel="canonical" content="https://comitunipi.com/galeri-kami" />
+        <meta
+          name="robots"
+          content="index, follow"
+        />
+        <meta
+          rel="canonical"
+          content="https://comitunipi.com/galeri-kami"
+        />
         <meta
           name="description"
           content="Lihat berbagai dokumentasi kegiatan dan momen berharga bersama Community of Information Technology (COMIT), dari pelatihan, workshop, perlombaan hingga kegiatan sosial."
         />
 
-        <meta property="og:title" content="Galeri Dokumentasi Kegiatan Kami - COMIT UNIPI" />
+        <meta
+          property="og:title"
+          content="Galeri Dokumentasi Kegiatan Kami - COMIT UNIPI"
+        />
         <meta
           property="og:description"
           content="Lihat berbagai dokumentasi kegiatan dan momen berharga bersama Community of Information Technology (COMIT), dari pelatihan, workshop, perlombaan hingga kegiatan sosial."
         />
-        <meta property="og:image" content="https://comitunipi.com/images/banner.png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:url" content="https://comitunipi.com/galeri-kami" />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="COMIT UNIPI" />
-        <meta property="og:locale" content="id_ID" />
+        <meta
+          property="og:image"
+          content="https://comitunipi.com/images/banner.png"
+        />
+        <meta
+          property="og:image:width"
+          content="1200"
+        />
+        <meta
+          property="og:image:height"
+          content="630"
+        />
+        <meta
+          property="og:url"
+          content="https://comitunipi.com/galeri-kami"
+        />
+        <meta
+          property="og:type"
+          content="website"
+        />
+        <meta
+          property="og:site_name"
+          content="COMIT UNIPI"
+        />
+        <meta
+          property="og:locale"
+          content="id_ID"
+        />
 
         <script type="application/ld+json">
           {JSON.stringify({
@@ -64,7 +94,11 @@ export default function Pages() {
               addressRegion: 'Banten',
               addressCountry: 'ID',
             },
-            sameAs: ['https://www.instagram.com/comit.ipem/', 'https://www.tiktok.com/@comit_unipi', 'https://github.com/comitUnipi'],
+            sameAs: [
+              'https://www.instagram.com/comit.ipem/',
+              'https://www.tiktok.com/@comit_unipi',
+              'https://github.com/comitUnipi',
+            ],
           })}
         </script>
       </Head>
@@ -79,10 +113,18 @@ export default function Pages() {
             />
             <div className="mb-20 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
               {galeri.map((item: GaleriItem, index: number) => (
-                <GaleriCard key={index} item={item} openModal={() => openModal(item.src)} />
+                <GaleriCard
+                  key={index}
+                  item={item}
+                  openModal={() => openModal(item.src)}
+                />
               ))}
             </div>
-            <GaleriModal isModalOpen={isModalOpen} selectedImage={selectedImage} closeModal={closeModal} />
+            <GaleriModal
+              isModalOpen={isModalOpen}
+              selectedImage={selectedImage}
+              closeModal={closeModal}
+            />
           </div>
         </section>
       </MainLayout>

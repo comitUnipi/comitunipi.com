@@ -31,13 +31,17 @@ export default function KegiatanCard({ img, title, description }: Props) {
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <div className="h-1 w-12 bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-500 group-hover:w-16" />
-              <span className="text-sm font-medium text-blue-600 transition-colors duration-300">Event</span>
+              <span className="text-sm font-medium text-blue-600 transition-colors duration-300">
+                Event
+              </span>
             </div>
             <h2 className="text-2xl font-bold text-gray-900 transition-colors duration-300 group-hover:text-gray-800 md:text-3xl lg:text-4xl">
               {title}
             </h2>
           </div>
-          <p className="text-base leading-relaxed text-gray-600 transition-colors duration-300 group-hover:text-gray-700 md:text-lg">{description}</p>
+          <p className="text-base leading-relaxed text-gray-600 transition-colors duration-300 group-hover:text-gray-700 md:text-lg">
+            {description}
+          </p>
         </div>
         <div className="absolute -right-2 -bottom-2 h-20 w-20 rounded-full bg-gradient-to-br from-blue-200/30 to-purple-200/30 blur-xl transition-all duration-700 group-hover:scale-150 group-hover:opacity-70" />
         <div className="absolute -top-4 -left-4 h-16 w-16 rounded-full bg-gradient-to-br from-cyan-200/20 to-blue-200/20 blur-lg transition-all duration-700 group-hover:scale-125 group-hover:opacity-60" />

@@ -3,7 +3,13 @@ import ModalConfirm from '@/components/app-modal-confirm';
 import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import useDateRangeFilter from '@/hooks/use-date-range-filter';
 import useDelete from '@/hooks/use-delete';
 import useKasFilter from '@/hooks/use-kas-filter';
@@ -48,13 +54,29 @@ interface Props {
 
 export default function Pages({ kas, users, filters, flash, auth }: Props) {
   const { showToast, toastMessage, toastType } = useToastFlash(flash);
-  const { data, setData, handleSubmit, processing, isOpen, setIsOpen, editing, handleEdit } = useKasForm();
-  const { startDate, endDate, setStartDate, setEndDate, handleResetTanggal } = useDateRangeFilter('kas.index', filters.start_date, filters.end_date);
-  const { confirmDeleteId, setConfirmDeleteId, handleDelete } = useDelete('kas.destroy');
+  const {
+    data,
+    setData,
+    handleSubmit,
+    processing,
+    isOpen,
+    setIsOpen,
+    editing,
+    handleEdit,
+  } = useKasForm();
+  const { startDate, endDate, setStartDate, setEndDate, handleResetTanggal } =
+    useDateRangeFilter('kas.index', filters.start_date, filters.end_date);
+  const { confirmDeleteId, setConfirmDeleteId, handleDelete } =
+    useDelete('kas.destroy');
 
   const [searchTerm, setSearchTerm] = useState(filters.search);
 
-  const { typeFilter, handleFilterKas, handleFilterTypeChange, handleResetKas } = useKasFilter({
+  const {
+    typeFilter,
+    handleFilterKas,
+    handleFilterTypeChange,
+    handleResetKas,
+  } = useKasFilter({
     searchTerm,
     setSearchTerm,
     initialFilter: filters.type,
@@ -80,7 +102,11 @@ export default function Pages({ kas, users, filters, flash, auth }: Props) {
   });
 
   const queryParams = new URLSearchParams(
-    Object.fromEntries(Object.entries(filters).filter(([, value]) => value !== '' && value !== null)),
+    Object.fromEntries(
+      Object.entries(filters).filter(
+        ([, value]) => value !== '' && value !== null,
+      ),
+    ),
   ).toString();
   const exportUrl = `/kas/export/csv?${queryParams}`;
 
@@ -95,9 +121,16 @@ export default function Pages({ kas, users, filters, flash, auth }: Props) {
     >
       <Head title="Data Uang Kas" />
       <div className="from-background to-muted/20 flex h-full flex-1 flex-col gap-4 rounded-xl bg-gradient-to-br p-3 sm:gap-6 sm:p-4 md:p-6">
-        <ToastNotification message={toastMessage} type={toastType} visible={showToast} />
+        <ToastNotification
+          message={toastMessage}
+          type={toastType}
+          visible={showToast}
+        />
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <Heading title="Data Uang KAS" description="Manajemen untuk mengelola data uang kas anggota dan pengurus." />
+          <Heading
+            title="Data Uang KAS"
+            description="Manajemen untuk mengelola data uang kas anggota dan pengurus."
+          />
           <ModalConfirm
             open={confirmDeleteId !== null}
             onCancel={() => setConfirmDeleteId(null)}
@@ -111,7 +144,10 @@ export default function Pages({ kas, users, filters, flash, auth }: Props) {
           {['Super Admin', 'Finance'].includes(user.role) && (
             <div className="flex gap-4">
               <ButtonExport exportUrl={exportUrl} />
-              <Dialog open={isOpen} onOpenChange={setIsOpen}>
+              <Dialog
+                open={isOpen}
+                onOpenChange={setIsOpen}
+              >
                 <DialogTrigger>
                   <div className="bg-primary hover:bg-primary/90 flex cursor-pointer items-center rounded-md px-3 py-2 text-sm whitespace-nowrap text-white shadow-lg dark:text-black">
                     <Plus className="mr-2 h-4 w-4" />
@@ -120,7 +156,9 @@ export default function Pages({ kas, users, filters, flash, auth }: Props) {
                 </DialogTrigger>
                 <DialogContent className="max-h-[90vh] w-[calc(100vw-2rem)] overflow-y-auto sm:max-w-[600px]">
                   <DialogHeader>
-                    <DialogTitle className="text-lg sm:text-xl">{editing ? 'Ubah Data KAS' : 'Tambah KAS'}</DialogTitle>
+                    <DialogTitle className="text-lg sm:text-xl">
+                      {editing ? 'Ubah Data KAS' : 'Tambah KAS'}
+                    </DialogTitle>
                   </DialogHeader>
                   <FormKas
                     data={data}
@@ -148,7 +186,12 @@ export default function Pages({ kas, users, filters, flash, auth }: Props) {
           handleResetKas={handleResetKas}
           handleSearch={handleSearch}
         />
-        <TableKas kas={kas} user={user} handleEdit={handleEdit} setConfirmDeleteId={setConfirmDeleteId} />
+        <TableKas
+          kas={kas}
+          user={user}
+          handleEdit={handleEdit}
+          setConfirmDeleteId={setConfirmDeleteId}
+        />
         <Pagination
           currentPage={kas.current_page}
           totalItems={kas.total}

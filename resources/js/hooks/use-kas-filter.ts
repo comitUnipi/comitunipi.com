@@ -10,7 +10,14 @@ interface Props {
   handleResetTanggal: () => void;
 }
 
-export default function useKasFilter({ initialFilter, searchTerm, setSearchTerm, startDate, endDate, handleResetTanggal }: Props) {
+export default function useKasFilter({
+  initialFilter,
+  searchTerm,
+  setSearchTerm,
+  startDate,
+  endDate,
+  handleResetTanggal,
+}: Props) {
   const [typeFilter, setTypeFilter] = useState(initialFilter);
 
   const handleFilterKas = () => {

@@ -20,7 +20,10 @@ export default function Appearance() {
       <Head title="Pengaturan tampilan" />
       <SettingsLayout>
         <div className="space-y-6">
-          <HeadingSmall title="Pengaturan tampilan" description="Perbarui pengaturan tampilan akun kamu" />
+          <HeadingSmall
+            title="Pengaturan tampilan"
+            description="Perbarui pengaturan tampilan akun kamu"
+          />
           <AppearanceTabs />
         </div>
       </SettingsLayout>

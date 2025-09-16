@@ -1,4 +1,10 @@
-export const ROLE_OPTIONS = ['Guest', 'User', 'Finance', 'Admin', 'Super Admin'];
+export const ROLE_OPTIONS = [
+  'Guest',
+  'User',
+  'Finance',
+  'Admin',
+  'Super Admin',
+];
 
 export const POSITION_OPTIONS = [
   'Calon Anggota',
@@ -28,8 +34,20 @@ export const STATUS_OPTIONS = [
   { label: 'Nonaktif', value: '0' },
 ];
 
-export const MINAT_KEAHLIAN_OPTIONS = ['Programming', 'Design Grafis', 'Computer & Networking', 'Microsoft Office'];
+export const MINAT_KEAHLIAN_OPTIONS = [
+  'Programming',
+  'Design Grafis',
+  'Computer & Networking',
+  'Microsoft Office',
+];
 
-export const JURUSAN_OPTIONS = ['Teknologi Informasi', 'Sistem Informasi', 'Software Enginner', 'Akutansi', 'Manajemen', 'Hukum'];
+export const JURUSAN_OPTIONS = [
+  'Teknologi Informasi',
+  'Sistem Informasi',
+  'Software Enginner',
+  'Akutansi',
+  'Manajemen',
+  'Hukum',
+];
 
 export const JENIS_KELAMIN_OPTIONS = ['Laki-Laki', 'Perempuan'];

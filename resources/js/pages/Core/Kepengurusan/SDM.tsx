@@ -9,19 +9,55 @@ export default function SDM() {
   return (
     <>
       <Head title="SDM Kami Periode 2024-2025">
-        <meta name="robots" content="index, follow" />
-        <meta rel="canonical" content="https://comitunipi.com/kepengurusan/sdm" />
-        <meta name="description" content="Kenali sdm COMIT periode 2024-2025" />
+        <meta
+          name="robots"
+          content="index, follow"
+        />
+        <meta
+          rel="canonical"
+          content="https://comitunipi.com/kepengurusan/sdm"
+        />
+        <meta
+          name="description"
+          content="Kenali sdm COMIT periode 2024-2025"
+        />
 
-        <meta property="og:title" content="SDM Kami Periode 2024-2025 - COMIT UNIPI" />
-        <meta property="og:description" content="Kenali sdm COMIT periode 2024-2025" />
-        <meta property="og:image" content="https://comitunipi.com/images/banner.png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:url" content="https://comitunipi.com/kepengurusan/sdm" />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="COMIT UNIPI" />
-        <meta property="og:locale" content="id_ID" />
+        <meta
+          property="og:title"
+          content="SDM Kami Periode 2024-2025 - COMIT UNIPI"
+        />
+        <meta
+          property="og:description"
+          content="Kenali sdm COMIT periode 2024-2025"
+        />
+        <meta
+          property="og:image"
+          content="https://comitunipi.com/images/banner.png"
+        />
+        <meta
+          property="og:image:width"
+          content="1200"
+        />
+        <meta
+          property="og:image:height"
+          content="630"
+        />
+        <meta
+          property="og:url"
+          content="https://comitunipi.com/kepengurusan/sdm"
+        />
+        <meta
+          property="og:type"
+          content="website"
+        />
+        <meta
+          property="og:site_name"
+          content="COMIT UNIPI"
+        />
+        <meta
+          property="og:locale"
+          content="id_ID"
+        />
 
         <script type="application/ld+json">
           {JSON.stringify({
@@ -47,7 +83,11 @@ export default function SDM() {
                 },
               })),
             },
-            sameAs: ['https://www.instagram.com/comit.ipem/', 'https://www.tiktok.com/@comit_unipi', 'https://github.com/comitUnipi'],
+            sameAs: [
+              'https://www.instagram.com/comit.ipem/',
+              'https://www.tiktok.com/@comit_unipi',
+              'https://github.com/comitUnipi',
+            ],
           })}
         </script>
       </Head>
@@ -58,7 +98,10 @@ export default function SDM() {
             <KepengurusanHeading jobdesk="SDM Kami" />
             <div className="mx-4 flex flex-wrap justify-center gap-20">
               {kepengurusan.map((pengurus) => (
-                <KepengurusanCard key={pengurus.id} pengurus={pengurus} />
+                <KepengurusanCard
+                  key={pengurus.id}
+                  pengurus={pengurus}
+                />
               ))}
             </div>
           </div>

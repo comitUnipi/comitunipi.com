@@ -1,5 +1,11 @@
 import Heading from '@/components/heading';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
 import { capitalizeFirstLetter } from '@/lib/capitalize-first-letter';
 import { formatDate } from '@/lib/format-date';
@@ -23,15 +29,23 @@ export default function Pages({ kegiatan }: Props) {
     >
       <Head title="Jadwal Kegiatan" />
       <div className="flex h-full flex-1 flex-col space-y-6 p-4 md:p-6">
-        <Heading title="Informasi" description="Kegiatan yang akan datang!!!" />
+        <Heading
+          title="Informasi"
+          description="Kegiatan yang akan datang!!!"
+        />
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <div className="max-w-md space-y-6">
             {kegiatan.length > 0 ? (
               kegiatan.map((item) => (
-                <Card key={item.id} className="group transition-shadow hover:shadow-md">
+                <Card
+                  key={item.id}
+                  className="group transition-shadow hover:shadow-md"
+                >
                   <CardHeader className="pb-4">
                     <CardTitle className="text-lg">{item.name}</CardTitle>
-                    <CardDescription className="text-justify">{item.description || 'Tidak ada deskripsi tersedia'}</CardDescription>
+                    <CardDescription className="text-justify">
+                      {item.description || 'Tidak ada deskripsi tersedia'}
+                    </CardDescription>
                   </CardHeader>
                   <CardContent className="text-muted-foreground grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
                     <div className="flex items-center space-x-2">
@@ -48,7 +62,9 @@ export default function Pages({ kegiatan }: Props) {
                     </div>
                     <div className="flex items-center space-x-2">
                       <Users className="text-muted-foreground h-4 w-4" />
-                      <span className="truncate">{capitalizeFirstLetter(item.audiens)}</span>
+                      <span className="truncate">
+                        {capitalizeFirstLetter(item.audiens)}
+                      </span>
                     </div>
                   </CardContent>
                 </Card>
@@ -58,9 +74,12 @@ export default function Pages({ kegiatan }: Props) {
                 <div className="bg-muted mx-auto flex h-20 w-20 items-center justify-center rounded-full">
                   <CalendarDays className="text-muted-foreground h-10 w-10" />
                 </div>
-                <h3 className="mt-4 text-lg font-semibold">Belum Ada Kegiatan</h3>
+                <h3 className="mt-4 text-lg font-semibold">
+                  Belum Ada Kegiatan
+                </h3>
                 <p className="text-muted-foreground mt-2 mb-4 max-w-sm text-sm">
-                  Kegiatan terbaru akan segera hadir. Pantau terus halaman ini untuk mendapatkan informasi terbaru.
+                  Kegiatan terbaru akan segera hadir. Pantau terus halaman ini
+                  untuk mendapatkan informasi terbaru.
                 </p>
               </div>
             )}

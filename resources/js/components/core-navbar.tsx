@@ -6,7 +6,8 @@ import { useState } from 'react';
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isKepengurusanOpen, setIsKepengurusanOpen] = useState(false);
-  const [isMobileKepengurusanOpen, setIsMobileKepengurusanOpen] = useState(false);
+  const [isMobileKepengurusanOpen, setIsMobileKepengurusanOpen] =
+    useState(false);
 
   const { auth } = usePage<SharedData>().props;
 
@@ -23,7 +24,10 @@ export default function Navbar() {
   };
 
   const kepengurusan = [
-    { label: 'Ketua & Wakil Ketua Umum', href: '/kepengurusan/ketua-dan-wakil-ketua-umum' },
+    {
+      label: 'Ketua & Wakil Ketua Umum',
+      href: '/kepengurusan/ketua-dan-wakil-ketua-umum',
+    },
     { label: 'Sekretaris', href: '/kepengurusan/sekretaris' },
     { label: 'Bendahara', href: '/kepengurusan/bendahara' },
     { label: 'SDM', href: '/kepengurusan/sdm' },
@@ -34,16 +38,29 @@ export default function Navbar() {
     { label: 'Kominfo', href: '/kepengurusan/kominfo' },
     { label: 'Staff Design Grafis', href: '/kepengurusan/staff-design-grafis' },
     { label: 'Staff Programming', href: '/kepengurusan/staff-programming' },
-    { label: 'Staff Comp & Network', href: '/kepengurusan/staff-comp-and-network' },
-    { label: 'Staff Microsoft Office', href: '/kepengurusan/staff-microsoft-office' },
+    {
+      label: 'Staff Comp & Network',
+      href: '/kepengurusan/staff-comp-and-network',
+    },
+    {
+      label: 'Staff Microsoft Office',
+      href: '/kepengurusan/staff-microsoft-office',
+    },
   ];
 
   return (
     <nav className="sticky top-0 z-50 bg-blue-600 shadow-lg backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
-          <Link href="/" className="h-16 w-16 object-contain sm:h-20 sm:w-20">
-            <img className="h-16 w-16 object-contain sm:h-20 sm:w-20" src="/images/logo/logo_white.png" alt="Logo" />
+          <Link
+            href="/"
+            className="h-16 w-16 object-contain sm:h-20 sm:w-20"
+          >
+            <img
+              className="h-16 w-16 object-contain sm:h-20 sm:w-20"
+              src="/images/logo/logo_white.png"
+              alt="Logo"
+            />
           </Link>
 
           <div className="hidden md:block">
@@ -61,13 +78,20 @@ export default function Navbar() {
                   className="flex items-center rounded-md px-3 py-2 text-sm font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
                 >
                   Kepengurusan
-                  <ChevronDown size={16} className={`ml-1 transform transition-transform ${isKepengurusanOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown
+                    size={16}
+                    className={`ml-1 transform transition-transform ${isKepengurusanOpen ? 'rotate-180' : ''}`}
+                  />
                 </button>
 
                 {isKepengurusanOpen && (
                   <div className="ring-opacity-5 absolute left-0 z-50 mt-2 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black">
                     {kepengurusan.map((item, index) => (
-                      <Link key={index} href={item.href} className="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100">
+                      <Link
+                        key={index}
+                        href={item.href}
+                        className="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-100"
+                      >
                         {item.label}
                       </Link>
                     ))}
@@ -123,7 +147,10 @@ export default function Navbar() {
           </div>
 
           <div className="md:hidden">
-            <button onClick={toggleMenu} className="rounded-md p-2 text-white/90 transition-colors hover:bg-white/10 hover:text-white">
+            <button
+              onClick={toggleMenu}
+              className="rounded-md p-2 text-white/90 transition-colors hover:bg-white/10 hover:text-white"
+            >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
@@ -146,7 +173,10 @@ export default function Navbar() {
                 className="flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-base font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
               >
                 Kepengurusan
-                <ChevronDown size={16} className={`transform transition-transform ${isMobileKepengurusanOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown
+                  size={16}
+                  className={`transform transition-transform ${isMobileKepengurusanOpen ? 'rotate-180' : ''}`}
+                />
               </button>
 
               {isMobileKepengurusanOpen && (

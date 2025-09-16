@@ -4,7 +4,8 @@ import { useState } from 'react';
 
 export default function usePengeluaranForm() {
   const [isOpen, setIsOpen] = useState(false);
-  const [editingPengeluaran, setEditingPengeluaran] = useState<Pengeluaran | null>(null);
+  const [editingPengeluaran, setEditingPengeluaran] =
+    useState<Pengeluaran | null>(null);
 
   const form = useForm({
     amount: 0,

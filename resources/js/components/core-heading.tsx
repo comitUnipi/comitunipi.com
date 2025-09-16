@@ -2,15 +2,27 @@ export default function Heading({ img }: { img: string }) {
   return (
     <div className="relative z-0 w-full bg-black px-5 py-20 lg:py-48">
       <div className="relative z-10 mx-auto max-w-xl text-center text-white">
-        <h1 id="text" className="mb-4 text-4xl font-bold italic lg:text-7xl">
+        <h1
+          id="text"
+          className="mb-4 text-4xl font-bold italic lg:text-7xl"
+        >
           Community of Information Technology
         </h1>
-        <p className="mb-3 text-sm md:text-lg">Semangat Comit, Salam Teknologi!!</p>
-        <a href="/pendaftaran-anggota" className="mt-3 inline-block rounded-lg bg-blue-600 px-8 py-3 text-sm text-white md:text-lg">
+        <p className="mb-3 text-sm md:text-lg">
+          Semangat Comit, Salam Teknologi!!
+        </p>
+        <a
+          href="/pendaftaran-anggota"
+          className="mt-3 inline-block rounded-lg bg-blue-600 px-8 py-3 text-sm text-white md:text-lg"
+        >
           Gabung Sekarang
         </a>
       </div>
-      <img src={img} alt="background" className="absolute inset-0 h-full w-full object-cover opacity-50" />
+      <img
+        src={img}
+        alt="background"
+        className="absolute inset-0 h-full w-full object-cover opacity-50"
+      />
     </div>
   );
 }
