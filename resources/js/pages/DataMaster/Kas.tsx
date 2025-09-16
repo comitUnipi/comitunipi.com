@@ -87,6 +87,9 @@ export default function Pages({ kas, users, filters, flash, auth }: Props) {
 
   const getFilterParams = () => ({
     search: searchTerm,
+    start_date: startDate,
+    end_date: endDate,
+    type: typeFilter,
   });
 
   const { handlePageChange } = usePaginate({
