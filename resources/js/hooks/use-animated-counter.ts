@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 
-export function useAnimatedCounter(target, duration = 2000) {
+export default function useAnimatedCounter(target: number, duration: number = 2000): number {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     let start = 0;
-    const end = parseInt(target, 10);
+    const end = Math.floor(target);
     if (start === end) return;
 
-    const incrementTime = (duration / end) * 1;
+    const incrementTime = duration / end;
 
     const timer = setInterval(() => {
       start += 1;

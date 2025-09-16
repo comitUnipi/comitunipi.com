@@ -2,7 +2,7 @@ import FinancialBarChart from '@/components/analytics/financial-bar-chart';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
 import { User } from '@/types';
-import { Head, usePage } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { CheckCircle, Clock, UserCog, Users } from 'lucide-react';
 
 interface Props {
@@ -15,13 +15,10 @@ interface Props {
     totalPengeluaran: number;
     totalKAS: number;
   };
-}
-
-type PageProps = {
   auth: {
     user: User;
   };
-};
+}
 
 export default function Pages({
   stats = {
@@ -33,8 +30,8 @@ export default function Pages({
     totalPengeluaran: 0,
     totalKAS: 0,
   },
+  auth,
 }: Props) {
-  const { auth } = usePage<PageProps>().props;
   const user = auth?.user;
 
   return (

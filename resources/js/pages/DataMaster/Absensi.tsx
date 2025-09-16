@@ -1,8 +1,10 @@
 import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
+import usePaginate from '@/hooks/use-paginate';
+import useSearch from '@/hooks/use-search';
 import AppLayout from '@/layouts/app-layout';
 import { Absensi } from '@/types';
-import { Head, router } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { useState } from 'react';
 import FilterAbsensi from './components/absensi-filter';
 import TableAbsensi from './components/absensi-table';
@@ -25,31 +27,19 @@ interface Props {
 export default function Pages({ scans, filters }: Props) {
   const [searchTerm, setSearchTerm] = useState(filters.search);
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    router.get(
-      route('absensi.index'),
-      { search: searchTerm },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
-  };
+  const getFilterParams = () => ({
+    search: searchTerm,
+  });
 
-  const handlePageChange = (page: number) => {
-    router.get(
-      route('absensi.index'),
-      {
-        page,
-        search: searchTerm,
-      },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
-  };
+  const { handlePageChange } = usePaginate({
+    routeName: 'absensi.index',
+    getFilterParams,
+  });
+
+  const { handleSearch } = useSearch({
+    routeName: 'absensi.index',
+    getFilterParams,
+  });
 
   return (
     <AppLayout

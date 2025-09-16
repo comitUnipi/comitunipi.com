@@ -4,11 +4,16 @@ import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
 import ToastNotification from '@/components/toast-notification';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import useDelete from '@/hooks/use-delete';
+import useKegiatanForm from '@/hooks/use-kegiatan-form';
+import usePaginate from '@/hooks/use-paginate';
+import useSearch from '@/hooks/use-search';
+import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { Kegiatan, User } from '@/types';
-import { Head, router, useForm, usePage } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import FilterKegiatan from './components/kegiatan-filter';
 import FormKegiatan from './components/kegiatan-form';
 import TableKegiatan from './components/kegiatan-table';
@@ -30,125 +35,33 @@ interface Props {
     success?: string;
     error?: string;
   };
-}
-
-type PageProps = {
   auth: {
     user: User;
   };
-};
+}
 
-export default function Pages({ kegiatan, filters, flash }: Props) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [editing, setEditing] = useState<Kegiatan | null>(null);
+export default function Pages({ kegiatan, filters, flash, auth }: Props) {
+  const { showToast, toastMessage, toastType } = useToastFlash(flash);
+  const { data, setData, handleSubmit, processing, isOpen, setIsOpen, editing, handleEdit } = useKegiatanForm();
+
   const [searchTerm, setSearchTerm] = useState(filters.search);
-  const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
-  const [toastType, setToastType] = useState<'success' | 'error'>('success');
+  const { confirmDeleteId, setConfirmDeleteId, handleDelete } = useDelete('kegiatan.destroy');
 
-  const { auth } = usePage<PageProps>().props;
-  const user = auth?.user;
-
-  useEffect(() => {
-    if (flash?.success) {
-      setToastMessage(flash.success);
-      setToastType('success');
-      setShowToast(true);
-    } else if (flash?.error) {
-      setToastMessage(flash.error);
-      setToastType('error');
-      setShowToast(true);
-    }
-  }, [flash]);
-
-  useEffect(() => {
-    if (showToast) {
-      const timer = setTimeout(() => setShowToast(false), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [showToast]);
-
-  const {
-    data,
-    setData,
-    post,
-    put,
-    processing,
-    reset,
-    delete: destroy,
-  } = useForm({
-    name: '',
-    description: '',
-    date: '',
-    time: '',
-    location: '',
-    audiens: '',
+  const getFilterParams = () => ({
+    search: searchTerm,
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const { handlePageChange } = usePaginate({
+    routeName: 'kegiatan.index',
+    getFilterParams,
+  });
 
-    if (editing) {
-      put(route('kegiatan.update', editing.id), {
-        onSuccess: () => {
-          setIsOpen(false);
-          setEditing(null);
-          reset();
-        },
-      });
-    } else {
-      post(route('kegiatan.store'), {
-        onSuccess: () => {
-          setIsOpen(false);
-          reset();
-        },
-      });
-    }
-  };
+  const user = auth?.user;
 
-  const handleEdit = (kegiatanItem: Kegiatan) => {
-    setEditing(kegiatanItem);
-    setData({
-      name: kegiatanItem.name,
-      description: kegiatanItem.description,
-      date: kegiatanItem.date,
-      time: kegiatanItem.time,
-      location: kegiatanItem.location,
-      audiens: kegiatanItem.audiens,
-    });
-    setIsOpen(true);
-  };
-
-  const handleDelete = (id: number) => {
-    destroy(route('kegiatan.destroy', id));
-  };
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    router.get(
-      route('kegiatan.index'),
-      { search: searchTerm },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
-  };
-
-  const handlePageChange = (page: number) => {
-    router.get(
-      route('kegiatan.index'),
-      {
-        page,
-        search: searchTerm,
-      },
-      {
-        preserveState: true,
-        preserveScroll: true,
-      },
-    );
-  };
+  const { handleSearch } = useSearch({
+    routeName: 'kegiatan.index',
+    getFilterParams,
+  });
 
   const queryParams = new URLSearchParams(
     Object.fromEntries(Object.entries(filters).filter(([, value]) => value !== '' && value !== null)),

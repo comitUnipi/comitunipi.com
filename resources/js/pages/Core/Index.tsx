@@ -2,14 +2,11 @@ import MentorCard from '@/components/core-card-mentor';
 import Heading from '@/components/core-heading';
 import SubHeading from '@/components/core-sub-heading';
 import { mentors } from '@/constants/mentor';
-import { useAnimatedCounter } from '@/hooks/use-animated-counter';
+import useAnimatedCounter from '@/hooks/use-animated-counter';
 import MainLayout from '@/layouts/main-layout';
-import { Head, usePage } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 
-export default function Pages() {
-  const { props } = usePage();
-  const userCount = props.userCount || 0;
-
+export default function Pages({ userCount }: { userCount: number }) {
   return (
     <>
       <Head title="Community of Information Technology">
