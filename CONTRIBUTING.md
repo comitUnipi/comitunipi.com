@@ -25,7 +25,7 @@ Before contributing, make sure you have the following installed:
 
 ## Getting Started
 
-### 1. Clone and Install
+### Installing depedencies
 
 ```bash
 git clone https://github.com/your-username/your-repo.git
@@ -61,7 +61,7 @@ composer run dev
 1. Fork the repository.
 2. Clone your fork locally:
    ```
-   git clone https://github.com/your-username/your-repo.gitgit clone https://github.com/your-username/your-repo.git
+   git clone https://github.com/your-username/your-repo.git
    ```
 3. Create a new feature branch:
    ```
