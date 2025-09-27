@@ -34,6 +34,9 @@ export default function TableLaporanAbsensi({
                 Nama
               </th>
               <th className="text-muted-foreground h-12 px-4 text-left font-medium">
+                Minat Keahlian
+              </th>
+              <th className="text-muted-foreground h-12 px-4 text-left font-medium">
                 Kegiatan
               </th>
               <th className="text-muted-foreground h-12 px-4 text-left font-medium">
@@ -56,6 +59,7 @@ export default function TableLaporanAbsensi({
                 <td className="p-4">{index + 1}</td>
                 <td className="p-4">{formatDate(data.scan_date)}</td>
                 <td className="p-4">{data.user?.name}</td>
+                <td className="p-4">{data.user?.minat_keahlian}</td>
                 <td className="p-4">{data.qr_code?.kegiatan?.name ?? '-'}</td>
                 <td className="p-4">{data.status}</td>
                 <td className="p-4">
@@ -111,7 +115,12 @@ export default function TableLaporanAbsensi({
                 key={data.id}
                 className="space-y-2 p-4"
               >
-                <div className="text-sm font-semibold">{data.user?.name}</div>
+                <div className="flex justify-between">
+                  <div className="text-sm font-semibold">{data.user?.name}</div>
+                  <div className="text-muted-foreground text-sm">
+                    {data.user?.minat_keahlian}
+                  </div>
+                </div>
                 <div className="text-muted-foreground text-sm">
                   {data.qr_code?.kegiatan?.name}
                 </div>

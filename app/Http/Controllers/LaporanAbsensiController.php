@@ -14,18 +14,16 @@ class LaporanAbsensiController extends Controller
     {
         $kegiatanId = $request->query('kegiatan_id');
 
-        if ($kegiatanId === '') {
-            $kegiatanId = null;
-        }
-
-        $laporan = QrCodeScan::with(['user', 'qrCode.kegiatan'])
-            ->when($kegiatanId, function ($query, $kegiatanId) {
-                $query->whereHas('qrCode', function ($q) use ($kegiatanId) {
+        if (empty($kegiatanId)) {
+            $laporan = collect();
+        } else {
+            $laporan = QrCodeScan::with(['user', 'qrCode.kegiatan'])
+                ->whereHas('qrCode', function ($q) use ($kegiatanId) {
                     $q->where('kegiatan_id', $kegiatanId);
-                });
-            })
-            ->orderBy('scan_date', 'desc')
-            ->get();
+                })
+                ->orderBy('scan_date', 'desc')
+                ->get();
+        }
 
         $statusCounts = [
             'hadir' => $laporan->where('status', 'hadir')->count(),
@@ -67,12 +65,14 @@ class LaporanAbsensiController extends Controller
 
         $response = new StreamedResponse(function () use ($laporan, $statusCounts) {
             $handle = fopen('php://output', 'w');
-            fputcsv($handle, ['Tanggal', 'Nama', 'Kegiatan', 'Status', 'Alasan', 'Waktu Scan']);
+            fputcsv($handle, ['Tanggal', 'Nama', 'Minat Keahlian', 'Posisi', 'Kegiatan', 'Status', 'Alasan', 'Waktu Scan']);
 
             foreach ($laporan as $item) {
                 fputcsv($handle, [
                     $item->scan_date?->format('d M Y') ?? '-',
                     $item->user->name ?? '-',
+                    $item->user->minat_keahlian ?? '-',
+                    $item->user->position ?? '-',
                     $item->qrCode->kegiatan->name ?? '-',
                     ucfirst($item->status),
                     $item->description ?? '-',
