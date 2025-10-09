@@ -29,3 +29,6 @@ jobs:
 
       - name: Check Linter Frontend
         run: npm run lint
+
+      - name: Check Formatter PHP with Pint
+        run: composer format:check
