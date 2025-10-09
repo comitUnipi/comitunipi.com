@@ -15,7 +15,7 @@ class ScanAbsensiController extends Controller
         return Inertia::render('FiturUtama/ScanAbsensi', [
             'flash' => [
                 'success' => session('success'),
-                'error' => session('error'),
+                'error'   => session('error'),
             ],
         ]);
     }
@@ -23,12 +23,12 @@ class ScanAbsensiController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'token' => 'required|string',
+            'token'  => 'required|string',
             'status' => 'nullable|in:hadir,izin,sakit',
         ]);
 
-        $user = Auth::user();
-        $token = $validated['token'];
+        $user   = Auth::user();
+        $token  = $validated['token'];
         $status = $validated['status'] ?? 'hadir';
 
         $qrCode = QrCode::with('kegiatan')
@@ -43,19 +43,19 @@ class ScanAbsensiController extends Controller
         $kegiatan = $qrCode->kegiatan;
 
         $canAccess = match ($kegiatan->audiens) {
-            'umum' => true,
+            'umum'     => true,
             'pengurus' => in_array($user->role, ['Super Admin', 'Admin', 'Finance']),
-            'anggota' => $user->role !== 'Guest',
-            default => false,
+            'anggota'  => $user->role !== 'Guest',
+            default    => false,
         };
 
         if (! $canAccess) {
             return redirect()->back()->with('error', 'Anda tidak diizinkan mengikuti kegiatan ini.');
         }
 
-        $now = now()->timezone('Asia/Jakarta');
+        $now     = now()->timezone('Asia/Jakarta');
         $nowTime = $now->format('H:i');
-        $today = $now->toDateString();
+        $today   = $now->toDateString();
 
         if ($nowTime < $qrCode->start_time || $nowTime > $qrCode->end_time) {
             return redirect()->back()->with('error', "Scan hanya dapat dilakukan antara {$qrCode->start_time} - {$qrCode->end_time}.");
@@ -71,9 +71,9 @@ class ScanAbsensiController extends Controller
 
         QrCodeScan::create([
             'qr_code_id' => $qrCode->id,
-            'user_id' => Auth::id(),
-            'scan_date' => $today,
-            'status' => $status,
+            'user_id'    => Auth::id(),
+            'scan_date'  => $today,
+            'status'     => $status,
             'scanned_at' => $now,
         ]);
 

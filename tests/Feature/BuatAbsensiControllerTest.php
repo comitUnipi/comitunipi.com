@@ -13,19 +13,20 @@ use Tests\TestCase;
 
 class BuatAbsensiControllerTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->SuperAdmin = User::factory()->create([
-            'role' => 'Super Admin',
+            'role'      => 'Super Admin',
             'is_active' => true,
         ]);
 
         $this->Admin = User::factory()->create([
-            'role' => 'Admin',
+            'role'      => 'Admin',
             'is_active' => true,
         ]);
     }
@@ -44,10 +45,11 @@ class BuatAbsensiControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('FiturKhusus/BuatAbsensi')
-            ->has('kegiatan')
-            ->has('flash')
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('FiturKhusus/BuatAbsensi')
+                ->has('kegiatan')
+                ->has('flash')
         );
     }
 
@@ -73,8 +75,9 @@ class BuatAbsensiControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->has('kegiatan', 2) // Should only show today and future kegiatan
+        $response->assertInertia(
+            fn ($page) => $page
+                ->has('kegiatan', 2) // Should only show today and future kegiatan
         );
     }
 
@@ -88,8 +91,8 @@ class BuatAbsensiControllerTest extends TestCase
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'is_active' => true,
-            'token' => 'test-token-12345',
+            'is_active'   => true,
+            'token'       => 'test-token-12345',
         ]);
 
         // Act
@@ -98,11 +101,12 @@ class BuatAbsensiControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->has('qrData')
-            ->has('qrCodeSvg')
-            ->where('qrData.id', $qrCode->id)
-            ->where('qrData.is_active', true)
+        $response->assertInertia(
+            fn ($page) => $page
+                ->has('qrData')
+                ->has('qrCodeSvg')
+                ->where('qrData.id', $qrCode->id)
+                ->where('qrData.is_active', true)
         );
     }
 
@@ -116,7 +120,7 @@ class BuatAbsensiControllerTest extends TestCase
 
         QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'is_active' => false, // Inactive QR
+            'is_active'   => false, // Inactive QR
         ]);
 
         // Act
@@ -125,9 +129,10 @@ class BuatAbsensiControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->where('qrData', null)
-            ->where('qrCodeSvg', null)
+        $response->assertInertia(
+            fn ($page) => $page
+                ->where('qrData', null)
+                ->where('qrCodeSvg', null)
         );
     }
 
@@ -141,8 +146,8 @@ class BuatAbsensiControllerTest extends TestCase
 
         $qrData = [
             'kegiatan_id' => $kegiatan->id,
-            'start_time' => '08:00',
-            'end_time' => '17:00',
+            'start_time'  => '08:00',
+            'end_time'    => '17:00',
         ];
 
         // Act
@@ -155,9 +160,9 @@ class BuatAbsensiControllerTest extends TestCase
 
         $this->assertDatabaseHas('qr_codes', [
             'kegiatan_id' => $kegiatan->id,
-            'start_time' => '08:00',
-            'end_time' => '17:00',
-            'is_active' => true,
+            'start_time'  => '08:00',
+            'end_time'    => '17:00',
+            'is_active'   => true,
         ]);
     }
 
@@ -171,7 +176,7 @@ class BuatAbsensiControllerTest extends TestCase
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'is_active' => true,
+            'is_active'   => true,
         ]);
 
         // Act
@@ -183,7 +188,7 @@ class BuatAbsensiControllerTest extends TestCase
         $response->assertSessionHas('success', 'QR Code berhasil dinonaktifkan.');
 
         $this->assertDatabaseHas('qr_codes', [
-            'id' => $qrCode->id,
+            'id'        => $qrCode->id,
             'is_active' => false,
         ]);
     }
@@ -197,13 +202,13 @@ class BuatAbsensiControllerTest extends TestCase
 
         $existingQr = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan1->id,
-            'is_active' => true,
+            'is_active'   => true,
         ]);
 
         $qrData = [
             'kegiatan_id' => $kegiatan2->id,
-            'start_time' => '08:00',
-            'end_time' => '17:00',
+            'start_time'  => '08:00',
+            'end_time'    => '17:00',
         ];
 
         // Act
@@ -216,14 +221,14 @@ class BuatAbsensiControllerTest extends TestCase
 
         // Check existing QR is deactivated
         $this->assertDatabaseHas('qr_codes', [
-            'id' => $existingQr->id,
+            'id'        => $existingQr->id,
             'is_active' => false,
         ]);
 
         // Check new QR is active
         $this->assertDatabaseHas('qr_codes', [
             'kegiatan_id' => $kegiatan2->id,
-            'is_active' => true,
+            'is_active'   => true,
         ]);
     }
 
@@ -237,8 +242,8 @@ class BuatAbsensiControllerTest extends TestCase
 
         $qrData = [
             'kegiatan_id' => $kegiatan->id,
-            'start_time' => '08:00',
-            'end_time' => '17:00',
+            'start_time'  => '08:00',
+            'end_time'    => '17:00',
         ];
 
         // Act
@@ -270,8 +275,8 @@ class BuatAbsensiControllerTest extends TestCase
         // Arrange
         $qrData = [
             'kegiatan_id' => 99999, // Non-existent kegiatan
-            'start_time' => '08:00',
-            'end_time' => '17:00',
+            'start_time'  => '08:00',
+            'end_time'    => '17:00',
         ];
 
         // Act
@@ -292,8 +297,8 @@ class BuatAbsensiControllerTest extends TestCase
 
         $qrData = [
             'kegiatan_id' => $kegiatan->id,
-            'start_time' => 'invalid-time',
-            'end_time' => 'invalid-time',
+            'start_time'  => 'invalid-time',
+            'end_time'    => 'invalid-time',
         ];
 
         // Act
@@ -314,8 +319,8 @@ class BuatAbsensiControllerTest extends TestCase
 
         $qrData = [
             'kegiatan_id' => $kegiatan->id,
-            'start_time' => '17:00',
-            'end_time' => '08:00', // End time before start time
+            'start_time'  => '17:00',
+            'end_time'    => '08:00', // End time before start time
         ];
 
         // Act
@@ -328,8 +333,8 @@ class BuatAbsensiControllerTest extends TestCase
         // Test valid time range
         $validQrData = [
             'kegiatan_id' => $kegiatan->id,
-            'start_time' => '08:00',
-            'end_time' => '17:00',
+            'start_time'  => '08:00',
+            'end_time'    => '17:00',
         ];
 
         $response = $this->actingAs($this->SuperAdmin)

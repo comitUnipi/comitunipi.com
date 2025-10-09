@@ -14,9 +14,9 @@ class LinkGrupWAController extends Controller
 
         return Inertia::render('FiturKhusus/LinkGroupWA', [
             'whatsappLink' => $whatsappLink,
-            'flash' => [
+            'flash'        => [
                 'success' => session('success'),
-                'error' => session('error'),
+                'error'   => session('error'),
             ],
         ]);
     }

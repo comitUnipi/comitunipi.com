@@ -12,14 +12,14 @@ class KegiatanFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->sentence(3),
+            'name'        => $this->faker->sentence(3),
             'description' => $this->faker->paragraph(),
-            'date' => $this->faker->dateTimeBetween('now', '+1 month')->format('Y-m-d'),
-            'time' => $this->faker->time('H:i'),
-            'location' => $this->faker->address(),
-            'audiens' => $this->faker->randomElement(['umum', 'anggota', 'pengurus']),
-            'created_at' => now(),
-            'updated_at' => now(),
+            'date'        => $this->faker->dateTimeBetween('now', '+1 month')->format('Y-m-d'),
+            'time'        => $this->faker->time('H:i'),
+            'location'    => $this->faker->address(),
+            'audiens'     => $this->faker->randomElement(['umum', 'anggota', 'pengurus']),
+            'created_at'  => now(),
+            'updated_at'  => now(),
         ];
     }
 }

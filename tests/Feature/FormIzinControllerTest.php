@@ -14,7 +14,8 @@ use Tests\TestCase;
 
 class FormIzinControllerTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     protected function setUp(): void
     {
@@ -23,27 +24,27 @@ class FormIzinControllerTest extends TestCase
         Carbon::setTestNow(Carbon::parse('2024-01-15 10:00:00'));
 
         $this->SuperAdmin = User::factory()->create([
-            'role' => 'Super Admin',
+            'role'      => 'Super Admin',
             'is_active' => true,
         ]);
 
         $this->Admin = User::factory()->create([
-            'role' => 'Admin',
+            'role'      => 'Admin',
             'is_active' => true,
         ]);
 
         $this->Finance = User::factory()->create([
-            'role' => 'Finance',
+            'role'      => 'Finance',
             'is_active' => true,
         ]);
 
         $this->Anggota = User::factory()->create([
-            'role' => 'User',
+            'role'      => 'User',
             'is_active' => true,
         ]);
 
         $this->Guest = User::factory()->create([
-            'role' => 'Guest',
+            'role'      => 'Guest',
             'is_active' => true,
         ]);
     }
@@ -54,12 +55,12 @@ class FormIzinControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'is_active' => true,
+            'is_active'   => true,
         ]);
 
         // Act
@@ -68,11 +69,12 @@ class FormIzinControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('FiturUtama/FormIzin')
-            ->has('kegiatan')
-            ->has('flash')
-            ->where('kegiatan.id', $kegiatan->id)
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('FiturUtama/FormIzin')
+                ->has('kegiatan')
+                ->has('flash')
+                ->where('kegiatan.id', $kegiatan->id)
         );
     }
 
@@ -82,12 +84,12 @@ class FormIzinControllerTest extends TestCase
         // Arrange - Create kegiatan that guest cannot access
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'pengurus',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'is_active' => true,
+            'is_active'   => true,
         ]);
 
         // Act
@@ -96,9 +98,10 @@ class FormIzinControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('FiturUtama/FormIzin')
-            ->where('kegiatan', null)
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('FiturUtama/FormIzin')
+                ->where('kegiatan', null)
         );
     }
 
@@ -108,12 +111,12 @@ class FormIzinControllerTest extends TestCase
         // Arrange - Create kegiatan but with inactive QR code
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'is_active' => false, // Inactive
+            'is_active'   => false, // Inactive
         ]);
 
         // Act
@@ -122,9 +125,10 @@ class FormIzinControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('FiturUtama/FormIzin')
-            ->where('kegiatan', null)
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('FiturUtama/FormIzin')
+                ->where('kegiatan', null)
         );
     }
 
@@ -134,12 +138,12 @@ class FormIzinControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'pengurus',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'is_active' => true,
+            'is_active'   => true,
         ]);
 
         // Act
@@ -148,9 +152,10 @@ class FormIzinControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->has('kegiatan')
-            ->where('kegiatan.id', $kegiatan->id)
+        $response->assertInertia(
+            fn ($page) => $page
+                ->has('kegiatan')
+                ->where('kegiatan.id', $kegiatan->id)
         );
     }
 
@@ -160,12 +165,12 @@ class FormIzinControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'pengurus',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'is_active' => true,
+            'is_active'   => true,
         ]);
 
         // Act
@@ -174,9 +179,10 @@ class FormIzinControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->has('kegiatan')
-            ->where('kegiatan.id', $kegiatan->id)
+        $response->assertInertia(
+            fn ($page) => $page
+                ->has('kegiatan')
+                ->where('kegiatan.id', $kegiatan->id)
         );
     }
 
@@ -186,12 +192,12 @@ class FormIzinControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'pengurus',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'is_active' => true,
+            'is_active'   => true,
         ]);
 
         // Act
@@ -200,9 +206,10 @@ class FormIzinControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->has('kegiatan')
-            ->where('kegiatan.id', $kegiatan->id)
+        $response->assertInertia(
+            fn ($page) => $page
+                ->has('kegiatan')
+                ->where('kegiatan.id', $kegiatan->id)
         );
     }
 
@@ -212,12 +219,12 @@ class FormIzinControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'anggota',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'is_active' => true,
+            'is_active'   => true,
         ]);
 
         // Act
@@ -226,9 +233,10 @@ class FormIzinControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->has('kegiatan')
-            ->where('kegiatan.id', $kegiatan->id)
+        $response->assertInertia(
+            fn ($page) => $page
+                ->has('kegiatan')
+                ->where('kegiatan.id', $kegiatan->id)
         );
     }
 
@@ -238,12 +246,12 @@ class FormIzinControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'pengurus',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'is_active' => true,
+            'is_active'   => true,
         ]);
 
         // Act
@@ -252,8 +260,9 @@ class FormIzinControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->where('kegiatan', null)
+        $response->assertInertia(
+            fn ($page) => $page
+                ->where('kegiatan', null)
         );
     }
 
@@ -263,12 +272,12 @@ class FormIzinControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'anggota',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'is_active' => true,
+            'is_active'   => true,
         ]);
 
         // Act
@@ -277,8 +286,9 @@ class FormIzinControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->where('kegiatan', null)
+        $response->assertInertia(
+            fn ($page) => $page
+                ->where('kegiatan', null)
         );
     }
 
@@ -288,12 +298,12 @@ class FormIzinControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'is_active' => true,
+            'is_active'   => true,
         ]);
 
         $izinData = [
@@ -310,11 +320,11 @@ class FormIzinControllerTest extends TestCase
         $response->assertSessionHas('success', 'Permohonan izin berhasil dikirim.');
 
         $this->assertDatabaseHas('qr_code_scans', [
-            'qr_code_id' => $qrCode->id,
-            'user_id' => $this->Anggota->id,
-            'scan_date' => Carbon::today(),
-            'scanned_at' => null,
-            'status' => 'sakit',
+            'qr_code_id'  => $qrCode->id,
+            'user_id'     => $this->Anggota->id,
+            'scan_date'   => Carbon::today(),
+            'scanned_at'  => null,
+            'status'      => 'sakit',
             'description' => 'Saya tidak bisa mengikuti kegiatan ini',
         ]);
     }
@@ -325,12 +335,12 @@ class FormIzinControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'is_active' => true,
+            'is_active'   => true,
         ]);
 
         $izinData = [
@@ -347,9 +357,9 @@ class FormIzinControllerTest extends TestCase
         $response->assertSessionHas('success', 'Permohonan izin berhasil dikirim.');
 
         $this->assertDatabaseHas('qr_code_scans', [
-            'qr_code_id' => $qrCode->id,
-            'user_id' => $this->Anggota->id,
-            'status' => 'izin',
+            'qr_code_id'  => $qrCode->id,
+            'user_id'     => $this->Anggota->id,
+            'status'      => 'izin',
             'description' => 'Saya tidak bisa mengikuti kegiatan ini dikarenakan kerjaan',
         ]);
     }
@@ -360,12 +370,12 @@ class FormIzinControllerTest extends TestCase
         // Arrange - Create kegiatan that guest cannot access
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'pengurus',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'is_active' => true,
+            'is_active'   => true,
         ]);
 
         $izinData = [
@@ -383,7 +393,7 @@ class FormIzinControllerTest extends TestCase
 
         $this->assertDatabaseMissing('qr_code_scans', [
             'user_id' => $this->Guest->id,
-            'status' => 'sakit',
+            'status'  => 'sakit',
         ]);
     }
 
@@ -404,12 +414,12 @@ class FormIzinControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'is_active' => true,
+            'is_active'   => true,
         ]);
 
         $izinData = [
@@ -431,12 +441,12 @@ class FormIzinControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'is_active' => true,
+            'is_active'   => true,
         ]);
 
         $izinData = [
@@ -453,9 +463,10 @@ class FormIzinControllerTest extends TestCase
 
         // Test valid status values
         $validStatuses = ['izin', 'sakit'];
+
         foreach ($validStatuses as $status) {
             $izinData['status'] = $status;
-            $response = $this->actingAs($this->Anggota)
+            $response           = $this->actingAs($this->Anggota)
                 ->post(route('absensi.store'), $izinData);
 
             $response->assertRedirect(route('absensi.create'));

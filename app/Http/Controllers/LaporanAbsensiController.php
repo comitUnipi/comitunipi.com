@@ -27,15 +27,15 @@ class LaporanAbsensiController extends Controller
 
         $statusCounts = [
             'hadir' => $laporan->where('status', 'hadir')->count(),
-            'izin' => $laporan->where('status', 'izin')->count(),
+            'izin'  => $laporan->where('status', 'izin')->count(),
             'sakit' => $laporan->where('status', 'sakit')->count(),
         ];
 
         return Inertia::render('Laporan/Absensi', [
-            'laporan' => $laporan,
-            'totalScan' => $laporan->count(),
-            'statusCounts' => $statusCounts,
-            'kegiatanList' => Kegiatan::select('id', 'name')->orderBy('name')->get(),
+            'laporan'          => $laporan,
+            'totalScan'        => $laporan->count(),
+            'statusCounts'     => $statusCounts,
+            'kegiatanList'     => Kegiatan::select('id', 'name')->orderBy('name')->get(),
             'selectedKegiatan' => $kegiatanId,
         ]);
     }
@@ -59,7 +59,7 @@ class LaporanAbsensiController extends Controller
 
         $statusCounts = [
             'hadir' => $laporan->where('status', 'hadir')->count(),
-            'izin' => $laporan->where('status', 'izin')->count(),
+            'izin'  => $laporan->where('status', 'izin')->count(),
             'sakit' => $laporan->where('status', 'sakit')->count(),
         ];
 
@@ -70,10 +70,10 @@ class LaporanAbsensiController extends Controller
             foreach ($laporan as $item) {
                 fputcsv($handle, [
                     $item->scan_date?->format('d M Y') ?? '-',
-                    $item->user->name ?? '-',
-                    $item->user->minat_keahlian ?? '-',
-                    $item->user->position ?? '-',
-                    $item->qrCode->kegiatan->name ?? '-',
+                    $item->user->name                  ?? '-',
+                    $item->user->minat_keahlian        ?? '-',
+                    $item->user->position              ?? '-',
+                    $item->qrCode->kegiatan->name      ?? '-',
                     ucfirst($item->status),
                     $item->description ?? '-',
                     $item->status === 'hadir'

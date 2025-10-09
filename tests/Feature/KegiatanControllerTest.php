@@ -12,24 +12,25 @@ use Tests\TestCase;
 
 class KegiatanControllerTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->SuperAdmin = User::factory()->create([
-            'role' => 'Super Admin',
+            'role'      => 'Super Admin',
             'is_active' => 1,
         ]);
 
         $this->Admin = User::factory()->create([
-            'role' => 'Admin',
+            'role'      => 'Admin',
             'is_active' => 1,
         ]);
 
         $this->Guest = User::factory()->create([
-            'role' => 'Guest',
+            'role'      => 'Guest',
             'is_active' => 0,
         ]);
     }
@@ -45,11 +46,12 @@ class KegiatanControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('DataMaster/Kegiatan')
-            ->has('kegiatan')
-            ->has('filters')
-            ->has('flash')
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('DataMaster/Kegiatan')
+                ->has('kegiatan')
+                ->has('filters')
+                ->has('flash')
         );
     }
 
@@ -59,7 +61,7 @@ class KegiatanControllerTest extends TestCase
         // Arrange
         Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::tomorrow(),
+            'date'    => Carbon::tomorrow(),
         ]);
 
         // Act
@@ -68,9 +70,10 @@ class KegiatanControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('FiturUtama/JadwalKegiatan')
-            ->has('kegiatan')
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('FiturUtama/JadwalKegiatan')
+                ->has('kegiatan')
         );
     }
 
@@ -87,10 +90,11 @@ class KegiatanControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('DataMaster/Kegiatan')
-            ->where('filters.search', 'Rapat')
-            ->has('kegiatan.data', 1)
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('DataMaster/Kegiatan')
+                ->where('filters.search', 'Rapat')
+                ->has('kegiatan.data', 1)
         );
     }
 
@@ -99,12 +103,12 @@ class KegiatanControllerTest extends TestCase
     {
         // Arrange
         $kegiatanData = [
-            'name' => 'Rapat Evaluasi Bulanan',
+            'name'        => 'Rapat Evaluasi Bulanan',
             'description' => 'Rapat evaluasi bulanan',
-            'date' => '2024-12-25',
-            'time' => '10:00',
-            'location' => 'Ruang 406',
-            'audiens' => 'pengurus',
+            'date'        => '2024-12-25',
+            'time'        => '10:00',
+            'location'    => 'Ruang 406',
+            'audiens'     => 'pengurus',
         ];
 
         // Act
@@ -116,9 +120,9 @@ class KegiatanControllerTest extends TestCase
         $response->assertSessionHas('success', 'Data berhasil dibuat!');
 
         $this->assertDatabaseHas('kegiatan', [
-            'name' => 'Rapat Evaluasi Bulanan',
+            'name'        => 'Rapat Evaluasi Bulanan',
             'description' => 'Rapat evaluasi bulanan',
-            'audiens' => 'pengurus',
+            'audiens'     => 'pengurus',
         ]);
     }
 
@@ -127,17 +131,17 @@ class KegiatanControllerTest extends TestCase
     {
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
-            'name' => 'Original Name',
+            'name'    => 'Original Name',
             'audiens' => 'umum',
         ]);
 
         $updateData = [
-            'name' => 'Updated Name',
+            'name'        => 'Updated Name',
             'description' => 'Updated description',
-            'date' => '2024-12-26',
-            'time' => '14:00',
-            'location' => 'Updated Location',
-            'audiens' => 'anggota',
+            'date'        => '2024-12-26',
+            'time'        => '14:00',
+            'location'    => 'Updated Location',
+            'audiens'     => 'anggota',
         ];
 
         // Act
@@ -149,8 +153,8 @@ class KegiatanControllerTest extends TestCase
         $response->assertSessionHas('success', 'Data berhasil diperbarui!');
 
         $this->assertDatabaseHas('kegiatan', [
-            'id' => $kegiatan->id,
-            'name' => 'Updated Name',
+            'id'      => $kegiatan->id,
+            'name'    => 'Updated Name',
             'audiens' => 'anggota',
         ]);
     }
@@ -176,7 +180,7 @@ class KegiatanControllerTest extends TestCase
     {
         // Arrange
         Kegiatan::factory()->count(3)->create([
-            'name' => 'Test Kegiatan',
+            'name'        => 'Test Kegiatan',
             'description' => 'Test Description',
         ]);
 
@@ -198,12 +202,12 @@ class KegiatanControllerTest extends TestCase
         // Arrange
         Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::yesterday(),
+            'date'    => Carbon::yesterday(),
         ]);
 
         Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::tomorrow(),
+            'date'    => Carbon::tomorrow(),
         ]);
 
         // Act
@@ -221,17 +225,17 @@ class KegiatanControllerTest extends TestCase
         // Arrange
         Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::yesterday(),
+            'date'    => Carbon::yesterday(),
         ]);
 
         Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::tomorrow(),
+            'date'    => Carbon::tomorrow(),
         ]);
 
         // Act
@@ -240,8 +244,9 @@ class KegiatanControllerTest extends TestCase
 
         // Assert - Should show today and future kegiatan (2 records)
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->has('kegiatan', 2)
+        $response->assertInertia(
+            fn ($page) => $page
+                ->has('kegiatan', 2)
         );
     }
 
@@ -275,11 +280,11 @@ class KegiatanControllerTest extends TestCase
     {
         // Arrange
         $kegiatanData = [
-            'name' => 'Test Event',
-            'date' => '2024-12-25',
-            'time' => '10:00',
+            'name'     => 'Test Event',
+            'date'     => '2024-12-25',
+            'time'     => '10:00',
             'location' => 'Test Location',
-            'audiens' => 'invalid_audiens',
+            'audiens'  => 'invalid_audiens',
         ];
 
         // Act
@@ -291,9 +296,10 @@ class KegiatanControllerTest extends TestCase
 
         // Test valid audiens values
         $validAudiens = ['umum', 'anggota', 'pengurus'];
+
         foreach ($validAudiens as $audiens) {
             $kegiatanData['audiens'] = $audiens;
-            $response = $this->actingAs($this->SuperAdmin)
+            $response                = $this->actingAs($this->SuperAdmin)
                 ->post(route('kegiatan.store'), $kegiatanData);
 
             $response->assertRedirect(route('kegiatan.index'));
@@ -306,11 +312,11 @@ class KegiatanControllerTest extends TestCase
     {
         // Arrange
         $kegiatanData = [
-            'name' => 'Test Event',
-            'date' => 'invalid-date',
-            'time' => '10:00',
+            'name'     => 'Test Event',
+            'date'     => 'invalid-date',
+            'time'     => '10:00',
             'location' => 'Test Location',
-            'audiens' => 'umum',
+            'audiens'  => 'umum',
         ];
 
         // Act
@@ -327,17 +333,17 @@ class KegiatanControllerTest extends TestCase
         // Arrange
         Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::tomorrow(),
+            'date'    => Carbon::tomorrow(),
         ]);
 
         Kegiatan::factory()->create([
             'audiens' => 'pengurus',
-            'date' => Carbon::tomorrow(),
+            'date'    => Carbon::tomorrow(),
         ]);
 
         Kegiatan::factory()->create([
             'audiens' => 'anggota',
-            'date' => Carbon::tomorrow(),
+            'date'    => Carbon::tomorrow(),
         ]);
 
         // Act
@@ -355,12 +361,12 @@ class KegiatanControllerTest extends TestCase
         // Arrange
         Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::tomorrow(),
+            'date'    => Carbon::tomorrow(),
         ]);
 
         Kegiatan::factory()->create([
             'audiens' => 'pengurus',
-            'date' => Carbon::tomorrow(),
+            'date'    => Carbon::tomorrow(),
         ]);
 
         // Act

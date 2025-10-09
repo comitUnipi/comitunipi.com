@@ -31,15 +31,15 @@ class KegiatanController extends Controller
 
         return Inertia::render('DataMaster/Kegiatan', [
             'kegiatan' => $kegiatan,
-            'filters' => [
-                'search' => $search,
-                'audiens' => $request->input('audiens', ''),
+            'filters'  => [
+                'search'     => $search,
+                'audiens'    => $request->input('audiens', ''),
                 'start_date' => $request->input('start_date', ''),
-                'end_date' => $request->input('end_date', ''),
+                'end_date'   => $request->input('end_date', ''),
             ],
             'flash' => [
                 'success' => session('success'),
-                'error' => session('error'),
+                'error'   => session('error'),
             ],
         ]);
     }
@@ -53,7 +53,7 @@ class KegiatanController extends Controller
         }
 
         $allowedRoles = ['Super Admin', 'Admin', 'Finance'];
-        $isActive = $user->is_active == 1;
+        $isActive     = $user->is_active == 1;
 
         $allKegiatan = Kegiatan::where('date', '>=', now())->orderBy('date')->get();
 
@@ -76,14 +76,14 @@ class KegiatanController extends Controller
     public function terbaru()
     {
         $today = Carbon::today();
-        $user = Auth::user();
+        $user  = Auth::user();
 
         if (! $user) {
             return response()->json([], 403);
         }
 
         $allowedRoles = ['Super Admin', 'Admin', 'Finance'];
-        $isActive = $user->is_active == 1;
+        $isActive     = $user->is_active == 1;
 
         $allKegiatan = Kegiatan::where('date', '>=', $today)->orderBy('date')->get();
 
@@ -108,12 +108,12 @@ class KegiatanController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => ['required', 'string'],
+            'name'        => ['required', 'string'],
             'description' => ['nullable', 'string'],
-            'date' => ['required', 'date'],
-            'time' => ['required'],
-            'location' => ['required', 'string'],
-            'audiens' => ['required', 'in:umum,anggota,pengurus'],
+            'date'        => ['required', 'date'],
+            'time'        => ['required'],
+            'location'    => ['required', 'string'],
+            'audiens'     => ['required', 'in:umum,anggota,pengurus'],
         ]);
 
         Kegiatan::create($validated);
@@ -126,12 +126,12 @@ class KegiatanController extends Controller
         $kegiatan = Kegiatan::findOrFail($id);
 
         $validated = $request->validate([
-            'name' => ['required', 'string'],
+            'name'        => ['required', 'string'],
             'description' => ['nullable', 'string'],
-            'date' => ['required', 'date'],
-            'time' => ['required'],
-            'location' => ['required', 'string'],
-            'audiens' => ['required', 'in:umum,anggota,pengurus'],
+            'date'        => ['required', 'date'],
+            'time'        => ['required'],
+            'location'    => ['required', 'string'],
+            'audiens'     => ['required', 'in:umum,anggota,pengurus'],
         ]);
 
         $kegiatan->update($validated);

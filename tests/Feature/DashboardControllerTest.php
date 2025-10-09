@@ -13,7 +13,8 @@ use Tests\TestCase;
 
 class DashboardControllerTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     protected User $admin;
 
@@ -22,7 +23,7 @@ class DashboardControllerTest extends TestCase
         parent::setUp();
 
         $this->Admin = User::factory()->create([
-            'role' => 'Admin',
+            'role'      => 'Admin',
             'is_active' => true,
         ]);
     }
@@ -35,10 +36,11 @@ class DashboardControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('FiturUtama/Dashboard')
-            ->has('stats')
-            ->has('flash')
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('FiturUtama/Dashboard')
+                ->has('stats')
+                ->has('flash')
         );
     }
 
@@ -57,12 +59,13 @@ class DashboardControllerTest extends TestCase
         $response = $this->actingAs($this->Admin)->get(route('dashboard'));
 
         // Assert
-        $response->assertInertia(fn ($page) => $page
-            ->component('FiturUtama/Dashboard')
-            ->where('stats.totalUsers', 10)
-            ->where('stats.totalUsersAktif', 7)
-            ->where('stats.totalUsersNonaktif', 3)
-            ->where('stats.totalPengurus', 4)
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('FiturUtama/Dashboard')
+                ->where('stats.totalUsers', 10)
+                ->where('stats.totalUsersAktif', 7)
+                ->where('stats.totalUsersNonaktif', 3)
+                ->where('stats.totalPengurus', 4)
         );
     }
 
@@ -83,11 +86,12 @@ class DashboardControllerTest extends TestCase
         $response = $this->actingAs($this->Admin)->get(route('dashboard'));
 
         // Assert
-        $response->assertInertia(fn ($page) => $page
-            ->component('FiturUtama/Dashboard')
-            ->where('stats.totalKAS', '250000.00')
-            ->where('stats.totalPemasukan', '100000.00')
-            ->where('stats.totalPengeluaran', '50000.00')
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('FiturUtama/Dashboard')
+                ->where('stats.totalKAS', '250000.00')
+                ->where('stats.totalPemasukan', '100000.00')
+                ->where('stats.totalPengeluaran', '50000.00')
         );
     }
 
@@ -107,7 +111,7 @@ class DashboardControllerTest extends TestCase
         // Arrange
         $inactiveUser = User::factory()->create([
             'is_active' => false,
-            'role' => 'Admin',
+            'role'      => 'Admin',
         ]);
 
         // Act
@@ -115,8 +119,9 @@ class DashboardControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('FiturUtama/Dashboard')
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('FiturUtama/Dashboard')
         );
     }
 
@@ -126,7 +131,7 @@ class DashboardControllerTest extends TestCase
         // Arrange
         $guestUser = User::factory()->create([
             'is_active' => false,
-            'role' => 'Guest',
+            'role'      => 'Guest',
         ]);
 
         // Act
@@ -134,8 +139,9 @@ class DashboardControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('FiturUtama/Dashboard')
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('FiturUtama/Dashboard')
         );
     }
 }

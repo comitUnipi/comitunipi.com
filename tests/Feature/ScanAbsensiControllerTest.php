@@ -14,7 +14,8 @@ use Tests\TestCase;
 
 class ScanAbsensiControllerTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     protected function setUp(): void
     {
@@ -24,27 +25,27 @@ class ScanAbsensiControllerTest extends TestCase
         Carbon::setTestNow(Carbon::parse('2024-01-15 10:00:00', 'Asia/Jakarta'));
 
         $this->SuperAdmin = User::factory()->create([
-            'role' => 'Super Admin',
+            'role'      => 'Super Admin',
             'is_active' => true,
         ]);
 
         $this->Admin = User::factory()->create([
-            'role' => 'Admin',
+            'role'      => 'Admin',
             'is_active' => true,
         ]);
 
         $this->Finance = User::factory()->create([
-            'role' => 'Finance',
+            'role'      => 'Finance',
             'is_active' => true,
         ]);
 
         $this->Anggota = User::factory()->create([
-            'role' => 'User',
+            'role'      => 'User',
             'is_active' => true,
         ]);
 
         $this->Guest = User::factory()->create([
-            'role' => 'Guest',
+            'role'      => 'Guest',
             'is_active' => true,
         ]);
     }
@@ -58,9 +59,10 @@ class ScanAbsensiControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('FiturUtama/ScanAbsensi')
-            ->has('flash')
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('FiturUtama/ScanAbsensi')
+                ->has('flash')
         );
     }
 
@@ -70,19 +72,19 @@ class ScanAbsensiControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'start_time' => '08:00:00',
-            'end_time' => '17:00:00',
-            'is_active' => true,
-            'token' => 'valid-token-123',
+            'start_time'  => '08:00:00',
+            'end_time'    => '17:00:00',
+            'is_active'   => true,
+            'token'       => 'valid-token-123',
         ]);
 
         $scanData = [
-            'token' => 'valid-token-123',
+            'token'  => 'valid-token-123',
             'status' => 'hadir',
         ];
 
@@ -96,9 +98,9 @@ class ScanAbsensiControllerTest extends TestCase
 
         $this->assertDatabaseHas('qr_code_scans', [
             'qr_code_id' => $qrCode->id,
-            'user_id' => $this->Guest->id,
-            'status' => 'hadir',
-            'scan_date' => Carbon::today(),
+            'user_id'    => $this->Guest->id,
+            'status'     => 'hadir',
+            'scan_date'  => Carbon::today(),
         ]);
     }
 
@@ -108,15 +110,15 @@ class ScanAbsensiControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'start_time' => '08:00:00',
-            'end_time' => '17:00:00',
-            'is_active' => true,
-            'token' => 'valid-token-123',
+            'start_time'  => '08:00:00',
+            'end_time'    => '17:00:00',
+            'is_active'   => true,
+            'token'       => 'valid-token-123',
         ]);
 
         $scanData = [
@@ -134,8 +136,8 @@ class ScanAbsensiControllerTest extends TestCase
 
         $this->assertDatabaseHas('qr_code_scans', [
             'qr_code_id' => $qrCode->id,
-            'user_id' => $this->Anggota->id,
-            'status' => 'hadir',
+            'user_id'    => $this->Anggota->id,
+            'status'     => 'hadir',
         ]);
     }
 
@@ -145,15 +147,15 @@ class ScanAbsensiControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'start_time' => '08:00:00',
-            'end_time' => '17:00:00',
-            'is_active' => true,
-            'token' => 'valid-token-123',
+            'start_time'  => '08:00:00',
+            'end_time'    => '17:00:00',
+            'is_active'   => true,
+            'token'       => 'valid-token-123',
         ]);
 
         $statusValues = ['hadir', 'izin', 'sakit'];
@@ -162,7 +164,7 @@ class ScanAbsensiControllerTest extends TestCase
             $user = User::factory()->create(['role' => 'User']);
 
             $scanData = [
-                'token' => 'valid-token-123',
+                'token'  => 'valid-token-123',
                 'status' => $status,
             ];
 
@@ -176,8 +178,8 @@ class ScanAbsensiControllerTest extends TestCase
 
             $this->assertDatabaseHas('qr_code_scans', [
                 'qr_code_id' => $qrCode->id,
-                'user_id' => $user->id,
-                'status' => $status,
+                'user_id'    => $user->id,
+                'status'     => $status,
             ]);
         }
     }
@@ -188,19 +190,19 @@ class ScanAbsensiControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'pengurus',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'start_time' => '08:00:00',
-            'end_time' => '17:00:00',
-            'is_active' => true,
-            'token' => 'pengurus-token-123',
+            'start_time'  => '08:00:00',
+            'end_time'    => '17:00:00',
+            'is_active'   => true,
+            'token'       => 'pengurus-token-123',
         ]);
 
         $scanData = [
-            'token' => 'pengurus-token-123',
+            'token'  => 'pengurus-token-123',
             'status' => 'hadir',
         ];
 
@@ -214,8 +216,8 @@ class ScanAbsensiControllerTest extends TestCase
 
         $this->assertDatabaseHas('qr_code_scans', [
             'qr_code_id' => $qrCode->id,
-            'user_id' => $this->Admin->id,
-            'status' => 'hadir',
+            'user_id'    => $this->Admin->id,
+            'status'     => 'hadir',
         ]);
     }
 
@@ -225,19 +227,19 @@ class ScanAbsensiControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'pengurus',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'start_time' => '08:00:00',
-            'end_time' => '17:00:00',
-            'is_active' => true,
-            'token' => 'pengurus-token-123',
+            'start_time'  => '08:00:00',
+            'end_time'    => '17:00:00',
+            'is_active'   => true,
+            'token'       => 'pengurus-token-123',
         ]);
 
         $scanData = [
-            'token' => 'pengurus-token-123',
+            'token'  => 'pengurus-token-123',
             'status' => 'hadir',
         ];
 
@@ -256,19 +258,19 @@ class ScanAbsensiControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'anggota',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'start_time' => '08:00:00',
-            'end_time' => '17:00:00',
-            'is_active' => true,
-            'token' => 'anggota-token-123',
+            'start_time'  => '08:00:00',
+            'end_time'    => '17:00:00',
+            'is_active'   => true,
+            'token'       => 'anggota-token-123',
         ]);
 
         $scanData = [
-            'token' => 'anggota-token-123',
+            'token'  => 'anggota-token-123',
             'status' => 'hadir',
         ];
 
@@ -287,19 +289,19 @@ class ScanAbsensiControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'pengurus',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'start_time' => '08:00:00',
-            'end_time' => '17:00:00',
-            'is_active' => true,
-            'token' => 'pengurus-token-123',
+            'start_time'  => '08:00:00',
+            'end_time'    => '17:00:00',
+            'is_active'   => true,
+            'token'       => 'pengurus-token-123',
         ]);
 
         $scanData = [
-            'token' => 'pengurus-token-123',
+            'token'  => 'pengurus-token-123',
             'status' => 'hadir',
         ];
 
@@ -313,7 +315,7 @@ class ScanAbsensiControllerTest extends TestCase
 
         $this->assertDatabaseMissing('qr_code_scans', [
             'qr_code_id' => $qrCode->id,
-            'user_id' => $this->Guest->id,
+            'user_id'    => $this->Guest->id,
         ]);
     }
 
@@ -323,19 +325,19 @@ class ScanAbsensiControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'anggota',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'start_time' => '08:00:00',
-            'end_time' => '17:00:00',
-            'is_active' => true,
-            'token' => 'anggota-token-123',
+            'start_time'  => '08:00:00',
+            'end_time'    => '17:00:00',
+            'is_active'   => true,
+            'token'       => 'anggota-token-123',
         ]);
 
         $scanData = [
-            'token' => 'anggota-token-123',
+            'token'  => 'anggota-token-123',
             'status' => 'hadir',
         ];
 
@@ -353,7 +355,7 @@ class ScanAbsensiControllerTest extends TestCase
     {
         // Arrange
         $scanData = [
-            'token' => 'invalid-token-123',
+            'token'  => 'invalid-token-123',
             'status' => 'hadir',
         ];
 
@@ -372,19 +374,19 @@ class ScanAbsensiControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'start_time' => '08:00:00',
-            'end_time' => '17:00:00',
-            'is_active' => false, // Inactive QR
-            'token' => 'inactive-token-123',
+            'start_time'  => '08:00:00',
+            'end_time'    => '17:00:00',
+            'is_active'   => false, // Inactive QR
+            'token'       => 'inactive-token-123',
         ]);
 
         $scanData = [
-            'token' => 'inactive-token-123',
+            'token'  => 'inactive-token-123',
             'status' => 'hadir',
         ];
 
@@ -405,19 +407,19 @@ class ScanAbsensiControllerTest extends TestCase
 
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'start_time' => '08:00',
-            'end_time' => '17:00',
-            'is_active' => true,
-            'token' => 'time-restricted-token',
+            'start_time'  => '08:00',
+            'end_time'    => '17:00',
+            'is_active'   => true,
+            'token'       => 'time-restricted-token',
         ]);
 
         $scanData = [
-            'token' => 'time-restricted-token',
+            'token'  => 'time-restricted-token',
             'status' => 'hadir',
         ];
 
@@ -431,7 +433,7 @@ class ScanAbsensiControllerTest extends TestCase
 
         $this->assertDatabaseMissing('qr_code_scans', [
             'qr_code_id' => $qrCode->id,
-            'user_id' => $this->Anggota->id,
+            'user_id'    => $this->Anggota->id,
         ]);
     }
 
@@ -442,19 +444,19 @@ class ScanAbsensiControllerTest extends TestCase
 
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'start_time' => '08:00',
-            'end_time' => '17:00',
-            'is_active' => true,
-            'token' => 'time-restricted-token',
+            'start_time'  => '08:00',
+            'end_time'    => '17:00',
+            'is_active'   => true,
+            'token'       => 'time-restricted-token',
         ]);
 
         $scanData = [
-            'token' => 'time-restricted-token',
+            'token'  => 'time-restricted-token',
             'status' => 'hadir',
         ];
 
@@ -473,26 +475,26 @@ class ScanAbsensiControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         $qrCode = QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'start_time' => '08:00:00',
-            'end_time' => '17:00:00',
-            'is_active' => true,
-            'token' => 'already-scanned-token',
+            'start_time'  => '08:00:00',
+            'end_time'    => '17:00:00',
+            'is_active'   => true,
+            'token'       => 'already-scanned-token',
         ]);
 
         // Create existing scan
         QrCodeScan::factory()->create([
             'qr_code_id' => $qrCode->id,
-            'user_id' => $this->Anggota->id,
-            'status' => 'hadir',
+            'user_id'    => $this->Anggota->id,
+            'status'     => 'hadir',
         ]);
 
         $scanData = [
-            'token' => 'already-scanned-token',
+            'token'  => 'already-scanned-token',
             'status' => 'hadir',
         ];
 
@@ -528,19 +530,19 @@ class ScanAbsensiControllerTest extends TestCase
         // Arrange
         $kegiatan = Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => Carbon::today(),
+            'date'    => Carbon::today(),
         ]);
 
         QrCode::factory()->create([
             'kegiatan_id' => $kegiatan->id,
-            'start_time' => '08:00:00',
-            'end_time' => '17:00:00',
-            'is_active' => true,
-            'token' => 'valid-token-123',
+            'start_time'  => '08:00:00',
+            'end_time'    => '17:00:00',
+            'is_active'   => true,
+            'token'       => 'valid-token-123',
         ]);
 
         $scanData = [
-            'token' => 'valid-token-123',
+            'token'  => 'valid-token-123',
             'status' => 'invalid-status', // Invalid status
         ];
 

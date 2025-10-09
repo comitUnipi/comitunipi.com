@@ -10,14 +10,15 @@ use Tests\TestCase;
 
 class UserControllerTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->SuperAdmin = User::factory()->create([
-            'role' => 'Super Admin',
+            'role'      => 'Super Admin',
             'is_active' => true,
         ]);
     }
@@ -33,11 +34,12 @@ class UserControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('DataMaster/Anggota')
-            ->has('users')
-            ->has('filters')
-            ->has('flash')
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('DataMaster/Anggota')
+                ->has('users')
+                ->has('filters')
+                ->has('flash')
         );
     }
 
@@ -53,10 +55,11 @@ class UserControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('DataMaster/AnggotaDetail')
-            ->has('user')
-            ->where('user.id', $user->id)
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('DataMaster/AnggotaDetail')
+                ->has('user')
+                ->where('user.id', $user->id)
         );
     }
 
@@ -73,9 +76,10 @@ class UserControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('DataMaster/Anggota')
-            ->where('filters.search', 'John')
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('DataMaster/Anggota')
+                ->where('filters.search', 'John')
         );
     }
 
@@ -114,18 +118,18 @@ class UserControllerTest extends TestCase
     {
         // Arrange
         $userData = [
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'npm' => '123456789',
-            'role' => 'User',
-            'jenis_kelamin' => 'Laki-Laki',
-            'no_wa' => '081234567890',
-            'jurusan' => 'Sistem Informasi',
-            'position' => 'Anggota',
-            'minat_keahlian' => 'Design Grafis',
-            'alasan' => 'Ingin belajar tentang design grafis',
-            'is_active' => true,
-            'password' => 'password123',
+            'name'                  => 'Test User',
+            'email'                 => 'test@example.com',
+            'npm'                   => '123456789',
+            'role'                  => 'User',
+            'jenis_kelamin'         => 'Laki-Laki',
+            'no_wa'                 => '081234567890',
+            'jurusan'               => 'Sistem Informasi',
+            'position'              => 'Anggota',
+            'minat_keahlian'        => 'Design Grafis',
+            'alasan'                => 'Ingin belajar tentang design grafis',
+            'is_active'             => true,
+            'password'              => 'password123',
             'password_confirmation' => 'password123',
         ];
 
@@ -138,9 +142,9 @@ class UserControllerTest extends TestCase
         $response->assertSessionHas('success', 'Anggota berhasil dibuat!');
 
         $this->assertDatabaseHas('users', [
-            'name' => 'Test User',
+            'name'  => 'Test User',
             'email' => 'test@example.com',
-            'npm' => '123456789',
+            'npm'   => '123456789',
         ]);
     }
 
@@ -149,14 +153,14 @@ class UserControllerTest extends TestCase
     {
         // Arrange
         $user = User::factory()->create([
-            'role' => 'User',
-            'position' => 'Anggota',
+            'role'      => 'User',
+            'position'  => 'Anggota',
             'is_active' => true,
         ]);
 
         $updateData = [
-            'role' => 'Admin',
-            'position' => 'Prasarana',
+            'role'      => 'Admin',
+            'position'  => 'Prasarana',
             'is_active' => true,
         ];
 
@@ -169,9 +173,9 @@ class UserControllerTest extends TestCase
         $response->assertSessionHas('success', 'Data berhasil di update!');
 
         $this->assertDatabaseHas('users', [
-            'id' => $user->id,
-            'role' => 'Admin',
-            'position' => 'Prasarana',
+            'id'        => $user->id,
+            'role'      => 'Admin',
+            'position'  => 'Prasarana',
             'is_active' => true,
         ]);
     }
@@ -197,8 +201,8 @@ class UserControllerTest extends TestCase
     {
         // Arrange
         User::factory()->count(3)->create([
-            'name' => 'Test User',
-            'role' => 'User',
+            'name'      => 'Test User',
+            'role'      => 'User',
             'is_active' => true,
         ]);
 
@@ -299,13 +303,13 @@ class UserControllerTest extends TestCase
         User::factory()->create(['npm' => '123456789']);
 
         $userData = [
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'npm' => '123456789', // Duplicate NPM
-            'role' => 'User',
-            'jenis_kelamin' => 'Laki-laki',
-            'is_active' => true,
-            'password' => 'password123',
+            'name'                  => 'Test User',
+            'email'                 => 'test@example.com',
+            'npm'                   => '123456789', // Duplicate NPM
+            'role'                  => 'User',
+            'jenis_kelamin'         => 'Laki-laki',
+            'is_active'             => true,
+            'password'              => 'password123',
             'password_confirmation' => 'password123',
         ];
 
@@ -322,13 +326,13 @@ class UserControllerTest extends TestCase
     {
         // Arrange
         $userData = [
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'npm' => '123456789',
-            'role' => 'InvalidRole', // Invalid role
-            'jenis_kelamin' => 'Laki-laki',
-            'is_active' => true,
-            'password' => 'password123',
+            'name'                  => 'Test User',
+            'email'                 => 'test@example.com',
+            'npm'                   => '123456789',
+            'role'                  => 'InvalidRole', // Invalid role
+            'jenis_kelamin'         => 'Laki-laki',
+            'is_active'             => true,
+            'password'              => 'password123',
             'password_confirmation' => 'password123',
         ];
 

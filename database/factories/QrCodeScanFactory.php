@@ -14,11 +14,11 @@ class QrCodeScanFactory extends Factory
     public function definition(): array
     {
         return [
-            'qr_code_id' => QrCode::factory(),
-            'user_id' => User::factory(),
-            'scan_date' => $this->faker->date(),
-            'scanned_at' => $this->faker->dateTimeBetween('-1 week', 'now'),
-            'status' => $this->faker->randomElement(['hadir', 'sakit', 'izin']),
+            'qr_code_id'  => QrCode::factory(),
+            'user_id'     => User::factory(),
+            'scan_date'   => $this->faker->date(),
+            'scanned_at'  => $this->faker->dateTimeBetween('-1 week', 'now'),
+            'status'      => $this->faker->randomElement(['hadir', 'sakit', 'izin']),
             'description' => $this->faker->sentence(),
         ];
     }

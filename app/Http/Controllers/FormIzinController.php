@@ -12,12 +12,13 @@ class FormIzinController extends Controller
 {
     public function create()
     {
-        $user = Auth::user();
+        $user   = Auth::user();
         $qrCode = QrCode::with('kegiatan')
             ->where('is_active', true)
             ->get()
             ->filter(function ($qr) use ($user) {
                 $kegiatan = $qr->kegiatan;
+
                 if (! $kegiatan) {
                     return false;
                 }
@@ -41,8 +42,8 @@ class FormIzinController extends Controller
                 : null,
             'flash' => [
                 'success' => session('success'),
-                'error' => session('error'),
-                'errors' => session('errors'),
+                'error'   => session('error'),
+                'errors'  => session('errors'),
             ],
         ]);
     }
@@ -55,12 +56,13 @@ class FormIzinController extends Controller
         ]);
 
         $tanggal_izin = now()->toDateString();
-        $user = Auth::user();
-        $qrCode = QrCode::with('kegiatan')
+        $user         = Auth::user();
+        $qrCode       = QrCode::with('kegiatan')
             ->where('is_active', true)
             ->get()
             ->filter(function ($qr) use ($user) {
                 $kegiatan = $qr->kegiatan;
+
                 if (! $kegiatan) {
                     return false;
                 }
@@ -92,11 +94,11 @@ class FormIzinController extends Controller
         }
 
         QrCodeScan::create([
-            'qr_code_id' => $qrCode->id,
-            'user_id' => Auth::id(),
-            'scan_date' => $tanggal_izin,
-            'scanned_at' => null,
-            'status' => $request->status,
+            'qr_code_id'  => $qrCode->id,
+            'user_id'     => Auth::id(),
+            'scan_date'   => $tanggal_izin,
+            'scanned_at'  => null,
+            'status'      => $request->status,
             'description' => $request->alasan,
         ]);
 
