@@ -1,4 +1,4 @@
-name: tests
+name: Unit Test
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  unit_tests_feature:
+  tests_feature:
     runs-on: ubuntu-latest
 
     services:
