@@ -63,13 +63,13 @@ class UserControllerTest extends TestCase
         User::factory()->create(['email' => 'duplicate@example.com']);
 
         $userData = [
-            'name' => 'Test User',
-            'email' => 'duplicate@example.com',
-            'npm' => '2024002',
-            'role' => 'User',
-            'jenis_kelamin' => 'Laki-laki',
-            'is_active' => true,
-            'password' => 'password123',
+            'name'                  => 'Test User',
+            'email'                 => 'duplicate@example.com',
+            'npm'                   => '2024002',
+            'role'                  => 'User',
+            'jenis_kelamin'         => 'Laki-laki',
+            'is_active'             => true,
+            'password'              => 'password123',
             'password_confirmation' => 'password123',
         ];
 
@@ -85,13 +85,13 @@ class UserControllerTest extends TestCase
         User::factory()->create(['npm' => '2024001']);
 
         $userData = [
-            'name' => 'Test User',
-            'email' => 'newuser@example.com',
-            'npm' => '2024001',
-            'role' => 'User',
-            'jenis_kelamin' => 'Laki-laki',
-            'is_active' => true,
-            'password' => 'password123',
+            'name'                  => 'Test User',
+            'email'                 => 'newuser@example.com',
+            'npm'                   => '2024001',
+            'role'                  => 'User',
+            'jenis_kelamin'         => 'Laki-laki',
+            'is_active'             => true,
+            'password'              => 'password123',
             'password_confirmation' => 'password123',
         ];
 
@@ -114,14 +114,14 @@ class UserControllerTest extends TestCase
     public function test_dapat_update_user_dengan_data_valid()
     {
         $user = User::factory()->create([
-            'role' => 'Guest',
-            'position' => 'Calon Anggota',
+            'role'      => 'Guest',
+            'position'  => 'Calon Anggota',
             'is_active' => false,
         ]);
 
         $updateData = [
-            'role' => 'User',
-            'position' => 'Anggota',
+            'role'      => 'User',
+            'position'  => 'Anggota',
             'is_active' => true,
         ];
 
@@ -132,9 +132,9 @@ class UserControllerTest extends TestCase
         $response->assertSessionHas('success', 'Data berhasil di update!');
 
         $this->assertDatabaseHas('users', [
-            'id' => $user->id,
-            'role' => 'User',
-            'position' => 'Anggota',
+            'id'        => $user->id,
+            'role'      => 'User',
+            'position'  => 'Anggota',
             'is_active' => true,
         ]);
     }
@@ -149,8 +149,7 @@ class UserControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertInertia(
-            fn($page) =>
-            $page->component('DataMaster/Anggota')
+            fn ($page) => $page->component('DataMaster/Anggota')
                 ->has('users.data', 6)
         );
     }
@@ -166,8 +165,7 @@ class UserControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertInertia(
-            fn($page) =>
-            $page->has('users.data', 1)
+            fn ($page) => $page->has('users.data', 1)
         );
     }
 
@@ -183,8 +181,7 @@ class UserControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertInertia(
-            fn($page) =>
-            $page->has('users.data', 2)
+            fn ($page) => $page->has('users.data', 2)
         );
     }
 
@@ -200,8 +197,7 @@ class UserControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertInertia(
-            fn($page) =>
-            $page->has('users.data', 3)
+            fn ($page) => $page->has('users.data', 3)
         );
     }
 
@@ -216,8 +212,7 @@ class UserControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertInertia(
-            fn($page) =>
-            $page->has('users.data', 1)
+            fn ($page) => $page->has('users.data', 1)
         );
     }
 
@@ -239,9 +234,9 @@ class UserControllerTest extends TestCase
     public function test_export_csv_menghasilkan_file_dengan_format_benar()
     {
         User::factory()->create([
-            'name' => 'Test User',
+            'name'  => 'Test User',
             'email' => 'test@example.com',
-            'npm' => '2024001',
+            'npm'   => '2024001',
         ]);
 
         $response = $this->actingAs($this->SuperAdmin)
