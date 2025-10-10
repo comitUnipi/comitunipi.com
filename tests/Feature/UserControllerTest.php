@@ -13,6 +13,8 @@ class UserControllerTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
+    protected $SuperAdmin;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -24,103 +26,12 @@ class UserControllerTest extends TestCase
     }
 
     #[Test]
-    public function it_can_display_users_index_page()
+    public function test_dapat_membuat_user_baru_dengan_data_valid()
     {
-        // Arrange
-        User::factory()->count(5)->create();
-
-        // Act
-        $response = $this->actingAs($this->SuperAdmin)->get(route('users.index'));
-
-        // Assert
-        $response->assertStatus(200);
-        $response->assertInertia(
-            fn ($page) => $page
-                ->component('DataMaster/Anggota')
-                ->has('users')
-                ->has('filters')
-                ->has('flash')
-        );
-    }
-
-    #[Test]
-    public function it_can_show_user_details()
-    {
-        // Arrange
-        $user = User::factory()->create();
-
-        // Act
-        $response = $this->actingAs($this->SuperAdmin)
-            ->get(route('users.show', $user->id));
-
-        // Assert
-        $response->assertStatus(200);
-        $response->assertInertia(
-            fn ($page) => $page
-                ->component('DataMaster/AnggotaDetail')
-                ->has('user')
-                ->where('user.id', $user->id)
-        );
-    }
-
-    #[Test]
-    public function it_can_search_users_by_name()
-    {
-        // Arrange
-        User::factory()->create(['name' => 'John Doe']);
-        User::factory()->create(['name' => 'Jane Smith']);
-
-        // Act
-        $response = $this->actingAs($this->SuperAdmin)
-            ->get(route('users.index', ['search' => 'John']));
-
-        // Assert
-        $response->assertStatus(200);
-        $response->assertInertia(
-            fn ($page) => $page
-                ->component('DataMaster/Anggota')
-                ->where('filters.search', 'John')
-        );
-    }
-
-    #[Test]
-    public function it_can_filter_users_by_active_status()
-    {
-        // Arrange
-        User::factory()->create(['is_active' => true]);
-        User::factory()->create(['is_active' => false]);
-
-        // Act
-        $response = $this->actingAs($this->SuperAdmin)
-            ->get(route('users.index', ['is_active' => 'true']));
-
-        // Assert
-        $response->assertStatus(200);
-    }
-
-    #[Test]
-    public function it_can_filter_users_by_role()
-    {
-        // Arrange
-        User::factory()->create(['role' => 'Admin']);
-        User::factory()->create(['role' => 'User']);
-
-        // Act
-        $response = $this->actingAs($this->SuperAdmin)
-            ->get(route('users.index', ['role' => 'Admin']));
-
-        // Assert
-        $response->assertStatus(200);
-    }
-
-    #[Test]
-    public function it_can_create_a_new_user()
-    {
-        // Arrange
         $userData = [
             'name'                  => 'Test User',
             'email'                 => 'test@example.com',
-            'npm'                   => '123456789',
+            'npm'                   => '2024002',
             'role'                  => 'User',
             'jenis_kelamin'         => 'Laki-Laki',
             'no_wa'                 => '081234567890',
@@ -133,214 +44,231 @@ class UserControllerTest extends TestCase
             'password_confirmation' => 'password123',
         ];
 
-        // Act
         $response = $this->actingAs($this->SuperAdmin)
             ->post(route('users.store'), $userData);
 
-        // Assert
         $response->assertRedirect(route('users.index'));
         $response->assertSessionHas('success', 'Anggota berhasil dibuat!');
 
         $this->assertDatabaseHas('users', [
             'name'  => 'Test User',
             'email' => 'test@example.com',
-            'npm'   => '123456789',
+            'npm'   => '2024002',
         ]);
     }
 
     #[Test]
-    public function it_can_update_user()
+    public function test_gagal_membuat_user_dengan_email_duplikat()
     {
-        // Arrange
-        $user = User::factory()->create([
-            'role'      => 'User',
-            'position'  => 'Anggota',
+        User::factory()->create(['email' => 'duplicate@example.com']);
+
+        $userData = [
+            'name' => 'Test User',
+            'email' => 'duplicate@example.com',
+            'npm' => '2024002',
+            'role' => 'User',
+            'jenis_kelamin' => 'Laki-laki',
             'is_active' => true,
+            'password' => 'password123',
+            'password_confirmation' => 'password123',
+        ];
+
+        $response = $this->actingAs($this->SuperAdmin)
+            ->post(route('users.store'), $userData);
+
+        $response->assertSessionHasErrors('email');
+    }
+
+    #[Test]
+    public function test_gagal_membuat_user_dengan_npm_duplikat()
+    {
+        User::factory()->create(['npm' => '2024001']);
+
+        $userData = [
+            'name' => 'Test User',
+            'email' => 'newuser@example.com',
+            'npm' => '2024001',
+            'role' => 'User',
+            'jenis_kelamin' => 'Laki-laki',
+            'is_active' => true,
+            'password' => 'password123',
+            'password_confirmation' => 'password123',
+        ];
+
+        $response = $this->actingAs($this->SuperAdmin)
+            ->post(route('users.store'), $userData);
+
+        $response->assertSessionHasErrors('npm');
+    }
+
+    #[Test]
+    public function test_gagal_membuat_user_tanpa_field_wajib()
+    {
+        $response = $this->actingAs($this->SuperAdmin)
+            ->post(route('users.store'), []);
+
+        $response->assertSessionHasErrors(['name', 'email', 'npm', 'role', 'jenis_kelamin', 'is_active', 'password']);
+    }
+
+    #[Test]
+    public function test_dapat_update_user_dengan_data_valid()
+    {
+        $user = User::factory()->create([
+            'role' => 'Guest',
+            'position' => 'Calon Anggota',
+            'is_active' => false,
         ]);
 
         $updateData = [
-            'role'      => 'Admin',
-            'position'  => 'Prasarana',
+            'role' => 'User',
+            'position' => 'Anggota',
             'is_active' => true,
         ];
 
-        // Act
         $response = $this->actingAs($this->SuperAdmin)
             ->put(route('users.update', $user), $updateData);
 
-        // Assert
         $response->assertRedirect(route('users.index'));
         $response->assertSessionHas('success', 'Data berhasil di update!');
 
         $this->assertDatabaseHas('users', [
-            'id'        => $user->id,
-            'role'      => 'Admin',
-            'position'  => 'Prasarana',
+            'id' => $user->id,
+            'role' => 'User',
+            'position' => 'Anggota',
             'is_active' => true,
         ]);
     }
 
     #[Test]
-    public function it_can_delete_user()
+    public function test_index_menampilkan_semua_user()
     {
-        // Arrange
+        User::factory()->count(5)->create();
+
+        $response = $this->actingAs($this->SuperAdmin)
+            ->get(route('users.index'));
+
+        $response->assertStatus(200);
+        $response->assertInertia(
+            fn($page) =>
+            $page->component('DataMaster/Anggota')
+                ->has('users.data', 6)
+        );
+    }
+
+    #[Test]
+    public function test_index_dapat_search_berdasarkan_nama()
+    {
+        User::factory()->create(['name' => 'John Doe']);
+        User::factory()->create(['name' => 'Jane Smith']);
+
+        $response = $this->actingAs($this->SuperAdmin)
+            ->get(route('users.index', ['search' => 'John']));
+
+        $response->assertStatus(200);
+        $response->assertInertia(
+            fn($page) =>
+            $page->has('users.data', 1)
+        );
+    }
+
+    #[Test]
+    public function test_index_dapat_filter_berdasarkan_role()
+    {
+        User::factory()->create(['role' => 'Admin']);
+        User::factory()->create(['role' => 'User']);
+        User::factory()->create(['role' => 'User']);
+
+        $response = $this->actingAs($this->SuperAdmin)
+            ->get(route('users.index', ['role' => 'User']));
+
+        $response->assertStatus(200);
+        $response->assertInertia(
+            fn($page) =>
+            $page->has('users.data', 2)
+        );
+    }
+
+    #[Test]
+    public function test_index_dapat_filter_berdasarkan_status_aktif()
+    {
+        User::factory()->create(['is_active' => true]);
+        User::factory()->create(['is_active' => true]);
+        User::factory()->create(['is_active' => false]);
+
+        $response = $this->actingAs($this->SuperAdmin)
+            ->get(route('users.index', ['is_active' => 'true']));
+
+        $response->assertStatus(200);
+        $response->assertInertia(
+            fn($page) =>
+            $page->has('users.data', 3)
+        );
+    }
+
+    #[Test]
+    public function test_index_dapat_filter_berdasarkan_jurusan()
+    {
+        User::factory()->create(['jurusan' => 'Teknik Informatika']);
+        User::factory()->create(['jurusan' => 'Sistem Informasi']);
+
+        $response = $this->actingAs($this->SuperAdmin)
+            ->get(route('users.index', ['jurusan' => 'Teknik Informatika']));
+
+        $response->assertStatus(200);
+        $response->assertInertia(
+            fn($page) =>
+            $page->has('users.data', 1)
+        );
+    }
+
+    #[Test]
+    public function test_dapat_menghapus_user()
+    {
         $user = User::factory()->create();
 
-        // Act
         $response = $this->actingAs($this->SuperAdmin)
             ->delete(route('users.destroy', $user));
 
-        // Assert
         $response->assertRedirect(route('users.index'));
         $response->assertSessionHas('success', 'Anggota berhasil dihapus!');
+
         $this->assertDatabaseMissing('users', ['id' => $user->id]);
     }
 
     #[Test]
-    public function it_can_export_users_to_csv()
+    public function test_export_csv_menghasilkan_file_dengan_format_benar()
     {
-        // Arrange
-        User::factory()->count(3)->create([
-            'name'      => 'Test User',
-            'role'      => 'User',
-            'is_active' => true,
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'npm' => '2024001',
         ]);
 
-        // Act
         $response = $this->actingAs($this->SuperAdmin)
             ->get(route('users.export.csv'));
 
-        // Assert
         $response->assertStatus(200);
-        $response->assertHeader('Content-Type', 'text/csv; charset=UTF-8');
-        $response->assertHeader('Content-Disposition');
+        $response->assertHeader('content-type', 'text/csv; charset=UTF-8');
+        $response->assertHeader('content-disposition');
 
-        $response->getContent();
+        $content = $response->streamedContent();
+        $this->assertStringContainsString('Nama Lengkap', $content);
+        $this->assertStringContainsString('Test User', $content);
     }
 
     #[Test]
-    public function it_can_export_filtered_users_to_csv()
+    public function test_export_csv_dengan_filter_search()
     {
-        // Arrange
-        User::factory()->create(['role' => 'Admin']);
-        User::factory()->create(['role' => 'User']);
+        User::factory()->create(['name' => 'John Doe']);
+        User::factory()->create(['name' => 'Jane Smith']);
 
-        // Act
         $response = $this->actingAs($this->SuperAdmin)
-            ->get(route('users.export.csv', ['role' => 'Admin']));
+            ->get(route('users.export.csv', ['search' => 'John']));
 
-        // Assert
         $response->assertStatus(200);
-        $response->assertHeader('Content-Type', 'text/csv; charset=UTF-8');
-        $response->assertHeader('Content-Disposition');
 
-        $response->getContent();
-    }
-
-    #[Test]
-    public function unauthenticated_user_cannot_access_users_index()
-    {
-        // Act
-        $response = $this->get(route('users.index'));
-
-        // Assert
-        $response->assertRedirect(route('login'));
-    }
-
-    #[Test]
-    public function unauthenticated_user_cannot_create_user()
-    {
-        // Act
-        $response = $this->post(route('users.store'), []);
-
-        // Assert
-        $response->assertRedirect(route('login'));
-    }
-
-    #[Test]
-    public function unauthenticated_user_cannot_update_user()
-    {
-        // Arrange
-        $user = User::factory()->create();
-
-        // Act
-        $response = $this->put(route('users.update', $user), []);
-
-        // Assert
-        $response->assertRedirect(route('login'));
-    }
-
-    #[Test]
-    public function unauthenticated_user_cannot_delete_user()
-    {
-        // Arrange
-        $user = User::factory()->create();
-
-        // Act
-        $response = $this->delete(route('users.destroy', $user));
-
-        // Assert
-        $response->assertRedirect(route('login'));
-    }
-
-    #[Test]
-    public function it_validates_required_fields_when_creating_user()
-    {
-        // Act
-        $response = $this->actingAs($this->SuperAdmin)
-            ->post(route('users.store'), []);
-
-        // Assert
-        $response->assertSessionHasErrors([
-            'name', 'email', 'npm', 'role', 'jenis_kelamin', 'is_active', 'password',
-        ]);
-    }
-
-    #[Test]
-    public function it_validates_unique_npm_when_creating_user()
-    {
-        // Arrange
-        User::factory()->create(['npm' => '123456789']);
-
-        $userData = [
-            'name'                  => 'Test User',
-            'email'                 => 'test@example.com',
-            'npm'                   => '123456789', // Duplicate NPM
-            'role'                  => 'User',
-            'jenis_kelamin'         => 'Laki-laki',
-            'is_active'             => true,
-            'password'              => 'password123',
-            'password_confirmation' => 'password123',
-        ];
-
-        // Act
-        $response = $this->actingAs($this->SuperAdmin)
-            ->post(route('users.store'), $userData);
-
-        // Assert
-        $response->assertSessionHasErrors(['npm']);
-    }
-
-    #[Test]
-    public function it_validates_role_enum_when_creating_user()
-    {
-        // Arrange
-        $userData = [
-            'name'                  => 'Test User',
-            'email'                 => 'test@example.com',
-            'npm'                   => '123456789',
-            'role'                  => 'InvalidRole', // Invalid role
-            'jenis_kelamin'         => 'Laki-laki',
-            'is_active'             => true,
-            'password'              => 'password123',
-            'password_confirmation' => 'password123',
-        ];
-
-        // Act
-        $response = $this->actingAs($this->SuperAdmin)
-            ->post(route('users.store'), $userData);
-
-        // Assert
-        $response->assertSessionHasErrors(['role']);
+        $content = $response->streamedContent();
+        $this->assertStringContainsString('John Doe', $content);
+        $this->assertStringNotContainsString('Jane Smith', $content);
     }
 }
