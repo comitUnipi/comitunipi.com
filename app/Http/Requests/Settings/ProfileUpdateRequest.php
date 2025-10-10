@@ -28,11 +28,11 @@ class ProfileUpdateRequest extends FormRequest
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
 
-            'jenis_kelamin' => ['nullable', 'string'],
-            'no_wa' => ['nullable', 'string', 'max:20'],
-            'jurusan' => ['nullable', 'string', 'max:100'],
+            'jenis_kelamin'  => ['nullable', 'string'],
+            'no_wa'          => ['nullable', 'string', 'max:20'],
+            'jurusan'        => ['nullable', 'string', 'max:100'],
             'minat_keahlian' => ['nullable', 'string', 'max:255'],
-            'alasan' => ['nullable', 'string', 'max:1000'],
+            'alasan'         => ['nullable', 'string', 'max:1000'],
         ];
     }
 }

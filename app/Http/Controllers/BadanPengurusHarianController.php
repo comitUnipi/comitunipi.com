@@ -23,24 +23,24 @@ class BadanPengurusHarianController extends Controller
         $users = $query->paginate(10)->withQueryString();
 
         return Inertia::render('FiturKhusus/BadanPengurusHarian', [
-            'users' => $users,
+            'users'   => $users,
             'filters' => [
                 'search' => request('search', ''),
             ],
             'flash' => [
                 'success' => session('success'),
-                'error' => session('error'),
+                'error'   => session('error'),
             ],
         ]);
     }
 
     public function show($id)
     {
-        $user = User::findOrFail($id);
+        $user      = User::findOrFail($id);
         $routeName = request()->route()->getName();
 
         return Inertia::render('FiturKhusus/Detail', [
-            'user' => $user,
+            'user'   => $user,
             'module' => explode('.', $routeName)[0],
         ]);
     }

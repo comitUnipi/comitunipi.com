@@ -14,18 +14,18 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'password' => 'password',
-            'npm' => $this->faker->unique()->numerify('2023#####'),
-            'role' => 'Guest',
-            'position' => $this->faker->jobTitle(),
-            'is_active' => false,
-            'jenis_kelamin' => $this->faker->randomElement(['Laki-Laki', 'Perempuan']),
-            'no_wa' => $this->faker->phoneNumber(),
-            'jurusan' => $this->faker->randomElement(['Sistem Informasi', 'Teknologi Informasi', 'Software Engineer']),
+            'name'           => $this->faker->name(),
+            'email'          => $this->faker->unique()->safeEmail(),
+            'password'       => 'password',
+            'npm'            => $this->faker->unique()->numerify('2023#####'),
+            'role'           => 'Guest',
+            'position'       => $this->faker->jobTitle(),
+            'is_active'      => false,
+            'jenis_kelamin'  => $this->faker->randomElement(['Laki-Laki', 'Perempuan']),
+            'no_wa'          => $this->faker->phoneNumber(),
+            'jurusan'        => $this->faker->randomElement(['Sistem Informasi', 'Teknologi Informasi', 'Software Engineer']),
             'minat_keahlian' => $this->faker->randomElement(['Design Grafis', 'Programming', 'Comp & Network', 'Microsoft Office']),
-            'alasan' => $this->faker->sentence(),
+            'alasan'         => $this->faker->sentence(),
         ];
     }
 

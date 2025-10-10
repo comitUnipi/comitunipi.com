@@ -16,7 +16,7 @@ class KasController extends Controller
 
         if ($search = $request->input('search')) {
             $query->whereHas('user', function ($q) use ($search) {
-                $q->where('name', 'like', '%' . $search . '%');
+                $q->where('name', 'like', '%'.$search.'%');
             });
         }
 
@@ -33,18 +33,18 @@ class KasController extends Controller
         $users = User::select('id', 'name')->get();
 
         return Inertia::render('DataMaster/Kas', [
-            'kas' => $kas,
-            'users' => $users,
+            'kas'     => $kas,
+            'users'   => $users,
             'filters' => [
-                'search' => $search,
-                'type' => request('type', ''),
+                'search'     => $search,
+                'type'       => request('type', ''),
                 'start_date' => $request->input('start_date', ''),
-                'end_date' => $request->input('end_date', ''),
+                'end_date'   => $request->input('end_date', ''),
 
             ],
             'flash' => [
                 'success' => session('success'),
-                'error' => session('error'),
+                'error'   => session('error'),
             ],
         ]);
     }
@@ -53,9 +53,9 @@ class KasController extends Controller
     {
         $validated = $request->validate([
             'user_id' => ['required', 'exists:users,id'],
-            'amount' => ['required', 'numeric', 'min:0'],
-            'date' => ['required', 'date'],
-            'type' => ['nullable', 'string', 'max:255'],
+            'amount'  => ['required', 'numeric', 'min:0'],
+            'date'    => ['required', 'date'],
+            'type'    => ['nullable', 'string', 'max:255'],
         ]);
 
         Kas::create($validated);
@@ -69,8 +69,8 @@ class KasController extends Controller
 
         $validated = $request->validate([
             'amount' => ['required', 'numeric', 'min:0'],
-            'date' => ['required', 'date'],
-            'type' => ['nullable', 'string', 'max:255'],
+            'date'   => ['required', 'date'],
+            'type'   => ['nullable', 'string', 'max:255'],
         ]);
 
         $kas->update($validated);
@@ -92,7 +92,7 @@ class KasController extends Controller
 
         if ($search = $request->input('search')) {
             $query->whereHas('user', function ($q) use ($search) {
-                $q->where('name', 'like', '%' . $search . '%');
+                $q->where('name', 'like', '%'.$search.'%');
             });
         }
 
@@ -122,7 +122,7 @@ class KasController extends Controller
             fclose($handle);
         });
 
-        $filename = 'kas_export_' . now()->format('Ymd_His') . '.csv';
+        $filename = 'kas_export_'.now()->format('Ymd_His').'.csv';
         $response->headers->set('Content-Type', 'text/csv');
         $response->headers->set('Content-Disposition', "attachment; filename=\"$filename\"");
 

@@ -1,15 +1,12 @@
-name: linter
+name: Linter and Formatter Check
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
 
 jobs:
-  quality_code:
+  backend_quality_code:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,7 +19,22 @@ jobs:
       - name: Install Dependencies
         run: |
           composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-          npm install
+
+      - name: Check Formatter PHP with Pint
+        run: composer format:check
+
+  frontend_quality_code:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Dependencies
+        run: npm install
 
       - name: Check Formatter Frontend
         run: npm run format:check

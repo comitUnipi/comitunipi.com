@@ -1,15 +1,12 @@
-name: tests
+name: Unit Test
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
 
 jobs:
-  tests_build:
+  tests_feature:
     runs-on: ubuntu-latest
 
     services:

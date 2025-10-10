@@ -15,10 +15,10 @@ class QrCodeFactory extends Factory
     {
         return [
             'kegiatan_id' => Kegiatan::factory(),
-            'start_time' => $this->faker->dateTimeBetween('-1 week', 'now'),
-            'end_time' => $this->faker->dateTimeBetween('now', '+1 week'),
-            'token' => Str::random(32),
-            'is_active' => $this->faker->boolean(80),
+            'start_time'  => $this->faker->dateTimeBetween('-1 week', 'now'),
+            'end_time'    => $this->faker->dateTimeBetween('now', '+1 week'),
+            'token'       => Str::random(32),
+            'is_active'   => $this->faker->boolean(80),
         ];
     }
 }

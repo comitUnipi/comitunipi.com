@@ -46,16 +46,16 @@ class UserController extends Controller
         $users = $query->paginate(10)->withQueryString();
 
         return Inertia::render('DataMaster/Anggota', [
-            'users' => $users,
+            'users'   => $users,
             'filters' => [
-                'search' => request('search', ''),
-                'filter' => request('filter', ''),
+                'search'    => request('search', ''),
+                'filter'    => request('filter', ''),
                 'is_active' => request('is_active', 'all'),
-                'jurusan' => request('jurusan', ''),
+                'jurusan'   => request('jurusan', ''),
             ],
             'flash' => [
                 'success' => session('success'),
-                'error' => session('error'),
+                'error'   => session('error'),
             ],
         ]);
     }
@@ -72,18 +72,18 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'npm' => 'required|string|max:20|unique:users,npm',
-            'role' => 'required|in:Guest,User,Admin,Super Admin',
-            'jenis_kelamin' => 'required|string',
-            'no_wa' => 'nullable|string|max:20',
-            'jurusan' => 'nullable|string|max:100',
-            'position' => 'nullable|string|max:100',
+            'name'           => 'required|string|max:255',
+            'email'          => 'required|email|unique:users,email',
+            'npm'            => 'required|string|max:20|unique:users,npm',
+            'role'           => 'required|in:Guest,User,Admin,Super Admin',
+            'jenis_kelamin'  => 'required|string',
+            'no_wa'          => 'nullable|string|max:20',
+            'jurusan'        => 'nullable|string|max:100',
+            'position'       => 'nullable|string|max:100',
             'minat_keahlian' => 'nullable|string|max:100',
-            'alasan' => 'nullable|string|max:500',
-            'is_active' => 'required|boolean',
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'alasan'         => 'nullable|string|max:500',
+            'is_active'      => 'required|boolean',
+            'password'       => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $validated['password'] = Hash::make($request->password);
@@ -96,8 +96,8 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $validated = $request->validate([
-            'role' => 'required|string',
-            'position' => 'required|string',
+            'role'      => 'required|string',
+            'position'  => 'required|string',
             'is_active' => 'required|boolean',
         ]);
 

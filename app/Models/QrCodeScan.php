@@ -20,7 +20,7 @@ class QrCodeScan extends Model
     ];
 
     protected $casts = [
-        'scan_date' => 'date',
+        'scan_date'  => 'date',
         'scanned_at' => 'datetime',
     ];
 

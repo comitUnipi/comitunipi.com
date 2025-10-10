@@ -16,7 +16,7 @@ class BuatAbsensiController extends Controller
     public function generate()
     {
         $kegiatan = Kegiatan::whereDate('date', '>=', now()->toDateString())->get();
-        $qrData = QrCode::with('kegiatan')->where('is_active', true)->latest()->first();
+        $qrData   = QrCode::with('kegiatan')->where('is_active', true)->latest()->first();
 
         $qrCodeSvg = null;
 
@@ -32,12 +32,12 @@ class BuatAbsensiController extends Controller
         }
 
         return Inertia::render('FiturKhusus/BuatAbsensi', [
-            'kegiatan' => $kegiatan,
-            'qrData' => $qrData,
+            'kegiatan'  => $kegiatan,
+            'qrData'    => $qrData,
             'qrCodeSvg' => $qrCodeSvg,
-            'flash' => [
+            'flash'     => [
                 'success' => session('success'),
-                'error' => session('error'),
+                'error'   => session('error'),
             ],
         ]);
     }
@@ -46,8 +46,8 @@ class BuatAbsensiController extends Controller
     {
         $validated = $request->validate([
             'kegiatan_id' => 'required|exists:kegiatan,id',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i|after:start_time',
+            'start_time'  => 'required|date_format:H:i',
+            'end_time'    => 'required|date_format:H:i|after:start_time',
         ]);
 
         DB::transaction(function () use ($validated) {
@@ -55,10 +55,10 @@ class BuatAbsensiController extends Controller
 
             QrCode::create([
                 'kegiatan_id' => $validated['kegiatan_id'],
-                'start_time' => $validated['start_time'],
-                'end_time' => $validated['end_time'],
-                'token' => Str::random(32),
-                'is_active' => true,
+                'start_time'  => $validated['start_time'],
+                'end_time'    => $validated['end_time'],
+                'token'       => Str::random(32),
+                'is_active'   => true,
             ]);
         });
 

@@ -11,14 +11,15 @@ use Tests\TestCase;
 
 class PemasukanControllerTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->Finance = User::factory()->create([
-            'role' => 'Finance',
+            'role'      => 'Finance',
             'is_active' => true,
         ]);
     }
@@ -34,11 +35,12 @@ class PemasukanControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('DataMaster/Pemasukan')
-            ->has('pemasukan')
-            ->has('filters')
-            ->has('flash')
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('DataMaster/Pemasukan')
+                ->has('pemasukan')
+                ->has('filters')
+                ->has('flash')
         );
     }
 
@@ -54,16 +56,17 @@ class PemasukanControllerTest extends TestCase
         $response = $this->actingAs($this->Finance)
             ->get(route('pemasukan.index', [
                 'start_date' => '2024-01-01',
-                'end_date' => '2024-02-28',
+                'end_date'   => '2024-02-28',
             ]));
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('DataMaster/Pemasukan')
-            ->where('filters.start_date', '2024-01-01')
-            ->where('filters.end_date', '2024-02-28')
-            ->has('pemasukan.data', 2) // Should only show 2 records within date range
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('DataMaster/Pemasukan')
+                ->where('filters.start_date', '2024-01-01')
+                ->where('filters.end_date', '2024-02-28')
+                ->has('pemasukan.data', 2) // Should only show 2 records within date range
         );
     }
 
@@ -72,8 +75,8 @@ class PemasukanControllerTest extends TestCase
     {
         // Arrange
         $pemasukanData = [
-            'amount' => 150000,
-            'date' => '2024-01-15',
+            'amount'      => 150000,
+            'date'        => '2024-01-15',
             'description' => 'Data Anggaran tahunan',
         ];
 
@@ -86,8 +89,8 @@ class PemasukanControllerTest extends TestCase
         $response->assertSessionHas('success', 'Data berhasil dibuat!');
 
         $this->assertDatabaseHas('pemasukan', [
-            'amount' => 150000,
-            'date' => '2024-01-15',
+            'amount'      => 150000,
+            'date'        => '2024-01-15',
             'description' => 'Data Anggaran tahunan',
         ]);
     }
@@ -97,14 +100,14 @@ class PemasukanControllerTest extends TestCase
     {
         // Arrange
         $pemasukan = Pemasukan::factory()->create([
-            'amount' => 100000,
-            'date' => '2024-01-15',
+            'amount'      => 100000,
+            'date'        => '2024-01-15',
             'description' => 'Original description',
         ]);
 
         $updateData = [
-            'amount' => 150000,
-            'date' => '2024-01-20',
+            'amount'      => 150000,
+            'date'        => '2024-01-20',
             'description' => 'Updated description',
         ];
 
@@ -117,9 +120,9 @@ class PemasukanControllerTest extends TestCase
         $response->assertSessionHas('success', 'Data berhasil di update!');
 
         $this->assertDatabaseHas('pemasukan', [
-            'id' => $pemasukan->id,
-            'amount' => 150000,
-            'date' => '2024-01-20',
+            'id'          => $pemasukan->id,
+            'amount'      => 150000,
+            'date'        => '2024-01-20',
             'description' => 'Updated description',
         ]);
     }
@@ -145,7 +148,7 @@ class PemasukanControllerTest extends TestCase
     {
         // Arrange
         Pemasukan::factory()->count(3)->create([
-            'amount' => 100000,
+            'amount'      => 100000,
             'description' => 'Test pemasukan',
         ]);
 
@@ -193,7 +196,7 @@ class PemasukanControllerTest extends TestCase
         $response = $this->actingAs($this->Finance)
             ->post(route('pemasukan.store'), [
                 'amount' => -1000,
-                'date' => '2024-01-15',
+                'date'   => '2024-01-15',
             ]);
 
         $response->assertSessionHasErrors(['amount']);
@@ -202,7 +205,7 @@ class PemasukanControllerTest extends TestCase
         $response = $this->actingAs($this->Finance)
             ->post(route('pemasukan.store'), [
                 'amount' => 'invalid',
-                'date' => '2024-01-15',
+                'date'   => '2024-01-15',
             ]);
 
         $response->assertSessionHasErrors(['amount']);
@@ -211,7 +214,7 @@ class PemasukanControllerTest extends TestCase
         $response = $this->actingAs($this->Finance)
             ->post(route('pemasukan.store'), [
                 'amount' => 0,
-                'date' => '2024-01-15',
+                'date'   => '2024-01-15',
             ]);
 
         $response->assertRedirect(route('pemasukan.index'));
@@ -223,8 +226,8 @@ class PemasukanControllerTest extends TestCase
     {
         // Arrange
         $pemasukanData = [
-            'amount' => 50000,
-            'date' => 'invalid-date',
+            'amount'      => 50000,
+            'date'        => 'invalid-date',
             'description' => 'Test description',
         ];
 
@@ -241,8 +244,8 @@ class PemasukanControllerTest extends TestCase
     {
         // Arrange
         $pemasukanData = [
-            'amount' => 50000,
-            'date' => '2024-01-15',
+            'amount'      => 50000,
+            'date'        => '2024-01-15',
             'description' => str_repeat('a', 256), // Exceeds 255 character limit
         ];
 

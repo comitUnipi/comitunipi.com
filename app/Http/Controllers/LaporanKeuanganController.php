@@ -15,43 +15,43 @@ class LaporanKeuanganController extends Controller
     public function index(Request $request)
     {
         $startDate = $request->query('start_date');
-        $endDate = $request->query('end_date');
+        $endDate   = $request->query('end_date');
 
         if (! $startDate || ! $endDate) {
             return Inertia::render('Laporan/Keuangan', [
-                'laporan' => [],
-                'periode' => null,
+                'laporan'    => [],
+                'periode'    => null,
                 'totalSaldo' => 0,
             ]);
         }
 
         $start = Carbon::parse($startDate);
-        $end = Carbon::parse($endDate);
+        $end   = Carbon::parse($endDate);
 
         $kas = Kas::whereBetween('date', [$start, $end])
             ->get()
             ->map(fn ($item) => [
-                'amount' => $item->amount,
-                'date' => $item->date,
-                'type' => 'kas - '.$item->type,
+                'amount'    => $item->amount,
+                'date'      => $item->date,
+                'type'      => 'kas - '.$item->type,
                 'real_type' => 'plus',
             ]);
 
         $pemasukan = Pemasukan::whereBetween('date', [$start, $end])
             ->get()
             ->map(fn ($item) => [
-                'amount' => $item->amount,
-                'date' => $item->date,
-                'type' => 'pemasukan',
+                'amount'    => $item->amount,
+                'date'      => $item->date,
+                'type'      => 'pemasukan',
                 'real_type' => 'plus',
             ]);
 
         $pengeluaran = Pengeluaran::whereBetween('date', [$start, $end])
             ->get()
             ->map(fn ($item) => [
-                'amount' => $item->amount,
-                'date' => $item->date,
-                'type' => 'pengeluaran',
+                'amount'    => $item->amount,
+                'date'      => $item->date,
+                'type'      => 'pengeluaran',
                 'real_type' => 'minus',
             ]);
 
@@ -66,17 +66,17 @@ class LaporanKeuanganController extends Controller
             return $carry + ($item['real_type'] === 'plus' ? $item['amount'] : -$item['amount']);
         }, 0);
 
-        $totalDebit = $laporan->where('real_type', 'plus')->sum('amount');
+        $totalDebit  = $laporan->where('real_type', 'plus')->sum('amount');
         $totalKredit = $laporan->where('real_type', 'minus')->sum('amount');
 
         return Inertia::render('Laporan/Keuangan', [
             'laporan' => $laporan->toArray(),
             'periode' => [
                 'start' => $start->toDateString(),
-                'end' => $end->toDateString(),
+                'end'   => $end->toDateString(),
             ],
-            'totalSaldo' => $totalSaldo,
-            'totalDebit' => $totalDebit,
+            'totalSaldo'  => $totalSaldo,
+            'totalDebit'  => $totalDebit,
             'totalKredit' => $totalKredit,
         ]);
     }
@@ -84,39 +84,39 @@ class LaporanKeuanganController extends Controller
     public function exportCsv(Request $request)
     {
         $startDate = $request->query('start_date');
-        $endDate = $request->query('end_date');
+        $endDate   = $request->query('end_date');
 
         if (! $startDate || ! $endDate) {
             return redirect()->back()->with('error', 'Tanggal tidak lengkap untuk export.');
         }
 
         $start = Carbon::parse($startDate);
-        $end = Carbon::parse($endDate);
+        $end   = Carbon::parse($endDate);
 
         $kas = Kas::whereBetween('date', [$start, $end])
             ->get()
             ->map(fn ($item) => [
-                'date' => $item->date,
-                'type' => 'kas - '.$item->type,
-                'amount' => $item->amount,
+                'date'      => $item->date,
+                'type'      => 'kas - '.$item->type,
+                'amount'    => $item->amount,
                 'real_type' => 'plus',
             ]);
 
         $pemasukan = Pemasukan::whereBetween('date', [$start, $end])
             ->get()
             ->map(fn ($item) => [
-                'date' => $item->date,
-                'type' => 'pemasukan',
-                'amount' => $item->amount,
+                'date'      => $item->date,
+                'type'      => 'pemasukan',
+                'amount'    => $item->amount,
                 'real_type' => 'plus',
             ]);
 
         $pengeluaran = Pengeluaran::whereBetween('date', [$start, $end])
             ->get()
             ->map(fn ($item) => [
-                'date' => $item->date,
-                'type' => 'pengeluaran',
-                'amount' => $item->amount,
+                'date'      => $item->date,
+                'type'      => 'pengeluaran',
+                'amount'    => $item->amount,
                 'real_type' => 'minus',
             ]);
 
@@ -127,9 +127,9 @@ class LaporanKeuanganController extends Controller
             ->sortBy('date')
             ->values();
 
-        $totalDebit = $laporan->where('real_type', 'plus')->sum('amount');
+        $totalDebit  = $laporan->where('real_type', 'plus')->sum('amount');
         $totalKredit = $laporan->where('real_type', 'minus')->sum('amount');
-        $totalSaldo = $totalDebit - $totalKredit;
+        $totalSaldo  = $totalDebit - $totalKredit;
 
         $response = new StreamedResponse(function () use ($laporan, $totalDebit, $totalKredit, $totalSaldo) {
             $handle = fopen('php://output', 'w');

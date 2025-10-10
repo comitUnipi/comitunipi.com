@@ -23,8 +23,8 @@ class AbsensiController extends Controller
         $users = User::select('id', 'name')->get();
 
         return Inertia::render('DataMaster/Absensi', [
-            'scans' => $scans,
-            'users' => $users,
+            'scans'   => $scans,
+            'users'   => $users,
             'filters' => [
                 'search' => $search,
                 'status' => $request->input('status', ''),

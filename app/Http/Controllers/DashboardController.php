@@ -13,14 +13,14 @@ class DashboardController extends Controller
     public function index()
     {
         $stats = [
-            'totalUsers' => User::count(),
-            'totalUsersAktif' => User::where('is_active', true)->count(),
+            'totalUsers'         => User::count(),
+            'totalUsersAktif'    => User::where('is_active', true)->count(),
             'totalUsersNonaktif' => User::where('is_active', false)->count(),
-            'totalPengurus' => User::where('is_active', true)
+            'totalPengurus'      => User::where('is_active', true)
                 ->whereNotIn('role', ['User', 'Guest'])
                 ->count(),
-            'totalKAS' => number_format(Kas::sum('amount'), 2, '.', ''),
-            'totalPemasukan' => number_format(Pemasukan::sum('amount'), 2, '.', ''),
+            'totalKAS'         => number_format(Kas::sum('amount'), 2, '.', ''),
+            'totalPemasukan'   => number_format(Pemasukan::sum('amount'), 2, '.', ''),
             'totalPengeluaran' => number_format(Pengeluaran::sum('amount'), 2, '.', ''),
         ];
 
@@ -28,7 +28,7 @@ class DashboardController extends Controller
             'stats' => $stats,
             'flash' => [
                 'success' => session('success'),
-                'error' => session('error'),
+                'error'   => session('error'),
             ],
         ]);
     }

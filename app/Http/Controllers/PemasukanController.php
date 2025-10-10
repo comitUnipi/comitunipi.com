@@ -21,13 +21,13 @@ class PemasukanController extends Controller
 
         return Inertia::render('DataMaster/Pemasukan', [
             'pemasukan' => $pemasukan,
-            'filters' => [
+            'filters'   => [
                 'start_date' => $request->input('start_date', ''),
-                'end_date' => $request->input('end_date', ''),
+                'end_date'   => $request->input('end_date', ''),
             ],
             'flash' => [
                 'success' => session('success'),
-                'error' => session('error'),
+                'error'   => session('error'),
             ],
         ]);
     }
@@ -35,8 +35,8 @@ class PemasukanController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'amount' => ['required', 'numeric', 'min:0'],
-            'date' => ['required', 'date'],
+            'amount'      => ['required', 'numeric', 'min:0'],
+            'date'        => ['required', 'date'],
             'description' => ['nullable', 'string', 'max:255'],
         ]);
 
@@ -50,8 +50,8 @@ class PemasukanController extends Controller
         $pemasukan = Pemasukan::findOrFail($id);
 
         $validated = $request->validate([
-            'amount' => ['required', 'numeric', 'min:0'],
-            'date' => ['required', 'date'],
+            'amount'      => ['required', 'numeric', 'min:0'],
+            'date'        => ['required', 'date'],
             'description' => ['nullable', 'string', 'max:255'],
         ]);
 

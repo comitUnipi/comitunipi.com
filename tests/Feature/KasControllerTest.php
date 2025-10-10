@@ -11,20 +11,21 @@ use Tests\TestCase;
 
 class KasControllerTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->Finance = User::factory()->create([
-            'role' => 'Finance',
+            'role'      => 'Finance',
             'is_active' => true,
         ]);
 
         $this->User = User::factory()->create([
-            'name' => 'John Doe',
-            'role' => 'Admin',
+            'name'      => 'John Doe',
+            'role'      => 'Admin',
             'is_active' => true,
         ]);
     }
@@ -40,12 +41,13 @@ class KasControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('DataMaster/Kas')
-            ->has('kas')
-            ->has('users')
-            ->has('filters')
-            ->has('flash')
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('DataMaster/Kas')
+                ->has('kas')
+                ->has('users')
+                ->has('filters')
+                ->has('flash')
         );
     }
 
@@ -65,9 +67,10 @@ class KasControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('DataMaster/Kas')
-            ->where('filters.search', 'John')
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('DataMaster/Kas')
+                ->where('filters.search', 'John')
         );
     }
 
@@ -84,9 +87,10 @@ class KasControllerTest extends TestCase
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('DataMaster/Kas')
-            ->where('filters.type', 'Pengurus')
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('DataMaster/Kas')
+                ->where('filters.type', 'Pengurus')
         );
     }
 
@@ -95,15 +99,15 @@ class KasControllerTest extends TestCase
     {
         // Arrange
         Kas::factory()->create([
-            'date' => '2024-01-15',
+            'date'    => '2024-01-15',
             'user_id' => $this->User->id,
         ]);
         Kas::factory()->create([
-            'date' => '2024-02-15',
+            'date'    => '2024-02-15',
             'user_id' => $this->User->id,
         ]);
         Kas::factory()->create([
-            'date' => '2024-03-15',
+            'date'    => '2024-03-15',
             'user_id' => $this->User->id,
         ]);
 
@@ -111,15 +115,16 @@ class KasControllerTest extends TestCase
         $response = $this->actingAs($this->Finance)
             ->get(route('kas.index', [
                 'start_date' => '2024-01-01',
-                'end_date' => '2024-02-28',
+                'end_date'   => '2024-02-28',
             ]));
 
         // Assert
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('DataMaster/Kas')
-            ->where('filters.start_date', '2024-01-01')
-            ->where('filters.end_date', '2024-02-28')
+        $response->assertInertia(
+            fn ($page) => $page
+                ->component('DataMaster/Kas')
+                ->where('filters.start_date', '2024-01-01')
+                ->where('filters.end_date', '2024-02-28')
         );
     }
 
@@ -129,9 +134,9 @@ class KasControllerTest extends TestCase
         // Arrange
         $kasData = [
             'user_id' => $this->User->id,
-            'amount' => 50000,
-            'date' => '2024-01-15',
-            'type' => 'Iuran Bulanan',
+            'amount'  => 50000,
+            'date'    => '2024-01-15',
+            'type'    => 'Iuran Bulanan',
         ];
 
         // Act
@@ -144,9 +149,9 @@ class KasControllerTest extends TestCase
 
         $this->assertDatabaseHas('kas', [
             'user_id' => $this->User->id,
-            'amount' => 50000,
-            'date' => '2024-01-15',
-            'type' => 'Iuran Bulanan',
+            'amount'  => 50000,
+            'date'    => '2024-01-15',
+            'type'    => 'Iuran Bulanan',
         ]);
     }
 
@@ -156,15 +161,15 @@ class KasControllerTest extends TestCase
         // Arrange
         $kas = Kas::factory()->create([
             'user_id' => $this->User->id,
-            'amount' => 50000,
-            'date' => '2024-01-15',
-            'type' => 'Pengurus',
+            'amount'  => 50000,
+            'date'    => '2024-01-15',
+            'type'    => 'Pengurus',
         ]);
 
         $updateData = [
             'amount' => 75000,
-            'date' => '2024-01-20',
-            'type' => 'Pengurus',
+            'date'   => '2024-01-20',
+            'type'   => 'Pengurus',
         ];
 
         // Act
@@ -176,10 +181,10 @@ class KasControllerTest extends TestCase
         $response->assertSessionHas('success', 'Data berhasil di update!');
 
         $this->assertDatabaseHas('kas', [
-            'id' => $kas->id,
+            'id'     => $kas->id,
             'amount' => 75000,
-            'date' => '2024-01-20',
-            'type' => 'Pengurus',
+            'date'   => '2024-01-20',
+            'type'   => 'Pengurus',
         ]);
     }
 
@@ -205,7 +210,7 @@ class KasControllerTest extends TestCase
         // Arrange
         Kas::factory()->count(3)->create([
             'user_id' => $this->User->id,
-            'type' => 'Iuran Bulanan',
+            'type'    => 'Iuran Bulanan',
         ]);
 
         // Act
@@ -251,9 +256,9 @@ class KasControllerTest extends TestCase
         // Arrange
         $kasData = [
             'user_id' => 999, // Non-existent user
-            'amount' => 50000,
-            'date' => '2024-01-15',
-            'type' => 'Iuran Bulanan',
+            'amount'  => 50000,
+            'date'    => '2024-01-15',
+            'type'    => 'Iuran Bulanan',
         ];
 
         // Act
@@ -271,8 +276,8 @@ class KasControllerTest extends TestCase
         $response = $this->actingAs($this->Finance)
             ->post(route('kas.store'), [
                 'user_id' => $this->User->id,
-                'amount' => -1000,
-                'date' => '2024-01-15',
+                'amount'  => -1000,
+                'date'    => '2024-01-15',
             ]);
 
         $response->assertSessionHasErrors(['amount']);
@@ -281,8 +286,8 @@ class KasControllerTest extends TestCase
         $response = $this->actingAs($this->Finance)
             ->post(route('kas.store'), [
                 'user_id' => $this->User->id,
-                'amount' => 'invalid',
-                'date' => '2024-01-15',
+                'amount'  => 'invalid',
+                'date'    => '2024-01-15',
             ]);
 
         $response->assertSessionHasErrors(['amount']);
@@ -294,9 +299,9 @@ class KasControllerTest extends TestCase
         // Arrange
         $kasData = [
             'user_id' => $this->User->id,
-            'amount' => 50000,
-            'date' => 'invalid-date',
-            'type' => 'Iuran Bulanan',
+            'amount'  => 50000,
+            'date'    => 'invalid-date',
+            'type'    => 'Iuran Bulanan',
         ];
 
         // Act
