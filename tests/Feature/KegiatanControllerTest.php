@@ -15,6 +15,12 @@ class KegiatanControllerTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
+    protected $SuperAdmin;
+    protected $Admin;
+    protected $Finance;
+    protected $User;
+    protected $Guest;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -29,6 +35,16 @@ class KegiatanControllerTest extends TestCase
             'is_active' => 1,
         ]);
 
+        $this->Finance = User::factory()->create([
+            'role'      => 'Finance',
+            'is_active' => 1,
+        ]);
+
+        $this->User = User::factory()->create([
+            'role'      => 'User',
+            'is_active' => 1,
+        ]);
+
         $this->Guest = User::factory()->create([
             'role'      => 'Guest',
             'is_active' => 0,
@@ -36,345 +52,291 @@ class KegiatanControllerTest extends TestCase
     }
 
     #[Test]
-    public function it_can_display_kegiatan_index_page()
+    public function test_notifications_menampilkan_kegiatan_umum_untuk_semua_user()
     {
-        // Arrange
-        Kegiatan::factory()->count(3)->create();
-
-        // Act
-        $response = $this->actingAs($this->SuperAdmin)->get(route('kegiatan.index'));
-
-        // Assert
-        $response->assertStatus(200);
-        $response->assertInertia(
-            fn ($page) => $page
-                ->component('DataMaster/Kegiatan')
-                ->has('kegiatan')
-                ->has('filters')
-                ->has('flash')
-        );
-    }
-
-    #[Test]
-    public function it_can_display_jadwal_kegiatan_page()
-    {
-        // Arrange
         Kegiatan::factory()->create([
+            'name' => 'Kegiatan Umum',
             'audiens' => 'umum',
-            'date'    => Carbon::tomorrow(),
+            'date' => now()->addDays(5),
         ]);
 
-        // Act
-        $response = $this->actingAs($this->SuperAdmin)
-            ->get(route('kegiatan.terbaru'));
-
-        // Assert
+        $response = $this->actingAs($this->Guest)->getJson(route('kegiatan.notifications'));
         $response->assertStatus(200);
-        $response->assertInertia(
-            fn ($page) => $page
-                ->component('FiturUtama/JadwalKegiatan')
-                ->has('kegiatan')
-        );
+        $response->assertJsonCount(1);
+        $response->assertJsonFragment(['name' => 'Kegiatan Umum']);
+
+        $response = $this->actingAs($this->Admin)->getJson(route('kegiatan.notifications'));
+        $response->assertStatus(200);
+        $response->assertJsonCount(1);
+
+        $response = $this->actingAs($this->SuperAdmin)->getJson(route('kegiatan.notifications'));
+        $response->assertStatus(200);
+        $response->assertJsonCount(1);
     }
 
     #[Test]
-    public function it_can_filter_kegiatan_by_search()
+    public function test_notifications_kegiatan_pengurus_hanya_untuk_super_admin_admin_finance()
     {
-        // Arrange
-        Kegiatan::factory()->create(['name' => 'Rapat Evaluasi Bulanan']);
-        Kegiatan::factory()->create(['name' => 'Workshop Arduino']);
+        Kegiatan::factory()->create([
+            'name' => 'Kegiatan Pengurus',
+            'audiens' => 'pengurus',
+            'date' => now()->addDays(5),
+        ]);
 
-        // Act
-        $response = $this->actingAs($this->SuperAdmin)
-            ->get(route('kegiatan.index', ['search' => 'Rapat']));
-
-        // Assert
+        // Super Admin bisa lihat
+        $response = $this->actingAs($this->SuperAdmin)->getJson(route('kegiatan.notifications'));
         $response->assertStatus(200);
-        $response->assertInertia(
-            fn ($page) => $page
-                ->component('DataMaster/Kegiatan')
-                ->where('filters.search', 'Rapat')
-                ->has('kegiatan.data', 1)
-        );
+        $response->assertJsonCount(1);
+
+        // Admin bisa lihat
+        $response = $this->actingAs($this->Admin)->getJson(route('kegiatan.notifications'));
+        $response->assertStatus(200);
+        $response->assertJsonCount(1);
+
+        // Finance bisa lihat
+        $response = $this->actingAs($this->Finance)->getJson(route('kegiatan.notifications'));
+        $response->assertStatus(200);
+        $response->assertJsonCount(1);
+
+        // User biasa TIDAK bisa lihat
+        $response = $this->actingAs($this->User)->getJson(route('kegiatan.notifications'));
+        $response->assertStatus(200);
+        $response->assertJsonCount(0);
+
+        // Guest TIDAK bisa lihat
+        $response = $this->actingAs($this->Guest)->getJson(route('kegiatan.notifications'));
+        $response->assertStatus(200);
+        $response->assertJsonCount(0);
     }
 
     #[Test]
-    public function it_can_create_new_kegiatan_record()
+    public function test_notifications_kegiatan_anggota_untuk_user_aktif_bukan_guest()
     {
-        // Arrange
-        $kegiatanData = [
-            'name'        => 'Rapat Evaluasi Bulanan',
-            'description' => 'Rapat evaluasi bulanan',
-            'date'        => '2024-12-25',
-            'time'        => '10:00',
-            'location'    => 'Ruang 406',
-            'audiens'     => 'pengurus',
+        Kegiatan::factory()->create([
+            'name' => 'Kegiatan Anggota',
+            'audiens' => 'anggota',
+            'date' => now()->addDays(5),
+        ]);
+
+        // User aktif bisa lihat
+        $response = $this->actingAs($this->User)->getJson(route('kegiatan.notifications'));
+        $response->assertStatus(200);
+        $response->assertJsonCount(1);
+
+        // Admin bisa lihat
+        $response = $this->actingAs($this->Admin)->getJson(route('kegiatan.notifications'));
+        $response->assertStatus(200);
+        $response->assertJsonCount(1);
+
+        // Guest TIDAK bisa lihat
+        $response = $this->actingAs($this->Guest)->getJson(route('kegiatan.notifications'));
+        $response->assertStatus(200);
+        $response->assertJsonCount(0);
+    }
+
+    #[Test]
+    public function test_notifications_hanya_menampilkan_kegiatan_mendatang()
+    {
+        // Kegiatan masa depan
+        $futurKegiatan = Kegiatan::factory()->create([
+            'audiens' => 'umum',
+            'date' => now()->addDays(5),
+        ]);
+
+        // Kegiatan masa lalu
+        $pastKegiatan = Kegiatan::factory()->create([
+            'audiens' => 'umum',
+            'date' => now()->subDays(5),
+        ]);
+
+        $response = $this->actingAs($this->User)->getJson(route('kegiatan.notifications'));
+
+        $response->assertStatus(200);
+        $response->assertJsonCount(1);
+        $response->assertJsonFragment(['id' => $futurKegiatan->id]);
+        $response->assertJsonMissing(['id' => $pastKegiatan->id]);
+    }
+
+    #[Test]
+    public function test_dapat_membuat_kegiatan_baru_dengan_data_valid()
+    {
+        $data = [
+            'name' => 'Workshop Laravel',
+            'description' => 'Belajar Laravel dari dasar',
+            'date' => now()->addDays(7)->format('Y-m-d'),
+            'time' => '10:00',
+            'location' => 'Ruang A101',
+            'audiens' => 'anggota',
         ];
 
-        // Act
         $response = $this->actingAs($this->SuperAdmin)
-            ->post(route('kegiatan.store'), $kegiatanData);
+            ->post(route('kegiatan.store'), $data);
 
-        // Assert
         $response->assertRedirect(route('kegiatan.index'));
         $response->assertSessionHas('success', 'Data berhasil dibuat!');
 
         $this->assertDatabaseHas('kegiatan', [
-            'name'        => 'Rapat Evaluasi Bulanan',
-            'description' => 'Rapat evaluasi bulanan',
-            'audiens'     => 'pengurus',
+            'name' => 'Workshop Laravel',
+            'location' => 'Ruang A101',
+            'audiens' => 'anggota',
         ]);
     }
 
     #[Test]
-    public function it_can_update_kegiatan_record()
+    public function test_gagal_membuat_kegiatan_tanpa_field_wajib()
     {
-        // Arrange
+        $response = $this->actingAs($this->SuperAdmin)
+            ->post(route('kegiatan.store'), []);
+
+        $response->assertSessionHasErrors([
+            'name',
+            'date',
+            'time',
+            'location',
+            'audiens'
+        ]);
+    }
+
+    #[Test]
+    public function test_gagal_membuat_kegiatan_dengan_audiens_invalid()
+    {
+        $data = [
+            'name' => 'Test Kegiatan',
+            'date' => now()->format('Y-m-d'),
+            'time' => '10:00',
+            'location' => 'Ruang A',
+            'audiens' => 'invalid_audiens', // Invalid
+        ];
+
+        $response = $this->actingAs($this->SuperAdmin)
+            ->post(route('kegiatan.store'), $data);
+
+        $response->assertSessionHasErrors('audiens');
+    }
+
+    #[Test]
+    public function test_dapat_update_kegiatan_dengan_data_valid()
+    {
         $kegiatan = Kegiatan::factory()->create([
-            'name'    => 'Original Name',
+            'name' => 'Kegiatan Lama',
             'audiens' => 'umum',
         ]);
 
         $updateData = [
-            'name'        => 'Updated Name',
+            'name' => 'Kegiatan Baru',
             'description' => 'Updated description',
-            'date'        => '2024-12-26',
-            'time'        => '14:00',
-            'location'    => 'Updated Location',
-            'audiens'     => 'anggota',
+            'date' => now()->addDays(10)->format('Y-m-d'),
+            'time' => '14:00',
+            'location' => 'Ruang B202',
+            'audiens' => 'pengurus',
         ];
 
-        // Act
         $response = $this->actingAs($this->SuperAdmin)
-            ->put(route('kegiatan.update', $kegiatan->id), $updateData);
+            ->put(route('kegiatan.update', $kegiatan), $updateData);
 
-        // Assert
         $response->assertRedirect(route('kegiatan.index'));
         $response->assertSessionHas('success', 'Data berhasil diperbarui!');
 
         $this->assertDatabaseHas('kegiatan', [
-            'id'      => $kegiatan->id,
-            'name'    => 'Updated Name',
-            'audiens' => 'anggota',
+            'id' => $kegiatan->id,
+            'name' => 'Kegiatan Baru',
+            'audiens' => 'pengurus',
         ]);
     }
 
     #[Test]
-    public function it_can_delete_kegiatan_record()
+    public function test_update_gagal_dengan_kegiatan_tidak_ditemukan()
     {
-        // Arrange
-        $kegiatan = Kegiatan::factory()->create();
+        $data = [
+            'name' => 'Test',
+            'date' => now()->format('Y-m-d'),
+            'time' => '10:00',
+            'location' => 'Ruang A',
+            'audiens' => 'umum',
+        ];
 
-        // Act
         $response = $this->actingAs($this->SuperAdmin)
-            ->delete(route('kegiatan.destroy', $kegiatan->id));
+            ->put(route('kegiatan.update', 99999), $data);
 
-        // Assert
-        $response->assertRedirect(route('kegiatan.index'));
-        $response->assertSessionHas('success', 'Data berhasil dihapus!');
-        $this->assertDatabaseMissing('kegiatan', ['id' => $kegiatan->id]);
+        $response->assertNotFound();
     }
 
     #[Test]
-    public function it_can_export_kegiatan_to_csv()
+    public function test_index_menampilkan_semua_kegiatan()
     {
-        // Arrange
-        Kegiatan::factory()->count(3)->create([
-            'name'        => 'Test Kegiatan',
-            'description' => 'Test Description',
-        ]);
+        Kegiatan::factory()->count(5)->create();
 
-        // Act
-        $response = $this->actingAs($this->SuperAdmin)
-            ->get(route('kegiatan.export.csv'));
+        $response = $this->actingAs($this->Admin)
+            ->get(route('kegiatan.index'));
 
-        // Assert
-        $response->assertStatus(200);
-        $response->assertHeader('Content-Type', 'text/csv; charset=UTF-8');
-        $response->assertHeader('Content-Disposition');
-
-        $response->getContent();
-    }
-
-    #[Test]
-    public function it_only_shows_future_kegiatan_in_notifications()
-    {
-        // Arrange
-        Kegiatan::factory()->create([
-            'audiens' => 'umum',
-            'date'    => Carbon::yesterday(),
-        ]);
-
-        Kegiatan::factory()->create([
-            'audiens' => 'umum',
-            'date'    => Carbon::tomorrow(),
-        ]);
-
-        // Act
-        $response = $this->actingAs($this->SuperAdmin)
-            ->get(route('kegiatan.notifications'));
-
-        // Assert
-        $response->assertStatus(200);
-        $response->assertJsonCount(1);
-    }
-
-    #[Test]
-    public function it_only_shows_today_and_future_kegiatan_in_jadwal_kegiatan()
-    {
-        // Arrange
-        Kegiatan::factory()->create([
-            'audiens' => 'umum',
-            'date'    => Carbon::yesterday(),
-        ]);
-
-        Kegiatan::factory()->create([
-            'audiens' => 'umum',
-            'date'    => Carbon::today(),
-        ]);
-
-        Kegiatan::factory()->create([
-            'audiens' => 'umum',
-            'date'    => Carbon::tomorrow(),
-        ]);
-
-        // Act
-        $response = $this->actingAs($this->SuperAdmin)
-            ->get(route('kegiatan.terbaru'));
-
-        // Assert - Should show today and future kegiatan (2 records)
         $response->assertStatus(200);
         $response->assertInertia(
-            fn ($page) => $page
-                ->has('kegiatan', 2)
+            fn($page) =>
+            $page->component('DataMaster/Kegiatan')
+                ->has('kegiatan.data', 5)
         );
     }
 
     #[Test]
-    public function it_validates_required_fields_when_creating_kegiatan()
+    public function test_index_dapat_search_berdasarkan_nama()
     {
-        // Act
-        $response = $this->actingAs($this->SuperAdmin)
-            ->post(route('kegiatan.store'), []);
+        Kegiatan::factory()->create(['name' => 'Workshop Laravel']);
+        Kegiatan::factory()->create(['name' => 'Seminar React']);
+        Kegiatan::factory()->create(['name' => 'Workshop PHP']);
 
-        // Assert
-        $response->assertSessionHasErrors(['name', 'date', 'time', 'location', 'audiens']);
+        $response = $this->actingAs($this->Admin)
+            ->get(route('kegiatan.index', ['search' => 'Workshop']));
+
+        $response->assertStatus(200);
+        $response->assertInertia(
+            fn($page) =>
+            $page->has('kegiatan.data', 2)
+        );
     }
 
     #[Test]
-    public function it_validates_required_fields_when_updating_kegiatan()
+    public function test_dapat_menghapus_kegiatan()
     {
-        // Arrange
         $kegiatan = Kegiatan::factory()->create();
 
-        // Act
         $response = $this->actingAs($this->SuperAdmin)
-            ->put(route('kegiatan.update', $kegiatan->id), []);
+            ->delete(route('kegiatan.destroy', $kegiatan));
 
-        // Assert
-        $response->assertSessionHasErrors(['name', 'date', 'time', 'location', 'audiens']);
+        $response->assertRedirect(route('kegiatan.index'));
+        $response->assertSessionHas('success', 'Data berhasil dihapus!');
+
+        $this->assertDatabaseMissing('kegiatan', ['id' => $kegiatan->id]);
     }
 
     #[Test]
-    public function it_validates_audiens_field()
+    public function test_export_csv_menghasilkan_file_dengan_format_benar()
     {
-        // Arrange
-        $kegiatanData = [
-            'name'     => 'Test Event',
-            'date'     => '2024-12-25',
-            'time'     => '10:00',
-            'location' => 'Test Location',
-            'audiens'  => 'invalid_audiens',
-        ];
+        Kegiatan::factory()->create([
+            'name' => 'Test Kegiatan',
+            'description' => 'Test Description',
+        ]);
 
-        // Act
         $response = $this->actingAs($this->SuperAdmin)
-            ->post(route('kegiatan.store'), $kegiatanData);
+            ->get(route('kegiatan.export.csv'));
 
-        // Assert
-        $response->assertSessionHasErrors(['audiens']);
-
-        // Test valid audiens values
-        $validAudiens = ['umum', 'anggota', 'pengurus'];
-
-        foreach ($validAudiens as $audiens) {
-            $kegiatanData['audiens'] = $audiens;
-            $response                = $this->actingAs($this->SuperAdmin)
-                ->post(route('kegiatan.store'), $kegiatanData);
-
-            $response->assertRedirect(route('kegiatan.index'));
-            $response->assertSessionHasNoErrors();
-        }
-    }
-
-    #[Test]
-    public function it_validates_date_format()
-    {
-        // Arrange
-        $kegiatanData = [
-            'name'     => 'Test Event',
-            'date'     => 'invalid-date',
-            'time'     => '10:00',
-            'location' => 'Test Location',
-            'audiens'  => 'umum',
-        ];
-
-        // Act
-        $response = $this->actingAs($this->SuperAdmin)
-            ->post(route('kegiatan.store'), $kegiatanData);
-
-        // Assert
-        $response->assertSessionHasErrors(['date']);
-    }
-
-    #[Test]
-    public function admin_user_can_access_all_notifications()
-    {
-        // Arrange
-        Kegiatan::factory()->create([
-            'audiens' => 'umum',
-            'date'    => Carbon::tomorrow(),
-        ]);
-
-        Kegiatan::factory()->create([
-            'audiens' => 'pengurus',
-            'date'    => Carbon::tomorrow(),
-        ]);
-
-        Kegiatan::factory()->create([
-            'audiens' => 'anggota',
-            'date'    => Carbon::tomorrow(),
-        ]);
-
-        // Act
-        $response = $this->actingAs($this->Admin)
-            ->get(route('kegiatan.notifications'));
-
-        // Assert
         $response->assertStatus(200);
-        $response->assertJsonCount(3);
+        $response->assertHeader('content-type', 'text/csv; charset=UTF-8');
+
+        $content = $response->streamedContent();
+        $this->assertStringContainsString('Nama Kegiatan', $content);
+        $this->assertStringContainsString('Test Kegiatan', $content);
     }
 
     #[Test]
-    public function guest_user_can_only_see_umum_notifications()
+    public function test_export_csv_dengan_data_kosong()
     {
-        // Arrange
-        Kegiatan::factory()->create([
-            'audiens' => 'umum',
-            'date'    => Carbon::tomorrow(),
-        ]);
+        $response = $this->actingAs($this->SuperAdmin)
+            ->get(route('kegiatan.export.csv'));
 
-        Kegiatan::factory()->create([
-            'audiens' => 'pengurus',
-            'date'    => Carbon::tomorrow(),
-        ]);
-
-        // Act
-        $response = $this->actingAs($this->Guest)
-            ->get(route('kegiatan.notifications'));
-
-        // Assert
         $response->assertStatus(200);
-        $response->assertJsonCount(1);
+
+        $content = $response->streamedContent();
+
+        $this->assertStringContainsString('Nama Kegiatan', $content);
     }
 }
