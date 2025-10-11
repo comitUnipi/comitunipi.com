@@ -230,7 +230,7 @@ class PengeluaranControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertInertia(
-            fn($page) => $page->component('DataMaster/Pengeluaran')
+            fn ($page) => $page->component('DataMaster/Pengeluaran')
                 ->has('pengeluaran.data', 5)
         );
     }
@@ -253,7 +253,7 @@ class PengeluaranControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertInertia(
-            fn($page) => $page->has('pengeluaran.data', 2)
+            fn ($page) => $page->has('pengeluaran.data', 2)
         );
     }
 
