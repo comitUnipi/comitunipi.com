@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\Kegiatan;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use PHPUnit\Framework\Attributes\Test;
@@ -16,9 +15,13 @@ class KegiatanControllerTest extends TestCase
     use WithFaker;
 
     protected $SuperAdmin;
+
     protected $Admin;
+
     protected $Finance;
+
     protected $User;
+
     protected $Guest;
 
     protected function setUp(): void
@@ -55,9 +58,9 @@ class KegiatanControllerTest extends TestCase
     public function test_notifications_menampilkan_kegiatan_umum_untuk_semua_user()
     {
         Kegiatan::factory()->create([
-            'name' => 'Kegiatan Umum',
+            'name'    => 'Kegiatan Umum',
             'audiens' => 'umum',
-            'date' => now()->addDays(5),
+            'date'    => now()->addDays(5),
         ]);
 
         $response = $this->actingAs($this->Guest)->getJson(route('kegiatan.notifications'));
@@ -78,9 +81,9 @@ class KegiatanControllerTest extends TestCase
     public function test_notifications_kegiatan_pengurus_hanya_untuk_super_admin_admin_finance()
     {
         Kegiatan::factory()->create([
-            'name' => 'Kegiatan Pengurus',
+            'name'    => 'Kegiatan Pengurus',
             'audiens' => 'pengurus',
-            'date' => now()->addDays(5),
+            'date'    => now()->addDays(5),
         ]);
 
         // Super Admin bisa lihat
@@ -113,9 +116,9 @@ class KegiatanControllerTest extends TestCase
     public function test_notifications_kegiatan_anggota_untuk_user_aktif_bukan_guest()
     {
         Kegiatan::factory()->create([
-            'name' => 'Kegiatan Anggota',
+            'name'    => 'Kegiatan Anggota',
             'audiens' => 'anggota',
-            'date' => now()->addDays(5),
+            'date'    => now()->addDays(5),
         ]);
 
         // User aktif bisa lihat
@@ -140,13 +143,13 @@ class KegiatanControllerTest extends TestCase
         // Kegiatan masa depan
         $futurKegiatan = Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => now()->addDays(5),
+            'date'    => now()->addDays(5),
         ]);
 
         // Kegiatan masa lalu
         $pastKegiatan = Kegiatan::factory()->create([
             'audiens' => 'umum',
-            'date' => now()->subDays(5),
+            'date'    => now()->subDays(5),
         ]);
 
         $response = $this->actingAs($this->User)->getJson(route('kegiatan.notifications'));
@@ -161,12 +164,12 @@ class KegiatanControllerTest extends TestCase
     public function test_dapat_membuat_kegiatan_baru_dengan_data_valid()
     {
         $data = [
-            'name' => 'Workshop Laravel',
+            'name'        => 'Workshop Laravel',
             'description' => 'Belajar Laravel dari dasar',
-            'date' => now()->addDays(7)->format('Y-m-d'),
-            'time' => '10:00',
-            'location' => 'Ruang A101',
-            'audiens' => 'anggota',
+            'date'        => now()->addDays(7)->format('Y-m-d'),
+            'time'        => '10:00',
+            'location'    => 'Ruang A101',
+            'audiens'     => 'anggota',
         ];
 
         $response = $this->actingAs($this->SuperAdmin)
@@ -176,9 +179,9 @@ class KegiatanControllerTest extends TestCase
         $response->assertSessionHas('success', 'Data berhasil dibuat!');
 
         $this->assertDatabaseHas('kegiatan', [
-            'name' => 'Workshop Laravel',
+            'name'     => 'Workshop Laravel',
             'location' => 'Ruang A101',
-            'audiens' => 'anggota',
+            'audiens'  => 'anggota',
         ]);
     }
 
@@ -193,7 +196,7 @@ class KegiatanControllerTest extends TestCase
             'date',
             'time',
             'location',
-            'audiens'
+            'audiens',
         ]);
     }
 
@@ -201,11 +204,11 @@ class KegiatanControllerTest extends TestCase
     public function test_gagal_membuat_kegiatan_dengan_audiens_invalid()
     {
         $data = [
-            'name' => 'Test Kegiatan',
-            'date' => now()->format('Y-m-d'),
-            'time' => '10:00',
+            'name'     => 'Test Kegiatan',
+            'date'     => now()->format('Y-m-d'),
+            'time'     => '10:00',
             'location' => 'Ruang A',
-            'audiens' => 'invalid_audiens', // Invalid
+            'audiens'  => 'invalid_audiens', // Invalid
         ];
 
         $response = $this->actingAs($this->SuperAdmin)
@@ -218,17 +221,17 @@ class KegiatanControllerTest extends TestCase
     public function test_dapat_update_kegiatan_dengan_data_valid()
     {
         $kegiatan = Kegiatan::factory()->create([
-            'name' => 'Kegiatan Lama',
+            'name'    => 'Kegiatan Lama',
             'audiens' => 'umum',
         ]);
 
         $updateData = [
-            'name' => 'Kegiatan Baru',
+            'name'        => 'Kegiatan Baru',
             'description' => 'Updated description',
-            'date' => now()->addDays(10)->format('Y-m-d'),
-            'time' => '14:00',
-            'location' => 'Ruang B202',
-            'audiens' => 'pengurus',
+            'date'        => now()->addDays(10)->format('Y-m-d'),
+            'time'        => '14:00',
+            'location'    => 'Ruang B202',
+            'audiens'     => 'pengurus',
         ];
 
         $response = $this->actingAs($this->SuperAdmin)
@@ -238,8 +241,8 @@ class KegiatanControllerTest extends TestCase
         $response->assertSessionHas('success', 'Data berhasil diperbarui!');
 
         $this->assertDatabaseHas('kegiatan', [
-            'id' => $kegiatan->id,
-            'name' => 'Kegiatan Baru',
+            'id'      => $kegiatan->id,
+            'name'    => 'Kegiatan Baru',
             'audiens' => 'pengurus',
         ]);
     }
@@ -248,11 +251,11 @@ class KegiatanControllerTest extends TestCase
     public function test_update_gagal_dengan_kegiatan_tidak_ditemukan()
     {
         $data = [
-            'name' => 'Test',
-            'date' => now()->format('Y-m-d'),
-            'time' => '10:00',
+            'name'     => 'Test',
+            'date'     => now()->format('Y-m-d'),
+            'time'     => '10:00',
             'location' => 'Ruang A',
-            'audiens' => 'umum',
+            'audiens'  => 'umum',
         ];
 
         $response = $this->actingAs($this->SuperAdmin)
@@ -271,8 +274,7 @@ class KegiatanControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertInertia(
-            fn($page) =>
-            $page->component('DataMaster/Kegiatan')
+            fn ($page) => $page->component('DataMaster/Kegiatan')
                 ->has('kegiatan.data', 5)
         );
     }
@@ -289,8 +291,7 @@ class KegiatanControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertInertia(
-            fn($page) =>
-            $page->has('kegiatan.data', 2)
+            fn ($page) => $page->has('kegiatan.data', 2)
         );
     }
 
@@ -312,7 +313,7 @@ class KegiatanControllerTest extends TestCase
     public function test_export_csv_menghasilkan_file_dengan_format_benar()
     {
         Kegiatan::factory()->create([
-            'name' => 'Test Kegiatan',
+            'name'        => 'Test Kegiatan',
             'description' => 'Test Description',
         ]);
 
