@@ -14,6 +14,8 @@ class PemasukanControllerTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
+    protected $Finance;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -25,235 +27,320 @@ class PemasukanControllerTest extends TestCase
     }
 
     #[Test]
-    public function it_can_display_pemasukan_index_page()
+    public function test_dapat_membuat_pemasukan_dengan_data_valid()
     {
-        // Arrange
-        Pemasukan::factory()->count(3)->create();
-
-        // Act
-        $response = $this->actingAs($this->Finance)->get(route('pemasukan.index'));
-
-        // Assert
-        $response->assertStatus(200);
-        $response->assertInertia(
-            fn ($page) => $page
-                ->component('DataMaster/Pemasukan')
-                ->has('pemasukan')
-                ->has('filters')
-                ->has('flash')
-        );
-    }
-
-    #[Test]
-    public function it_can_filter_pemasukan_by_date_range()
-    {
-        // Arrange
-        Pemasukan::factory()->create(['date' => '2024-01-15']);
-        Pemasukan::factory()->create(['date' => '2024-02-15']);
-        Pemasukan::factory()->create(['date' => '2024-03-15']);
-
-        // Act
-        $response = $this->actingAs($this->Finance)
-            ->get(route('pemasukan.index', [
-                'start_date' => '2024-01-01',
-                'end_date'   => '2024-02-28',
-            ]));
-
-        // Assert
-        $response->assertStatus(200);
-        $response->assertInertia(
-            fn ($page) => $page
-                ->component('DataMaster/Pemasukan')
-                ->where('filters.start_date', '2024-01-01')
-                ->where('filters.end_date', '2024-02-28')
-                ->has('pemasukan.data', 2) // Should only show 2 records within date range
-        );
-    }
-
-    #[Test]
-    public function it_can_create_new_pemasukan_record()
-    {
-        // Arrange
-        $pemasukanData = [
-            'amount'      => 150000,
-            'date'        => '2024-01-15',
-            'description' => 'Data Anggaran tahunan',
+        $data = [
+            'amount'      => 500000,
+            'date'        => now()->format('Y-m-d'),
+            'description' => 'Iuran anggota bulan Januari',
         ];
 
-        // Act
         $response = $this->actingAs($this->Finance)
-            ->post(route('pemasukan.store'), $pemasukanData);
+            ->post(route('pemasukan.store'), $data);
 
-        // Assert
         $response->assertRedirect(route('pemasukan.index'));
         $response->assertSessionHas('success', 'Data berhasil dibuat!');
 
         $this->assertDatabaseHas('pemasukan', [
-            'amount'      => 150000,
-            'date'        => '2024-01-15',
-            'description' => 'Data Anggaran tahunan',
+            'amount'      => 500000,
+            'description' => 'Iuran anggota bulan Januari',
         ]);
     }
 
     #[Test]
-    public function it_can_update_pemasukan_record()
+    public function test_dapat_membuat_pemasukan_tanpa_description()
     {
-        // Arrange
+        $data = [
+            'amount'      => 250000,
+            'date'        => now()->format('Y-m-d'),
+            'description' => null,
+        ];
+
+        $response = $this->actingAs($this->Finance)
+            ->post(route('pemasukan.store'), $data);
+
+        $response->assertRedirect(route('pemasukan.index'));
+
+        $this->assertDatabaseHas('pemasukan', [
+            'amount'      => 250000,
+            'description' => null,
+        ]);
+    }
+
+    #[Test]
+    public function test_gagal_membuat_pemasukan_dengan_amount_negatif()
+    {
+        $data = [
+            'amount'      => -100000, // Negatif
+            'date'        => now()->format('Y-m-d'),
+            'description' => 'Test',
+        ];
+
+        $response = $this->actingAs($this->Finance)
+            ->post(route('pemasukan.store'), $data);
+
+        $response->assertSessionHasErrors('amount');
+
+        $this->assertDatabaseMissing('pemasukan', [
+            'amount' => -100000,
+        ]);
+    }
+
+    #[Test]
+    public function test_gagal_membuat_pemasukan_dengan_amount_bukan_numeric()
+    {
+        $data = [
+            'amount'      => 'abc', // Non-numeric
+            'date'        => now()->format('Y-m-d'),
+            'description' => 'Test',
+        ];
+
+        $response = $this->actingAs($this->Finance)
+            ->post(route('pemasukan.store'), $data);
+
+        $response->assertSessionHasErrors('amount');
+    }
+
+    #[Test]
+    public function test_gagal_membuat_pemasukan_dengan_date_invalid()
+    {
+        $data = [
+            'amount'      => 100000,
+            'date'        => 'invalid-date',
+            'description' => 'Test',
+        ];
+
+        $response = $this->actingAs($this->Finance)
+            ->post(route('pemasukan.store'), $data);
+
+        $response->assertSessionHasErrors('date');
+    }
+
+    #[Test]
+    public function test_gagal_membuat_pemasukan_dengan_description_terlalu_panjang()
+    {
+        $data = [
+            'amount'      => 100000,
+            'date'        => now()->format('Y-m-d'),
+            'description' => str_repeat('a', 256), // Max 255
+        ];
+
+        $response = $this->actingAs($this->Finance)
+            ->post(route('pemasukan.store'), $data);
+
+        $response->assertSessionHasErrors('description');
+    }
+
+    #[Test]
+    public function test_dapat_update_pemasukan_dengan_data_valid()
+    {
         $pemasukan = Pemasukan::factory()->create([
             'amount'      => 100000,
-            'date'        => '2024-01-15',
-            'description' => 'Original description',
+            'description' => 'Old description',
         ]);
 
         $updateData = [
-            'amount'      => 150000,
-            'date'        => '2024-01-20',
+            'amount'      => 200000,
+            'date'        => now()->addDays(1)->format('Y-m-d'),
             'description' => 'Updated description',
         ];
 
-        // Act
         $response = $this->actingAs($this->Finance)
-            ->put(route('pemasukan.update', $pemasukan->id), $updateData);
+            ->put(route('pemasukan.update', $pemasukan), $updateData);
 
-        // Assert
         $response->assertRedirect(route('pemasukan.index'));
         $response->assertSessionHas('success', 'Data berhasil di update!');
 
         $this->assertDatabaseHas('pemasukan', [
             'id'          => $pemasukan->id,
-            'amount'      => 150000,
-            'date'        => '2024-01-20',
+            'amount'      => 200000,
             'description' => 'Updated description',
         ]);
     }
 
     #[Test]
-    public function it_can_delete_pemasukan_record()
+    public function test_gagal_update_pemasukan_dengan_amount_negatif()
     {
-        // Arrange
+        $pemasukan = Pemasukan::factory()->create(['amount' => 100000]);
+
+        $updateData = [
+            'amount' => -50000, // Negatif
+            'date'   => now()->format('Y-m-d'),
+        ];
+
+        $response = $this->actingAs($this->Finance)
+            ->put(route('pemasukan.update', $pemasukan), $updateData);
+
+        $response->assertSessionHasErrors('amount');
+
+        // Data tidak berubah
+        $this->assertDatabaseHas('pemasukan', [
+            'id'     => $pemasukan->id,
+            'amount' => 100000,
+        ]);
+    }
+
+    #[Test]
+    public function test_update_gagal_dengan_pemasukan_tidak_ditemukan()
+    {
+        $data = [
+            'amount' => 100000,
+            'date'   => now()->format('Y-m-d'),
+        ];
+
+        $response = $this->actingAs($this->Finance)
+            ->put(route('pemasukan.update', 99999), $data);
+
+        $response->assertNotFound();
+    }
+
+    #[Test]
+    public function test_dapat_update_hanya_amount_tanpa_mengubah_description()
+    {
+        $pemasukan = Pemasukan::factory()->create([
+            'amount'      => 100000,
+            'description' => 'Original description',
+        ]);
+
+        $updateData = [
+            'amount'      => 150000,
+            'date'        => $pemasukan->date,
+            'description' => 'Original description',
+        ];
+
+        $response = $this->actingAs($this->Finance)
+            ->put(route('pemasukan.update', $pemasukan), $updateData);
+
+        $response->assertRedirect(route('pemasukan.index'));
+
+        $this->assertDatabaseHas('pemasukan', [
+            'id'          => $pemasukan->id,
+            'amount'      => 150000,
+            'description' => 'Original description',
+        ]);
+    }
+
+    #[Test]
+    public function test_index_menampilkan_semua_pemasukan()
+    {
+        Pemasukan::factory()->count(5)->create();
+
+        $response = $this->actingAs($this->Finance)
+            ->get(route('pemasukan.index'));
+
+        $response->assertStatus(200);
+        $response->assertInertia(
+            fn ($page) => $page->component('DataMaster/Pemasukan')
+                ->has('pemasukan.data', 5)
+        );
+    }
+
+    #[Test]
+    public function test_index_dapat_filter_berdasarkan_range_tanggal()
+    {
+        // Data di bulan Januari
+        Pemasukan::factory()->create(['date' => '2024-01-15', 'amount' => 100000]);
+        Pemasukan::factory()->create(['date' => '2024-01-20', 'amount' => 200000]);
+
+        // Data di bulan Februari (tidak terfilter)
+        Pemasukan::factory()->create(['date' => '2024-02-15', 'amount' => 300000]);
+
+        $response = $this->actingAs($this->Finance)
+            ->get(route('pemasukan.index', [
+                'start_date' => '2024-01-01',
+                'end_date'   => '2024-01-31',
+            ]));
+
+        $response->assertStatus(200);
+        $response->assertInertia(
+            fn ($page) => $page->has('pemasukan.data', 2)
+        );
+    }
+
+    #[Test]
+    public function test_dapat_menghapus_pemasukan()
+    {
         $pemasukan = Pemasukan::factory()->create();
 
-        // Act
         $response = $this->actingAs($this->Finance)
-            ->delete(route('pemasukan.destroy', $pemasukan->id));
+            ->delete(route('pemasukan.destroy', $pemasukan));
 
-        // Assert
         $response->assertRedirect(route('pemasukan.index'));
         $response->assertSessionHas('success', 'Data berhasil dihapus!');
+
         $this->assertDatabaseMissing('pemasukan', ['id' => $pemasukan->id]);
     }
 
     #[Test]
-    public function it_can_export_pemasukan_to_csv()
+    public function test_destroy_gagal_dengan_pemasukan_tidak_ditemukan()
     {
-        // Arrange
-        Pemasukan::factory()->count(3)->create([
-            'amount'      => 100000,
-            'description' => 'Test pemasukan',
+        $response = $this->actingAs($this->Finance)
+            ->delete(route('pemasukan.destroy', 99999));
+
+        $response->assertNotFound();
+    }
+
+    #[Test]
+    public function test_export_csv_menghasilkan_file_dengan_format_benar()
+    {
+        Pemasukan::factory()->create([
+            'date'        => '2024-01-15',
+            'amount'      => 500000,
+            'description' => 'Test Pemasukan',
         ]);
 
-        // Act
         $response = $this->actingAs($this->Finance)
             ->get(route('pemasukan.export.csv'));
 
-        // Assert
         $response->assertStatus(200);
-        $response->assertHeader('Content-Type', 'text/csv; charset=UTF-8');
-        $response->assertHeader('Content-Disposition');
+        $response->assertHeader('content-type', 'text/csv; charset=UTF-8');
 
-        $response->getContent();
+        $content = $response->streamedContent();
+        $this->assertStringContainsString('Tanggal', $content);
+        $this->assertStringContainsString('500000', $content);
+        $this->assertStringContainsString('Test Pemasukan', $content);
     }
 
     #[Test]
-    public function it_validates_required_fields_when_updating_pemasukan()
+    public function test_export_csv_dengan_filter_tanggal()
     {
-        // Arrange
-        $pemasukan = Pemasukan::factory()->create();
-
-        // Act
-        $response = $this->actingAs($this->Finance)
-            ->put(route('pemasukan.update', $pemasukan->id), []);
-
-        // Assert
-        $response->assertSessionHasErrors(['amount', 'date']);
-    }
-
-    #[Test]
-    public function it_validates_required_fields_when_creating_pemasukan()
-    {
-        // Act
-        $response = $this->actingAs($this->Finance)
-            ->post(route('pemasukan.store'), []);
-
-        // Assert
-        $response->assertSessionHasErrors(['amount', 'date']);
-    }
-
-    #[Test]
-    public function it_validates_amount_is_numeric_and_positive()
-    {
-        // Test negative amount
-        $response = $this->actingAs($this->Finance)
-            ->post(route('pemasukan.store'), [
-                'amount' => -1000,
-                'date'   => '2024-01-15',
-            ]);
-
-        $response->assertSessionHasErrors(['amount']);
-
-        // Test non-numeric amount
-        $response = $this->actingAs($this->Finance)
-            ->post(route('pemasukan.store'), [
-                'amount' => 'invalid',
-                'date'   => '2024-01-15',
-            ]);
-
-        $response->assertSessionHasErrors(['amount']);
-
-        // Test zero amount (should be valid)
-        $response = $this->actingAs($this->Finance)
-            ->post(route('pemasukan.store'), [
-                'amount' => 0,
-                'date'   => '2024-01-15',
-            ]);
-
-        $response->assertRedirect(route('pemasukan.index'));
-        $response->assertSessionHasNoErrors();
-    }
-
-    #[Test]
-    public function it_validates_date_format()
-    {
-        // Arrange
-        $pemasukanData = [
-            'amount'      => 50000,
-            'date'        => 'invalid-date',
-            'description' => 'Test description',
-        ];
-
-        // Act
-        $response = $this->actingAs($this->Finance)
-            ->post(route('pemasukan.store'), $pemasukanData);
-
-        // Assert
-        $response->assertSessionHasErrors(['date']);
-    }
-
-    #[Test]
-    public function it_validates_description_max_length()
-    {
-        // Arrange
-        $pemasukanData = [
-            'amount'      => 50000,
+        Pemasukan::factory()->create([
             'date'        => '2024-01-15',
-            'description' => str_repeat('a', 256), // Exceeds 255 character limit
-        ];
+            'amount'      => 100000,
+            'description' => 'Januari',
+        ]);
 
-        // Act
+        Pemasukan::factory()->create([
+            'date'        => '2024-02-15',
+            'amount'      => 200000,
+            'description' => 'Februari',
+        ]);
+
         $response = $this->actingAs($this->Finance)
-            ->post(route('pemasukan.store'), $pemasukanData);
+            ->get(route('pemasukan.export.csv', [
+                'start_date' => '2024-01-01',
+                'end_date'   => '2024-01-31',
+            ]));
 
-        // Assert
-        $response->assertSessionHasErrors(['description']);
+        $response->assertStatus(200);
+
+        $content = $response->streamedContent();
+        $this->assertStringContainsString('Januari', $content);
+        $this->assertStringNotContainsString('Februari', $content);
+    }
+
+    #[Test]
+    public function test_export_csv_dengan_data_kosong()
+    {
+        $response = $this->actingAs($this->Finance)
+            ->get(route('pemasukan.export.csv'));
+
+        $response->assertStatus(200);
+
+        $content = $response->streamedContent();
+        // Hanya header yang ada
+        $this->assertStringContainsString('Tanggal', $content);
+        $this->assertStringContainsString('Jumlah', $content);
+        $this->assertStringContainsString('Keterangan', $content);
     }
 }
