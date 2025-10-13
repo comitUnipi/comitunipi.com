@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreFormIzinRequest;
 use App\Models\QrCode;
 use App\Models\QrCodeScan;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -48,13 +48,8 @@ class FormIzinController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreFormIzinRequest $request)
     {
-        $request->validate([
-            'alasan' => 'required|string|max:1000',
-            'status' => 'required|in:izin,sakit',
-        ]);
-
         $tanggal_izin = now()->toDateString();
         $user         = Auth::user();
         $qrCode       = QrCode::with('kegiatan')
