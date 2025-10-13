@@ -71,7 +71,7 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        $validated = $request->validated();
+        $validated             = $request->validated();
         $validated['password'] = Hash::make($validated['password']);
 
         User::create($validated);
@@ -164,7 +164,7 @@ class UserController extends Controller
             fclose($handle);
         });
 
-        $filename = 'users_export_' . now()->format('Ymd_His') . '.csv';
+        $filename = 'users_export_'.now()->format('Ymd_His').'.csv';
 
         $response->headers->set('Content-Type', 'text/csv');
         $response->headers->set('Content-Disposition', "attachment; filename=\"$filename\"");
