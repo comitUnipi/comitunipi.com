@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\KegiatanRequest;
 use App\Models\Kegiatan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -105,36 +106,18 @@ class KegiatanController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(KegiatanRequest $request)
     {
-        $validated = $request->validate([
-            'name'        => ['required', 'string'],
-            'description' => ['nullable', 'string'],
-            'date'        => ['required', 'date'],
-            'time'        => ['required'],
-            'location'    => ['required', 'string'],
-            'audiens'     => ['required', 'in:umum,anggota,pengurus'],
-        ]);
-
-        Kegiatan::create($validated);
+        Kegiatan::create($request->validated());
 
         return redirect()->route('kegiatan.index')->with('success', 'Data berhasil dibuat!');
     }
 
-    public function update(Request $request, $id)
+    public function update(KegiatanRequest $request, $id)
     {
         $kegiatan = Kegiatan::findOrFail($id);
 
-        $validated = $request->validate([
-            'name'        => ['required', 'string'],
-            'description' => ['nullable', 'string'],
-            'date'        => ['required', 'date'],
-            'time'        => ['required'],
-            'location'    => ['required', 'string'],
-            'audiens'     => ['required', 'in:umum,anggota,pengurus'],
-        ]);
-
-        $kegiatan->update($validated);
+        $kegiatan->update($request->validated());
 
         return redirect()->route('kegiatan.index')->with('success', 'Data berhasil diperbarui!');
     }

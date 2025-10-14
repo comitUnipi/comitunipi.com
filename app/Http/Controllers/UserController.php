@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -69,37 +69,19 @@ class UserController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $validated = $request->validate([
-            'name'           => 'required|string|max:255',
-            'email'          => 'required|email|unique:users,email',
-            'npm'            => 'required|string|max:20|unique:users,npm',
-            'role'           => 'required|in:Guest,User,Admin,Super Admin',
-            'jenis_kelamin'  => 'required|string',
-            'no_wa'          => 'nullable|string|max:20',
-            'jurusan'        => 'nullable|string|max:100',
-            'position'       => 'nullable|string|max:100',
-            'minat_keahlian' => 'nullable|string|max:100',
-            'alasan'         => 'nullable|string|max:500',
-            'is_active'      => 'required|boolean',
-            'password'       => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-
-        $validated['password'] = Hash::make($request->password);
+        $validated             = $request->validated();
+        $validated['password'] = Hash::make($validated['password']);
 
         User::create($validated);
 
         return redirect()->route('users.index')->with('success', 'Anggota berhasil dibuat!');
     }
 
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $validated = $request->validate([
-            'role'      => 'required|string',
-            'position'  => 'required|string',
-            'is_active' => 'required|boolean',
-        ]);
+        $validated = $request->validated();
 
         $user->update($validated);
         $redirectRoute = $request->input('redirect_to', 'users.index');

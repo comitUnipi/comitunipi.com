@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreKasRequest;
+use App\Http\Requests\UpdateKasRequest;
 use App\Models\Kas;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -49,31 +51,18 @@ class KasController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreKasRequest $request)
     {
-        $validated = $request->validate([
-            'user_id' => ['required', 'exists:users,id'],
-            'amount'  => ['required', 'numeric', 'min:0'],
-            'date'    => ['required', 'date'],
-            'type'    => ['nullable', 'string', 'max:255'],
-        ]);
-
-        Kas::create($validated);
+        Kas::create($request->validated());
 
         return redirect()->route('kas.index')->with('success', 'Data berhasil dibuat!');
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateKasRequest $request, $id)
     {
         $kas = Kas::findOrFail($id);
 
-        $validated = $request->validate([
-            'amount' => ['required', 'numeric', 'min:0'],
-            'date'   => ['required', 'date'],
-            'type'   => ['nullable', 'string', 'max:255'],
-        ]);
-
-        $kas->update($validated);
+        $kas->update($request->validated());
 
         return redirect()->route('kas.index')->with('success', 'Data berhasil di update!');
     }

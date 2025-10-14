@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePemasukanRequest;
+use App\Http\Requests\UpdatePemasukanRequest;
 use App\Models\Pemasukan;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -32,30 +34,18 @@ class PemasukanController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StorePemasukanRequest $request)
     {
-        $validated = $request->validate([
-            'amount'      => ['required', 'numeric', 'min:0'],
-            'date'        => ['required', 'date'],
-            'description' => ['nullable', 'string', 'max:255'],
-        ]);
-
-        Pemasukan::create($validated);
+        Pemasukan::create($request->validated());
 
         return redirect()->route('pemasukan.index')->with('success', 'Data berhasil dibuat!');
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdatePemasukanRequest $request, $id)
     {
         $pemasukan = Pemasukan::findOrFail($id);
 
-        $validated = $request->validate([
-            'amount'      => ['required', 'numeric', 'min:0'],
-            'date'        => ['required', 'date'],
-            'description' => ['nullable', 'string', 'max:255'],
-        ]);
-
-        $pemasukan->update($validated);
+        $pemasukan->update($request->validated());
 
         return redirect()->route('pemasukan.index')->with('success', 'Data berhasil di update!');
     }
