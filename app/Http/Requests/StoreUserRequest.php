@@ -7,21 +7,11 @@ use Illuminate\Validation\Rules;
 
 class StoreUserRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        // Atur ke true jika semua pengguna yang terotentikasi dapat membuat pengguna baru.
-        // Anda bisa menambahkan logika otorisasi yang lebih spesifik di sini jika diperlukan.
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
