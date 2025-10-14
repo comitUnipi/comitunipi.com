@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreScanAbsensiRequest;
 use App\Models\QrCode;
 use App\Models\QrCodeScan;
 use Illuminate\Http\Request;
@@ -20,12 +21,9 @@ class ScanAbsensiController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreScanAbsensiRequest $request)
     {
-        $validated = $request->validate([
-            'token'  => 'required|string',
-            'status' => 'nullable|in:hadir,izin,sakit',
-        ]);
+        $validated = $request->validated();
 
         $user   = Auth::user();
         $token  = $validated['token'];
