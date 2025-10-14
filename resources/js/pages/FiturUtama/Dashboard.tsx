@@ -1,11 +1,11 @@
 import FinancialBarChart from '@/components/analytics/financial-bar-chart';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
-import { User } from '@/types';
+import { InertiaProps } from '@/types/inertia';
 import { Head } from '@inertiajs/react';
 import { CheckCircle, Clock, UserCog, Users } from 'lucide-react';
 
-interface Props {
+interface Props extends InertiaProps {
   stats?: {
     totalUsers: number;
     totalUsersAktif: number;
@@ -14,9 +14,6 @@ interface Props {
     totalPemasukan: number;
     totalPengeluaran: number;
     totalKAS: number;
-  };
-  auth: {
-    user: User;
   };
 }
 

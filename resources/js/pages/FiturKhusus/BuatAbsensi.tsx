@@ -18,6 +18,7 @@ import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { capitalizeFirstLetter } from '@/lib/capitalize-first-letter';
 import { Kegiatan } from '@/types';
+import { InertiaProps } from '@/types/inertia';
 import { Head } from '@inertiajs/react';
 
 interface QrData {
@@ -32,12 +33,8 @@ interface QrData {
   };
 }
 
-interface Props {
+interface Props extends InertiaProps {
   kegiatan: Kegiatan[];
-  flash?: {
-    success?: string;
-    error?: string;
-  };
   qrData?: QrData;
   qrCodeSvg?: string;
 }

@@ -23,8 +23,9 @@ import { Plus } from 'lucide-react';
 import FilterAnggota from './components/anggota-filter';
 import FormAnggota from './components/anggota-form';
 import TableAnggota from './components/anggota-table';
+import { InertiaProps } from '@/types/inertia';
 
-interface Props {
+interface Props extends InertiaProps {
   users: {
     data: User[];
     current_page: number;
@@ -41,13 +42,6 @@ interface Props {
     status: string;
     jurusan: string;
     minat_keahlian: string;
-  };
-  flash?: {
-    success?: string;
-    error?: string;
-  };
-  auth: {
-    user: User;
   };
 }
 

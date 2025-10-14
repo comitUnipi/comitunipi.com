@@ -23,8 +23,9 @@ import { useState } from 'react';
 import FilterKegiatan from './components/kegiatan-filter';
 import FormKegiatan from './components/kegiatan-form';
 import TableKegiatan from './components/kegiatan-table';
+import { InertiaProps } from '@/types/inertia';
 
-interface Props {
+interface Props extends InertiaProps {
   kegiatan: {
     data: Kegiatan[];
     current_page: number;
@@ -36,13 +37,6 @@ interface Props {
   };
   filters: {
     search: string;
-  };
-  flash?: {
-    success?: string;
-    error?: string;
-  };
-  auth: {
-    user: User;
   };
 }
 

@@ -25,8 +25,9 @@ import { useState } from 'react';
 import FilterKas from './components/kas-filter';
 import FormKas from './components/kas-form';
 import TableKas from './components/kas-table';
+import { InertiaProps } from '@/types/inertia';
 
-interface Props {
+interface Props extends InertiaProps{
   kas: {
     data: Kas[];
     current_page: number;
@@ -42,13 +43,6 @@ interface Props {
     type: string;
     start_date: string;
     end_date: string;
-  };
-  flash?: {
-    success?: string;
-    error?: string;
-  };
-  auth: {
-    user: User;
   };
 }
 

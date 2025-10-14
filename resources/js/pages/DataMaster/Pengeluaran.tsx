@@ -22,8 +22,9 @@ import { Plus } from 'lucide-react';
 import FilterPengeluaran from './components/pengeluaran-filter';
 import FormPengeluaran from './components/pengeluaran-form';
 import TablePengeluaran from './components/pengeluaran-table';
+import { InertiaProps } from '@/types/inertia';
 
-interface Props {
+interface Props extends InertiaProps {
   pengeluaran: {
     data: Pengeluaran[];
     current_page: number;
@@ -36,13 +37,6 @@ interface Props {
   filters: {
     start_date: string;
     end_date: string;
-  };
-  flash?: {
-    success?: string;
-    error?: string;
-  };
-  auth: {
-    user: User;
   };
 }
 

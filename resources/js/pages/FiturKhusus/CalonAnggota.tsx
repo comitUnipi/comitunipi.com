@@ -18,8 +18,9 @@ import { useState } from 'react';
 import Filter from './components/filter';
 import Form from './components/form';
 import Table from './components/table';
+import { InertiaProps } from '@/types/inertia';
 
-interface Props {
+interface Props extends InertiaProps {
   users: {
     data: User[];
     current_page: number;
@@ -31,13 +32,6 @@ interface Props {
   };
   filters: {
     search: string;
-  };
-  flash?: {
-    success?: string;
-    error?: string;
-  };
-  auth: {
-    user: User;
   };
 }
 

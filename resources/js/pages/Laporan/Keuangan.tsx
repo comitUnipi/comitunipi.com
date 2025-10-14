@@ -6,21 +6,19 @@ import { Laporan, User } from '@/types';
 import { Head } from '@inertiajs/react';
 import FilterLaporanKeuangan from './components/laporan-keuangan-filter';
 import TableLaporanKeuangan from './components/laporan-keuangan-table';
+import { InertiaProps } from '@/types/inertia';
 
 interface Periode {
   start: string;
   end: string;
 }
 
-interface Props {
+interface Props extends InertiaProps {
   laporan: Laporan[];
   periode?: Periode;
   totalSaldo: number;
   totalDebit: number;
   totalKredit: number;
-  auth: {
-    user: User;
-  };
 }
 
 export default function Pages({
