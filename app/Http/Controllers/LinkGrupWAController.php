@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateLinkGrupWARequest;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -21,15 +22,11 @@ class LinkGrupWAController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(UpdateLinkGrupWARequest $request)
     {
-        $request->validate([
-            'whatsapp_link' => 'required|url',
-        ]);
-
         Setting::updateOrCreate(
             ['key' => 'whatsapp_group_link'],
-            ['value' => $request->input('whatsapp_link')]
+            ['value' => $request->validated()['whatsapp_link']]
         );
 
         return redirect()->back()->with('success', 'Link WhatsApp berhasil diperbarui!');
