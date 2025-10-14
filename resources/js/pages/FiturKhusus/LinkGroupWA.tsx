@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import useToastFlash from '@/hooks/use-toast-flash';
 import useWaLinkForm from '@/hooks/use-wa-link-form';
 import AppLayout from '@/layouts/app-layout';
-import { InertiaProps } from '@/types/inertia';
+import { InertiaProps } from '@/types';
 import { Head } from '@inertiajs/react';
 
 interface Props extends InertiaProps {

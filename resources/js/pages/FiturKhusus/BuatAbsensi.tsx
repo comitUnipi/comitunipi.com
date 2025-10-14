@@ -17,8 +17,7 @@ import useQrPreview from '@/hooks/use-qr-preview';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { capitalizeFirstLetter } from '@/lib/capitalize-first-letter';
-import { Kegiatan } from '@/types';
-import { InertiaProps } from '@/types/inertia';
+import { InertiaProps, Kegiatan } from '@/types';
 import { Head } from '@inertiajs/react';
 
 interface QrData {

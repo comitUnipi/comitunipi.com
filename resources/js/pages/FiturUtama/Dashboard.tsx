@@ -1,7 +1,7 @@
 import FinancialBarChart from '@/components/analytics/financial-bar-chart';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
-import { InertiaProps } from '@/types/inertia';
+import { InertiaProps } from '@/types';
 import { Head } from '@inertiajs/react';
 import { CheckCircle, Clock, UserCog, Users } from 'lucide-react';
 

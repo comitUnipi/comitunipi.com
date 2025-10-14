@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useQrScanner } from '@/hooks/use-qr-scanner';
 import AppLayout from '@/layouts/app-layout';
-import { InertiaProps } from '@/types/inertia';
+import { InertiaProps } from '@/types';
 import { Head } from '@inertiajs/react';
 import { Camera, CheckCircle, XCircle } from 'lucide-react';
 
