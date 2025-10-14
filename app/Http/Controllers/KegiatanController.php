@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\KegiatanRequest;
 use App\Models\Kegiatan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class KegiatanController extends Controller
         $query = Kegiatan::query();
 
         if ($search = $request->input('search')) {
-            $query->where('name', 'like', '%'.$search.'%');
+            $query->where('name', 'like', '%' . $search . '%');
         }
 
         if ($request->filled('audiens') && $request->audiens !== 'all') {
@@ -105,36 +106,18 @@ class KegiatanController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(KegiatanRequest $request)
     {
-        $validated = $request->validate([
-            'name'        => ['required', 'string'],
-            'description' => ['nullable', 'string'],
-            'date'        => ['required', 'date'],
-            'time'        => ['required'],
-            'location'    => ['required', 'string'],
-            'audiens'     => ['required', 'in:umum,anggota,pengurus'],
-        ]);
-
-        Kegiatan::create($validated);
+        Kegiatan::create($request->validated());
 
         return redirect()->route('kegiatan.index')->with('success', 'Data berhasil dibuat!');
     }
 
-    public function update(Request $request, $id)
+    public function update(KegiatanRequest $request, $id)
     {
         $kegiatan = Kegiatan::findOrFail($id);
 
-        $validated = $request->validate([
-            'name'        => ['required', 'string'],
-            'description' => ['nullable', 'string'],
-            'date'        => ['required', 'date'],
-            'time'        => ['required'],
-            'location'    => ['required', 'string'],
-            'audiens'     => ['required', 'in:umum,anggota,pengurus'],
-        ]);
-
-        $kegiatan->update($validated);
+        $kegiatan->update($request->validated());
 
         return redirect()->route('kegiatan.index')->with('success', 'Data berhasil diperbarui!');
     }
@@ -153,7 +136,7 @@ class KegiatanController extends Controller
 
         if ($search = $request->input('search')) {
             $query->whereHas('kegiatan', function ($q) use ($search) {
-                $q->where('name', 'like', '%'.$search.'%');
+                $q->where('name', 'like', '%' . $search . '%');
             });
         }
 
@@ -177,7 +160,7 @@ class KegiatanController extends Controller
             fclose($handle);
         });
 
-        $filename = 'kegiatan_export_'.now()->format('Ymd_His').'.csv';
+        $filename = 'kegiatan_export_' . now()->format('Ymd_His') . '.csv';
         $response->headers->set('Content-Type', 'text/csv');
         $response->headers->set('Content-Disposition', "attachment; filename=\"$filename\"");
 
