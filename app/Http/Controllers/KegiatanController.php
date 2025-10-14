@@ -17,7 +17,7 @@ class KegiatanController extends Controller
         $query = Kegiatan::query();
 
         if ($search = $request->input('search')) {
-            $query->where('name', 'like', '%' . $search . '%');
+            $query->where('name', 'like', '%'.$search.'%');
         }
 
         if ($request->filled('audiens') && $request->audiens !== 'all') {
@@ -136,7 +136,7 @@ class KegiatanController extends Controller
 
         if ($search = $request->input('search')) {
             $query->whereHas('kegiatan', function ($q) use ($search) {
-                $q->where('name', 'like', '%' . $search . '%');
+                $q->where('name', 'like', '%'.$search.'%');
             });
         }
 
@@ -160,7 +160,7 @@ class KegiatanController extends Controller
             fclose($handle);
         });
 
-        $filename = 'kegiatan_export_' . now()->format('Ymd_His') . '.csv';
+        $filename = 'kegiatan_export_'.now()->format('Ymd_His').'.csv';
         $response->headers->set('Content-Type', 'text/csv');
         $response->headers->set('Content-Disposition', "attachment; filename=\"$filename\"");
 
