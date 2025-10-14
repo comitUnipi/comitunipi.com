@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateLinkGrupWARequest;
 use App\Models\Setting;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class LinkGrupWAController extends Controller
