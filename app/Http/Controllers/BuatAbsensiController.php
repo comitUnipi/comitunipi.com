@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAbsensiRequest;
 use App\Models\Kegiatan;
 use App\Models\QrCode;
 use Endroid\QrCode\Builder\Builder;
@@ -42,13 +43,9 @@ class BuatAbsensiController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreAbsensiRequest $request)
     {
-        $validated = $request->validate([
-            'kegiatan_id' => 'required|exists:kegiatan,id',
-            'start_time'  => 'required|date_format:H:i',
-            'end_time'    => 'required|date_format:H:i|after:start_time',
-        ]);
+        $validated = $request->validated();
 
         DB::transaction(function () use ($validated) {
             QrCode::where('is_active', true)->update(['is_active' => false]);
