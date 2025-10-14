@@ -2,11 +2,11 @@ import ButtonExport from '@/components/app-button-export';
 import Heading from '@/components/heading';
 import useDateRangeFilter from '@/hooks/use-date-range-filter';
 import AppLayout from '@/layouts/app-layout';
-import { Laporan, User } from '@/types';
+import { Laporan } from '@/types';
+import { InertiaProps } from '@/types/inertia';
 import { Head } from '@inertiajs/react';
 import FilterLaporanKeuangan from './components/laporan-keuangan-filter';
 import TableLaporanKeuangan from './components/laporan-keuangan-table';
-import { InertiaProps } from '@/types/inertia';
 
 interface Periode {
   start: string;

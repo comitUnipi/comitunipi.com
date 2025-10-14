@@ -19,15 +19,15 @@ import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { Kas, User } from '@/types';
+import { InertiaProps } from '@/types/inertia';
 import { Head } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import FilterKas from './components/kas-filter';
 import FormKas from './components/kas-form';
 import TableKas from './components/kas-table';
-import { InertiaProps } from '@/types/inertia';
 
-interface Props extends InertiaProps{
+interface Props extends InertiaProps {
   kas: {
     data: Kas[];
     current_page: number;

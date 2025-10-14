@@ -18,12 +18,12 @@ import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { User } from '@/types';
+import { InertiaProps } from '@/types/inertia';
 import { Head } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import FilterAnggota from './components/anggota-filter';
 import FormAnggota from './components/anggota-form';
 import TableAnggota from './components/anggota-table';
-import { InertiaProps } from '@/types/inertia';
 
 interface Props extends InertiaProps {
   users: {

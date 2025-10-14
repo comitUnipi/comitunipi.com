@@ -16,14 +16,14 @@ import usePaginate from '@/hooks/use-paginate';
 import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
-import { Kegiatan, User } from '@/types';
+import { Kegiatan } from '@/types';
+import { InertiaProps } from '@/types/inertia';
 import { Head } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import FilterKegiatan from './components/kegiatan-filter';
 import FormKegiatan from './components/kegiatan-form';
 import TableKegiatan from './components/kegiatan-table';
-import { InertiaProps } from '@/types/inertia';
 
 interface Props extends InertiaProps {
   kegiatan: {

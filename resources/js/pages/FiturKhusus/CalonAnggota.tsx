@@ -13,12 +13,12 @@ import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
 import { User } from '@/types';
+import { InertiaProps } from '@/types/inertia';
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
 import Filter from './components/filter';
 import Form from './components/form';
 import Table from './components/table';
-import { InertiaProps } from '@/types/inertia';
 
 interface Props extends InertiaProps {
   users: {

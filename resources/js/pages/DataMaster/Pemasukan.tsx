@@ -16,13 +16,13 @@ import usePaginate from '@/hooks/use-paginate';
 import usePemasukanForm from '@/hooks/use-pemasukan-form';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
-import { Pemasukan, User } from '@/types';
+import { Pemasukan } from '@/types';
+import { InertiaProps } from '@/types/inertia';
 import { Head } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import FilterPemasukan from './components/pemasukan-filter';
 import FormPemasukan from './components/pemasukan-form';
 import TablePemasukan from './components/pemasukan-table';
-import { InertiaProps } from '@/types/inertia';
 
 interface Props extends InertiaProps {
   pemasukan: {
