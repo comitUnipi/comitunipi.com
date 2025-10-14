@@ -2,7 +2,7 @@ import ButtonExport from '@/components/app-button-export';
 import Heading from '@/components/heading';
 import useDateRangeFilter from '@/hooks/use-date-range-filter';
 import AppLayout from '@/layouts/app-layout';
-import { Laporan, User } from '@/types';
+import { InertiaProps, Laporan } from '@/types';
 import { Head } from '@inertiajs/react';
 import FilterLaporanKeuangan from './components/laporan-keuangan-filter';
 import TableLaporanKeuangan from './components/laporan-keuangan-table';
@@ -12,15 +12,12 @@ interface Periode {
   end: string;
 }
 
-interface Props {
+interface Props extends InertiaProps {
   laporan: Laporan[];
   periode?: Periode;
   totalSaldo: number;
   totalDebit: number;
   totalKredit: number;
-  auth: {
-    user: User;
-  };
 }
 
 export default function Pages({

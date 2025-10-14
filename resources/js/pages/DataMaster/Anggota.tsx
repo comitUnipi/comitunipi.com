@@ -17,14 +17,14 @@ import usePaginate from '@/hooks/use-paginate';
 import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
-import { User } from '@/types';
+import { InertiaProps, User } from '@/types';
 import { Head } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import FilterAnggota from './components/anggota-filter';
 import FormAnggota from './components/anggota-form';
 import TableAnggota from './components/anggota-table';
 
-interface Props {
+interface Props extends InertiaProps {
   users: {
     data: User[];
     current_page: number;
@@ -41,13 +41,6 @@ interface Props {
     status: string;
     jurusan: string;
     minat_keahlian: string;
-  };
-  flash?: {
-    success?: string;
-    error?: string;
-  };
-  auth: {
-    user: User;
   };
 }
 

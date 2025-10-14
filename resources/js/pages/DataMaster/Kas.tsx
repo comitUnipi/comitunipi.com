@@ -18,7 +18,7 @@ import usePaginate from '@/hooks/use-paginate';
 import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
-import { Kas, User } from '@/types';
+import { InertiaProps, Kas, User } from '@/types';
 import { Head } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
@@ -26,7 +26,7 @@ import FilterKas from './components/kas-filter';
 import FormKas from './components/kas-form';
 import TableKas from './components/kas-table';
 
-interface Props {
+interface Props extends InertiaProps {
   kas: {
     data: Kas[];
     current_page: number;
@@ -42,13 +42,6 @@ interface Props {
     type: string;
     start_date: string;
     end_date: string;
-  };
-  flash?: {
-    success?: string;
-    error?: string;
-  };
-  auth: {
-    user: User;
   };
 }
 

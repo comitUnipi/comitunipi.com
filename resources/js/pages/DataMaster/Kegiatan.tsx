@@ -16,7 +16,7 @@ import usePaginate from '@/hooks/use-paginate';
 import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
-import { Kegiatan, User } from '@/types';
+import { InertiaProps, Kegiatan } from '@/types';
 import { Head } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
@@ -24,7 +24,7 @@ import FilterKegiatan from './components/kegiatan-filter';
 import FormKegiatan from './components/kegiatan-form';
 import TableKegiatan from './components/kegiatan-table';
 
-interface Props {
+interface Props extends InertiaProps {
   kegiatan: {
     data: Kegiatan[];
     current_page: number;
@@ -36,13 +36,6 @@ interface Props {
   };
   filters: {
     search: string;
-  };
-  flash?: {
-    success?: string;
-    error?: string;
-  };
-  auth: {
-    user: User;
   };
 }
 

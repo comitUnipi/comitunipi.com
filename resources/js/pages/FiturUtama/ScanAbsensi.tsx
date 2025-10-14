@@ -4,18 +4,11 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useQrScanner } from '@/hooks/use-qr-scanner';
 import AppLayout from '@/layouts/app-layout';
+import { InertiaProps } from '@/types';
 import { Head } from '@inertiajs/react';
 import { Camera, CheckCircle, XCircle } from 'lucide-react';
 
-interface Props {
-  flash: {
-    success?: string;
-    error?: string;
-    message?: string;
-  };
-}
-
-export default function Pages({ flash }: Props) {
+export default function Pages({ flash }: InertiaProps) {
   const { scannerActive, generalError, cameras, startScanner, switchCamera } =
     useQrScanner();
 

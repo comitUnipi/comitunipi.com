@@ -5,6 +5,14 @@ export interface Auth {
   user: User;
 }
 
+export interface InertiaProps {
+  flash?: {
+    success?: string;
+    error?: string;
+  };
+  auth: Auth;
+}
+
 export interface BreadcrumbItem {
   title: string;
   href: string;

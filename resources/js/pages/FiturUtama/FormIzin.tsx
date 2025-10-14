@@ -21,15 +21,11 @@ import useIzinForm from '@/hooks/use-izin-form';
 import AppLayout from '@/layouts/app-layout';
 import { capitalizeFirstLetter } from '@/lib/capitalize-first-letter';
 import { formatDate } from '@/lib/format-date';
-import { Kegiatan } from '@/types';
+import { InertiaProps, Kegiatan } from '@/types';
 import { Head } from '@inertiajs/react';
 import { Calendar, CalendarDays, Clock, MapPin, Users } from 'lucide-react';
 
-interface Props {
-  flash?: {
-    success?: string;
-    error?: string;
-  };
+interface Props extends InertiaProps {
   kegiatan?: Kegiatan;
 }
 

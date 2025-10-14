@@ -12,14 +12,14 @@ import usePaginate from '@/hooks/use-paginate';
 import useSearch from '@/hooks/use-search';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
-import { User } from '@/types';
+import { InertiaProps, User } from '@/types';
 import { Head } from '@inertiajs/react';
 import { useState } from 'react';
 import Filter from './components/filter';
 import Form from './components/form';
 import Table from './components/table';
 
-interface Props {
+interface Props extends InertiaProps {
   users: {
     data: User[];
     current_page: number;
@@ -31,13 +31,6 @@ interface Props {
   };
   filters: {
     search: string;
-  };
-  flash?: {
-    success?: string;
-    error?: string;
-  };
-  auth: {
-    user: User;
   };
 }
 

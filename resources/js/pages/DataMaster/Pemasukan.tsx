@@ -16,14 +16,14 @@ import usePaginate from '@/hooks/use-paginate';
 import usePemasukanForm from '@/hooks/use-pemasukan-form';
 import useToastFlash from '@/hooks/use-toast-flash';
 import AppLayout from '@/layouts/app-layout';
-import { Pemasukan, User } from '@/types';
+import { InertiaProps, Pemasukan } from '@/types';
 import { Head } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import FilterPemasukan from './components/pemasukan-filter';
 import FormPemasukan from './components/pemasukan-form';
 import TablePemasukan from './components/pemasukan-table';
 
-interface Props {
+interface Props extends InertiaProps {
   pemasukan: {
     data: Pemasukan[];
     current_page: number;
@@ -36,13 +36,6 @@ interface Props {
   filters: {
     start_date: string;
     end_date: string;
-  };
-  flash?: {
-    success?: string;
-    error?: string;
-  };
-  auth: {
-    user: User;
   };
 }
 
