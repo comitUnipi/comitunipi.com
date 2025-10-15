@@ -16,7 +16,11 @@ class DashboardControllerTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    protected User $admin;
+    protected $Admin;
+
+    protected $Inactive;
+
+    protected $Guest;
 
     protected function setUp(): void
     {
@@ -26,15 +30,23 @@ class DashboardControllerTest extends TestCase
             'role'      => 'Admin',
             'is_active' => true,
         ]);
+
+        $this->Inactive = User::factory()->create([
+            'role'      => 'Admin',
+            'is_active' => false,
+        ]);
+
+        $this->Guest = User::factory()->create([
+            'role'      => 'Guest',
+            'is_active' => false,
+        ]);
     }
 
     #[Test]
-    public function it_can_display_dashboard_page()
+    public function test_dapat_menampilkan_halaman_dashboard()
     {
-        // Act
         $response = $this->actingAs($this->Admin)->get(route('dashboard'));
 
-        // Assert
         $response->assertStatus(200);
         $response->assertInertia(
             fn ($page) => $page
@@ -45,9 +57,8 @@ class DashboardControllerTest extends TestCase
     }
 
     #[Test]
-    public function it_displays_correct_user_statistics()
+    public function test_menampilkan_statistik_user_dengan_benar()
     {
-        // Arrange
         User::factory()->count(3)->create(['is_active' => true, 'role' => 'User']);
         User::factory()->count(2)->create(['is_active' => true, 'role' => 'Admin']);
         User::factory()->count(1)->create(['is_active' => true, 'role' => 'Super Admin']);
@@ -55,24 +66,21 @@ class DashboardControllerTest extends TestCase
         User::factory()->count(2)->create(['is_active' => false, 'role' => 'User']);
         User::factory()->count(1)->create(['is_active' => false, 'role' => 'Guest']);
 
-        // Act
         $response = $this->actingAs($this->Admin)->get(route('dashboard'));
 
-        // Assert
         $response->assertInertia(
             fn ($page) => $page
                 ->component('FiturUtama/Dashboard')
-                ->where('stats.totalUsers', 10)
+                ->where('stats.totalUsers', 12)
                 ->where('stats.totalUsersAktif', 7)
-                ->where('stats.totalUsersNonaktif', 3)
+                ->where('stats.totalUsersNonaktif', 5)
                 ->where('stats.totalPengurus', 4)
         );
     }
 
     #[Test]
-    public function it_displays_correct_financial_statistics()
+    public function test_menampilkan_statistik_keuangan_dengan_benar()
     {
-        // Arrange
         Kas::factory()->create(['amount' => 100000]);
         Kas::factory()->create(['amount' => 150000]);
 
@@ -82,10 +90,8 @@ class DashboardControllerTest extends TestCase
         Pengeluaran::factory()->create(['amount' => 30000]);
         Pengeluaran::factory()->create(['amount' => 20000]);
 
-        // Act
         $response = $this->actingAs($this->Admin)->get(route('dashboard'));
 
-        // Assert
         $response->assertInertia(
             fn ($page) => $page
                 ->component('FiturUtama/Dashboard')
@@ -96,28 +102,18 @@ class DashboardControllerTest extends TestCase
     }
 
     #[Test]
-    public function unauthenticated_user_cannot_access_dashboard()
+    public function test_user_tidak_terautentikasi_tidak_dapat_mengakses_dashboard()
     {
-        // Act
         $response = $this->get(route('dashboard'));
 
-        // Assert
         $response->assertRedirect(route('login'));
     }
 
     #[Test]
-    public function inactive_user_can_still_access_dashboard()
+    public function test_user_tidak_aktif_dapat_mengakses_dashboard()
     {
-        // Arrange
-        $inactiveUser = User::factory()->create([
-            'is_active' => false,
-            'role'      => 'Admin',
-        ]);
+        $response = $this->actingAs($this->Inactive)->get(route('dashboard'));
 
-        // Act
-        $response = $this->actingAs($inactiveUser)->get(route('dashboard'));
-
-        // Assert
         $response->assertStatus(200);
         $response->assertInertia(
             fn ($page) => $page
@@ -126,18 +122,10 @@ class DashboardControllerTest extends TestCase
     }
 
     #[Test]
-    public function guest_role_user_can_access_dashboard()
+    public function test_user_dengan_role_guest_dapat_mengakses_dashboard()
     {
-        // Arrange
-        $guestUser = User::factory()->create([
-            'is_active' => false,
-            'role'      => 'Guest',
-        ]);
+        $response = $this->actingAs($this->Guest)->get(route('dashboard'));
 
-        // Act
-        $response = $this->actingAs($guestUser)->get(route('dashboard'));
-
-        // Assert
         $response->assertStatus(200);
         $response->assertInertia(
             fn ($page) => $page
