@@ -17,6 +17,7 @@ class FormIzinControllerTest extends TestCase
     use WithFaker;
 
     protected $User;
+
     protected $Guest;
 
     protected function setUp(): void
@@ -54,7 +55,7 @@ class FormIzinControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertInertia(
-            fn($page) => $page
+            fn ($page) => $page
                 ->component('FiturUtama/FormIzin')
                 ->has('kegiatan')
                 ->where('kegiatan.id', $kegiatan->id)
@@ -79,7 +80,7 @@ class FormIzinControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertInertia(
-            fn($page) => $page
+            fn ($page) => $page
                 ->component('FiturUtama/FormIzin')
                 ->where('kegiatan', null)
         );

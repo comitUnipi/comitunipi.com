@@ -18,6 +18,7 @@ class ScanAbsensiControllerTest extends TestCase
     use WithFaker;
 
     protected $Anggota;
+
     protected $Guest;
 
     protected function setUp(): void
