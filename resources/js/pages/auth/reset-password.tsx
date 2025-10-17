@@ -40,7 +40,7 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
   return (
     <AuthLayout
       title="Reset password"
-      description="Please enter your new password below"
+      description="Silahkan masukan password baru kamu."
     >
       <Head title="Reset password" />
 
@@ -90,7 +90,7 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
               value={data.password_confirmation}
               className="mt-1 block w-full"
               onChange={(e) => setData('password_confirmation', e.target.value)}
-              placeholder="Confirm password"
+              placeholder="Konfirmasi password"
             />
             <InputError
               message={errors.password_confirmation}
@@ -100,7 +100,7 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
 
           <Button
             type="submit"
-            className="mt-4 w-full"
+            className="mt-4 w-full cursor-pointer bg-blue-500 hover:bg-blue-600"
             disabled={processing}
           >
             {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
