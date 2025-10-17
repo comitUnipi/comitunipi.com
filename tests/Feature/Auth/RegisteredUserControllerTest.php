@@ -20,7 +20,7 @@ class RegisteredUserControllerTest extends TestCase
         parent::setUp();
 
         $this->Guest = User::factory()->create([
-            'npm' => '12345678',
+            'npm'       => '12345678',
             'role'      => 'Guest',
             'is_active' => 0,
         ]);
@@ -32,7 +32,7 @@ class RegisteredUserControllerTest extends TestCase
         $response = $this->get('/register');
 
         $response->assertStatus(200);
-        $response->assertInertia(fn($page) => $page->component('auth/register'));
+        $response->assertInertia(fn ($page) => $page->component('auth/register'));
     }
 
     #[Test]

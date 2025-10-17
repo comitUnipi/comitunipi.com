@@ -24,7 +24,7 @@ class NewPasswordControllerTest extends TestCase
         parent::setUp();
 
         $this->Guest = User::factory()->create([
-            'npm' => '12345678',
+            'npm'       => '12345678',
             'role'      => 'Guest',
             'is_active' => 0,
         ]);
@@ -38,7 +38,7 @@ class NewPasswordControllerTest extends TestCase
         $response = $this->get(route('password.reset', ['token' => $token, 'email' => $this->Guest->email]));
 
         $response->assertStatus(200);
-        $response->assertInertia(fn($page) => $page->component('auth/reset-password'));
+        $response->assertInertia(fn ($page) => $page->component('auth/reset-password'));
     }
 
     #[Test]
@@ -59,7 +59,7 @@ class NewPasswordControllerTest extends TestCase
         $response->assertRedirect(route('login'));
 
         $this->assertTrue(Hash::check('new-password', $this->Guest->fresh()->password));
-        Event::assertDispatched(PasswordReset::class, fn($event) => $event->user->is($this->Guest));
+        Event::assertDispatched(PasswordReset::class, fn ($event) => $event->user->is($this->Guest));
     }
 
     #[Test]

@@ -20,7 +20,7 @@ class ConfirmablePasswordControllerTest extends TestCase
         parent::setUp();
 
         $this->Guest = User::factory()->create([
-            'npm' => '12345678',
+            'npm'       => '12345678',
             'role'      => 'Guest',
             'is_active' => 0,
         ]);
@@ -32,7 +32,7 @@ class ConfirmablePasswordControllerTest extends TestCase
         $response = $this->actingAs($this->Guest)->get(route('password.confirm'));
 
         $response->assertStatus(200);
-        $response->assertInertia(fn($page) => $page->component('auth/confirm-password'));
+        $response->assertInertia(fn ($page) => $page->component('auth/confirm-password'));
     }
 
     #[Test]

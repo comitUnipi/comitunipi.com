@@ -21,7 +21,7 @@ class PasswordResetLinkControllerTest extends TestCase
         parent::setUp();
 
         $this->Guest = User::factory()->create([
-            'npm' => '12345678',
+            'npm'       => '12345678',
             'role'      => 'Guest',
             'is_active' => 0,
         ]);
@@ -33,7 +33,7 @@ class PasswordResetLinkControllerTest extends TestCase
         $response = $this->get('/forgot-password');
 
         $response->assertStatus(200);
-        $response->assertInertia(fn($page) => $page->component('auth/forgot-password'));
+        $response->assertInertia(fn ($page) => $page->component('auth/forgot-password'));
     }
 
     #[Test]

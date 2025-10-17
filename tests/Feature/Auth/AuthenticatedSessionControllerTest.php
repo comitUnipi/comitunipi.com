@@ -20,7 +20,7 @@ class AuthenticatedSessionControllerTest extends TestCase
         parent::setUp();
 
         $this->Guest = User::factory()->create([
-            'npm' => '12345678',
+            'npm'       => '12345678',
             'role'      => 'Guest',
             'is_active' => 0,
         ]);
@@ -32,7 +32,7 @@ class AuthenticatedSessionControllerTest extends TestCase
         $response = $this->get('/login');
 
         $response->assertStatus(200);
-        $response->assertInertia(fn($page) => $page->component('auth/login'));
+        $response->assertInertia(fn ($page) => $page->component('auth/login'));
     }
 
     #[Test]
@@ -48,7 +48,7 @@ class AuthenticatedSessionControllerTest extends TestCase
     public function pengguna_tidak_dapat_login_dengan_kredensial_yang_salah(): void
     {
         $this->post('/login', [
-            'npm'    => '12345678',
+            'npm'      => '12345678',
             'password' => 'wrong-password',
         ]);
 
