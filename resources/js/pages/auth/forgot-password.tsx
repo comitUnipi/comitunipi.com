@@ -1,4 +1,3 @@
-// Components
 import { Head, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
@@ -25,8 +24,8 @@ export default function ForgotPassword({ status }: { status?: string }) {
 
   return (
     <AuthLayout
-      title="Forgot password"
-      description="Enter your email to receive a password reset link"
+      title="Lupa password"
+      description="Silahkan masukan email yang kamu daftarkan untuk mendapatkan link reset password."
     >
       <Head title="Forgot password" />
 
@@ -48,7 +47,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
               value={data.email}
               autoFocus
               onChange={(e) => setData('email', e.target.value)}
-              placeholder="email@example.com"
+              placeholder="jhondoe@gmail.com"
             />
 
             <InputError message={errors.email} />
@@ -56,7 +55,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
 
           <div className="my-6 flex items-center justify-start">
             <Button
-              className="w-full"
+              className="w-full cursor-pointer bg-blue-500 hover:bg-blue-600"
               disabled={processing}
             >
               {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
@@ -66,8 +65,8 @@ export default function ForgotPassword({ status }: { status?: string }) {
         </form>
 
         <div className="text-muted-foreground space-x-1 text-center text-sm">
-          <span>Or, return to</span>
-          <TextLink href={route('login')}>log in</TextLink>
+          <span>atau, kembali ke</span>
+          <TextLink href={route('login')}>Login</TextLink>
         </div>
       </div>
     </AuthLayout>

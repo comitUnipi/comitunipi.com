@@ -20,7 +20,7 @@ interface Props {
   canResetPassword: boolean;
 }
 
-export default function Login({ status }: Props) {
+export default function Login({ status, canResetPassword }: Props) {
   const { data, setData, post, processing, errors, reset } = useForm<
     Required<LoginForm>
   >({
@@ -78,20 +78,30 @@ export default function Login({ status }: Props) {
             />
             <InputError message={errors.password} />
           </div>
-          <div className="flex items-center space-x-3">
-            <Checkbox
-              id="remember"
-              name="remember"
-              checked={data.remember}
-              onClick={() => setData('remember', !data.remember)}
-              tabIndex={3}
-            />
-            <Label htmlFor="remember">Remember me</Label>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <Checkbox
+                id="remember"
+                name="remember"
+                checked={data.remember}
+                onClick={() => setData('remember', !data.remember)}
+                tabIndex={3}
+              />
+              <Label htmlFor="remember">Remember me</Label>
+            </div>
+            {canResetPassword && (
+              <TextLink
+                href={route('password.request')}
+                tabIndex={4}
+              >
+                Lupa password?
+              </TextLink>
+            )}
           </div>
           <Button
             type="submit"
             className="mt-4 w-full cursor-pointer bg-blue-500 hover:bg-blue-600 dark:text-white"
-            tabIndex={4}
+            tabIndex={5}
             disabled={processing}
           >
             {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
@@ -102,7 +112,7 @@ export default function Login({ status }: Props) {
           Kamu belum punya akun?{' '}
           <TextLink
             href={route('register')}
-            tabIndex={5}
+            tabIndex={6}
           >
             Daftar Sekarang!
           </TextLink>
