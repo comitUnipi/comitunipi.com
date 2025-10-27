@@ -17,6 +17,20 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6R9N1KL6NJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-6R9N1KL6NJ');
+    </script>
+
+
     {{-- Inline script to detect system dark mode preference and apply it immediately --}}
     <script>
         (function() {
