@@ -18,6 +18,7 @@ import {
   LayoutGrid,
   MailIcon,
   QrCode,
+  ScrollText,
   TabletSmartphone,
   User,
   Users,
@@ -119,6 +120,11 @@ export function AppSidebar() {
       title: 'Data Kegiatan',
       href: '/data-master/data-kegiatan',
       icon: Calendar,
+    },
+    {
+      title: 'Data Kritik Saran',
+      href: '/data-master/kritik-saran',
+      icon: ScrollText
     },
     {
       title: 'Data Uang KAS',

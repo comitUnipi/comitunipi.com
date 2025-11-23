@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\KritikSaranController;
 use App\Http\Controllers\PendaftaranAnggotaController;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+Route::post('/kritik-saran', [KritikSaranController::class, 'store'])->name('kritik-saran.store');
 Route::get('/pendaftaran-anggota', [PendaftaranAnggotaController::class, 'create'])->name('anggota.create');
 Route::post('/pendaftaran-anggota', [PendaftaranAnggotaController::class, 'store'])->name('anggota.store');
 

@@ -1,12 +1,49 @@
 import MentorCard from '@/components/core-card-mentor';
 import Heading from '@/components/core-heading';
 import SubHeading from '@/components/core-sub-heading';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 import { mentors } from '@/constants/mentor';
 import useAnimatedCounter from '@/hooks/use-animated-counter';
 import MainLayout from '@/layouts/main-layout';
-import { Head } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
+import { FormEventHandler } from 'react';
+
+type KritikSaranForm = {
+  kategori: string;
+  pesan: string;
+};
 
 export default function Pages({ userCount }: { userCount: number }) {
+  const { data, setData, post, processing, errors, reset } = useForm<
+    Required<KritikSaranForm>
+  >({
+    kategori: '',
+    pesan: '',
+  });
+
+  const submit: FormEventHandler = (e) => {
+    e.preventDefault();
+
+    post(route('kritik-saran.store'), {
+      onSuccess: () => {
+        reset();
+      },
+      onError: () => {
+        console.log('Validasi gagal.', errors);
+      },
+      preserveScroll: true,
+    });
+  };
+
   return (
     <>
       <Head title="Community of Information Technology">
@@ -255,6 +292,66 @@ export default function Pages({ userCount }: { userCount: number }) {
                 />
               ))}
             </div>
+          </div>
+        </section>
+        <section className="pt-20 pb-20 dark:bg-gray-100">
+          <div className="container mx-auto max-w-xl">
+            <h2 className="mb-6 text-center text-3xl font-bold text-black">
+              Kritik & Saran
+            </h2>
+
+            <form
+              onSubmit={submit}
+              className="flex flex-col gap-6"
+            >
+              <div className="flex flex-col gap-2">
+                <Label className="text-gray-700">Kategori</Label>
+
+                <Select
+                  value={data.kategori}
+                  onValueChange={(value) => setData('kategori', value)}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Pilih Kategori" />
+                  </SelectTrigger>
+
+                  <SelectContent>
+                    <SelectItem value="Kritik">Kritik</SelectItem>
+                    <SelectItem value="Saran">Saran</SelectItem>
+                    <SelectItem value="Lainnya">Lainnya</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                {errors.kategori && (
+                  <span className="text-sm text-red-600">
+                    {errors.kategori}
+                  </span>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <Label className="text-gray-700">Pesan</Label>
+
+                <Textarea
+                  rows={4}
+                  value={data.pesan}
+                  onChange={(e) => setData('pesan', e.target.value)}
+                  className="w-full"
+                />
+
+                {errors.pesan && (
+                  <span className="text-sm text-red-600">{errors.pesan}</span>
+                )}
+              </div>
+
+              <Button
+                type="submit"
+                disabled={processing}
+                className="bg-blue-600 text-white hover:bg-blue-700"
+              >
+                {processing ? 'Mengirim...' : 'Kirim'}
+              </Button>
+            </form>
           </div>
         </section>
       </MainLayout>
