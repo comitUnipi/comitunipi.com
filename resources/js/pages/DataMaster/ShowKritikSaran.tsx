@@ -1,5 +1,6 @@
 import Heading from '@/components/heading';
 import AppLayout from '@/layouts/app-layout';
+import { formatDate } from '@/lib/format-date';
 import { Head } from '@inertiajs/react';
 import { Calendar, MessageSquare, Tag } from 'lucide-react';
 
@@ -50,10 +51,10 @@ export default function ShowKritikSaran({ kritik_saran }: Props) {
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
           <div className="space-y-6 lg:col-span-1">
-            <div className="bg-card rounded-xl border p-6">
+            <div className="bg-card rounded-xl border p-4 sm:p-6">
               <div className="flex items-start gap-4">
-                <div className="bg-primary/10 text-primary flex size-12 items-center justify-center rounded-lg">
-                  <Tag className="size-6" />
+                <div className="text-primary flex size-10 items-center justify-center rounded-lg sm:size-12">
+                  <Tag className="size-5 sm:size-6" />
                 </div>
                 <div>
                   <h3 className="text-muted-foreground font-medium">
@@ -71,41 +72,31 @@ export default function ShowKritikSaran({ kritik_saran }: Props) {
                 </div>
               </div>
             </div>
-            <div className="bg-card rounded-xl border p-6">
+            <div className="bg-card rounded-xl border p-4 sm:p-6">
               <div className="flex items-start gap-4">
-                <div className="bg-primary/10 text-primary flex size-12 items-center justify-center rounded-lg">
-                  <Calendar className="size-6" />
+                <div className="text-primary flex size-10 items-center justify-center rounded-lg sm:size-12">
+                  <Calendar className="size-5 sm:size-6" />
                 </div>
                 <div>
                   <h3 className="text-muted-foreground font-medium">
                     Tanggal Kirim
                   </h3>
                   <p className="text-foreground mt-1 text-sm">
-                    {new Date(kritik_saran.created_at).toLocaleDateString(
-                      'id-ID',
-                      {
-                        weekday: 'long',
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      },
-                    )}
+                    {formatDate(kritik_saran.created_at)}
                   </p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-card rounded-xl border p-6 lg:col-span-2">
+          <div className="bg-card rounded-xl border p-4 sm:p-6 lg:col-span-2">
             <div className="flex items-start gap-4">
-              <div className="bg-primary/10 text-primary flex size-12 items-center justify-center rounded-lg">
-                <MessageSquare className="size-6" />
+              <div className="text-primary flex size-10 items-center justify-center rounded-lg sm:size-12">
+                <MessageSquare className="size-5 sm:size-6" />
               </div>
               <div>
                 <h3 className="text-muted-foreground font-medium">Pesan</h3>
-                <p className="text-foreground mt-1 leading-relaxed">
+                <p className="text-foreground mt-1 text-justify leading-relaxed">
                   {kritik_saran.pesan}
                 </p>
               </div>

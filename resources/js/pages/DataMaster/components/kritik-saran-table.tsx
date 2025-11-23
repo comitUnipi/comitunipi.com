@@ -1,4 +1,6 @@
+import { formatDate } from '@/lib/format-date';
 import { Link } from '@inertiajs/react';
+import { Eye } from 'lucide-react';
 
 interface KritikSaran {
   id: number;
@@ -32,83 +34,120 @@ export default function TableKritikSaran({ kritikSaran, from }: Props) {
   };
 
   return (
-    <div className="rounded-md border">
-      <div className="relative w-full overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead className="[&_tr]:border-b">
-            <tr className="border-b transition-colors">
-              <th className="text-muted-foreground h-12 w-[50px] px-4 text-left align-middle font-medium">
-                No
-              </th>
-              <th className="text-muted-foreground h-12 px-4 text-left align-middle font-medium">
-                Kategori
-              </th>
-              <th className="text-muted-foreground h-12 px-4 text-left align-middle font-medium">
-                Pesan
-              </th>
-              <th className="text-muted-foreground h-12 px-4 text-left align-middle font-medium">
-                Tanggal
-              </th>
-              <th className="text-muted-foreground h-12 px-4 text-left align-middle font-medium">
-                Aksi
-              </th>
-            </tr>
-          </thead>
-          <tbody className="[&_tr:last-child]:border-0">
-            {kritikSaran.length > 0 ? (
-              kritikSaran.map((data, index) => (
-                <tr
-                  key={data.id}
-                  className="hover:bg-muted/50 border-b transition-colors"
+    <>
+      <div className="space-y-3 md:hidden">
+        {kritikSaran.length > 0 ? (
+          kritikSaran.map((data) => (
+            <div
+              key={data.id}
+              className="bg-card hover:bg-muted/50 rounded-lg border p-4 transition-colors"
+            >
+              <div className="flex items-center justify-between">
+                <span
+                  className={`rounded-full px-3 py-1 text-xs font-semibold ${categoryColor(
+                    data.kategori,
+                  )}`}
                 >
-                  <td className="p-4 align-middle font-medium">
-                    {from + index}
-                  </td>
-                  <td className="p-4 align-middle">
-                    <span
-                      className={`rounded-full px-2 py-1 text-xs font-semibold ${categoryColor(
-                        data.kategori,
-                      )}`}
-                    >
-                      {data.kategori}
-                    </span>
-                  </td>
-                  <td className="p-4 align-middle">
-                    <TruncateText
-                      text={data.pesan}
-                      limit={10}
-                    />
-                  </td>
-                  <td className="p-4 align-middle">
-                    {new Date(data.created_at).toLocaleDateString('id-ID', {
-                      day: 'numeric',
-                      month: 'long',
-                      year: 'numeric',
-                    })}
-                  </td>
-                  <td className="p-4 align-middle">
-                    <Link
-                      href={route('kritik-saran.show', data.id)}
-                      className="text-primary hover:underline"
-                    >
-                      Detail
-                    </Link>
+                  {data.kategori}
+                </span>
+                <Link
+                  href={route('kritik-saran.show', data.id)}
+                  className="text-primary text-sm font-medium hover:underline"
+                >
+                  Lihat Detail
+                </Link>
+              </div>
+              <p className="text-muted-foreground mt-2 text-sm break-all">
+                <TruncateText
+                  text={data.pesan}
+                  limit={20}
+                />
+              </p>
+              <div className="text-muted-foreground mt-2 text-xs">
+                {formatDate(data.created_at)}
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="text-muted-foreground h-24 p-4 text-center">
+            Tidak ada data.
+          </div>
+        )}
+      </div>
+      <div className="hidden rounded-md border md:block">
+        <div className="relative w-full overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="[&_tr]:border-b">
+              <tr className="border-b transition-colors">
+                <th className="text-muted-foreground h-12 w-[50px] px-4 text-left align-middle font-medium">
+                  No
+                </th>
+                <th className="text-muted-foreground h-12 px-4 text-left align-middle font-medium">
+                  Kategori
+                </th>
+                <th className="text-muted-foreground h-12 px-4 text-left align-middle font-medium">
+                  Pesan
+                </th>
+                <th className="text-muted-foreground h-12 px-4 text-left align-middle font-medium">
+                  Tanggal
+                </th>
+                <th className="text-muted-foreground h-12 px-4 text-left align-middle font-medium">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody className="[&_tr:last-child]:border-0">
+              {kritikSaran.length > 0 ? (
+                kritikSaran.map((data, index) => (
+                  <tr
+                    key={data.id}
+                    className="hover:bg-muted/50 border-b transition-colors"
+                  >
+                    <td className="p-4 align-middle font-medium">
+                      {from + index}
+                    </td>
+                    <td className="p-4 align-middle">
+                      <span
+                        className={`rounded-full px-2 py-1 text-xs font-semibold ${categoryColor(
+                          data.kategori,
+                        )}`}
+                      >
+                        {data.kategori}
+                      </span>
+                    </td>
+                    <td className="p-4 align-middle">
+                      <TruncateText
+                        text={data.pesan}
+                        limit={10}
+                      />
+                    </td>
+                    <td className="p-4 align-middle">
+                      {formatDate(data.created_at)}
+                    </td>
+                    <td className="p-4 align-middle">
+                      <Link
+                        href={route('kritik-saran.show', data.id)}
+                        className="text-primary hover:underline"
+                      >
+                        <Eye className="h-4 w-4" />
+                      </Link>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td
+                    colSpan={5}
+                    className="text-muted-foreground h-24 p-4 text-center"
+                  >
+                    Tidak ada data.
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td
-                  colSpan={5}
-                  className="text-muted-foreground h-24 p-4 text-center"
-                >
-                  Tidak ada data.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
