@@ -18,7 +18,7 @@ class KritikSaranController extends Controller
             'kritik_saran'   => $kritik_saran,
         ]);
     }
-    
+
     public function store(Request $request)
     {
         $request->validate([

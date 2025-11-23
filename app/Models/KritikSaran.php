@@ -10,6 +10,6 @@ class KritikSaran extends Model
 
     protected $fillable = [
         'kategori',
-        'pesan'
+        'pesan',
     ];
 }
