@@ -1,7 +1,9 @@
 import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
 import AppLayout from '@/layouts/app-layout';
-import { Head } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
+import { useState } from 'react';
+import KritikSaranFilter from './components/kritik-saran-filter';
 import TableKritikSaran from './components/kritik-saran-table';
 
 interface KritikSaran {
@@ -27,9 +29,23 @@ interface Props {
   };
 }
 export default function Pages({ kritik_saran }: Props) {
+  const params = new URLSearchParams(window.location.search);
+  const [category, setCategory] = useState(params.get('kategori') || 'semua');
+
   const handlePageChange = (page: number) => {
-    const url = route('kritik-saran.index', { page });
-    window.location.href = url;
+    router.get(route('kritik-saran.index'), { page, kategori: category });
+  };
+
+  const handleCategoryChange = (kategori: string) => {
+    setCategory(kategori);
+    router.get(
+      route('kritik-saran.index'),
+      { kategori: kategori === 'semua' ? undefined : kategori },
+      {
+        preserveState: true,
+        replace: true,
+      },
+    );
   };
 
   return (
@@ -47,6 +63,10 @@ export default function Pages({ kritik_saran }: Props) {
           <Heading
             title="Kritik dan Saran"
             description="Daftar semua kritik dan saran dari pengguna."
+          />
+          <KritikSaranFilter
+            onCategoryChange={handleCategoryChange}
+            defaultValue={category}
           />
         </div>
 

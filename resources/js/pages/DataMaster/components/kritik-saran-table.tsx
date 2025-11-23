@@ -1,3 +1,5 @@
+import { Link } from '@inertiajs/react';
+
 interface KritikSaran {
   id: number;
   kategori: string;
@@ -47,6 +49,9 @@ export default function TableKritikSaran({ kritikSaran, from }: Props) {
               <th className="text-muted-foreground h-12 px-4 text-left align-middle font-medium">
                 Tanggal
               </th>
+              <th className="text-muted-foreground h-12 px-4 text-left align-middle font-medium">
+                Aksi
+              </th>
             </tr>
           </thead>
           <tbody className="[&_tr:last-child]:border-0">
@@ -81,12 +86,20 @@ export default function TableKritikSaran({ kritikSaran, from }: Props) {
                       year: 'numeric',
                     })}
                   </td>
+                  <td className="p-4 align-middle">
+                    <Link
+                      href={route('kritik-saran.show', data.id)}
+                      className="text-primary hover:underline"
+                    >
+                      Detail
+                    </Link>
+                  </td>
                 </tr>
               ))
             ) : (
               <tr>
                 <td
-                  colSpan={4}
+                  colSpan={5}
                   className="text-muted-foreground h-24 p-4 text-center"
                 >
                   Tidak ada data.

@@ -8,9 +8,13 @@ use Inertia\Inertia;
 
 class KritikSaranController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $query = KritikSaran::query();
+
+        $query->when($request->filled('kategori'), function ($q) use ($request) {
+            return $q->where('kategori', $request->kategori);
+        });
 
         $kritik_saran = $query->paginate(10)->withQueryString();
 
@@ -29,5 +33,12 @@ class KritikSaranController extends Controller
         KritikSaran::create($request->only('kategori', 'pesan'));
 
         return redirect()->back()->with('success', 'Kritik dan saran berhasil dikirim!');
+    }
+
+    public function show(KritikSaran $kritik_saran)
+    {
+        return Inertia::render('DataMaster/ShowKritikSaran', [
+            'kritik_saran' => $kritik_saran,
+        ]);
     }
 }
