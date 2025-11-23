@@ -124,7 +124,7 @@ export function AppSidebar() {
     {
       title: 'Data Kritik Saran',
       href: '/data-master/kritik-saran',
-      icon: ScrollText
+      icon: ScrollText,
     },
     {
       title: 'Data Uang KAS',

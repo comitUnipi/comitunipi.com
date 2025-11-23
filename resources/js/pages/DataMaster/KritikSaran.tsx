@@ -43,7 +43,6 @@ export default function Pages({ kritik_saran }: Props) {
     >
       <Head title="Kritik dan Saran" />
       <div className="from-background to-muted/20 flex h-full flex-1 flex-col gap-4 rounded-xl bg-gradient-to-br p-3 sm:gap-6 sm:p-4 md:p-6">
-
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <Heading
             title="Kritik dan Saran"
@@ -51,7 +50,10 @@ export default function Pages({ kritik_saran }: Props) {
           />
         </div>
 
-        <TableKritikSaran kritikSaran={kritik_saran.data} />
+        <TableKritikSaran
+          kritikSaran={kritik_saran.data}
+          from={kritik_saran.from}
+        />
 
         <Pagination
           currentPage={kritik_saran.current_page}
