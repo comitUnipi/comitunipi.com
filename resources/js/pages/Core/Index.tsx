@@ -1,6 +1,7 @@
 import MentorCard from '@/components/core-card-mentor';
 import Heading from '@/components/core-heading';
 import SubHeading from '@/components/core-sub-heading';
+import ToastNotification from '@/components/toast-notification';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import {
@@ -15,7 +16,7 @@ import { mentors } from '@/constants/mentor';
 import useAnimatedCounter from '@/hooks/use-animated-counter';
 import MainLayout from '@/layouts/main-layout';
 import { Head, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { FormEventHandler, useState } from 'react';
 
 type KritikSaranForm = {
   kategori: string;
@@ -23,6 +24,9 @@ type KritikSaranForm = {
 };
 
 export default function Pages({ userCount }: { userCount: number }) {
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastType, setToastType] = useState<'success' | 'error'>('success');
   const { data, setData, post, processing, errors, reset } = useForm<
     Required<KritikSaranForm>
   >({
@@ -36,9 +40,17 @@ export default function Pages({ userCount }: { userCount: number }) {
     post(route('kritik-saran.store'), {
       onSuccess: () => {
         reset();
+        setToastMessage('Kritik dan saran berhasil dikirim!');
+        setToastType('success');
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 3000);
       },
-      onError: () => {
-        console.log('Validasi gagal.', errors);
+      onError: (errors) => {
+        const errorMessages = Object.values(errors).join(', ');
+        setToastMessage(`Gagal mengirim kritik dan saran: ${errorMessages}`);
+        setToastType('error');
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 3000);
       },
       preserveScroll: true,
     });
@@ -119,6 +131,11 @@ export default function Pages({ userCount }: { userCount: number }) {
         </script>
       </Head>
       <MainLayout>
+        <ToastNotification
+          message={toastMessage}
+          type={toastType}
+          visible={showToast}
+        />
         <Heading img="/images/100102.png" />
         <section className="pt-20 pb-10 lg:pt-[120px] lg:pb-20 dark:bg-white">
           <div className="container mx-auto">
