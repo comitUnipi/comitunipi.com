@@ -318,7 +318,7 @@ export default function Pages({ userCount }: { userCount: number }) {
               title="Kritik & Saran"
               description="Sampaikan kritik atau saran Anda untuk membantu kami meningkatkan kualitas organisasi."
             />
-            <div className="mx-auto max-w-xl">
+            <div className="mx-5 max-w-xl md:mx-auto">
               <form
                 onSubmit={submit}
                 className="flex flex-col gap-6"
