@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreKritikSaranRequest;
 use App\Models\KritikSaran;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -23,14 +24,9 @@ class KritikSaranController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreKritikSaranRequest $request)
     {
-        $request->validate([
-            'kategori' => 'required|string|max:255',
-            'pesan'    => 'required|string',
-        ]);
-
-        KritikSaran::create($request->only('kategori', 'pesan'));
+        KritikSaran::create($request->validated());
 
         return redirect()->back()->with('success', 'Kritik dan saran berhasil dikirim!');
     }
