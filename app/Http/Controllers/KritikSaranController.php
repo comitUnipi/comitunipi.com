@@ -18,7 +18,7 @@ class KritikSaranController extends Controller
             return $q->where('kategori', $request->kategori);
         });
 
-        $kritik_saran = $query->paginate(10)->withQueryString();
+        $kritik_saran = $query->orderByDesc('created_at')->paginate(10)->withQueryString();
 
         return Inertia::render('DataMaster/KritikSaran', [
             'kritik_saran'   => $kritik_saran,
