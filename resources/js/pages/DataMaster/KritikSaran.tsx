@@ -33,7 +33,14 @@ export default function Pages({ kritik_saran }: Props) {
   const [category, setCategory] = useState(params.get('kategori') || 'semua');
 
   const handlePageChange = (page: number) => {
-    router.get(route('kritik-saran.index'), { page, kategori: category });
+    router.get(
+      route('kritik-saran.index'),
+      { page, kategori: category === 'semua' ? undefined : category },
+      {
+        preserveState: true,
+        preserveScroll: true,
+      },
+    );
   };
 
   const handleCategoryChange = (kategori: string) => {
