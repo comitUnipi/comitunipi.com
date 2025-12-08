@@ -29,6 +29,7 @@ Route::middleware(['auth', 'verified', 'role:Super Admin,Admin,Finance'])->group
     Route::get('/data-master/data-kegiatan', [KegiatanController::class, 'index'])->name('kegiatan.index');
     Route::get('/data-master/data-pemasukan', [PemasukanController::class, 'index'])->name('pemasukan.index');
     Route::get('/data-master/data-pengeluaran', [PengeluaranController::class, 'index'])->name('pengeluaran.index');
+    Route::get('/data-master/kritik-saran/export/csv', [KritikSaranController::class, 'exportCsv'])->name('kritik-saran.export.csv');
     Route::get('/data-master/kritik-saran', [KritikSaranController::class, 'index'])->name('kritik-saran.index');
     Route::get('/data-master/kritik-saran/{kritik_saran}', [KritikSaranController::class, 'show'])->name('kritik-saran.show');
 });

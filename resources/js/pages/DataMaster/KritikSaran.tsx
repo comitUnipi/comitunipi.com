@@ -1,3 +1,4 @@
+import ButtonExport from '@/components/app-button-export';
 import Heading from '@/components/heading';
 import Pagination from '@/components/pagination';
 import AppLayout from '@/layouts/app-layout';
@@ -33,7 +34,14 @@ export default function Pages({ kritik_saran }: Props) {
   const [category, setCategory] = useState(params.get('kategori') || 'semua');
 
   const handlePageChange = (page: number) => {
-    router.get(route('kritik-saran.index'), { page, kategori: category });
+    router.get(
+      route('kritik-saran.index'),
+      { page, kategori: category === 'semua' ? undefined : category },
+      {
+        preserveState: true,
+        preserveScroll: true,
+      },
+    );
   };
 
   const handleCategoryChange = (kategori: string) => {
@@ -47,6 +55,15 @@ export default function Pages({ kritik_saran }: Props) {
       },
     );
   };
+
+  const queryParams = new URLSearchParams(
+    Object.fromEntries(
+      Object.entries({ kategori: category }).filter(
+        ([, value]) => value !== 'semua' && value !== null,
+      ),
+    ),
+  ).toString();
+  const exportUrl = `/data-master/kritik-saran/export/csv?${queryParams}`;
 
   return (
     <AppLayout
@@ -64,10 +81,13 @@ export default function Pages({ kritik_saran }: Props) {
             title="Kritik dan Saran"
             description="Daftar semua kritik dan saran dari pengguna."
           />
-          <KritikSaranFilter
-            onCategoryChange={handleCategoryChange}
-            defaultValue={category}
-          />
+          <div className="flex items-center gap-4">
+            <ButtonExport exportUrl={exportUrl} />
+            <KritikSaranFilter
+              onCategoryChange={handleCategoryChange}
+              defaultValue={category}
+            />
+          </div>
         </div>
 
         <TableKritikSaran
